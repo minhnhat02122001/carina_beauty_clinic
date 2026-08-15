@@ -1,0 +1,69 @@
+@import "tailwindcss";
+/* Scoped into the base layer (not left unlayered) so Tailwind's utility
+   classes — e.g. the fixed size-* on LocaleSwitcher's flags — still win
+   over this library's own em-based sizing. */
+@import "flag-icons/css/flag-icons.min.css" layer(base);
+
+/*
+ * Brand theme — sourced from the Figma design (Carina-V1, node 19144:43691).
+ * Primary/accent #632b0e and text #50260e come directly from the Header
+ * frame; update here if the design's palette changes elsewhere.
+ */
+:root {
+  --background: #ffffff;
+  --background-alt: #faf9f6;
+  --foreground: #50260e;
+  --color-muted: #8a6f5f;
+  --color-accent: #632b0e;
+  --color-accent-foreground: #ffffff;
+  --color-border: #e8f1e8;
+  --color-gold: #bd8c2e;
+  --color-link: #0088ff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-alt: var(--background-alt);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--color-muted);
+  --color-accent: var(--color-accent);
+  --color-border: var(--color-border);
+  --color-gold: var(--color-gold);
+  --color-link: var(--color-link);
+  --font-sans: var(--font-montserrat);
+  --font-serif: var(--font-merriweather);
+  --font-script: var(--font-script);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #ffffff;
+    --foreground: #50260e;
+    --color-muted: #b8a495;
+    --color-accent: #632b0e;
+    --color-border: #3a2e28;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Site-wide typography policy: every heading is Merriweather, everything
+   else inherits Montserrat from body. Scoped to @layer base so a utility
+   class like font-script (in Tailwind's utilities layer, declared after
+   base) can still override it on a specific element — an unlayered rule
+   here would beat utility classes regardless of specificity. */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+  }
+}

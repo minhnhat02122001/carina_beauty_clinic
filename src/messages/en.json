@@ -1,0 +1,258 @@
+{
+  "Metadata": {
+    "title": "Carina Beauty Clinic",
+    "description": "Beauty clinic services and online appointment booking."
+  },
+  "BannerHero": {
+    "scrollPrev": "Previous",
+    "scrollNext": "Next"
+  },
+  "Nav": {
+    "home": "Home",
+    "services": "Services",
+    "gallery": "Gallery",
+    "about": "About Us",
+    "exclusive": "Exclusive",
+    "liftingRejuvenation": "Lifting & Rejuvenation",
+    "skinTherapy": "Skin Therapy",
+    "rejuvenationInjections": "Rejuvenation Injections",
+    "bodyCare": "Body Care",
+    "skinCare": "Skin Care",
+    "consult": "CONSULT",
+    "booking": "Book Now",
+    "contact": "Contact",
+    "menu": "Menu",
+    "switchToEnglish": "Switch to English",
+    "switchToVietnamese": "Switch to Vietnamese"
+  },
+  "Hero": {
+    "badge": "High-Tech Dermatology Clinic",
+    "scriptHeading": "The Real Luxury",
+    "tagline": "HIGH-TECH DERMATOLOGY CLINIC IN HO CHI MINH CITY",
+    "description1": "Pioneering non-invasive lifting & rejuvenation trends. Elevating skincare standards with the newest, most advanced high-tech ecosystem.",
+    "description2": "Trustworthy, world-class, and transparent in every experience at Carina Beauty Clinic!",
+    "ctaServices": "SERVICES",
+    "ctaBooking": "BOOK A CONSULTATION",
+    "statDoctorsValue": "10+",
+    "statDoctorsLabel": "Years of Doctor Experience",
+    "statEquipmentValue": "20+",
+    "statEquipmentLabel": "High-Tech Devices",
+    "statPartnersValue": "30+",
+    "statPartnersLabel": "International Partners",
+    "statCustomersValue": "10,000+",
+    "statCustomersLabel": "Customers"
+  },
+  "CustomerExperience": {
+    "heading": "Featured Services at Carina",
+    "chipExclusive": "Exclusive",
+    "chipLiftingRejuvenation": "Lifting & Rejuvenation",
+    "chipMelasma": "Melasma Treatment",
+    "chipScar": "Scar Treatment",
+    "chipAcne": "Acne Treatment",
+    "chipBodyCare": "Body Care",
+    "chipSkinCare": "Skin Care",
+    "chipRejuvenationInjections": "Rejuvenation Injections",
+    "cardLunaShine": "Luna Shine",
+    "cardSolarRise": "Solar Rise",
+    "cardUltherPrimeX": "Ulther Prime X",
+    "cta": "BOOK A CONSULTATION",
+    "scrollPrev": "Previous",
+    "scrollNext": "Next",
+    "emptyCategory": "No services in this category yet."
+  },
+  "Equipment": {
+    "heading": "Million-Dollar Beauty Technology System",
+    "subheading": "100% Imported Equipment — FDA (USA) & CE (Europe) Certified",
+    "scrollPrev": "Previous",
+    "scrollNext": "Next"
+  },
+  "DoctorTeam": {
+    "heading": "Our Medical Team",
+    "titleLevel1": "Dermatologist (Specialist Level I)",
+    "titleLevel2": "Dermatologist (Specialist Level II)",
+    "doctor1Name": "Lê Tuấn Anh",
+    "doctor2Name": "Bùi Đức Trung",
+    "doctor3Name": "Đặng Văn Trí",
+    "doctor4Name": "Lê Thượng Thụy Vi",
+    "ctaMore": "SEE MORE",
+    "ctaBooking": "BOOK A CONSULTATION",
+    "scrollPrev": "Previous",
+    "scrollNext": "Next"
+  },
+  "StrategicPartners": {
+    "heading": "International Partners"
+  },
+  "WhyChooseUs": {
+    "eyebrow": "WHY CHOOSE CARINA BEAUTY CLINIC",
+    "heading": "Refined Care In Every Treatment",
+    "item1Title": "Specialist Medical Team",
+    "item1Description": "Over 10 years of experience in dermatology and aesthetics. Directly consulting on treatment plans, performing procedures, and delivering client satisfaction.",
+    "item2Title": "Advanced Technology",
+    "item2Description": "A modern equipment system certified by the FDA (USA) & CE (Europe), ensuring maximum safety and outstanding results after treatment.",
+    "item3Title": "Personalized Treatment Plans",
+    "item3Description": "Skin treatment plans designed individually for each client, with accurate consultation based on each person's condition, needs, and goals.",
+    "item4Title": "Flexible Scheduling",
+    "item4Description": "Easily book appointments, including weekends & holidays. Scheduling support tailored to each client's needs.",
+    "statDoctorsValue": "10+",
+    "statDoctorsLabel": "Years of Doctor Experience",
+    "statEquipmentValue": "20+",
+    "statEquipmentLabel": "High-Tech Devices",
+    "statPartnersValue": "30+",
+    "statPartnersLabel": "International Partners",
+    "statCustomersValue": "10,000+",
+    "statCustomersLabel": "Customers"
+  },
+  "FeaturedEvents": {
+    "videosHeading": "Featured Short Videos",
+    "newsHeading": "News & Events",
+    "viewAll": "View All",
+    "video1Caption": "Dr. Bui Duc Trung explains how UV rays affect the skin and shares key tips for sun protection.",
+    "video2Caption": "Is following a treatment plan really necessary, or just a clinic sales tactic?",
+    "video3Caption": "Why do some people still get melasma back after 5-7 laser sessions?",
+    "video4Caption": "The pressure behind being the new generation's \"golden girl\" — Bich Ngoc opens up for the first time.",
+    "video5Caption": "You only get treatments if you're rich? Why bother if you're not?",
+    "news1Title": "Dr. Le Tuan Anh attends a seminar on Alma Hybrid & Alma PrimeX",
+    "news1Date": "June 28, 2026",
+    "news2Title": "Technology transfer signing ceremony between Carina Beauty Clinic & Cutera",
+    "news2Date": "June 28, 2026",
+    "news3Title": "REBORN TO RISE — Carina's 1st Anniversary",
+    "news3Date": "February 1, 2026",
+    "scrollPrev": "Previous",
+    "scrollNext": "Next",
+    "closeVideo": "Close video",
+    "watchOnYoutube": "Watch on YouTube"
+  },
+  "BeautyKnowledgeHome": {
+    "heading": "Beauty Knowledge",
+    "viewAll": "View All",
+    "articleTitle": "Technology transfer signing ceremony between Carina Beauty Clinic & PrimeX, marking the Excel V+ technology handover between Carina Beauty Clinic & Cutera"
+  },
+  "RegistrationForm": {
+    "eyebrow": "CONTACT US",
+    "heading": "Book Your Consultation",
+    "description": "Begin your journey to healthy, radiant skin. Book an appointment with Carina Beauty Clinic today.",
+    "companyName": "CARINA BEAUTY CLINIC",
+    "addressLabel": "Address",
+    "addressValue": "09 Đường B4, Sala Urban Area, An Khánh, Ho Chi Minh City",
+    "phoneLabel": "Phone Number",
+    "phoneValue": "+84 77 399 3968",
+    "emailLabel": "Email",
+    "emailValue": "carinabeauty.info@gmail.com",
+    "hoursLabel": "Working Hours",
+    "hoursValue": "Monday - Sunday: 9:00 AM - 9:00 PM",
+    "mapTitle": "Carina Beauty Clinic location on Google Maps",
+    "nameLabel": "Full Name *",
+    "namePlaceholder": "Enter your full name",
+    "phoneFieldLabel": "Phone Number *",
+    "phoneFieldPlaceholder": "Enter your phone number",
+    "serviceLabel": "Service of Interest *",
+    "servicePlaceholder": "Enter the service you'd like to discuss",
+    "emailFieldLabel": "Email",
+    "emailFieldPlaceholder": "Enter your email (optional)",
+    "noteLabel": "Note",
+    "notePlaceholder": "Preferred date, consultation method, doctor request (optional)",
+    "submitCta": "SEND REQUEST",
+    "disclaimer": "*By submitting this information, you agree to our Privacy Policy and Terms of Service."
+  },
+  "Services": {
+    "heading": "Our Services",
+    "placeholder": "Service listings and pricing will appear here."
+  },
+  "ServiceExclusive": {
+    "heading": "Exclusive",
+    "placeholder": "Details for this service category will appear here."
+  },
+  "ServiceLiftingRejuvenation": {
+    "heading": "Lifting & Rejuvenation",
+    "placeholder": "Details for this service category will appear here."
+  },
+  "ServiceSkinTherapy": {
+    "heading": "Skin Therapy",
+    "placeholder": "Details for this service category will appear here."
+  },
+  "ServiceRejuvenationInjections": {
+    "heading": "Rejuvenation Injections",
+    "placeholder": "Details for this service category will appear here."
+  },
+  "ServiceBodyCare": {
+    "heading": "Body Care",
+    "placeholder": "Details for this service category will appear here."
+  },
+  "ServiceSkinCare": {
+    "heading": "Skin Care",
+    "placeholder": "Details for this service category will appear here."
+  },
+  "Gallery": {
+    "heading": "Gallery",
+    "placeholder": "Before/after photos will appear here."
+  },
+  "About": {
+    "heading": "About Us",
+    "placeholder": "Clinic and team information will appear here."
+  },
+  "Booking": {
+    "heading": "Book an Appointment",
+    "placeholder": "Online booking will be available here."
+  },
+  "Contact": {
+    "heading": "Contact Us",
+    "placeholder": "Contact details and location will appear here."
+  },
+  "BeautyKnowledge": {
+    "heading": "Beauty Knowledge",
+    "placeholder": "Articles and beauty tips will appear here."
+  },
+  "Promotions": {
+    "heading": "Promotions",
+    "placeholder": "Current offers and promotions will appear here."
+  },
+  "NewsEvents": {
+    "heading": "News & Events",
+    "placeholder": "Clinic news and events will appear here."
+  },
+  "ContentPolicy": {
+    "heading": "Content Policy",
+    "placeholder": "Content policy details will appear here."
+  },
+  "PrivacyPolicy": {
+    "heading": "Privacy Policy",
+    "placeholder": "Privacy policy details will appear here."
+  },
+  "MediaPolicy": {
+    "heading": "Image & Video Policy",
+    "placeholder": "Image and video usage policy details will appear here."
+  },
+  "Footer": {
+    "taglineLine1": "DERMATOLOGY CLINIC",
+    "taglineLine2": "ADVANCED TECHNOLOGY",
+    "description": "Carina Beauty Clinic — we pioneer non-invasive lifting & rejuvenation trends. Guaranteed trustworthy, world-class, and transparent experience for every client!",
+    "contactHeading": "CONTACT INFORMATION",
+    "addressLabel": "Clinic Address",
+    "addressLine1": "09 Đường B4, Sala Urban Area,",
+    "addressLine2": "An Khánh, Ho Chi Minh City",
+    "hoursLabel": "Working Hours",
+    "hoursValue": "Monday - Sunday: 9:00 AM - 9:00 PM",
+    "careLabel": "Customer Care",
+    "hotlineValue": "Hotline: +84 77 399 3968",
+    "emailValue": "Email: carinabeauty.info@gmail.com",
+    "featuredHeading": "FEATURED",
+    "featuredAbout": "About Us",
+    "featuredServices": "Services",
+    "featuredKnowledge": "Beauty Knowledge",
+    "featuredPromotions": "Promotions",
+    "featuredNews": "News & Events",
+    "supportHeading": "SUPPORT",
+    "supportContent": "Content Policy",
+    "supportPrivacy": "Privacy Policy",
+    "supportMedia": "Image & Video Policy",
+    "supportContact": "Contact",
+    "connectHeading": "CONNECT WITH US",
+    "socialFacebook": "Facebook",
+    "socialInstagram": "Instagram",
+    "socialTiktok": "TikTok",
+    "socialYoutube": "YouTube",
+    "socialZalo": "Zalo",
+    "disclaimer": "All information, images, and videos on this Website are the property of Carina Beauty Clinic. No party may quote or use them without Carina's permission, in any form!",
+    "copyright": "2026 © Carina Beauty Clinic. All Right Reserved."
+  }
+}

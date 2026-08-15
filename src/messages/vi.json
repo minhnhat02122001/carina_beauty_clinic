@@ -1,0 +1,258 @@
+{
+  "Metadata": {
+    "title": "Carina Beauty Clinic",
+    "description": "Dịch vụ thẩm mỹ và đặt lịch hẹn trực tuyến."
+  },
+  "BannerHero": {
+    "scrollPrev": "Trước",
+    "scrollNext": "Tiếp theo"
+  },
+  "Nav": {
+    "home": "Trang chủ",
+    "services": "Dịch vụ",
+    "gallery": "Thư viện ảnh",
+    "about": "Về chúng tôi",
+    "exclusive": "Độc quyền",
+    "liftingRejuvenation": "Nâng cơ & trẻ hóa",
+    "skinTherapy": "Trị liệu da",
+    "rejuvenationInjections": "Tiêm trẻ hóa",
+    "bodyCare": "Chăm sóc vóc dáng",
+    "skinCare": "Chăm sóc da",
+    "consult": "TƯ VẤN",
+    "booking": "Đặt lịch",
+    "contact": "Liên hệ",
+    "menu": "Menu",
+    "switchToEnglish": "Chuyển sang tiếng Anh",
+    "switchToVietnamese": "Chuyển sang tiếng Việt"
+  },
+  "Hero": {
+    "badge": "High-Tech Dermatology Clinic",
+    "scriptHeading": "The Real Luxury",
+    "tagline": "PHÒNG KHÁM DA LIỄU CÔNG NGHỆ CAO TẠI TP.HCM",
+    "description1": "Tiên phong xu hướng nâng cơ - trẻ hóa không xâm lấn. Nâng tầm chuẩn mực chăm sóc da bằng hệ sinh thái công nghệ cao thế hệ mới & tân tiến nhất.",
+    "description2": "Uy tín, đẳng cấp và minh bạch trong từng trải nghiệm tại Carina Beauty Clinic!",
+    "ctaServices": "DỊCH VỤ",
+    "ctaBooking": "ĐẶT LỊCH TƯ VẤN",
+    "statDoctorsValue": "10+",
+    "statDoctorsLabel": "Kinh Nghiệm Bác Sĩ",
+    "statEquipmentValue": "20+",
+    "statEquipmentLabel": "Thiết Bị Công Nghệ Cao",
+    "statPartnersValue": "30+",
+    "statPartnersLabel": "Đối Tác Quốc Tế",
+    "statCustomersValue": "10.000+",
+    "statCustomersLabel": "Khách Hàng"
+  },
+  "CustomerExperience": {
+    "heading": "Dịch Vụ Nổi Bật Tại Carina",
+    "chipExclusive": "Độc quyền",
+    "chipLiftingRejuvenation": "Nâng cơ trẻ hoá",
+    "chipMelasma": "Điều trị nám",
+    "chipScar": "Điều trị sẹo",
+    "chipAcne": "Điều trị mụn",
+    "chipBodyCare": "Chăm sóc vóc dáng",
+    "chipSkinCare": "Chăm sóc da",
+    "chipRejuvenationInjections": "Tiêm trẻ hoá",
+    "cardLunaShine": "Luna Shine",
+    "cardSolarRise": "Solar Rise",
+    "cardUltherPrimeX": "Ulther Prime X",
+    "cta": "ĐẶT LỊCH TƯ VẤN",
+    "scrollPrev": "Trước",
+    "scrollNext": "Tiếp theo",
+    "emptyCategory": "Chưa có dịch vụ trong danh mục này."
+  },
+  "Equipment": {
+    "heading": "Hệ Thống Công Nghệ Thẩm Mỹ Triệu Đô",
+    "subheading": "100% Thiết bị nhập khẩu - Đạt chứng nhận FDA (Hoa Kỳ) & CE (Châu Âu)",
+    "scrollPrev": "Trước",
+    "scrollNext": "Tiếp theo"
+  },
+  "DoctorTeam": {
+    "heading": "Đội Ngũ Bác Sĩ",
+    "titleLevel1": "BS.CKI. Da liễu",
+    "titleLevel2": "BS.CKII. Da liễu",
+    "doctor1Name": "Lê Tuấn Anh",
+    "doctor2Name": "Bùi Đức Trung",
+    "doctor3Name": "Đặng Văn Trí",
+    "doctor4Name": "Lê Thượng Thụy Vi",
+    "ctaMore": "XEM THÊM",
+    "ctaBooking": "ĐẶT LỊCH TƯ VẤN",
+    "scrollPrev": "Trước",
+    "scrollNext": "Tiếp theo"
+  },
+  "StrategicPartners": {
+    "heading": "Đối Tác Quốc Tế"
+  },
+  "WhyChooseUs": {
+    "eyebrow": "TẠI SAO CHỌN CARINA BEAUTY CLINIC",
+    "heading": "Tinh Tế Trong Từng Liệu Trình",
+    "item1Title": "Đội Ngũ Bác Sĩ Chuyên Khoa",
+    "item1Description": "Hơn 10 năm kinh nghiệm trong ngành da liễu - thẩm mỹ. Trực tiếp tư vấn phác đồ, thực hiện liệu trình và mang lại sự hài lòng cho khách hàng.",
+    "item2Title": "Thiết Bị Công Nghệ Tân Tiến",
+    "item2Description": "Sở hữu hệ thống trang thiết bị hiện đại đạt chuẩn FDA (Hoa Kỳ) & CE (Châu Âu), đảm bảo an toàn tối đa và hiệu quả vượt trội sau liệu trình.",
+    "item3Title": "Phác Đồ Cá Nhân Hóa",
+    "item3Description": "Thiết kế liệu trình điều trị da riêng biệt cho từng khách hàng, tư vấn chuẩn xác theo từng tình trạng, nhu cầu và mong muốn.",
+    "item4Title": "Đặt Lịch Hẹn Linh Hoạt",
+    "item4Description": "Dễ dàng đặt lịch hẹn thăm khám (bao gồm cuối tuần & ngày Lễ). Hỗ trợ xếp lịch phù hợp theo nhu cầu của từng khách hàng.",
+    "statDoctorsValue": "10+",
+    "statDoctorsLabel": "Kinh Nghiệm Bác Sĩ",
+    "statEquipmentValue": "20+",
+    "statEquipmentLabel": "Thiết Bị Công Nghệ Cao",
+    "statPartnersValue": "30+",
+    "statPartnersLabel": "Đối Tác Quốc Tế",
+    "statCustomersValue": "10.000+",
+    "statCustomersLabel": "Khách Hàng"
+  },
+  "FeaturedEvents": {
+    "videosHeading": "Video Ngắn Nổi Bật",
+    "newsHeading": "Tin Tức - Sự Kiện Nổi Bật",
+    "viewAll": "Xem Tất Cả",
+    "video1Caption": "BS CKI Bùi Đức Trung sẽ giải thích rõ cơ chế tia UV tác động lên da, đồng thời chia sẻ những lưu ý quan trọng khi chống nắng.",
+    "video2Caption": "Bắt đi theo liệu trình liệu có phải là chiêu trò của các Clinic?",
+    "video3Caption": "Nếu chỉ 1 mình Laser trị Nám là đủ, vì sao có người làm Laser 5-7 lần rồi vẫn bị tái Nám?",
+    "video4Caption": "Bích Ngọc lần đầu trải lòng về áp lực phía sau danh xưng \"Ngọc nữ\" màn ảnh thế hệ mới!",
+    "video5Caption": "Giàu thì mới đi làm đẹp chứ Nghèo thì làm đẹp làm gì?",
+    "news1Title": "Bác sĩ CKI. Lê Tuấn Anh tham dự báo cáo về Alma Hybrid & Alma PrimeX",
+    "news1Date": "28 tháng 6, 2026",
+    "news2Title": "Lễ ký kết chuyển giao công nghệ Excel V+ giữa Carina Beauty Clinic & Cutera",
+    "news2Date": "28 tháng 6, 2026",
+    "news3Title": "REBORN TO RISE - Sinh nhật Carina 1 Tuổi",
+    "news3Date": "01 tháng 02, 2026",
+    "scrollPrev": "Trước",
+    "scrollNext": "Tiếp theo",
+    "closeVideo": "Đóng video",
+    "watchOnYoutube": "Xem trên YouTube"
+  },
+  "BeautyKnowledgeHome": {
+    "heading": "Kiến Thức Làm Đẹp",
+    "viewAll": "Xem Tất Cả",
+    "articleTitle": "Lễ ký kết chuyển giao giữa Carina Beauty Clinic & PrimeX, chuyển giao công nghệ Excel V+ giữa Carina Beauty Clinic & Cutera"
+  },
+  "RegistrationForm": {
+    "eyebrow": "LIÊN HỆ VỚI CHÚNG TÔI",
+    "heading": "Đăng Ký Thăm Khám & Tư Vấn",
+    "description": "Khởi đầu hành trình sở hữu làn da khỏe đẹp, rạng rỡ. Đặt lịch hẹn cùng Carina Beauty Clinic ngay hôm nay.",
+    "companyName": "CARINA BEAUTY CLINIC",
+    "addressLabel": "Địa chỉ",
+    "addressValue": "09 Đường B4, Khu Đô Thị Sala, An Khánh, TP.HCM",
+    "phoneLabel": "Số điện thoại",
+    "phoneValue": "+84 77 399 3968",
+    "emailLabel": "Email",
+    "emailValue": "carinabeauty.info@gmail.com",
+    "hoursLabel": "Giờ làm việc",
+    "hoursValue": "Thứ Hai - Chủ Nhật: 9h00 - 21h00",
+    "mapTitle": "Vị trí Carina Beauty Clinic trên Google Maps",
+    "nameLabel": "Họ và tên *",
+    "namePlaceholder": "Nhập Họ và tên của bạn",
+    "phoneFieldLabel": "Số điện thoại *",
+    "phoneFieldPlaceholder": "Nhập Số điện thoại của bạn",
+    "serviceLabel": "Dịch vụ đang quan tâm *",
+    "servicePlaceholder": "Nhập dịch vụ cần tư vấn",
+    "emailFieldLabel": "Email",
+    "emailFieldPlaceholder": "Nhập Email (không bắt buộc)",
+    "noteLabel": "Ghi chú",
+    "notePlaceholder": "Lịch hẹn, phương thức tư vấn, yêu cầu bác sĩ (không bắt buộc)",
+    "submitCta": "GỬI YÊU CẦU TƯ VẤN",
+    "disclaimer": "*Bằng việc gửi thông tin, bạn đồng ý với Chính sách bảo mật và Điều khoản dịch vụ của chúng tôi."
+  },
+  "Services": {
+    "heading": "Dịch Vụ Của Chúng Tôi",
+    "placeholder": "Danh sách dịch vụ và bảng giá sẽ hiển thị tại đây."
+  },
+  "ServiceExclusive": {
+    "heading": "Độc Quyền",
+    "placeholder": "Thông tin chi tiết cho nhóm dịch vụ này sẽ hiển thị tại đây."
+  },
+  "ServiceLiftingRejuvenation": {
+    "heading": "Nâng Cơ & Trẻ Hóa",
+    "placeholder": "Thông tin chi tiết cho nhóm dịch vụ này sẽ hiển thị tại đây."
+  },
+  "ServiceSkinTherapy": {
+    "heading": "Trị Liệu Da",
+    "placeholder": "Thông tin chi tiết cho nhóm dịch vụ này sẽ hiển thị tại đây."
+  },
+  "ServiceRejuvenationInjections": {
+    "heading": "Tiêm Trẻ Hóa",
+    "placeholder": "Thông tin chi tiết cho nhóm dịch vụ này sẽ hiển thị tại đây."
+  },
+  "ServiceBodyCare": {
+    "heading": "Chăm Sóc Vóc Dáng",
+    "placeholder": "Thông tin chi tiết cho nhóm dịch vụ này sẽ hiển thị tại đây."
+  },
+  "ServiceSkinCare": {
+    "heading": "Chăm Sóc Da",
+    "placeholder": "Thông tin chi tiết cho nhóm dịch vụ này sẽ hiển thị tại đây."
+  },
+  "Gallery": {
+    "heading": "Thư Viện Ảnh",
+    "placeholder": "Hình ảnh trước/sau sẽ hiển thị tại đây."
+  },
+  "About": {
+    "heading": "Giới Thiệu",
+    "placeholder": "Thông tin về phòng khám và đội ngũ sẽ hiển thị tại đây."
+  },
+  "Booking": {
+    "heading": "Đặt Lịch Hẹn",
+    "placeholder": "Chức năng đặt lịch trực tuyến sẽ có tại đây."
+  },
+  "Contact": {
+    "heading": "Liên Hệ",
+    "placeholder": "Thông tin liên hệ và địa chỉ sẽ hiển thị tại đây."
+  },
+  "BeautyKnowledge": {
+    "heading": "Kiến Thức Làm Đẹp",
+    "placeholder": "Các bài viết và mẹo làm đẹp sẽ hiển thị tại đây."
+  },
+  "Promotions": {
+    "heading": "Khuyến Mãi",
+    "placeholder": "Các chương trình khuyến mãi hiện tại sẽ hiển thị tại đây."
+  },
+  "NewsEvents": {
+    "heading": "Tin Tức - Sự Kiện",
+    "placeholder": "Tin tức và sự kiện của phòng khám sẽ hiển thị tại đây."
+  },
+  "ContentPolicy": {
+    "heading": "Chính Sách Nội Dung",
+    "placeholder": "Chi tiết chính sách nội dung sẽ hiển thị tại đây."
+  },
+  "PrivacyPolicy": {
+    "heading": "Chính Sách Bảo Mật",
+    "placeholder": "Chi tiết chính sách bảo mật sẽ hiển thị tại đây."
+  },
+  "MediaPolicy": {
+    "heading": "Chính Sách Hình Ảnh, Video",
+    "placeholder": "Chi tiết chính sách hình ảnh, video sẽ hiển thị tại đây."
+  },
+  "Footer": {
+    "taglineLine1": "PHÒNG KHÁM DA LIỄU",
+    "taglineLine2": "CÔNG NGHỆ CAO",
+    "description": "Carina Beauty Clinic - Chúng tôi tiên phong trong xu hướng nâng cơ & trẻ hóa không xâm lấn. Đảm bảo trải nghiệm uy tín, đẳng cấp và minh bạch cho từng khách hàng!",
+    "contactHeading": "THÔNG TIN LIÊN HỆ",
+    "addressLabel": "Địa Chỉ Phòng Khám",
+    "addressLine1": "09 Đường B4, Khu Đô Thị Sala,",
+    "addressLine2": "An Khánh, TP.HCM",
+    "hoursLabel": "Thời Gian Làm Việc",
+    "hoursValue": "Thứ Hai - Chủ Nhật: 9h00 - 21h00",
+    "careLabel": "Chăm Sóc Khách Hàng",
+    "hotlineValue": "Hotline: +84 77 399 3968",
+    "emailValue": "Email: carinabeauty.info@gmail.com",
+    "featuredHeading": "MỤC NỔI BẬT",
+    "featuredAbout": "Về chúng tôi",
+    "featuredServices": "Dịch vụ",
+    "featuredKnowledge": "Kiến thức làm đẹp",
+    "featuredPromotions": "Khuyến mãi",
+    "featuredNews": "Tin tức - Sự kiện",
+    "supportHeading": "HỖ TRỢ",
+    "supportContent": "Chính sách nội dung",
+    "supportPrivacy": "Chính sách bảo mật",
+    "supportMedia": "Chính sách hình ảnh, video",
+    "supportContact": "Liên hệ",
+    "connectHeading": "KẾT NỐI VỚI CHÚNG TÔI",
+    "socialFacebook": "Facebook",
+    "socialInstagram": "Instagram",
+    "socialTiktok": "TikTok",
+    "socialYoutube": "YouTube",
+    "socialZalo": "Zalo",
+    "disclaimer": "Toàn bộ thông tin, hình ảnh, video trên Website này thuộc quyền sở hữu của Carina Beauty Clinic. Không bên nào có quyền tự ý trích dẫn, sử dụng khi chưa được Carina cho phép dưới mọi hình thức!",
+    "copyright": "2026 © Carina Beauty Clinic. All Right Reserved."
+  }
+}
