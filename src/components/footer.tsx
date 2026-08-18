@@ -29,9 +29,7 @@ const SOCIAL_LINKS = [
 ] as const;
 
 function ColumnHeading({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="font-serif text-base font-bold text-white">{children}</p>
-  );
+  return <p className="font-serif text-base font-bold text-white">{children}</p>;
 }
 
 export function Footer() {
@@ -43,8 +41,14 @@ export function Footer() {
         <div className="flex flex-col gap-8 opacity-80 lg:grid lg:grid-cols-[minmax(0,1fr)_fit-content(100%)_fit-content(100%)_minmax(0,1fr)] lg:gap-12">
           {/* Logo + description */}
           <div className="flex flex-col items-center gap-4 text-center lg:items-center">
-            <span className="relative h-16 w-auto aspect-[205/68] lg:h-20">
-              <Image src="/images/footer/logo.png" alt="Carina Beauty Clinic" fill className="object-contain" sizes="240px" />
+            <span className="relative aspect-[205/68] h-16 w-auto lg:h-20">
+              <Image
+                src="/images/footer/logo.png"
+                alt="Carina Beauty Clinic"
+                fill
+                className="object-contain"
+                sizes="240px"
+              />
             </span>
             <p className="w-full text-left font-serif text-lg font-bold text-white sm:text-xl">
               {t("taglineLine1")} {t("taglineLine2")}
@@ -116,9 +120,7 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col items-center gap-1">
-          <p className="text-center text-[10px] italic text-[rgba(255,255,255,0.6)] sm:text-xs">
-            {t("disclaimer")}
-          </p>
+          <p className="text-center text-[10px] text-[rgba(255,255,255,0.6)] italic sm:text-xs">{t("disclaimer")}</p>
           <p className="w-full border-t border-[#c6c6c8] pt-2 text-center text-sm font-bold text-[rgba(255,255,255,0.6)]">
             {t("copyright")}
           </p>

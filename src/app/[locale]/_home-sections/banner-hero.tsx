@@ -1,11 +1,12 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Carousel } from "@/components/carousel";
+import type { BannerItem } from "@/sanity/lib/banners";
 
-const BANNERS = ["/images/hero/banner-hero.png", "/images/hero/banner-hero-1.png"] as const;
-
-export function BannerHero() {
+export function BannerHero({ banners }: { banners: BannerItem[] }) {
   const t = useTranslations("BannerHero");
+
+  if (banners.length === 0) return null;
 
   return (
     <section
@@ -13,9 +14,9 @@ export function BannerHero() {
       aria-label="Carina Beauty Clinic"
     >
       <Carousel prevLabel={t("scrollPrev")} nextLabel={t("scrollNext")}>
-        {BANNERS.map((src, i) => (
-          <div key={src} className="relative aspect-square w-full lg:aspect-[1440/539]">
-            <Image src={src} alt="" fill priority={i === 0} sizes="100vw" className="object-cover" />
+        {banners.map((banner, i) => (
+          <div key={banner.id} className="relative aspect-video w-full lg:aspect-[1440/539]">
+            <Image src={banner.imageUrl} alt="" fill priority={i === 0} sizes="100vw" className="object-cover" />
           </div>
         ))}
       </Carousel>

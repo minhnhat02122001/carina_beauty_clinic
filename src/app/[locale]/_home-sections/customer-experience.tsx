@@ -1,30 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
 import { Carousel } from "@/components/carousel";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
+import Image from "next/image";
+import { useState } from "react";
+import type { ServiceHighlightItem } from "@/sanity/lib/serviceHighlights";
 
 const CHIP_KEYS = [
   "chipExclusive",
   "chipLiftingRejuvenation",
-  "chipMelasma",
-  "chipScar",
-  "chipAcne",
+  "chipSkinTreatment",
+  "chipRejuvenationInjections",
   "chipBodyCare",
   "chipSkinCare",
-  "chipRejuvenationInjections",
-] as const;
-
-const CARDS = [
-  { key: "cardUltherPrimeX", image: "/images/services/highlight-ulther-prime-x.png", categories: ["chipExclusive", "chipLiftingRejuvenation"] },
-  { key: "cardUltherPrimeX", image: "/images/services/highlight-ulther-prime-x.png", categories: ["chipExclusive", "chipLiftingRejuvenation"] },
-  { key: "cardSolarRise", image: "/images/services/highlight-solar-rise.png", categories: ["chipExclusive", "chipLiftingRejuvenation"] },
-  { key: "cardSolarRise", image: "/images/services/highlight-solar-rise.png", categories: ["chipExclusive", "chipLiftingRejuvenation"] },
-  { key: "cardLunaShine", image: "/images/services/highlight-luna-shine.png", categories: ["chipExclusive", "chipSkinCare"] },
-  { key: "cardUltherPrimeX", image: "/images/services/highlight-ulther-prime-x.png", categories: ["chipExclusive", "chipLiftingRejuvenation"] },
-  { key: "cardLunaShine", image: "/images/services/highlight-luna-shine.png", categories: ["chipExclusive", "chipSkinCare"] },
 ] as const;
 
 const activeChipClasses = "border-[#ffe15a] bg-white text-[#f3c213]";
@@ -36,7 +25,7 @@ function Chip({ label, active, onClick }: { label: string; active: boolean; onCl
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`flex h-9 shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-full border pl-4 text-sm font-bold ${
+      className={`flex h-9 shrink-0 items-center gap-4 overflow-hidden rounded-full border pl-4 text-sm font-bold whitespace-nowrap ${
         active ? activeChipClasses : inactiveChipClasses
       }`}
     >
@@ -57,14 +46,20 @@ function Chip({ label, active, onClick }: { label: string; active: boolean; onCl
   );
 }
 
-export function CustomerExperience() {
+export function CustomerExperience({ cards }: { cards: ServiceHighlightItem[] }) {
   const t = useTranslations("CustomerExperience");
   const [activeFilter, setActiveFilter] = useState<string>(CHIP_KEYS[0]);
 
-  const visibleCards = CARDS.filter((card) => (card.categories as readonly string[]).includes(activeFilter));
+  const visibleCards = cards.filter((card) => card.categories.includes(activeFilter));
 
   return (
-    <section className="flex flex-col items-center px-4 py-8 sm:px-6 md:px-10 lg:px-28 lg:py-12">
+    <section
+      className="flex flex-col items-center px-4 py-8 sm:px-6 md:px-10 lg:px-28 lg:py-12"
+      style={{
+        backgroundImage:
+          "linear-gradient(180deg, rgb(250, 249, 246) 0%, rgb(252, 234, 192) 16.346%, rgb(252, 235, 195) 47.115%, rgb(255, 238, 199) 61.058%, rgb(255, 241, 210) 81.25%, rgb(255, 255, 255) 97.596%)",
+      }}
+    >
       <div
         className="mx-auto flex w-full max-w-[1216px] flex-col items-center gap-4 rounded-xl px-4 py-4 sm:px-6 lg:gap-6 lg:px-4 lg:py-6"
         style={{
@@ -74,7 +69,7 @@ export function CustomerExperience() {
       >
         <h2 className="text-center text-2xl text-[var(--color-accent)] lg:text-5xl">{t("heading")}</h2>
 
-        <div className="flex w-full items-start gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex w-full [scrollbar-width:none] items-start gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden">
           {CHIP_KEYS.map((key) => (
             <Chip key={key} label={t(key)} active={activeFilter === key} onClick={() => setActiveFilter(key)} />
           ))}
@@ -88,13 +83,19 @@ export function CustomerExperience() {
             edgeOffset="flush"
             itemsPerView={{ base: 1, lg: 3 }}
           >
-            {visibleCards.map((card, index) => (
-              <div key={`${card.key}-${index}`} className="flex flex-col items-center gap-2">
+            {visibleCards.map((card) => (
+              <div key={card.id} className="flex flex-col items-center gap-2">
                 <div className="relative aspect-square w-full overflow-hidden rounded-2xl">
-                  <Image src={card.image} alt="" fill className="object-cover" sizes="(min-width: 1024px) 384px, calc(100vw - 64px)" />
+                  <Image
+                    src={card.imageUrl}
+                    alt=""
+                    fill
+                    className="object-cover"
+                    sizes="(min-width: 1024px) 384px, calc(100vw - 64px)"
+                  />
                 </div>
                 <p className="text-center font-sans text-sm font-bold text-[var(--color-accent)] lg:text-lg">
-                  {t(card.key)}
+                  {card.name}
                 </p>
               </div>
             ))}
@@ -104,12 +105,20 @@ export function CustomerExperience() {
         )}
       </div>
 
-      <Link
-        href="/booking"
-        className="mt-4 rounded-full bg-[var(--color-accent)] px-6 py-2 text-center text-sm font-bold tracking-[0.14px] text-[#fcfcfc] hover:opacity-90 lg:mt-6 lg:text-base"
-      >
-        {t("cta")}
-      </Link>
+      <div className="mt-4 flex items-center justify-center gap-4 px-2 lg:mt-6">
+        <Link
+          href="/about"
+          className="rounded-full border border-[var(--color-accent)] bg-white px-3 py-2 text-center text-xs font-bold tracking-[0.16px] whitespace-nowrap text-[#50260e] hover:opacity-80 sm:px-4 sm:text-sm lg:text-base"
+        >
+          {t("ctaMore")}
+        </Link>
+        <Link
+          href={{ pathname: "/", hash: "registration-form" }}
+          className="rounded-full bg-[var(--color-accent)] px-3 py-2 text-center text-xs font-bold tracking-[0.16px] whitespace-nowrap text-[#fcfcfc] hover:opacity-90 sm:px-4 sm:text-sm lg:text-base"
+        >
+          {t("ctaBooking")}
+        </Link>
+      </div>
     </section>
   );
 }

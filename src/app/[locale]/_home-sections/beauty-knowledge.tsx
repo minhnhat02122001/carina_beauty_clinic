@@ -1,16 +1,12 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import type { BeautyKnowledgeHome } from "@/sanity/lib/posts";
 
-const THUMBNAILS = [
-  "/images/beauty-knowledge/thumb-1.png",
-  "/images/beauty-knowledge/thumb-2.png",
-  "/images/beauty-knowledge/thumb-3.png",
-  "/images/beauty-knowledge/thumb-4.png",
-] as const;
-
-export function BeautyKnowledgeHome() {
+export function BeautyKnowledgeHome({ hero, thumbnails }: BeautyKnowledgeHome) {
   const t = useTranslations("BeautyKnowledgeHome");
+
+  if (!hero) return null;
 
   return (
     <section
@@ -28,7 +24,10 @@ export function BeautyKnowledgeHome() {
             </span>
             <h2 className="text-base font-semibold text-[var(--color-accent)] lg:text-lg">{t("heading")}</h2>
           </div>
-          <Link href="/beauty-knowledge" className="flex shrink-0 items-center gap-1 text-sm font-bold text-[var(--color-link)]">
+          <Link
+            href="/beauty-knowledge"
+            className="flex shrink-0 items-center gap-1 text-sm font-bold text-[var(--color-link)]"
+          >
             {t("viewAll")}
             <span className="relative size-4">
               <Image src="/images/featured-events/icon-arrow.svg" alt="" fill className="object-contain" sizes="16px" />
@@ -37,21 +36,38 @@ export function BeautyKnowledgeHome() {
         </div>
 
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
-          <div className="flex flex-col gap-4 lg:w-[700px] lg:shrink-0">
+          <Link
+            href={{ pathname: "/beauty-knowledge/[slug]", params: { slug: hero.slug } }}
+            className="flex flex-col gap-4 lg:w-[700px] lg:shrink-0"
+          >
             <div className="relative aspect-[343/193] w-full overflow-hidden rounded-2xl shadow-xl lg:aspect-[700/344]">
-              <Image src="/images/beauty-knowledge/hero.png" alt="" fill className="object-cover" sizes="(min-width: 1024px) 700px, 100vw" />
+              {hero.imageUrl && (
+                <Image
+                  src={hero.imageUrl}
+                  alt=""
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 1024px) 700px, 100vw"
+                />
+              )}
             </div>
-            <p className="text-sm font-bold text-[rgba(80,38,14,0.7)] lg:text-base">{t("articleTitle")}</p>
-          </div>
+            <p className="text-sm font-bold text-[rgba(80,38,14,0.7)] lg:text-base">{hero.title}</p>
+          </Link>
 
           <div className="flex flex-1 flex-col gap-3">
-            {THUMBNAILS.map((src) => (
-              <div key={src} className="flex items-start gap-2">
+            {thumbnails.map((item) => (
+              <Link
+                key={item.id}
+                href={{ pathname: "/beauty-knowledge/[slug]", params: { slug: item.slug } }}
+                className="flex items-start gap-2"
+              >
                 <div className="relative aspect-[132/74] w-[132px] shrink-0 overflow-hidden rounded-xl lg:w-[200px]">
-                  <Image src={src} alt="" fill className="object-cover" sizes="200px" />
+                  {item.imageUrl && <Image src={item.imageUrl} alt="" fill className="object-cover" sizes="200px" />}
                 </div>
-                <p className="flex-1 text-xs font-bold text-[var(--color-accent)] lg:text-sm">{t("articleTitle")}</p>
-              </div>
+                <p className="line-clamp-4 flex-1 text-xs font-bold text-[rgba(80,38,14,0.7)] lg:line-clamp-5 lg:text-sm">
+                  {item.title}
+                </p>
+              </Link>
             ))}
           </div>
         </div>

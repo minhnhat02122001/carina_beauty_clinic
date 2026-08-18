@@ -5,23 +5,8 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Carousel } from "@/components/carousel";
-
-// Fill in a video's `videoId` with the real YouTube video ID once it's
-// uploaded (the part after "v=" in the URL, or after "youtu.be/"). Leave
-// empty to show the static thumbnail with a play button instead.
-const VIDEOS = [
-  { captionKey: "video1Caption", images: ["/images/featured-events/video1.png"], videoId: "yuuWdm5tBD0?si=XZNTYTV0nzpcpqP8" },
-  { captionKey: "video2Caption", images: ["/images/featured-events/video2.png"], videoId: "" },
-  { captionKey: "video3Caption", images: ["/images/featured-events/video3.png"], videoId: "" },
-  { captionKey: "video4Caption", images: ["/images/featured-events/video4.png"], videoId: "" },
-  { captionKey: "video5Caption", images: ["/images/featured-events/video5.png"], videoId: "" },
-] as const;
-
-const NEWS = [
-  { titleKey: "news1Title", dateKey: "news1Date", image: "/images/featured-events/news1.png" },
-  { titleKey: "news2Title", dateKey: "news2Date", image: "/images/featured-events/news2.png" },
-  { titleKey: "news3Title", dateKey: "news3Date", image: "/images/featured-events/news3.png" },
-] as const;
+import type { FeaturedNewsItem } from "@/sanity/lib/posts";
+import type { VideoItem } from "@/sanity/lib/videos";
 
 function VideoModal({
   videoId,
@@ -52,7 +37,7 @@ function VideoModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" onClick={onClose}>
-      <div className="relative w-full max-w-3xl" onClick={(e) => e.stopPropagation()}>
+      <div className="relative flex w-auto max-w-full flex-col items-center" onClick={(e) => e.stopPropagation()}>
         <button
           type="button"
           onClick={onClose}
@@ -63,7 +48,7 @@ function VideoModal({
             <path d="M6 6L18 18M6 18L18 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           </svg>
         </button>
-        <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
+        <div className="relative aspect-[9/16] h-[70vh] max-h-[700px] w-auto max-w-full overflow-hidden rounded-xl bg-black">
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${embedId}?autoplay=1&playsinline=1`}
             title={title}
@@ -85,93 +70,168 @@ function VideoModal({
   );
 }
 
-export function FeaturedEvents() {
+export function FeaturedEvents({ news, videos }: { news: FeaturedNewsItem[]; videos: VideoItem[] }) {
   const t = useTranslations("FeaturedEvents");
   const [activeVideo, setActiveVideo] = useState<{ videoId: string; title: string } | null>(null);
 
   return (
     <section className="bg-white px-4 py-8 sm:px-6 md:px-10 lg:px-28 lg:py-12">
       <div className="mx-auto flex max-w-[1216px] flex-col gap-8 lg:gap-12">
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <span className="relative size-6 shrink-0 lg:size-7">
-                <Image src="/images/featured-events/icon-video.svg" alt="" fill className="object-contain" sizes="28px" />
-              </span>
-              <h2 className="text-base font-semibold text-[var(--color-accent)] lg:text-lg">{t("videosHeading")}</h2>
-            </div>
-            <Link href="/news-events" className="flex shrink-0 items-center gap-1 text-sm font-bold text-[var(--color-link)]">
-              {t("viewAll")}
-              <span className="relative size-4">
-                <Image src="/images/featured-events/icon-arrow.svg" alt="" fill className="object-contain" sizes="16px" />
-              </span>
-            </Link>
-          </div>
-
-          <Carousel prevLabel={t("scrollPrev")} nextLabel={t("scrollNext")} itemsPerView={{ base: 2, lg: 5 }}>
-            {VIDEOS.map((video) => (
-              <div key={video.captionKey} className="flex flex-col items-center">
-                {video.videoId ? (
-                  <button
-                    type="button"
-                    onClick={() => setActiveVideo({ videoId: video.videoId, title: t(video.captionKey) })}
-                    className="relative block aspect-[289/511] w-full overflow-hidden rounded-xl bg-[var(--color-background-alt)]"
-                  >
-                    {video.images.map((src) => (
-                      <Image key={src} src={src} alt="" fill className="object-cover" sizes="(min-width: 1024px) 220px, 200px" />
-                    ))}
-                    <span className="absolute top-1/2 left-1/2 flex size-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[rgba(2,11,39,0.4)] lg:size-14">
-                      <span className="relative size-5 lg:size-[30px]">
-                        <Image src="/images/featured-events/icon-play.svg" alt="" fill className="object-contain" sizes="30px" />
-                      </span>
-                    </span>
-                  </button>
-                ) : (
-                  <div className="relative aspect-[289/511] w-full overflow-hidden rounded-xl bg-[var(--color-background-alt)]">
-                    {video.images.map((src) => (
-                      <Image key={src} src={src} alt="" fill className="object-cover" sizes="(min-width: 1024px) 220px, 200px" />
-                    ))}
-                    <span className="absolute top-1/2 left-1/2 flex size-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[rgba(2,11,39,0.4)] lg:size-14">
-                      <span className="relative size-5 lg:size-[30px]">
-                        <Image src="/images/featured-events/icon-play.svg" alt="" fill className="object-contain" sizes="30px" />
-                      </span>
-                    </span>
-                  </div>
-                )}
-                <p className="w-full px-1 pt-3 text-sm text-[var(--color-accent)]">{t(video.captionKey)}</p>
+        {videos.length > 0 && (
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-2">
+                <span className="relative size-6 shrink-0 lg:size-7">
+                  <Image
+                    src="/images/featured-events/icon-video.svg"
+                    alt=""
+                    fill
+                    className="object-contain"
+                    sizes="28px"
+                  />
+                  <span className="absolute top-[56%] left-1/2 size-[26%] -translate-x-1/2 -translate-y-1/2 rotate-90">
+                    <Image
+                      src="/images/featured-events/icon-video-polygon.svg"
+                      alt=""
+                      fill
+                      className="object-contain"
+                      sizes="8px"
+                    />
+                  </span>
+                </span>
+                <h2 className="text-base font-semibold text-[var(--color-accent)] lg:text-lg">{t("videosHeading")}</h2>
               </div>
-            ))}
-          </Carousel>
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <span className="relative size-6 shrink-0 lg:size-7">
-                <Image src="/images/featured-events/icon-camera.svg" alt="" fill className="object-contain" sizes="28px" />
-              </span>
-              <h2 className="text-base font-semibold text-[var(--color-accent)] lg:text-lg">{t("newsHeading")}</h2>
+              <Link
+                href="/news-events"
+                className="flex shrink-0 items-center gap-1 text-sm font-bold text-[var(--color-link)]"
+              >
+                {t("viewAll")}
+                <span className="relative size-4">
+                  <Image
+                    src="/images/featured-events/icon-arrow.svg"
+                    alt=""
+                    fill
+                    className="object-contain"
+                    sizes="16px"
+                  />
+                </span>
+              </Link>
             </div>
-            <Link href="/news-events" className="flex shrink-0 items-center gap-1 text-sm font-bold text-[var(--color-link)]">
-              {t("viewAll")}
-              <span className="relative size-4">
-                <Image src="/images/featured-events/icon-arrow.svg" alt="" fill className="object-contain" sizes="16px" />
-              </span>
-            </Link>
-          </div>
 
-          <Carousel prevLabel={t("scrollPrev")} nextLabel={t("scrollNext")} itemsPerView={{ base: 1, lg: 3 }}>
-            {NEWS.map((item) => (
-              <div key={item.titleKey} className="flex flex-col">
-                <div className="relative aspect-[280/160] w-full overflow-hidden rounded-xl">
-                  <Image src={item.image} alt="" fill className="object-cover" sizes="(min-width: 1024px) 380px, 260px" />
+            <Carousel prevLabel={t("scrollPrev")} nextLabel={t("scrollNext")} itemsPerView={{ base: 2, lg: 5 }}>
+              {videos.map((video) => (
+                <div key={video.id} className="flex flex-col items-center">
+                  {video.videoId ? (
+                    <button
+                      type="button"
+                      onClick={() => setActiveVideo({ videoId: video.videoId, title: video.caption })}
+                      className="relative block aspect-[289/511] w-full overflow-hidden rounded-xl bg-[var(--color-background-alt)]"
+                    >
+                      {video.thumbnailUrl && (
+                        <Image
+                          src={video.thumbnailUrl}
+                          alt=""
+                          fill
+                          className="object-cover"
+                          sizes="(min-width: 1024px) 220px, 200px"
+                        />
+                      )}
+                      <span className="absolute top-1/2 left-1/2 flex size-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[rgba(2,11,39,0.4)] lg:size-14">
+                        <span className="relative size-5 lg:size-[30px]">
+                          <Image
+                            src="/images/featured-events/icon-play.svg"
+                            alt=""
+                            fill
+                            className="object-contain"
+                            sizes="30px"
+                          />
+                        </span>
+                      </span>
+                    </button>
+                  ) : (
+                    <div className="relative aspect-[289/511] w-full overflow-hidden rounded-xl bg-[var(--color-background-alt)]">
+                      {video.thumbnailUrl && (
+                        <Image
+                          src={video.thumbnailUrl}
+                          alt=""
+                          fill
+                          className="object-cover"
+                          sizes="(min-width: 1024px) 220px, 200px"
+                        />
+                      )}
+                      <span className="absolute top-1/2 left-1/2 flex size-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[rgba(2,11,39,0.4)] lg:size-14">
+                        <span className="relative size-5 lg:size-[30px]">
+                          <Image
+                            src="/images/featured-events/icon-play.svg"
+                            alt=""
+                            fill
+                            className="object-contain"
+                            sizes="30px"
+                          />
+                        </span>
+                      </span>
+                    </div>
+                  )}
+                  <p className="w-full px-1 pt-3 text-sm text-[var(--color-accent)]">{video.caption}</p>
                 </div>
-                <p className="pt-4 text-sm font-bold text-[rgba(80,38,14,0.7)] lg:text-base">{t(item.titleKey)}</p>
-                <p className="pt-2 text-sm text-[rgba(80,38,14,0.7)]">{t(item.dateKey)}</p>
+              ))}
+            </Carousel>
+          </div>
+        )}
+
+        {news.length > 0 && (
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-2">
+                <span className="relative size-6 shrink-0 lg:size-7">
+                  <Image
+                    src="/images/featured-events/icon-camera.svg"
+                    alt=""
+                    fill
+                    className="object-contain"
+                    sizes="28px"
+                  />
+                </span>
+                <h2 className="text-base font-semibold text-[var(--color-accent)] lg:text-lg">{t("newsHeading")}</h2>
               </div>
-            ))}
-          </Carousel>
-        </div>
+              <Link
+                href="/news-events"
+                className="flex shrink-0 items-center gap-1 text-sm font-bold text-[var(--color-link)]"
+              >
+                {t("viewAll")}
+                <span className="relative size-4">
+                  <Image
+                    src="/images/featured-events/icon-arrow.svg"
+                    alt=""
+                    fill
+                    className="object-contain"
+                    sizes="16px"
+                  />
+                </span>
+              </Link>
+            </div>
+
+            <Carousel prevLabel={t("scrollPrev")} nextLabel={t("scrollNext")} itemsPerView={{ base: 1, lg: 3 }}>
+              {news.map((item) => (
+                <div key={item.id} className="flex flex-col">
+                  <div className="relative aspect-[280/160] w-full overflow-hidden rounded-xl bg-[var(--color-background-alt)]">
+                    {item.imageUrl && (
+                      <Image
+                        src={item.imageUrl}
+                        alt=""
+                        fill
+                        className="object-cover"
+                        sizes="(min-width: 1024px) 380px, 260px"
+                      />
+                    )}
+                  </div>
+                  <p className="pt-4 text-sm font-bold text-[rgba(80,38,14,0.7)] lg:text-base">{item.title}</p>
+                  <p className="pt-2 text-sm text-[rgba(80,38,14,0.7)]">{item.date}</p>
+                </div>
+              ))}
+            </Carousel>
+          </div>
+        )}
       </div>
       {activeVideo && (
         <VideoModal

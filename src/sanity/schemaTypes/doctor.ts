@@ -1,0 +1,54 @@
+import { defineField, defineType } from "sanity";
+
+export const doctor = defineType({
+  name: "doctor",
+  title: "Bác Sĩ",
+  type: "document",
+  groups: [
+    { name: "vietnamese", title: "Tiếng Việt (gốc)", default: true },
+    { name: "english", title: "Tiếng Anh" },
+    { name: "chinese", title: "Tiếng Trung" },
+    { name: "media", title: "Hình ảnh" },
+    { name: "metadata", title: "Thông tin khác" },
+  ],
+  fields: [
+    defineField({
+      name: "name",
+      title: "Tên",
+      description: "Tên riêng không được dịch — hiển thị nguyên văn ở mọi ngôn ngữ.",
+      type: "string",
+      group: "vietnamese",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "title",
+      title: "Chức danh",
+      description: "VD: BS.CKI. Da liễu",
+      type: "string",
+      group: "vietnamese",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({ name: "titleEn", title: "Chức danh (Tiếng Anh)", type: "string", group: "english" }),
+    defineField({ name: "titleZh", title: "Chức danh (Tiếng Trung)", type: "string", group: "chinese" }),
+    defineField({
+      name: "image",
+      title: "Ảnh",
+      type: "image",
+      group: "media",
+      options: { hotspot: true },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "order",
+      title: "Thứ tự",
+      description: "Số nhỏ hơn sẽ hiển thị trước trong carousel.",
+      type: "number",
+      group: "metadata",
+      initialValue: 0,
+      validation: (Rule) => Rule.required(),
+    }),
+  ],
+  preview: {
+    select: { title: "name", subtitle: "title", media: "image" },
+  },
+});

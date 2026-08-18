@@ -1,0 +1,253 @@
+{
+  "Metadata": {
+    "title": "Carina Beauty Clinic",
+    "description": "美容诊所服务与在线预约。"
+  },
+  "BannerHero": {
+    "scrollPrev": "上一页",
+    "scrollNext": "下一页"
+  },
+  "Nav": {
+    "home": "首页",
+    "services": "服务项目",
+    "gallery": "图库",
+    "about": "关于我们",
+    "exclusive": "尊享项目",
+    "liftingRejuvenation": "提升紧致",
+    "skinTherapy": "皮肤治疗",
+    "rejuvenationInjections": "焕颜注射",
+    "bodyCare": "身体护理",
+    "skinCare": "护肤",
+    "consult": "咨询",
+    "booking": "立即预约",
+    "contact": "联系我们",
+    "menu": "菜单",
+    "switchToEnglish": "切换到英文",
+    "switchToVietnamese": "切换到越南语",
+    "switchToChinese": "切换到中文"
+  },
+  "Hero": {
+    "badge": "High-Tech Dermatology Clinic",
+    "scriptHeading": "The Real Luxury",
+    "tagline": "胡志明市高科技皮肤科诊所",
+    "description1": "引领非侵入式提拉紧致与抗衰新趋势,以全新一代高科技生态系统提升护肤标准。",
+    "description2": "在Carina Beauty Clinic的每一次体验中,尽享信赖、卓越与透明!",
+    "ctaServices": "服务项目",
+    "ctaBooking": "预约咨询",
+    "statDoctorsValue": "10+",
+    "statDoctorsLabel": "医生从业经验(年)",
+    "statEquipmentValue": "20+",
+    "statEquipmentLabel": "高科技设备",
+    "statPartnersValue": "30+",
+    "statPartnersLabel": "国际合作伙伴",
+    "statCustomersValue": "10,000+",
+    "statCustomersLabel": "服务客户"
+  },
+  "CustomerExperience": {
+    "heading": "Carina 明星服务",
+    "chipExclusive": "尊享项目",
+    "chipLiftingRejuvenation": "提升紧致",
+    "chipSkinTreatment": "皮肤治疗",
+    "chipBodyCare": "身体护理",
+    "chipSkinCare": "护肤",
+    "chipRejuvenationInjections": "焕颜注射",
+    "cardLunaShine": "Luna Shine",
+    "cardSolarRise": "Solar Rise",
+    "cardUltherPrimeX": "Ulther Prime X",
+    "ctaMore": "查看更多",
+    "ctaBooking": "预约咨询",
+    "scrollPrev": "上一页",
+    "scrollNext": "下一页",
+    "emptyCategory": "该分类暂无服务项目。"
+  },
+  "Equipment": {
+    "heading": "百万级美容科技系统",
+    "subheading": "100% 进口设备 — 通过美国FDA与欧盟CE认证",
+    "scrollPrev": "上一页",
+    "scrollNext": "下一页"
+  },
+  "DoctorTeam": {
+    "heading": "医疗团队",
+    "titleLevel1": "皮肤科专科医师(一级)",
+    "titleLevel2": "皮肤科专科医师(二级)",
+    "doctor1Name": "Lê Tuấn Anh",
+    "doctor2Name": "Bùi Đức Trung",
+    "doctor3Name": "Đặng Văn Trí",
+    "doctor4Name": "Lê Thượng Thụy Vi",
+    "ctaMore": "查看更多",
+    "ctaBooking": "预约咨询",
+    "scrollPrev": "上一页",
+    "scrollNext": "下一页"
+  },
+  "StrategicPartners": {
+    "heading": "国际合作伙伴"
+  },
+  "WhyChooseUs": {
+    "eyebrow": "为什么选择CARINA BEAUTY CLINIC",
+    "heading": "精致护理,尽在每一次疗程",
+    "item1Title": "专科医疗团队",
+    "item1Description": "拥有超过10年皮肤科与美容领域经验,直接参与治疗方案咨询、疗程操作,致力于为客户带来满意体验。",
+    "item2Title": "先进科技设备",
+    "item2Description": "拥有通过美国FDA与欧盟CE认证的现代化设备系统,确保疗程安全性最大化,效果显著。",
+    "item3Title": "个性化治疗方案",
+    "item3Description": "根据每位客户的肌肤状况、需求与目标,量身定制专属护理方案,并提供精准咨询。",
+    "item4Title": "灵活预约安排",
+    "item4Description": "轻松预约就诊,包括周末与节假日,并根据客户需求提供贴心的排期支持。",
+    "statDoctorsValue": "10+",
+    "statDoctorsLabel": "医生从业经验(年)",
+    "statEquipmentValue": "20+",
+    "statEquipmentLabel": "高科技设备",
+    "statPartnersValue": "30+",
+    "statPartnersLabel": "国际合作伙伴",
+    "statCustomersValue": "10,000+",
+    "statCustomersLabel": "服务客户"
+  },
+  "FeaturedEvents": {
+    "videosHeading": "精选短视频",
+    "newsHeading": "新闻与活动",
+    "viewAll": "查看全部",
+    "scrollPrev": "上一页",
+    "scrollNext": "下一页",
+    "closeVideo": "关闭视频",
+    "watchOnYoutube": "在YouTube观看"
+  },
+  "BeautyKnowledgeHome": {
+    "heading": "美容知识",
+    "viewAll": "查看全部",
+    "articleTitle": "Carina Beauty Clinic与PrimeX技术转让签约仪式,Carina Beauty Clinic与Cutera之间Excel V+技术交接"
+  },
+  "RegistrationForm": {
+    "eyebrow": "联系我们",
+    "heading": "预约就诊咨询",
+    "description": "开启健康亮丽肌肤之旅。立即预约Carina Beauty Clinic。",
+    "companyName": "CARINA BEAUTY CLINIC",
+    "addressLabel": "地址",
+    "addressValue": "09 Đường B4, Sala Urban Area, An Khánh, 胡志明市",
+    "phoneLabel": "电话号码",
+    "phoneValue": "+84 77 399 3968",
+    "emailLabel": "邮箱",
+    "emailValue": "carinabeauty.info@gmail.com",
+    "hoursLabel": "营业时间",
+    "hoursValue": "周一至周日:9:00 - 21:00",
+    "mapTitle": "Carina Beauty Clinic在Google地图上的位置",
+    "nameLabel": "姓名 *",
+    "namePlaceholder": "请输入您的姓名",
+    "phoneFieldLabel": "电话号码 *",
+    "phoneFieldPlaceholder": "请输入您的电话号码",
+    "serviceLabel": "感兴趣的服务 *",
+    "servicePlaceholder": "请输入您想咨询的服务",
+    "emailFieldLabel": "邮箱",
+    "emailFieldPlaceholder": "请输入邮箱(选填)",
+    "noteLabel": "备注",
+    "notePlaceholder": "预约时间、咨询方式、指定医生需求(选填)",
+    "submitCta": "提交咨询",
+    "disclaimer": "*提交此信息即表示您同意我们的隐私政策与服务条款。"
+  },
+  "Services": {
+    "heading": "我们的服务",
+    "placeholder": "服务项目与价格将在此显示。"
+  },
+  "ServiceExclusive": {
+    "heading": "尊享项目",
+    "placeholder": "该服务分类的详细信息将在此显示。"
+  },
+  "ServiceLiftingRejuvenation": {
+    "heading": "提升紧致",
+    "placeholder": "该服务分类的详细信息将在此显示。"
+  },
+  "ServiceSkinTherapy": {
+    "heading": "皮肤治疗",
+    "placeholder": "该服务分类的详细信息将在此显示。"
+  },
+  "ServiceRejuvenationInjections": {
+    "heading": "焕颜注射",
+    "placeholder": "该服务分类的详细信息将在此显示。"
+  },
+  "ServiceBodyCare": {
+    "heading": "身体护理",
+    "placeholder": "该服务分类的详细信息将在此显示。"
+  },
+  "ServiceSkinCare": {
+    "heading": "护肤",
+    "placeholder": "该服务分类的详细信息将在此显示。"
+  },
+  "Gallery": {
+    "heading": "图库",
+    "placeholder": "术前术后照片将在此显示。"
+  },
+  "About": {
+    "heading": "关于我们",
+    "placeholder": "诊所与团队信息将在此显示。"
+  },
+  "Booking": {
+    "heading": "预约",
+    "placeholder": "在线预约功能即将上线。"
+  },
+  "Contact": {
+    "heading": "联系我们",
+    "placeholder": "联系方式与地址将在此显示。"
+  },
+  "BeautyKnowledge": {
+    "heading": "美容知识",
+    "description": "来自Carina Beauty Clinic医生团队的皮肤科与护肤知识 — 疗程、技术与护肤心得。",
+    "empty": "暂无文章 — 请稍后再来查看。",
+    "backToList": "← 返回美容知识"
+  },
+  "Promotions": {
+    "heading": "优惠活动",
+    "description": "Carina Beauty Clinic 最新优惠活动。",
+    "empty": "暂无优惠活动 — 请稍后再来查看。",
+    "backToList": "← 返回优惠活动"
+  },
+  "NewsEvents": {
+    "heading": "新闻与活动",
+    "description": "Carina Beauty Clinic 最新新闻与活动。",
+    "empty": "暂无新闻 — 请稍后再来查看。",
+    "backToList": "← 返回新闻与活动"
+  },
+  "ContentPolicy": {
+    "heading": "内容政策",
+    "placeholder": "内容政策详情将在此显示。"
+  },
+  "PrivacyPolicy": {
+    "heading": "隐私政策",
+    "placeholder": "隐私政策详情将在此显示。"
+  },
+  "MediaPolicy": {
+    "heading": "图片与视频使用政策",
+    "placeholder": "图片与视频使用政策详情将在此显示。"
+  },
+  "Footer": {
+    "taglineLine1": "皮肤科诊所",
+    "taglineLine2": "高科技",
+    "description": "Carina Beauty Clinic — 我们引领非侵入式提拉紧致与抗衰新趋势,为每一位客户保证信赖、卓越与透明的体验!",
+    "contactHeading": "联系信息",
+    "addressLabel": "诊所地址",
+    "addressLine1": "09 Đường B4, Sala Urban Area,",
+    "addressLine2": "An Khánh, 胡志明市",
+    "hoursLabel": "营业时间",
+    "hoursValue": "周一至周日:9:00 - 21:00",
+    "careLabel": "客户服务",
+    "hotlineValue": "热线:+84 77 399 3968",
+    "emailValue": "邮箱:carinabeauty.info@gmail.com",
+    "featuredHeading": "精选栏目",
+    "featuredAbout": "关于我们",
+    "featuredServices": "服务项目",
+    "featuredKnowledge": "美容知识",
+    "featuredPromotions": "优惠活动",
+    "featuredNews": "新闻与活动",
+    "supportHeading": "支持",
+    "supportContent": "内容政策",
+    "supportPrivacy": "隐私政策",
+    "supportMedia": "图片与视频使用政策",
+    "supportContact": "联系我们",
+    "connectHeading": "关注我们",
+    "socialFacebook": "Facebook",
+    "socialInstagram": "Instagram",
+    "socialTiktok": "TikTok",
+    "socialYoutube": "YouTube",
+    "socialZalo": "Zalo",
+    "disclaimer": "本网站所有信息、图片及视频均归Carina Beauty Clinic所有。未经Carina许可,任何一方不得以任何形式引用或使用!",
+    "copyright": "2026 © Carina Beauty Clinic. 版权所有。"
+  }
+}

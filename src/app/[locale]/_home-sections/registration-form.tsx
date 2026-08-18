@@ -15,7 +15,7 @@ export function RegistrationForm() {
   const t = useTranslations("RegistrationForm");
 
   return (
-    <section className="bg-white px-4 py-8 sm:px-6 md:px-10 lg:px-28 lg:py-12">
+    <section id="registration-form" className="scroll-mt-20 bg-white px-4 py-8 sm:px-6 md:px-10 lg:px-28 lg:py-12">
       <div className="mx-auto flex max-w-[1216px] flex-col items-center gap-4 pb-6 text-center lg:gap-2 lg:pb-8">
         <p className="font-serif text-xs tracking-[2.4px] text-[var(--color-accent)] uppercase">{t("eyebrow")}</p>
         <h2 className="text-2xl font-medium text-[var(--color-accent)] lg:text-5xl">{t("heading")}</h2>

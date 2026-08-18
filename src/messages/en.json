@@ -23,7 +23,8 @@
     "contact": "Contact",
     "menu": "Menu",
     "switchToEnglish": "Switch to English",
-    "switchToVietnamese": "Switch to Vietnamese"
+    "switchToVietnamese": "Switch to Vietnamese",
+    "switchToChinese": "Switch to Chinese"
   },
   "Hero": {
     "badge": "High-Tech Dermatology Clinic",
@@ -46,16 +47,15 @@
     "heading": "Featured Services at Carina",
     "chipExclusive": "Exclusive",
     "chipLiftingRejuvenation": "Lifting & Rejuvenation",
-    "chipMelasma": "Melasma Treatment",
-    "chipScar": "Scar Treatment",
-    "chipAcne": "Acne Treatment",
+    "chipSkinTreatment": "Skin Treatment",
     "chipBodyCare": "Body Care",
     "chipSkinCare": "Skin Care",
     "chipRejuvenationInjections": "Rejuvenation Injections",
     "cardLunaShine": "Luna Shine",
     "cardSolarRise": "Solar Rise",
     "cardUltherPrimeX": "Ulther Prime X",
-    "cta": "BOOK A CONSULTATION",
+    "ctaMore": "SEE MORE",
+    "ctaBooking": "BOOK A CONSULTATION",
     "scrollPrev": "Previous",
     "scrollNext": "Next",
     "emptyCategory": "No services in this category yet."
@@ -106,17 +106,6 @@
     "videosHeading": "Featured Short Videos",
     "newsHeading": "News & Events",
     "viewAll": "View All",
-    "video1Caption": "Dr. Bui Duc Trung explains how UV rays affect the skin and shares key tips for sun protection.",
-    "video2Caption": "Is following a treatment plan really necessary, or just a clinic sales tactic?",
-    "video3Caption": "Why do some people still get melasma back after 5-7 laser sessions?",
-    "video4Caption": "The pressure behind being the new generation's \"golden girl\" — Bich Ngoc opens up for the first time.",
-    "video5Caption": "You only get treatments if you're rich? Why bother if you're not?",
-    "news1Title": "Dr. Le Tuan Anh attends a seminar on Alma Hybrid & Alma PrimeX",
-    "news1Date": "June 28, 2026",
-    "news2Title": "Technology transfer signing ceremony between Carina Beauty Clinic & Cutera",
-    "news2Date": "June 28, 2026",
-    "news3Title": "REBORN TO RISE — Carina's 1st Anniversary",
-    "news3Date": "February 1, 2026",
     "scrollPrev": "Previous",
     "scrollNext": "Next",
     "closeVideo": "Close video",
@@ -200,15 +189,21 @@
   },
   "BeautyKnowledge": {
     "heading": "Beauty Knowledge",
-    "placeholder": "Articles and beauty tips will appear here."
+    "description": "Dermatology and skincare knowledge from Carina Beauty Clinic's doctors — treatments, technology, and skin care tips.",
+    "empty": "No articles yet — check back soon.",
+    "backToList": "← Back to Beauty Knowledge"
   },
   "Promotions": {
     "heading": "Promotions",
-    "placeholder": "Current offers and promotions will appear here."
+    "description": "The latest promotions and offers from Carina Beauty Clinic.",
+    "empty": "No promotions yet — check back soon.",
+    "backToList": "← Back to Promotions"
   },
   "NewsEvents": {
     "heading": "News & Events",
-    "placeholder": "Clinic news and events will appear here."
+    "description": "The latest news and events from Carina Beauty Clinic.",
+    "empty": "No news yet — check back soon.",
+    "backToList": "← Back to News & Events"
   },
   "ContentPolicy": {
     "heading": "Content Policy",

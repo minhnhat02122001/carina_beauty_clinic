@@ -14,7 +14,7 @@
     "about": "Về chúng tôi",
     "exclusive": "Độc quyền",
     "liftingRejuvenation": "Nâng cơ & trẻ hóa",
-    "skinTherapy": "Trị liệu da",
+    "skinTherapy": "Điều trị da",
     "rejuvenationInjections": "Tiêm trẻ hóa",
     "bodyCare": "Chăm sóc vóc dáng",
     "skinCare": "Chăm sóc da",
@@ -23,7 +23,8 @@
     "contact": "Liên hệ",
     "menu": "Menu",
     "switchToEnglish": "Chuyển sang tiếng Anh",
-    "switchToVietnamese": "Chuyển sang tiếng Việt"
+    "switchToVietnamese": "Chuyển sang tiếng Việt",
+    "switchToChinese": "Chuyển sang tiếng Trung"
   },
   "Hero": {
     "badge": "High-Tech Dermatology Clinic",
@@ -46,16 +47,15 @@
     "heading": "Dịch Vụ Nổi Bật Tại Carina",
     "chipExclusive": "Độc quyền",
     "chipLiftingRejuvenation": "Nâng cơ trẻ hoá",
-    "chipMelasma": "Điều trị nám",
-    "chipScar": "Điều trị sẹo",
-    "chipAcne": "Điều trị mụn",
+    "chipSkinTreatment": "Điều trị da",
     "chipBodyCare": "Chăm sóc vóc dáng",
     "chipSkinCare": "Chăm sóc da",
     "chipRejuvenationInjections": "Tiêm trẻ hoá",
     "cardLunaShine": "Luna Shine",
     "cardSolarRise": "Solar Rise",
     "cardUltherPrimeX": "Ulther Prime X",
-    "cta": "ĐẶT LỊCH TƯ VẤN",
+    "ctaMore": "XEM THÊM",
+    "ctaBooking": "ĐẶT LỊCH TƯ VẤN",
     "scrollPrev": "Trước",
     "scrollNext": "Tiếp theo",
     "emptyCategory": "Chưa có dịch vụ trong danh mục này."
@@ -106,17 +106,6 @@
     "videosHeading": "Video Ngắn Nổi Bật",
     "newsHeading": "Tin Tức - Sự Kiện Nổi Bật",
     "viewAll": "Xem Tất Cả",
-    "video1Caption": "BS CKI Bùi Đức Trung sẽ giải thích rõ cơ chế tia UV tác động lên da, đồng thời chia sẻ những lưu ý quan trọng khi chống nắng.",
-    "video2Caption": "Bắt đi theo liệu trình liệu có phải là chiêu trò của các Clinic?",
-    "video3Caption": "Nếu chỉ 1 mình Laser trị Nám là đủ, vì sao có người làm Laser 5-7 lần rồi vẫn bị tái Nám?",
-    "video4Caption": "Bích Ngọc lần đầu trải lòng về áp lực phía sau danh xưng \"Ngọc nữ\" màn ảnh thế hệ mới!",
-    "video5Caption": "Giàu thì mới đi làm đẹp chứ Nghèo thì làm đẹp làm gì?",
-    "news1Title": "Bác sĩ CKI. Lê Tuấn Anh tham dự báo cáo về Alma Hybrid & Alma PrimeX",
-    "news1Date": "28 tháng 6, 2026",
-    "news2Title": "Lễ ký kết chuyển giao công nghệ Excel V+ giữa Carina Beauty Clinic & Cutera",
-    "news2Date": "28 tháng 6, 2026",
-    "news3Title": "REBORN TO RISE - Sinh nhật Carina 1 Tuổi",
-    "news3Date": "01 tháng 02, 2026",
     "scrollPrev": "Trước",
     "scrollNext": "Tiếp theo",
     "closeVideo": "Đóng video",
@@ -167,7 +156,7 @@
     "placeholder": "Thông tin chi tiết cho nhóm dịch vụ này sẽ hiển thị tại đây."
   },
   "ServiceSkinTherapy": {
-    "heading": "Trị Liệu Da",
+    "heading": "Điều Trị Da",
     "placeholder": "Thông tin chi tiết cho nhóm dịch vụ này sẽ hiển thị tại đây."
   },
   "ServiceRejuvenationInjections": {
@@ -200,15 +189,21 @@
   },
   "BeautyKnowledge": {
     "heading": "Kiến Thức Làm Đẹp",
-    "placeholder": "Các bài viết và mẹo làm đẹp sẽ hiển thị tại đây."
+    "description": "Kiến thức da liễu và chăm sóc da từ đội ngũ bác sĩ Carina Beauty Clinic — liệu trình, công nghệ và bí quyết chăm sóc da.",
+    "empty": "Chưa có bài viết nào — vui lòng quay lại sau.",
+    "backToList": "← Quay lại Kiến Thức Làm Đẹp"
   },
   "Promotions": {
     "heading": "Khuyến Mãi",
-    "placeholder": "Các chương trình khuyến mãi hiện tại sẽ hiển thị tại đây."
+    "description": "Chương trình khuyến mãi và ưu đãi mới nhất từ Carina Beauty Clinic.",
+    "empty": "Chưa có chương trình khuyến mãi nào — vui lòng quay lại sau.",
+    "backToList": "← Quay lại Khuyến Mãi"
   },
   "NewsEvents": {
     "heading": "Tin Tức - Sự Kiện",
-    "placeholder": "Tin tức và sự kiện của phòng khám sẽ hiển thị tại đây."
+    "description": "Tin tức và sự kiện mới nhất từ Carina Beauty Clinic.",
+    "empty": "Chưa có tin tức nào — vui lòng quay lại sau.",
+    "backToList": "← Quay lại Tin Tức - Sự Kiện"
   },
   "ContentPolicy": {
     "heading": "Chính Sách Nội Dung",

@@ -19,7 +19,13 @@ function CarouselControl({
   edgeOffset: "inset" | "flush";
 }) {
   const offsetClassName =
-    edgeOffset === "flush" ? (direction === "left" ? "-left-4" : "-right-4") : direction === "left" ? "left-2" : "right-2";
+    edgeOffset === "flush"
+      ? direction === "left"
+        ? "-left-4"
+        : "-right-4"
+      : direction === "left"
+        ? "left-2"
+        : "right-2";
   return (
     <button
       type="button"
@@ -29,7 +35,9 @@ function CarouselControl({
     >
       <span className="relative size-6 shrink-0 overflow-hidden rounded-full">
         <Image
-          src={direction === "left" ? "/images/services/icon-chevron-left.svg" : "/images/services/icon-chevron-right.svg"}
+          src={
+            direction === "left" ? "/images/services/icon-chevron-left.svg" : "/images/services/icon-chevron-right.svg"
+          }
           alt=""
           fill
           className="object-contain"
@@ -83,7 +91,10 @@ export function Carousel({
         return;
       }
       const nextItem = items.find((item) => item.offsetLeft > track.scrollLeft + EDGE_TOLERANCE_PX);
-      track.scrollTo({ left: Math.min(nextItem ? nextItem.offsetLeft : maxScrollLeft, maxScrollLeft), behavior: "smooth" });
+      track.scrollTo({
+        left: Math.min(nextItem ? nextItem.offsetLeft : maxScrollLeft, maxScrollLeft),
+        behavior: "smooth",
+      });
     } else {
       const atStart = track.scrollLeft <= EDGE_TOLERANCE_PX;
       if (atStart) {
@@ -129,11 +140,11 @@ export function Carousel({
     >
       <div
         ref={trackRef}
-        className="flex w-full snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex w-full snap-x snap-mandatory [scrollbar-width:none] gap-4 overflow-x-auto scroll-smooth [&::-webkit-scrollbar]:hidden"
         style={trackStyle}
       >
         {Children.map(children, (child) => (
-          <div className="min-w-[var(--carousel-item-min-base)] flex-1 shrink snap-start lg:min-w-[var(--carousel-item-min-lg)]">
+          <div className="w-[var(--carousel-item-min-base)] shrink-0 snap-start lg:w-[var(--carousel-item-min-lg)]">
             {child}
           </div>
         ))}

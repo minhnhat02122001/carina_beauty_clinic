@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Montserrat, Merriweather, Geist_Mono } from "next/font/google";
+import { Montserrat, Merriweather, Geist_Mono, Cormorant_Garamond } from "next/font/google";
 import localFont from "next/font/local";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -26,6 +26,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const cormorantGaramond = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin", "vietnamese"],
+  weight: ["400", "500", "600", "700"],
+});
+
 // Figma's "1FTV VIP Fairyland" — a proprietary Vietnamese script font,
 // self-hosted from public/fonts since it isn't on Google Fonts.
 const fairyland = localFont({
@@ -38,15 +44,12 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata" });
 
   return {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
     title: t("title"),
     description: t("description"),
   };
@@ -70,9 +73,9 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${montserrat.variable} ${merriweather.variable} ${geistMono.variable} ${fairyland.variable} h-full antialiased`}
+      className={`${montserrat.variable} ${merriweather.variable} ${geistMono.variable} ${fairyland.variable} ${cormorantGaramond.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="flex min-h-full flex-col">
         <NextIntlClientProvider>
           <Nav />
           <main className="flex-1">{children}</main>

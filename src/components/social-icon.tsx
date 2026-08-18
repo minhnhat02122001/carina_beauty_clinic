@@ -2,15 +2,7 @@ import Image from "next/image";
 
 type Platform = "facebook" | "instagram" | "tiktok" | "youtube" | "zalo";
 
-export function SocialIcon({
-  platform,
-  label,
-  href,
-}: {
-  platform: Platform;
-  label: string;
-  href: string;
-}) {
+export function SocialIcon({ platform, label, href }: { platform: Platform; label: string; href: string }) {
   return (
     <a
       href={href}
@@ -52,12 +44,8 @@ export function SocialIcon({
           </span>
         </>
       )}
-      {platform === "instagram" && (
-        <Image src="/images/footer/social-instagram.svg" alt="" fill sizes="48px" />
-      )}
-      {platform === "zalo" && (
-        <Image src="/images/footer/social-zalo.svg" alt="" fill sizes="48px" />
-      )}
+      {platform === "instagram" && <Image src="/images/footer/social-instagram.svg" alt="" fill sizes="48px" />}
+      {platform === "zalo" && <Image src="/images/footer/social-zalo.svg" alt="" fill sizes="48px" />}
     </a>
   );
 }

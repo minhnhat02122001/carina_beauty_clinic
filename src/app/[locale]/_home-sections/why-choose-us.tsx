@@ -41,20 +41,20 @@ export function WhyChooseUs() {
               <p className="text-center text-base font-semibold text-[var(--color-accent)] lg:pb-1 lg:text-lg">
                 {t(item.titleKey)}
               </p>
-              <p className="text-center text-[10px] text-[rgba(99,43,14,0.7)] lg:pt-3 lg:text-sm">
-                {t(item.descKey)}
-              </p>
+              <p className="text-center text-[10px] text-[rgba(99,43,14,0.7)] lg:pt-3 lg:text-sm">{t(item.descKey)}</p>
             </div>
           ))}
         </div>
 
-        <div className="grid w-full grid-cols-2 gap-x-2 gap-y-4 rounded-3xl bg-[var(--foreground)] px-4 py-4 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-0 lg:px-8 lg:py-10">
+        <div className="grid w-full grid-cols-2 gap-x-2 gap-y-4 rounded-3xl bg-[var(--foreground)] px-3 py-2 sm:px-4 sm:py-3 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-0 lg:px-2 lg:py-3">
           {STATS.map((stat) => (
             <div key={stat.valueKey} className="flex flex-col items-center gap-2 lg:gap-0">
-              <p className="text-center text-[32px] font-semibold text-[var(--color-background-alt)] sm:text-[42px] lg:text-[56px] xl:text-[70px]">
+              <p className="font-cormorant text-center text-[24px] font-semibold text-[var(--color-background-alt)] sm:text-[32px] lg:text-[56px]">
                 {t(stat.valueKey)}
               </p>
-              <p className="text-center text-[10px] text-white/80 lg:pt-5 lg:text-xl">{t(stat.labelKey)}</p>
+              <p className="text-center text-[10px] text-white/80 sm:text-xs lg:pt-5 lg:text-base xl:text-xl">
+                {t(stat.labelKey)}
+              </p>
             </div>
           ))}
         </div>

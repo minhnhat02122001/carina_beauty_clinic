@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
+import Image from "next/image";
+import { useState } from "react";
 
 const NAV_LINKS = [
   { href: "/about", key: "about" },
@@ -19,7 +19,7 @@ const NAV_LINKS = [
 function ConsultButton({ label, className }: { label: string; className?: string }) {
   return (
     <Link
-      href="/booking"
+      href={{ pathname: "/", hash: "registration-form" }}
       className={`inline-flex shrink-0 items-center gap-2 rounded-full bg-[var(--color-accent)] px-5 py-2 text-xs font-bold text-[var(--color-accent-foreground)] hover:opacity-90 lg:px-6 lg:py-2.5 lg:text-sm ${className ?? ""}`}
     >
       <span className="relative size-4 shrink-0 lg:size-[16px]">
@@ -51,10 +51,14 @@ export function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="relative border border-[var(--color-border)] bg-[rgba(255,255,255,0.95)]">
+    <header className="sticky top-0 z-50 bg-[var(--background)] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.08)] lg:static lg:shadow-none">
       {/* Desktop */}
       <div className="mx-auto hidden max-w-[1440px] items-center justify-between gap-6 px-6 py-4 lg:flex">
-        <Link href="/" aria-label={t("home")} className="relative h-12 w-auto aspect-[205/68] shrink-0 lg:h-14 xl:h-[68px]">
+        <Link
+          href="/"
+          aria-label={t("home")}
+          className="relative aspect-[205/68] h-12 w-auto shrink-0 lg:h-14 xl:h-[68px]"
+        >
           <Image
             src="/images/logo/logo-full.png"
             alt="Carina Beauty Clinic"
@@ -69,7 +73,7 @@ export function Nav() {
             <Link
               key={link.href}
               href={link.href}
-              className="whitespace-nowrap text-sm font-bold text-[var(--foreground)] opacity-80 hover:opacity-60 lg:text-[15px] xl:text-base"
+              className="text-sm font-bold whitespace-nowrap text-[var(--foreground)] opacity-80 hover:opacity-60 lg:text-[15px] xl:text-base"
             >
               {t(link.key)}
             </Link>
@@ -90,7 +94,7 @@ export function Nav() {
         >
           <MenuIcon />
         </button>
-        <Link href="/" aria-label={t("home")} className="relative h-8 w-auto aspect-[205/68] sm:h-10">
+        <Link href="/" aria-label={t("home")} className="relative aspect-[205/68] h-8 w-auto sm:h-10">
           <Image
             src="/images/logo/logo-full.png"
             alt="Carina Beauty Clinic"
@@ -104,10 +108,7 @@ export function Nav() {
       </div>
 
       {menuOpen && (
-        <nav
-          aria-label={t("menu")}
-          className="flex flex-col gap-1 px-4 py-4 lg:hidden"
-        >
+        <nav aria-label={t("menu")} className="flex flex-col gap-1 px-4 py-4 lg:hidden">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}

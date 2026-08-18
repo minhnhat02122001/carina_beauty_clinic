@@ -8,7 +8,7 @@
   Tailwind (`bg-[var(--color-accent)]`) or the `@theme inline` tokens —
   never a literal hex value in a component.
 - Path alias `@/*` maps to `src/*` (see `tsconfig.json`).
-- No comments explaining what code does — only for non-obvious *why*
+- No comments explaining what code does — only for non-obvious _why_
   (a workaround, a hidden constraint).
 
 ## Responsive: mobile-first, granular, fluid
