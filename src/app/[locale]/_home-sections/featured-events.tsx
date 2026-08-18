@@ -61,7 +61,13 @@ function VideoModal({
             <path d="M6 6L18 18M6 18L18 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           </svg>
         </button>
-        <div className="relative aspect-[9/16] h-[70dvh] max-h-[700px] w-auto max-w-full overflow-hidden rounded-xl bg-black">
+        <div
+          className="relative overflow-hidden rounded-xl bg-black"
+          style={{
+            height: "min(70dvh, 700px)",
+            width: "min(90vw, calc(min(70dvh, 700px) * 9 / 16))",
+          }}
+        >
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${embedId}?autoplay=1&playsinline=1`}
             title={title}
