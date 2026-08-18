@@ -26,10 +26,23 @@ function VideoModal({
       if (e.key === "Escape") onClose();
     }
     document.addEventListener("keydown", handleKeyDown);
-    document.body.style.overflow = "hidden";
+
+    // `overflow: hidden` alone doesn't block touch-driven scroll on iOS
+    // Safari — pinning the body via `position: fixed` does.
+    const scrollY = window.scrollY;
+    const { style } = document.body;
+    style.position = "fixed";
+    style.top = `-${scrollY}px`;
+    style.left = "0";
+    style.right = "0";
+
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
+      style.position = "";
+      style.top = "";
+      style.left = "";
+      style.right = "";
+      window.scrollTo(0, scrollY);
     };
   }, [onClose]);
 
