@@ -36,7 +36,7 @@ function VideoModal({
   const embedId = videoId.split("?")[0];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" onClick={onClose}>
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4" onClick={onClose}>
       <div className="relative flex w-auto max-w-full flex-col items-center" onClick={(e) => e.stopPropagation()}>
         <button
           type="button"
@@ -48,7 +48,7 @@ function VideoModal({
             <path d="M6 6L18 18M6 18L18 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           </svg>
         </button>
-        <div className="relative aspect-[9/16] h-[70vh] max-h-[700px] w-auto max-w-full overflow-hidden rounded-xl bg-black">
+        <div className="relative aspect-[9/16] h-[70dvh] max-h-[700px] w-auto max-w-full overflow-hidden rounded-xl bg-black">
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${embedId}?autoplay=1&playsinline=1`}
             title={title}

@@ -84,7 +84,7 @@ export function Nav() {
       </div>
 
       {/* Mobile */}
-      <div className="flex items-center justify-between px-4 py-2 lg:hidden">
+      <div className="relative flex items-center justify-between px-4 py-2 lg:hidden">
         <button
           type="button"
           onClick={() => setMenuOpen((open) => !open)}
@@ -94,7 +94,11 @@ export function Nav() {
         >
           <MenuIcon />
         </button>
-        <Link href="/" aria-label={t("home")} className="relative aspect-[205/68] h-8 w-auto sm:h-10">
+        <Link
+          href="/"
+          aria-label={t("home")}
+          className="absolute top-1/2 left-1/2 aspect-[205/68] h-8 w-auto -translate-x-1/2 -translate-y-1/2 sm:h-10"
+        >
           <Image
             src="/images/logo/logo-full.png"
             alt="Carina Beauty Clinic"
