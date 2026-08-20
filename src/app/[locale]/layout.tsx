@@ -44,6 +44,11 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+// Sanity-backed pages are statically generated at build time; without this,
+// production only picks up new/edited content on the next deploy. Applies to
+// every page under this layout unless a route overrides it.
+export const revalidate = 60;
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata" });
