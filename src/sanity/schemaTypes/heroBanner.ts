@@ -20,6 +20,14 @@ export const heroBanner = defineType({
       initialValue: 0,
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: "url",
+      title: "Liên kết trang đích",
+      description:
+        "Dán URL đầy đủ (VD: https://...) hoặc đường dẫn nội bộ (VD: /khuyen-mai). Để trống nếu banner không cần liên kết.",
+      type: "url",
+      validation: (Rule) => Rule.uri({ allowRelative: true, scheme: ["http", "https"] }),
+    }),
   ],
   preview: {
     select: { media: "image", order: "order" },

@@ -49,6 +49,14 @@ export const serviceHighlight = defineType({
       validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
+      name: "treatment",
+      title: "Liên kết đến dịch vụ chi tiết",
+      description: "Chọn dịch vụ để nhấn vào ảnh sẽ dẫn đến trang chi tiết dịch vụ đó. Để trống nếu không cần liên kết.",
+      type: "reference",
+      to: [{ type: "treatment" }],
+      group: "metadata",
+    }),
+    defineField({
       name: "order",
       title: "Thứ tự",
       description: "Số nhỏ hơn sẽ hiển thị trước trong carousel.",

@@ -13,7 +13,7 @@
     "gallery": "Thư viện ảnh",
     "about": "Về chúng tôi",
     "exclusive": "Độc quyền",
-    "liftingRejuvenation": "Nâng cơ & trẻ hóa",
+    "liftingRejuvenation": "Nâng cơ - xoá nhăn",
     "skinTherapy": "Điều trị da",
     "rejuvenationInjections": "Tiêm trẻ hóa",
     "bodyCare": "Chăm sóc vóc dáng",
@@ -32,7 +32,7 @@
     "tagline": "PHÒNG KHÁM DA LIỄU CÔNG NGHỆ CAO TẠI TP.HCM",
     "description1": "Tiên phong xu hướng nâng cơ - trẻ hóa không xâm lấn. Nâng tầm chuẩn mực chăm sóc da bằng hệ sinh thái công nghệ cao thế hệ mới & tân tiến nhất.",
     "description2": "Uy tín, đẳng cấp và minh bạch trong từng trải nghiệm tại Carina Beauty Clinic!",
-    "ctaServices": "DỊCH VỤ",
+    "ctaMore": "XEM THÊM",
     "ctaBooking": "ĐẶT LỊCH TƯ VẤN",
     "statDoctorsValue": "10+",
     "statDoctorsLabel": "Kinh Nghiệm Bác Sĩ",
@@ -54,7 +54,6 @@
     "cardLunaShine": "Luna Shine",
     "cardSolarRise": "Solar Rise",
     "cardUltherPrimeX": "Ulther Prime X",
-    "ctaMore": "XEM THÊM",
     "ctaBooking": "ĐẶT LỊCH TƯ VẤN",
     "scrollPrev": "Trước",
     "scrollNext": "Tiếp theo",
@@ -78,6 +77,12 @@
     "ctaBooking": "ĐẶT LỊCH TƯ VẤN",
     "scrollPrev": "Trước",
     "scrollNext": "Tiếp theo"
+  },
+  "DoctorDetail": {
+    "backToList": "← Quay lại Đội Ngũ Bác Sĩ",
+    "bookingCta": "Đặt Lịch Khám 1:1",
+    "clinicalImages": "Hình Ảnh Lâm Sàng Thực Tế",
+    "comingSoon": "Nội dung chi tiết đang được cập nhật."
   },
   "StrategicPartners": {
     "heading": "Đối Tác Quốc Tế"
@@ -149,27 +154,39 @@
   },
   "ServiceExclusive": {
     "heading": "Độc Quyền",
-    "placeholder": "Thông tin chi tiết cho nhóm dịch vụ này sẽ hiển thị tại đây."
+    "empty": "Chưa có dịch vụ trong danh mục này.",
+    "backToList": "← Quay lại Độc Quyền",
+    "comingSoon": "Nội dung chi tiết đang được cập nhật."
   },
   "ServiceLiftingRejuvenation": {
-    "heading": "Nâng Cơ & Trẻ Hóa",
-    "placeholder": "Thông tin chi tiết cho nhóm dịch vụ này sẽ hiển thị tại đây."
+    "heading": "Nâng Cơ - Xoá Nhăn",
+    "empty": "Chưa có dịch vụ trong danh mục này.",
+    "backToList": "← Quay lại Nâng Cơ - Xoá Nhăn",
+    "comingSoon": "Nội dung chi tiết đang được cập nhật."
   },
   "ServiceSkinTherapy": {
     "heading": "Điều Trị Da",
-    "placeholder": "Thông tin chi tiết cho nhóm dịch vụ này sẽ hiển thị tại đây."
+    "empty": "Chưa có dịch vụ trong danh mục này.",
+    "backToList": "← Quay lại Điều Trị Da",
+    "comingSoon": "Nội dung chi tiết đang được cập nhật."
   },
   "ServiceRejuvenationInjections": {
     "heading": "Tiêm Trẻ Hóa",
-    "placeholder": "Thông tin chi tiết cho nhóm dịch vụ này sẽ hiển thị tại đây."
+    "empty": "Chưa có dịch vụ trong danh mục này.",
+    "backToList": "← Quay lại Tiêm Trẻ Hóa",
+    "comingSoon": "Nội dung chi tiết đang được cập nhật."
   },
   "ServiceBodyCare": {
     "heading": "Chăm Sóc Vóc Dáng",
-    "placeholder": "Thông tin chi tiết cho nhóm dịch vụ này sẽ hiển thị tại đây."
+    "empty": "Chưa có dịch vụ trong danh mục này.",
+    "backToList": "← Quay lại Chăm Sóc Vóc Dáng",
+    "comingSoon": "Nội dung chi tiết đang được cập nhật."
   },
   "ServiceSkinCare": {
     "heading": "Chăm Sóc Da",
-    "placeholder": "Thông tin chi tiết cho nhóm dịch vụ này sẽ hiển thị tại đây."
+    "empty": "Chưa có dịch vụ trong danh mục này.",
+    "backToList": "← Quay lại Chăm Sóc Da",
+    "comingSoon": "Nội dung chi tiết đang được cập nhật."
   },
   "Gallery": {
     "heading": "Thư Viện Ảnh",
@@ -205,6 +222,13 @@
     "empty": "Chưa có tin tức nào — vui lòng quay lại sau.",
     "backToList": "← Quay lại Tin Tức - Sự Kiện"
   },
+  "BlogPost": {
+    "share": "Chia sẻ bài viết này",
+    "copyLink": "Sao chép liên kết",
+    "linkCopied": "Đã sao chép liên kết!",
+    "relatedPosts": "Bài Viết Liên Quan",
+    "recentPosts": "Bài Viết Mới"
+  },
   "ContentPolicy": {
     "heading": "Chính Sách Nội Dung",
     "placeholder": "Chi tiết chính sách nội dung sẽ hiển thị tại đây."
@@ -216,6 +240,13 @@
   "MediaPolicy": {
     "heading": "Chính Sách Hình Ảnh, Video",
     "placeholder": "Chi tiết chính sách hình ảnh, video sẽ hiển thị tại đây."
+  },
+  "FloatingContact": {
+    "zaloLabel": "Chat qua Zalo",
+    "messengerLabel": "Chat qua Messenger",
+    "callLabel": "Gọi cho chúng tôi",
+    "calendarLabel": "Đặt lịch hẹn",
+    "scrollToTopLabel": "Cuộn lên đầu trang"
   },
   "Footer": {
     "taglineLine1": "PHÒNG KHÁM DA LIỄU",
@@ -232,7 +263,6 @@
     "emailValue": "Email: carinabeauty.info@gmail.com",
     "featuredHeading": "MỤC NỔI BẬT",
     "featuredAbout": "Về chúng tôi",
-    "featuredServices": "Dịch vụ",
     "featuredKnowledge": "Kiến thức làm đẹp",
     "featuredPromotions": "Khuyến mãi",
     "featuredNews": "Tin tức - Sự kiện",

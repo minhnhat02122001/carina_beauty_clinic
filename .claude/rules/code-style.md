@@ -24,3 +24,9 @@
   `h-*`) with `<Image fill className="object-contain" sizes="...">` over
   fixed numeric `width`/`height` props, so they scale with their container
   instead of staying pixel-locked.
+- This applies to Tailwind fixed widths too (`w-32`, `w-40`, etc.), not just
+  the `width`/`height` props — a fixed Tailwind size inside a variable-width
+  container (e.g. a carousel column, which shrinks on mobile) can overflow
+  or crowd it even though it looked fine at the breakpoint you tested. Never
+  treat a sizing/layout change as done without checking a real mobile
+  viewport (~375px); mobile is the priority and must not break.

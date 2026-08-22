@@ -13,7 +13,7 @@
     "gallery": "图库",
     "about": "关于我们",
     "exclusive": "尊享项目",
-    "liftingRejuvenation": "提升紧致",
+    "liftingRejuvenation": "提升除皱",
     "skinTherapy": "皮肤治疗",
     "rejuvenationInjections": "焕颜注射",
     "bodyCare": "身体护理",
@@ -32,7 +32,7 @@
     "tagline": "胡志明市高科技皮肤科诊所",
     "description1": "引领非侵入式提拉紧致与抗衰新趋势,以全新一代高科技生态系统提升护肤标准。",
     "description2": "在Carina Beauty Clinic的每一次体验中,尽享信赖、卓越与透明!",
-    "ctaServices": "服务项目",
+    "ctaMore": "查看更多",
     "ctaBooking": "预约咨询",
     "statDoctorsValue": "10+",
     "statDoctorsLabel": "医生从业经验(年)",
@@ -54,7 +54,6 @@
     "cardLunaShine": "Luna Shine",
     "cardSolarRise": "Solar Rise",
     "cardUltherPrimeX": "Ulther Prime X",
-    "ctaMore": "查看更多",
     "ctaBooking": "预约咨询",
     "scrollPrev": "上一页",
     "scrollNext": "下一页",
@@ -78,6 +77,12 @@
     "ctaBooking": "预约咨询",
     "scrollPrev": "上一页",
     "scrollNext": "下一页"
+  },
+  "DoctorDetail": {
+    "backToList": "← 返回医疗团队",
+    "bookingCta": "预约1对1咨询",
+    "clinicalImages": "临床实拍图",
+    "comingSoon": "详细内容即将上线。"
   },
   "StrategicPartners": {
     "heading": "国际合作伙伴"
@@ -149,27 +154,39 @@
   },
   "ServiceExclusive": {
     "heading": "尊享项目",
-    "placeholder": "该服务分类的详细信息将在此显示。"
+    "empty": "该分类暂无服务项目。",
+    "backToList": "← 返回尊享项目",
+    "comingSoon": "详细内容即将上线。"
   },
   "ServiceLiftingRejuvenation": {
-    "heading": "提升紧致",
-    "placeholder": "该服务分类的详细信息将在此显示。"
+    "heading": "提升除皱",
+    "empty": "该分类暂无服务项目。",
+    "backToList": "← 返回提升除皱",
+    "comingSoon": "详细内容即将上线。"
   },
   "ServiceSkinTherapy": {
     "heading": "皮肤治疗",
-    "placeholder": "该服务分类的详细信息将在此显示。"
+    "empty": "该分类暂无服务项目。",
+    "backToList": "← 返回皮肤治疗",
+    "comingSoon": "详细内容即将上线。"
   },
   "ServiceRejuvenationInjections": {
     "heading": "焕颜注射",
-    "placeholder": "该服务分类的详细信息将在此显示。"
+    "empty": "该分类暂无服务项目。",
+    "backToList": "← 返回焕颜注射",
+    "comingSoon": "详细内容即将上线。"
   },
   "ServiceBodyCare": {
     "heading": "身体护理",
-    "placeholder": "该服务分类的详细信息将在此显示。"
+    "empty": "该分类暂无服务项目。",
+    "backToList": "← 返回身体护理",
+    "comingSoon": "详细内容即将上线。"
   },
   "ServiceSkinCare": {
     "heading": "护肤",
-    "placeholder": "该服务分类的详细信息将在此显示。"
+    "empty": "该分类暂无服务项目。",
+    "backToList": "← 返回护肤",
+    "comingSoon": "详细内容即将上线。"
   },
   "Gallery": {
     "heading": "图库",
@@ -205,6 +222,13 @@
     "empty": "暂无新闻 — 请稍后再来查看。",
     "backToList": "← 返回新闻与活动"
   },
+  "BlogPost": {
+    "share": "分享这篇文章",
+    "copyLink": "复制链接",
+    "linkCopied": "链接已复制！",
+    "relatedPosts": "相关文章",
+    "recentPosts": "最新文章"
+  },
   "ContentPolicy": {
     "heading": "内容政策",
     "placeholder": "内容政策详情将在此显示。"
@@ -216,6 +240,13 @@
   "MediaPolicy": {
     "heading": "图片与视频使用政策",
     "placeholder": "图片与视频使用政策详情将在此显示。"
+  },
+  "FloatingContact": {
+    "zaloLabel": "通过 Zalo 聊天",
+    "messengerLabel": "通过 Messenger 聊天",
+    "callLabel": "致电我们",
+    "calendarLabel": "预约咨询",
+    "scrollToTopLabel": "返回顶部"
   },
   "Footer": {
     "taglineLine1": "皮肤科诊所",
@@ -232,7 +263,6 @@
     "emailValue": "邮箱:carinabeauty.info@gmail.com",
     "featuredHeading": "精选栏目",
     "featuredAbout": "关于我们",
-    "featuredServices": "服务项目",
     "featuredKnowledge": "美容知识",
     "featuredPromotions": "优惠活动",
     "featuredNews": "新闻与活动",

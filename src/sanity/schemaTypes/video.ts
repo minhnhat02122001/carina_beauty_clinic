@@ -54,20 +54,6 @@ export const video = defineType({
       group: "metadata",
     }),
     defineField({
-      name: "category",
-      title: "Danh mục",
-      type: "string",
-      group: "metadata",
-      options: {
-        list: [
-          { title: "Tin Tức - Sự Kiện", value: "newsEvents" },
-          { title: "Khuyến Mãi", value: "promotions" },
-          { title: "Kiến Thức Làm Đẹp", value: "beautyKnowledge" },
-        ],
-        layout: "radio",
-      },
-    }),
-    defineField({
       name: "tags",
       title: "Thẻ",
       type: "array",
@@ -93,6 +79,6 @@ export const video = defineType({
     }),
   ],
   preview: {
-    select: { title: "description", subtitle: "category", media: "thumbnail" },
+    select: { title: "description", media: "thumbnail" },
   },
 });

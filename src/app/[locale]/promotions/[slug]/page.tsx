@@ -3,9 +3,10 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
-import { getPostBySlug } from "@/sanity/lib/posts";
+import { getPostBySlug, getRecentPosts, getRelatedPosts } from "@/sanity/lib/posts";
 import { PostDetailView } from "@/components/blog/post-detail";
 import { localizedAlternates } from "@/lib/metadata";
+import { RegistrationForm } from "../../_home-sections/registration-form";
 
 export async function generateMetadata({
   params,
@@ -45,16 +46,35 @@ export default async function PromotionsDetailPage({
   params: Promise<{ locale: Locale; slug: string }>;
 }) {
   const { locale, slug } = await params;
-  const [t, post] = await Promise.all([getTranslations("Promotions"), getPostBySlug("promotions", slug, locale)]);
+  const [t, tBlog, post, relatedPosts, recentPosts] = await Promise.all([
+    getTranslations("Promotions"),
+    getTranslations("BlogPost"),
+    getPostBySlug("promotions", slug, locale),
+    getRelatedPosts("promotions", slug, locale),
+    getRecentPosts(slug, locale),
+  ]);
 
   if (!post) notFound();
 
   return (
-    <div className="mx-auto max-w-3xl px-4 sm:px-6">
-      <Link href="/promotions" className="mt-8 inline-block text-sm font-bold text-[var(--color-link)]">
-        {t("backToList")}
-      </Link>
-      <PostDetailView post={post} />
+    <div>
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <Link href="/promotions" className="mt-8 inline-block text-sm font-bold text-[var(--color-link)]">
+          {t("backToList")}
+        </Link>
+      </div>
+      <PostDetailView
+        post={post}
+        category="promotions"
+        relatedPosts={relatedPosts}
+        recentPosts={recentPosts}
+        shareLabel={tBlog("share")}
+        copyLinkLabel={tBlog("copyLink")}
+        linkCopiedLabel={tBlog("linkCopied")}
+        relatedPostsLabel={tBlog("relatedPosts")}
+        recentPostsLabel={tBlog("recentPosts")}
+      />
+      <RegistrationForm />
     </div>
   );
 }

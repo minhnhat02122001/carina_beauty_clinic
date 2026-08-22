@@ -15,6 +15,7 @@ export type FeaturedNewsItem = {
 export type PostSummary = {
   id: string;
   slug: string;
+  category: PostCategory;
   title: string;
   excerpt: string;
   date: string;
@@ -47,6 +48,38 @@ const LOCALIZED_TITLE = `select($locale == "vi" => title, $locale == "zh" => coa
 const LOCALIZED_EXCERPT = `select($locale == "vi" => excerpt, $locale == "zh" => coalesce(excerptZh, excerpt), coalesce(excerptEn, excerpt))`;
 const LOCALIZED_BODY = `select($locale == "vi" => body, $locale == "zh" => coalesce(bodyZh, body), coalesce(bodyEn, body))`;
 
+type RawPostSummary = {
+  _id: string;
+  slug: string;
+  category: PostCategory;
+  title: string;
+  excerpt: string | null;
+  coverImage: Parameters<typeof urlFor>[0] | null;
+  publishedAt: string;
+};
+
+function toSummary(post: RawPostSummary, locale: Locale): PostSummary {
+  return {
+    id: post._id,
+    slug: post.slug,
+    category: post.category,
+    title: post.title,
+    excerpt: post.excerpt ?? "",
+    date: formatDate(locale, post.publishedAt),
+    imageUrl: post.coverImage ? urlFor(post.coverImage).width(760).height(434).fit("crop").url() : null,
+  };
+}
+
+const POST_SUMMARY_PROJECTION = `{
+  _id,
+  "slug": slug.current,
+  category,
+  "title": ${LOCALIZED_TITLE},
+  "excerpt": ${LOCALIZED_EXCERPT},
+  coverImage,
+  publishedAt
+}`;
+
 const FEATURED_NEWS_QUERY = `*[_type == "post" && category == "newsEvents" && featured == true] | order(publishedAt desc)[0...3]{
   _id,
   "title": ${LOCALIZED_TITLE},
@@ -67,35 +100,27 @@ export async function getFeaturedNews(locale: Locale): Promise<FeaturedNewsItem[
   }));
 }
 
-const POSTS_BY_CATEGORY_QUERY = `*[_type == "post" && category == $category] | order(publishedAt desc){
-  _id,
-  "slug": slug.current,
-  "title": ${LOCALIZED_TITLE},
-  "excerpt": ${LOCALIZED_EXCERPT},
-  coverImage,
-  publishedAt
-}`;
+const POSTS_BY_CATEGORY_QUERY = `*[_type == "post" && category == $category] | order(publishedAt desc)${POST_SUMMARY_PROJECTION}`;
 
 export async function getPostsByCategory(category: PostCategory, locale: Locale): Promise<PostSummary[]> {
-  const posts = await client.fetch<
-    {
-      _id: string;
-      slug: string;
-      title: string;
-      excerpt: string | null;
-      coverImage: Parameters<typeof urlFor>[0] | null;
-      publishedAt: string;
-    }[]
-  >(POSTS_BY_CATEGORY_QUERY, { category, locale });
+  const posts = await client.fetch<RawPostSummary[]>(POSTS_BY_CATEGORY_QUERY, { category, locale });
+  return posts.map((post) => toSummary(post, locale));
+}
 
-  return posts.map((post) => ({
-    id: post._id,
-    slug: post.slug,
-    title: post.title,
-    excerpt: post.excerpt ?? "",
-    date: formatDate(locale, post.publishedAt),
-    imageUrl: post.coverImage ? urlFor(post.coverImage).width(760).height(434).fit("crop").url() : null,
-  }));
+const RELATED_POSTS_LIMIT = 4;
+const RELATED_POSTS_QUERY = `*[_type == "post" && category == $category && slug.current != $excludeSlug] | order(publishedAt desc)[0...${RELATED_POSTS_LIMIT}]${POST_SUMMARY_PROJECTION}`;
+
+export async function getRelatedPosts(category: PostCategory, excludeSlug: string, locale: Locale): Promise<PostSummary[]> {
+  const posts = await client.fetch<RawPostSummary[]>(RELATED_POSTS_QUERY, { category, excludeSlug, locale });
+  return posts.map((post) => toSummary(post, locale));
+}
+
+const RECENT_POSTS_LIMIT = 5;
+const RECENT_POSTS_QUERY = `*[_type == "post" && slug.current != $excludeSlug] | order(publishedAt desc)[0...${RECENT_POSTS_LIMIT}]${POST_SUMMARY_PROJECTION}`;
+
+export async function getRecentPosts(excludeSlug: string, locale: Locale): Promise<PostSummary[]> {
+  const posts = await client.fetch<RawPostSummary[]>(RECENT_POSTS_QUERY, { excludeSlug, locale });
+  return posts.map((post) => toSummary(post, locale));
 }
 
 const POST_BY_SLUG_QUERY = `*[_type == "post" && category == $category && slug.current == $slug][0]{
@@ -135,35 +160,11 @@ export type BeautyKnowledgeHome = {
   thumbnails: PostSummary[];
 };
 
-const BEAUTY_KNOWLEDGE_HOME_QUERY = `*[_type == "post" && category == "beautyKnowledge"] | order(publishedAt desc)[0...5]{
-  _id,
-  "slug": slug.current,
-  "title": ${LOCALIZED_TITLE},
-  "excerpt": ${LOCALIZED_EXCERPT},
-  coverImage,
-  publishedAt
-}`;
+const BEAUTY_KNOWLEDGE_HOME_QUERY = `*[_type == "post" && category == "beautyKnowledge"] | order(publishedAt desc)[0...5]${POST_SUMMARY_PROJECTION}`;
 
 export async function getBeautyKnowledgeHome(locale: Locale): Promise<BeautyKnowledgeHome> {
-  const posts = await client.fetch<
-    {
-      _id: string;
-      slug: string;
-      title: string;
-      excerpt: string | null;
-      coverImage: Parameters<typeof urlFor>[0] | null;
-      publishedAt: string;
-    }[]
-  >(BEAUTY_KNOWLEDGE_HOME_QUERY, { locale });
-
-  const items = posts.map((post) => ({
-    id: post._id,
-    slug: post.slug,
-    title: post.title,
-    excerpt: post.excerpt ?? "",
-    date: formatDate(locale, post.publishedAt),
-    imageUrl: post.coverImage ? urlFor(post.coverImage).width(760).height(434).fit("crop").url() : null,
-  }));
+  const posts = await client.fetch<RawPostSummary[]>(BEAUTY_KNOWLEDGE_HOME_QUERY, { locale });
+  const items = posts.map((post) => toSummary(post, locale));
 
   const [hero, ...thumbnails] = items;
   return { hero: hero ?? null, thumbnails };

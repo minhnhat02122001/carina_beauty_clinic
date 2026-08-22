@@ -7,6 +7,8 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { FloatingContact } from "@/components/floating-contact";
+import { getTreatmentsGroupedByCategory } from "@/sanity/lib/service";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -75,6 +77,8 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
 
+  const treatmentsByCategory = await getTreatmentsGroupedByCategory(locale);
+
   return (
     <html
       lang={locale}
@@ -82,9 +86,10 @@ export default async function LocaleLayout({
     >
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider>
-          <Nav />
+          <Nav treatmentsByCategory={treatmentsByCategory} />
           <main className="flex-1">{children}</main>
           <Footer />
+          <FloatingContact />
         </NextIntlClientProvider>
       </body>
     </html>

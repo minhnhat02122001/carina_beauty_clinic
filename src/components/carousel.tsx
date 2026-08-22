@@ -1,7 +1,6 @@
 "use client";
 
 import { Children, useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import Image from "next/image";
 
 const EDGE_TOLERANCE_PX = 2;
 const AUTO_SCROLL_INTERVAL_MS = 3000;
@@ -12,11 +11,17 @@ function CarouselControl({
   onClick,
   label,
   edgeOffset,
+  backgroundClassName,
+  borderClassName,
+  iconColorClassName,
 }: {
   direction: "left" | "right";
   onClick: () => void;
   label: string;
   edgeOffset: "inset" | "flush";
+  backgroundClassName: string;
+  borderClassName: string;
+  iconColorClassName: string;
 }) {
   const offsetClassName =
     edgeOffset === "flush"
@@ -26,24 +31,30 @@ function CarouselControl({
       : direction === "left"
         ? "left-2"
         : "right-2";
+  const iconSrc = direction === "left" ? "/images/services/icon-chevron-left.svg" : "/images/services/icon-chevron-right.svg";
   return (
     <button
       type="button"
       onClick={onClick}
       aria-label={label}
-      className={`absolute top-1/2 z-10 hidden size-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#eaeffa] bg-white shadow-[0px_2px_16px_0px_rgba(0,17,45,0.06),0px_2px_6px_0px_rgba(0,17,45,0.03)] backdrop-blur-[10px] lg:flex ${offsetClassName}`}
+      className={`absolute top-1/2 z-10 hidden size-10 -translate-y-1/2 items-center justify-center rounded-full border shadow-[0px_2px_16px_0px_rgba(0,17,45,0.06),0px_2px_6px_0px_rgba(0,17,45,0.03)] backdrop-blur-[10px] lg:flex ${backgroundClassName} ${borderClassName} ${offsetClassName}`}
     >
-      <span className="relative size-6 shrink-0 overflow-hidden rounded-full">
-        <Image
-          src={
-            direction === "left" ? "/images/services/icon-chevron-left.svg" : "/images/services/icon-chevron-right.svg"
-          }
-          alt=""
-          fill
-          className="object-contain"
-          sizes="24px"
-        />
-      </span>
+      {/* Recolored via mask instead of next/image, since the source SVG has a
+          single baked-in fill and iconColorClassName needs to override it. */}
+      <span
+        aria-hidden="true"
+        className={`size-6 shrink-0 ${iconColorClassName}`}
+        style={{
+          maskImage: `url(${iconSrc})`,
+          maskSize: "contain",
+          maskRepeat: "no-repeat",
+          maskPosition: "center",
+          WebkitMaskImage: `url(${iconSrc})`,
+          WebkitMaskSize: "contain",
+          WebkitMaskRepeat: "no-repeat",
+          WebkitMaskPosition: "center",
+        }}
+      />
     </button>
   );
 }
@@ -54,6 +65,9 @@ export function Carousel({
   nextLabel,
   edgeOffset = "inset",
   itemsPerView = 1,
+  controlBackgroundClassName = "bg-white",
+  controlBorderClassName = "border-[#eaeffa]",
+  controlIconColorClassName = "bg-[var(--color-accent)]",
 }: {
   children: ReactNode;
   prevLabel: string;
@@ -65,6 +79,12 @@ export function Carousel({
    * the carousel starts scrolling. A number applies at every breakpoint; `{ base, lg }` lets the
    * default on small screens differ from the default at `lg` and up. */
   itemsPerView?: number | { base: number; lg: number };
+  /** Tailwind background class for the prev/next control buttons. */
+  controlBackgroundClassName?: string;
+  /** Tailwind border class for the prev/next control buttons. */
+  controlBorderClassName?: string;
+  /** Tailwind background class for the chevron icon (it's mask-rendered, so its color comes from `background-color`). */
+  controlIconColorClassName?: string;
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
@@ -151,8 +171,24 @@ export function Carousel({
       </div>
       {showControls && (
         <>
-          <CarouselControl direction="left" onClick={() => goTo("left")} label={prevLabel} edgeOffset={edgeOffset} />
-          <CarouselControl direction="right" onClick={() => goTo("right")} label={nextLabel} edgeOffset={edgeOffset} />
+          <CarouselControl
+            direction="left"
+            onClick={() => goTo("left")}
+            label={prevLabel}
+            edgeOffset={edgeOffset}
+            backgroundClassName={controlBackgroundClassName}
+            borderClassName={controlBorderClassName}
+            iconColorClassName={controlIconColorClassName}
+          />
+          <CarouselControl
+            direction="right"
+            onClick={() => goTo("right")}
+            label={nextLabel}
+            edgeOffset={edgeOffset}
+            backgroundClassName={controlBackgroundClassName}
+            borderClassName={controlBorderClassName}
+            iconColorClassName={controlIconColorClassName}
+          />
         </>
       )}
     </div>

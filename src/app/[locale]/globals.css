@@ -10,11 +10,18 @@
  * frame; update here if the design's palette changes elsewhere.
  */
 :root {
+  /* Without this, browsers with system dark mode on will auto-darken
+     unstyled surfaces (e.g. Chromium's forced-colors heuristic) even when
+     an element has an explicit light background — this site has no dark
+     theme, so opt out of that guessing entirely. */
+  color-scheme: light;
   --background: #ffffff;
   --background-alt: #faf9f6;
+  --submenu-background: #f2fbfc;
   --foreground: #50260e;
   --color-muted: #8a6f5f;
   --color-accent: #632b0e;
+  --color-accent-bright: #c9561d;
   --color-accent-foreground: #ffffff;
   --color-border: #e8f1e8;
   --color-gold: #bd8c2e;
@@ -24,9 +31,11 @@
 @theme inline {
   --color-background: var(--background);
   --color-background-alt: var(--background-alt);
+  --color-submenu-background: var(--submenu-background);
   --color-foreground: var(--foreground);
   --color-muted: var(--color-muted);
   --color-accent: var(--color-accent);
+  --color-accent-bright: var(--color-accent-bright);
   --color-border: var(--color-border);
   --color-gold: var(--color-gold);
   --color-link: var(--color-link);
@@ -43,6 +52,7 @@
     --foreground: #50260e;
     --color-muted: #b8a495;
     --color-accent: #632b0e;
+    --color-accent-bright: #c9561d;
     --color-border: #3a2e28;
   }
 }

@@ -5,7 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
-import type { ServiceHighlightItem } from "@/sanity/lib/serviceHighlights";
+import type { ServiceHighlightItem } from "@/sanity/lib/service";
 
 const CHIP_KEYS = [
   "chipExclusive",
@@ -17,7 +17,7 @@ const CHIP_KEYS = [
 ] as const;
 
 const activeChipClasses = "border-[#ffe15a] bg-white text-[#f3c213]";
-const inactiveChipClasses = "border-[#a9b2be] bg-white text-[#4a4f63]";
+const inactiveChipClasses = "border-[#a9b2be] bg-white text-[#4a4f63] hover:border-[#ffe15a] hover:text-[#f3c213]";
 
 function Chip({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
   return (
@@ -83,22 +83,34 @@ export function CustomerExperience({ cards }: { cards: ServiceHighlightItem[] })
             edgeOffset="flush"
             itemsPerView={{ base: 1, lg: 3 }}
           >
-            {visibleCards.map((card) => (
-              <div key={card.id} className="flex flex-col items-center gap-2">
-                <div className="relative aspect-square w-full overflow-hidden rounded-2xl">
-                  <Image
-                    src={card.imageUrl}
-                    alt=""
-                    fill
-                    className="object-cover"
-                    sizes="(min-width: 1024px) 384px, calc(100vw - 64px)"
-                  />
+            {visibleCards.map((card) => {
+              const content = (
+                <>
+                  <div className="relative aspect-square w-full overflow-hidden rounded-2xl">
+                    <Image
+                      src={card.imageUrl}
+                      alt=""
+                      fill
+                      className="object-cover"
+                      sizes="(min-width: 1024px) 384px, calc(100vw - 64px)"
+                    />
+                  </div>
+                  <p className="text-center font-sans text-sm font-bold text-[var(--color-accent)] lg:text-lg">
+                    {card.name}
+                  </p>
+                </>
+              );
+
+              return card.href ? (
+                <Link key={card.id} href={card.href} className="flex flex-col items-center gap-2">
+                  {content}
+                </Link>
+              ) : (
+                <div key={card.id} className="flex flex-col items-center gap-2">
+                  {content}
                 </div>
-                <p className="text-center font-sans text-sm font-bold text-[var(--color-accent)] lg:text-lg">
-                  {card.name}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </Carousel>
         ) : (
           <p className="w-full py-8 text-center text-sm font-bold text-[var(--color-accent)]">{t("emptyCategory")}</p>
@@ -106,12 +118,6 @@ export function CustomerExperience({ cards }: { cards: ServiceHighlightItem[] })
       </div>
 
       <div className="mt-4 flex items-center justify-center gap-4 px-2 lg:mt-6">
-        <Link
-          href="/about"
-          className="rounded-full border border-[var(--color-accent)] bg-white px-3 py-2 text-center text-xs font-bold tracking-[0.16px] whitespace-nowrap text-[#50260e] hover:opacity-80 sm:px-4 sm:text-sm lg:text-base"
-        >
-          {t("ctaMore")}
-        </Link>
         <Link
           href={{ pathname: "/", hash: "registration-form" }}
           className="rounded-full bg-[var(--color-accent)] px-3 py-2 text-center text-xs font-bold tracking-[0.16px] whitespace-nowrap text-[#fcfcfc] hover:opacity-90 sm:px-4 sm:text-sm lg:text-base"

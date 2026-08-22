@@ -16,9 +16,10 @@ export function DoctorTeam({ doctors }: { doctors: DoctorItem[] }) {
 
         <Carousel prevLabel={t("scrollPrev")} nextLabel={t("scrollNext")} itemsPerView={{ base: 2, lg: 4 }}>
           {doctors.map((doctor) => (
-            <div
+            <Link
               key={doctor.id}
-              className="flex flex-col items-center gap-2 rounded-lg border border-[var(--color-accent)]"
+              href={doctor.slug ? { pathname: "/about/[slug]", params: { slug: doctor.slug } } : "/about"}
+              className="flex h-full flex-col items-center gap-2 rounded-lg border border-[var(--color-accent)] transition-opacity hover:opacity-90"
             >
               <div className="relative aspect-[295/369] w-full overflow-hidden rounded-lg">
                 <Image
@@ -31,7 +32,7 @@ export function DoctorTeam({ doctors }: { doctors: DoctorItem[] }) {
               </div>
               <p className="text-center text-base font-semibold text-[var(--color-accent)]">{doctor.name}</p>
               <p className="pb-2 text-center text-sm font-medium tracking-[0.14px] text-[#6b7280]">{doctor.title}</p>
-            </div>
+            </Link>
           ))}
         </Carousel>
 

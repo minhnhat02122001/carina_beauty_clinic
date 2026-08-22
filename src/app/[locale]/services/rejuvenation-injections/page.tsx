@@ -1,12 +1,25 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import type { Locale } from "@/i18n/routing";
+import { getTreatmentsByCategory } from "@/sanity/lib/service";
+import { TreatmentList } from "@/components/treatments/treatment-list";
 
-export default function ServiceRejuvenationInjectionsPage() {
-  const t = useTranslations("ServiceRejuvenationInjections");
+export default async function ServiceRejuvenationInjectionsPage({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
+  const [t, treatments] = await Promise.all([
+    getTranslations("ServiceRejuvenationInjections"),
+    getTreatmentsByCategory("rejuvenation-injections", locale),
+  ]);
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-16">
-      <h1 className="text-3xl font-semibold tracking-tight">{t("heading")}</h1>
-      <p className="mt-4 text-[var(--color-muted)]">{t("placeholder")}</p>
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 md:px-10 lg:py-16">
+      <h1 className="text-2xl font-semibold text-[var(--color-accent)] lg:text-4xl">{t("heading")}</h1>
+      <div className="mt-8">
+        <TreatmentList
+          treatments={treatments}
+          emptyLabel={t("empty")}
+          getHref={(slug) => ({ pathname: "/services/rejuvenation-injections/[slug]", params: { slug } })}
+        />
+      </div>
     </div>
   );
 }

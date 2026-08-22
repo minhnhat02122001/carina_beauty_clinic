@@ -5,7 +5,6 @@ import { SocialIcon } from "@/components/social-icon";
 
 const FEATURED_LINKS = [
   { href: "/about", key: "featuredAbout" },
-  { href: "/services", key: "featuredServices" },
   { href: "/beauty-knowledge", key: "featuredKnowledge" },
   { href: "/promotions", key: "featuredPromotions" },
   { href: "/news-events", key: "featuredNews" },
@@ -18,14 +17,12 @@ const SUPPORT_LINKS = [
   { href: "/contact", key: "supportContact" },
 ] as const;
 
-// Social profile URLs are not yet provided by the client — using "#"
-// placeholders until real links are supplied.
 const SOCIAL_LINKS = [
-  { platform: "facebook", labelKey: "socialFacebook", href: "#" },
-  { platform: "instagram", labelKey: "socialInstagram", href: "#" },
-  { platform: "tiktok", labelKey: "socialTiktok", href: "#" },
-  { platform: "youtube", labelKey: "socialYoutube", href: "#" },
-  { platform: "zalo", labelKey: "socialZalo", href: "#" },
+  { platform: "facebook", labelKey: "socialFacebook", href: "https://www.facebook.com/carinatherealluxury/" },
+  { platform: "instagram", labelKey: "socialInstagram", href: "https://www.instagram.com/carina_therealluxury/" },
+  { platform: "tiktok", labelKey: "socialTiktok", href: "https://www.tiktok.com/@phongkhamdalieucarina" },
+  { platform: "youtube", labelKey: "socialYoutube", href: "https://www.youtube.com/@CarinaBeautyClinic" },
+  { platform: "zalo", labelKey: "socialZalo", href: "https://zalo.me/141525660384752857" },
 ] as const;
 
 function ColumnHeading({ children }: { children: React.ReactNode }) {

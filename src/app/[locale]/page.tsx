@@ -3,7 +3,7 @@ import { getBeautyKnowledgeHome, getFeaturedNews } from "@/sanity/lib/posts";
 import { getFeaturedVideos } from "@/sanity/lib/videos";
 import { getHeroBanners } from "@/sanity/lib/banners";
 import { getEquipmentItems } from "@/sanity/lib/equipment";
-import { getServiceHighlights } from "@/sanity/lib/serviceHighlights";
+import { getServiceHighlights } from "@/sanity/lib/service";
 import { getDoctors } from "@/sanity/lib/doctors";
 import { BannerHero } from "./_home-sections/banner-hero";
 import { Hero } from "./_home-sections/hero";

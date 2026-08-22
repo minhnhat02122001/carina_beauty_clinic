@@ -14,11 +14,21 @@ export function BannerHero({ banners }: { banners: BannerItem[] }) {
       aria-label="Carina Beauty Clinic"
     >
       <Carousel prevLabel={t("scrollPrev")} nextLabel={t("scrollNext")}>
-        {banners.map((banner, i) => (
-          <div key={banner.id} className="relative aspect-video w-full lg:aspect-[1440/539]">
+        {banners.map((banner, i) => {
+          const image = (
             <Image src={banner.imageUrl} alt="" fill priority={i === 0} sizes="100vw" className="object-cover" />
-          </div>
-        ))}
+          );
+
+          return banner.url ? (
+            <a key={banner.id} href={banner.url} className="relative block aspect-video w-full lg:aspect-[1440/539]">
+              {image}
+            </a>
+          ) : (
+            <div key={banner.id} className="relative aspect-video w-full lg:aspect-[1440/539]">
+              {image}
+            </div>
+          );
+        })}
       </Carousel>
     </section>
   );

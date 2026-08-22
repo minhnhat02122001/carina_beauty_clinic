@@ -8,6 +8,7 @@ export const routing = defineRouting({
   pathnames: {
     "/": "/",
     "/about": { vi: "/ve-chung-toi" },
+    "/about/[slug]": { vi: "/ve-chung-toi/[slug]" },
     "/gallery": { vi: "/thu-vien-anh" },
     "/booking": { vi: "/dat-lich-hen" },
     "/contact": { vi: "/lien-he" },
@@ -22,11 +23,17 @@ export const routing = defineRouting({
     "/media-policy": { vi: "/chinh-sach-hinh-anh-video" },
     "/services": { vi: "/dich-vu" },
     "/services/exclusive": { vi: "/doc-quyen" },
+    "/services/exclusive/[slug]": { vi: "/doc-quyen/[slug]" },
     "/services/lifting-rejuvenation": { vi: "/nang-co-tre-hoa" },
+    "/services/lifting-rejuvenation/[slug]": { vi: "/nang-co-tre-hoa/[slug]" },
     "/services/skin-therapy": { vi: "/dieu-tri-da" },
+    "/services/skin-therapy/[slug]": { vi: "/dieu-tri-da/[slug]" },
     "/services/rejuvenation-injections": { vi: "/tiem-tre-hoa" },
+    "/services/rejuvenation-injections/[slug]": { vi: "/tiem-tre-hoa/[slug]" },
     "/services/body-care": { vi: "/cham-soc-voc-dang" },
+    "/services/body-care/[slug]": { vi: "/cham-soc-voc-dang/[slug]" },
     "/services/skin-care": { vi: "/cham-soc-da" },
+    "/services/skin-care/[slug]": { vi: "/cham-soc-da/[slug]" },
   },
 });
 

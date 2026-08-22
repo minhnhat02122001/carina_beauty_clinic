@@ -1,3 +1,4 @@
+import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
@@ -26,12 +27,10 @@ export function BeautyKnowledgeHome({ hero, thumbnails }: BeautyKnowledgeHome) {
           </div>
           <Link
             href="/beauty-knowledge"
-            className="flex shrink-0 items-center gap-1 text-sm font-bold text-[var(--color-link)]"
+            className="flex shrink-0 items-center gap-1 text-sm font-bold text-[var(--color-accent-bright)]"
           >
             {t("viewAll")}
-            <span className="relative size-4">
-              <Image src="/images/featured-events/icon-arrow.svg" alt="" fill className="object-contain" sizes="16px" />
-            </span>
+            <ChevronRight className="size-4 shrink-0" />
           </Link>
         </div>
 

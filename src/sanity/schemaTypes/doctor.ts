@@ -1,4 +1,5 @@
-import { defineField, defineType } from "sanity";
+import { slugify } from "@/lib/slugify";
+import { defineArrayMember, defineField, defineType } from "sanity";
 
 export const doctor = defineType({
   name: "doctor",
@@ -31,12 +32,88 @@ export const doctor = defineType({
     defineField({ name: "titleEn", title: "Chức danh (Tiếng Anh)", type: "string", group: "english" }),
     defineField({ name: "titleZh", title: "Chức danh (Tiếng Trung)", type: "string", group: "chinese" }),
     defineField({
+      name: "subtitle",
+      title: "Chức danh phụ",
+      description: "VD: Nhà sáng lập & CEO, Carina Beauty Clinic — hiển thị dưới chức danh chính trên trang chi tiết.",
+      type: "string",
+      group: "vietnamese",
+    }),
+    defineField({ name: "subtitleEn", title: "Chức danh phụ (Tiếng Anh)", type: "string", group: "english" }),
+    defineField({ name: "subtitleZh", title: "Chức danh phụ (Tiếng Trung)", type: "string", group: "chinese" }),
+    defineField({
+      name: "nationality",
+      title: "Quốc tịch",
+      type: "string",
+      group: "vietnamese",
+    }),
+    defineField({ name: "nationalityEn", title: "Quốc tịch (Tiếng Anh)", type: "string", group: "english" }),
+    defineField({ name: "nationalityZh", title: "Quốc tịch (Tiếng Trung)", type: "string", group: "chinese" }),
+    defineField({
+      name: "introduction",
+      title: "Giới thiệu",
+      type: "array",
+      group: "vietnamese",
+      of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+    }),
+    defineField({
+      name: "introductionEn",
+      title: "Giới thiệu (Tiếng Anh)",
+      type: "array",
+      group: "english",
+      of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+    }),
+    defineField({
+      name: "introductionZh",
+      title: "Giới thiệu (Tiếng Trung)",
+      type: "array",
+      group: "chinese",
+      of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+    }),
+    defineField({
+      name: "sections",
+      title: "Các mục thông tin",
+      description:
+        "Mỗi bác sĩ có thể có thông tin khác nhau — thêm, xóa, đổi tên hoặc sắp xếp lại các mục tùy ý " +
+        "(VD: Học vấn, Kinh nghiệm chuyên môn, Chứng chỉ, Giải thưởng, Hoạt động quốc tế...).",
+      type: "array",
+      group: "vietnamese",
+      of: [
+        defineArrayMember({
+          type: "object",
+          name: "profileSection",
+          fields: [
+            defineField({ name: "heading", title: "Tiêu đề mục", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({ name: "headingEn", title: "Tiêu đề mục (Tiếng Anh)", type: "string" }),
+            defineField({ name: "headingZh", title: "Tiêu đề mục (Tiếng Trung)", type: "string" }),
+            defineField({ name: "body", title: "Nội dung", type: "array", of: [{ type: "block" }] }),
+            defineField({ name: "bodyEn", title: "Nội dung (Tiếng Anh)", type: "array", of: [{ type: "block" }] }),
+            defineField({ name: "bodyZh", title: "Nội dung (Tiếng Trung)", type: "array", of: [{ type: "block" }] }),
+          ],
+          preview: { select: { title: "heading" } },
+        }),
+      ],
+    }),
+    defineField({
       name: "image",
       title: "Ảnh",
       type: "image",
       group: "media",
       options: { hotspot: true },
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "clinicalImages",
+      title: "Hình ảnh lâm sàng thực tế",
+      type: "array",
+      group: "media",
+      of: [{ type: "image", options: { hotspot: true } }],
+    }),
+    defineField({
+      name: "slug",
+      title: "Đường dẫn chi tiết",
+      type: "slug",
+      group: "metadata",
+      options: { source: "name", maxLength: 96, slugify },
     }),
     defineField({
       name: "order",

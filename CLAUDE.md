@@ -81,6 +81,13 @@ and book an appointment online.
   `useTranslations`/`getTranslations`.
 - Don't build the booking backend until the approach above is decided —
   ask rather than assuming a data model.
+- **Mobile is the priority — never break mobile UI.** Verify any
+  layout/sizing change at a real mobile viewport (~375px) before treating it
+  as done; don't just implement it and assume it's correct. Prefer relative
+  sizing (`w-full`, `aspect-*`, `%`) over fixed pixel widths/heights,
+  especially inside variable-width containers like carousel columns — a
+  fixed size that looks fine on desktop can overflow or crowd a narrower
+  mobile column.
 
 ## Rules
 

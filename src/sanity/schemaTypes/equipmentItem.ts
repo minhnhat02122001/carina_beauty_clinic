@@ -2,7 +2,7 @@ import { defineField, defineType } from "sanity";
 
 export const equipmentItem = defineType({
   name: "equipmentItem",
-  title: "Thiết Bị",
+  title: "Máy Công Nghệ Cao",
   type: "document",
   fields: [
     defineField({

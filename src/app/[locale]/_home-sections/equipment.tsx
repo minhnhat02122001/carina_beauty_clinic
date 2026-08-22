@@ -16,7 +16,14 @@ export function Equipment({ items }: { items: EquipmentListItem[] }) {
           <p className="text-xs text-[rgba(99,43,14,0.7)] lg:text-xl">{t("subheading")}</p>
         </div>
 
-        <Carousel prevLabel={t("scrollPrev")} nextLabel={t("scrollNext")} itemsPerView={{ base: 2, lg: 4 }}>
+        <Carousel
+          prevLabel={t("scrollPrev")}
+          nextLabel={t("scrollNext")}
+          itemsPerView={{ base: 2, lg: 4 }}
+          controlBackgroundClassName="bg-[var(--color-accent)]"
+          controlBorderClassName="border-[var(--color-border)]"
+          controlIconColorClassName="bg-white"
+        >
           {items.map((item) => (
             <div key={item.id} className="flex flex-col items-center gap-4">
               <div className="relative aspect-[272/363] w-full">

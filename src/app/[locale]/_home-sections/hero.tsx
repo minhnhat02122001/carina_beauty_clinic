@@ -40,10 +40,10 @@ export function Hero() {
           <p className="max-w-xl text-xs text-[rgba(80,38,14,0.7)] lg:text-base">{t("description2")}</p>
           <div className="grid grid-cols-2 gap-3 pt-2 lg:flex lg:gap-4">
             <Link
-              href="/services"
+              href="/about"
               className="rounded-full border-2 border-[var(--color-accent)] px-3 py-2 text-center text-xs font-bold whitespace-nowrap text-[var(--color-accent)] hover:opacity-80 sm:px-4 sm:text-sm lg:px-[50px] lg:py-2.5 lg:text-base"
             >
-              {t("ctaServices")}
+              {t("ctaMore")}
             </Link>
             <Link
               href={{ pathname: "/", hash: "registration-form" }}

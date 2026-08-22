@@ -33,7 +33,7 @@ export function LocaleSwitcher() {
           href={{ pathname, params } as never}
           locale={loc}
           aria-label={t(LOCALE_ARIA_KEYS[loc])}
-          className={`block size-5 shrink-0 overflow-hidden rounded-full sm:size-6 ${loc === locale ? "" : "opacity-50 grayscale hover:opacity-100 hover:grayscale-0"}`}
+          className={`block size-6 shrink-0 overflow-hidden rounded-full ${loc === locale ? "" : "opacity-50 grayscale hover:opacity-100 hover:grayscale-0"}`}
         >
           <span className={`fi fis ${LOCALE_FLAGS[loc]} block size-full bg-cover bg-center`} />
         </Link>

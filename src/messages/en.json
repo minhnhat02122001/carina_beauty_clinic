@@ -13,7 +13,7 @@
     "gallery": "Gallery",
     "about": "About Us",
     "exclusive": "Exclusive",
-    "liftingRejuvenation": "Lifting & Rejuvenation",
+    "liftingRejuvenation": "Lifting - Anti-Wrinkle",
     "skinTherapy": "Skin Therapy",
     "rejuvenationInjections": "Rejuvenation Injections",
     "bodyCare": "Body Care",
@@ -32,7 +32,7 @@
     "tagline": "HIGH-TECH DERMATOLOGY CLINIC IN HO CHI MINH CITY",
     "description1": "Pioneering non-invasive lifting & rejuvenation trends. Elevating skincare standards with the newest, most advanced high-tech ecosystem.",
     "description2": "Trustworthy, world-class, and transparent in every experience at Carina Beauty Clinic!",
-    "ctaServices": "SERVICES",
+    "ctaMore": "SEE MORE",
     "ctaBooking": "BOOK A CONSULTATION",
     "statDoctorsValue": "10+",
     "statDoctorsLabel": "Years of Doctor Experience",
@@ -54,7 +54,6 @@
     "cardLunaShine": "Luna Shine",
     "cardSolarRise": "Solar Rise",
     "cardUltherPrimeX": "Ulther Prime X",
-    "ctaMore": "SEE MORE",
     "ctaBooking": "BOOK A CONSULTATION",
     "scrollPrev": "Previous",
     "scrollNext": "Next",
@@ -78,6 +77,12 @@
     "ctaBooking": "BOOK A CONSULTATION",
     "scrollPrev": "Previous",
     "scrollNext": "Next"
+  },
+  "DoctorDetail": {
+    "backToList": "← Back to Our Medical Team",
+    "bookingCta": "Book a 1:1 Consultation",
+    "clinicalImages": "Real Clinical Images",
+    "comingSoon": "Detailed content is coming soon."
   },
   "StrategicPartners": {
     "heading": "International Partners"
@@ -149,27 +154,39 @@
   },
   "ServiceExclusive": {
     "heading": "Exclusive",
-    "placeholder": "Details for this service category will appear here."
+    "empty": "No services in this category yet.",
+    "backToList": "← Back to Exclusive",
+    "comingSoon": "Detailed content is coming soon."
   },
   "ServiceLiftingRejuvenation": {
-    "heading": "Lifting & Rejuvenation",
-    "placeholder": "Details for this service category will appear here."
+    "heading": "Lifting - Anti-Wrinkle",
+    "empty": "No services in this category yet.",
+    "backToList": "← Back to Lifting - Anti-Wrinkle",
+    "comingSoon": "Detailed content is coming soon."
   },
   "ServiceSkinTherapy": {
     "heading": "Skin Therapy",
-    "placeholder": "Details for this service category will appear here."
+    "empty": "No services in this category yet.",
+    "backToList": "← Back to Skin Therapy",
+    "comingSoon": "Detailed content is coming soon."
   },
   "ServiceRejuvenationInjections": {
     "heading": "Rejuvenation Injections",
-    "placeholder": "Details for this service category will appear here."
+    "empty": "No services in this category yet.",
+    "backToList": "← Back to Rejuvenation Injections",
+    "comingSoon": "Detailed content is coming soon."
   },
   "ServiceBodyCare": {
     "heading": "Body Care",
-    "placeholder": "Details for this service category will appear here."
+    "empty": "No services in this category yet.",
+    "backToList": "← Back to Body Care",
+    "comingSoon": "Detailed content is coming soon."
   },
   "ServiceSkinCare": {
     "heading": "Skin Care",
-    "placeholder": "Details for this service category will appear here."
+    "empty": "No services in this category yet.",
+    "backToList": "← Back to Skin Care",
+    "comingSoon": "Detailed content is coming soon."
   },
   "Gallery": {
     "heading": "Gallery",
@@ -205,6 +222,13 @@
     "empty": "No news yet — check back soon.",
     "backToList": "← Back to News & Events"
   },
+  "BlogPost": {
+    "share": "Share this article",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied!",
+    "relatedPosts": "Related Articles",
+    "recentPosts": "Recent Posts"
+  },
   "ContentPolicy": {
     "heading": "Content Policy",
     "placeholder": "Content policy details will appear here."
@@ -216,6 +240,13 @@
   "MediaPolicy": {
     "heading": "Image & Video Policy",
     "placeholder": "Image and video usage policy details will appear here."
+  },
+  "FloatingContact": {
+    "zaloLabel": "Chat on Zalo",
+    "messengerLabel": "Chat on Messenger",
+    "callLabel": "Call us",
+    "calendarLabel": "Book an appointment",
+    "scrollToTopLabel": "Scroll to top"
   },
   "Footer": {
     "taglineLine1": "DERMATOLOGY CLINIC",
@@ -232,7 +263,6 @@
     "emailValue": "Email: carinabeauty.info@gmail.com",
     "featuredHeading": "FEATURED",
     "featuredAbout": "About Us",
-    "featuredServices": "Services",
     "featuredKnowledge": "Beauty Knowledge",
     "featuredPromotions": "Promotions",
     "featuredNews": "News & Events",
