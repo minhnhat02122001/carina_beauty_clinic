@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Link } from "@/i18n/navigation";
 
-const ZALO_URL = "https://zalo.me/84773993968";
+const ZALO_URL = "https://zalo.me/141525660384752857";
 const MESSENGER_URL = "https://m.me/carinatherealluxury";
 const PHONE_TEL = "tel:+84773993968";
 const SCROLL_TOP_THRESHOLD_PX = 400;
@@ -23,10 +23,10 @@ const glowInnerClasses =
   "absolute inset-[3px] flex items-center justify-center rounded-[9px] bg-white";
 
 const scrollTopButtonClasses =
-  "relative flex size-4 shrink-0 items-center justify-center overflow-hidden rounded-[6px] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.12)] transition-transform hover:scale-105 sm:size-[22px] lg:size-6";
+  "relative flex size-[21px] shrink-0 items-center justify-center overflow-hidden rounded-[8px] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.12)] transition-transform hover:scale-105 sm:size-[29px] lg:size-[31px]";
 
 const scrollTopInnerClasses =
-  "absolute inset-[1.5px] flex items-center justify-center rounded-[4.5px] bg-white text-[var(--color-accent)]";
+  "absolute inset-[2px] flex items-center justify-center rounded-[6px] bg-white text-[var(--color-accent)]";
 
 function ScrollTopIcon() {
   return (
@@ -37,7 +37,7 @@ function ScrollTopIcon() {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="size-2 sm:size-2.5 lg:size-3"
+      className="size-[10px] sm:size-[13px] lg:size-4"
       aria-hidden="true"
     >
       <path d="M12 19V5" />

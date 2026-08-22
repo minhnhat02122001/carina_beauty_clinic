@@ -37,20 +37,6 @@ function ChevronIcon({ className }: { className?: string }) {
   );
 }
 
-function ConsultButton({ label, className }: { label: string; className?: string }) {
-  return (
-    <Link
-      href={{ pathname: "/", hash: "registration-form" }}
-      className={`inline-flex shrink-0 items-center gap-2 rounded-full bg-[var(--color-accent)] px-4 py-2 text-sm font-bold text-[var(--color-accent-foreground)] hover:opacity-90 2xl:px-6 2xl:py-2.5 ${className ?? ""}`}
-    >
-      <span className="relative size-4 shrink-0">
-        <Image src="/images/logo/icon-consult.svg" alt="" fill sizes="16px" />
-      </span>
-      {label}
-    </Link>
-  );
-}
-
 function MenuIcon() {
   return (
     <span className="flex size-7 flex-col items-center justify-center gap-[5px] sm:size-8" aria-hidden="true">
@@ -83,7 +69,7 @@ function DesktopServiceDropdown({ category, items }: { category: TreatmentCatego
             <Link
               key={item.id}
               href={treatmentHref(category, item.slug)}
-              className="rounded-lg py-1.5 pr-2 pl-4 text-xs text-[var(--foreground)] hover:opacity-70"
+              className="rounded-lg py-1.5 pr-2 pl-4 text-sm text-[var(--foreground)] hover:opacity-70"
             >
               {item.name}
             </Link>
@@ -162,7 +148,6 @@ export function Nav({ treatmentsByCategory }: { treatmentsByCategory: Treatments
                 )}
               </div>
             ))}
-            <ConsultButton label={t("consult")} />
           </nav>
           <div className="flex items-center border-[var(--color-border)] pl-4 2xl:pl-6">
             <LocaleSwitcher />
@@ -233,7 +218,7 @@ export function Nav({ treatmentsByCategory }: { treatmentsByCategory: Treatments
                               key={item.id}
                               href={treatmentHref(link.category!, item.slug)}
                               onClick={() => setMenuOpen(false)}
-                              className="rounded-lg px-2 py-2 text-xs text-[var(--foreground)] hover:opacity-70"
+                              className="rounded-lg px-2 py-2 text-sm text-[var(--foreground)] hover:opacity-70"
                             >
                               {item.name}
                             </Link>
@@ -265,7 +250,7 @@ export function Nav({ treatmentsByCategory }: { treatmentsByCategory: Treatments
                                     key={item.id}
                                     href={treatmentHref(link.category!, item.slug)}
                                     onClick={() => setMenuOpen(false)}
-                                    className="rounded-lg px-2 py-2 text-xs text-[var(--foreground)] hover:opacity-70"
+                                    className="rounded-lg px-2 py-2 text-sm text-[var(--foreground)] hover:opacity-70"
                                   >
                                     {item.name}
                                   </Link>
