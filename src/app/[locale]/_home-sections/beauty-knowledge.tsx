@@ -27,7 +27,7 @@ export function BeautyKnowledgeHome({ hero, thumbnails }: BeautyKnowledgeHome) {
           </div>
           <Link
             href="/beauty-knowledge"
-            className="flex shrink-0 items-center gap-1 text-sm font-bold text-[var(--color-accent-bright)]"
+            className="flex shrink-0 items-center gap-1 text-sm font-bold text-[var(--color-accent-bright)] hover:opacity-70"
           >
             {t("viewAll")}
             <ChevronRight className="size-4 shrink-0" />

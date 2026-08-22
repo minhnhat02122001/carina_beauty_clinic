@@ -13,13 +13,11 @@ function VideoModal({
   videoId,
   title,
   closeLabel,
-  watchOnYoutubeLabel,
   onClose,
 }: {
   videoId: string;
   title: string;
   closeLabel: string;
-  watchOnYoutubeLabel: string;
   onClose: () => void;
 }) {
   useEffect(() => {
@@ -77,14 +75,6 @@ function VideoModal({
             className="absolute inset-0 size-full"
           />
         </div>
-        <a
-          href={`https://www.youtube.com/watch?v=${embedId}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-3 block text-center text-sm font-bold text-white underline hover:opacity-80"
-        >
-          {watchOnYoutubeLabel}
-        </a>
       </div>
     </div>
   );
@@ -123,7 +113,7 @@ export function FeaturedEvents({ news, videos }: { news: FeaturedNewsItem[]; vid
               </div>
               <Link
                 href="/news-events"
-                className="flex shrink-0 items-center gap-1 text-sm font-bold text-[var(--color-accent-bright)]"
+                className="flex shrink-0 items-center gap-1 text-sm font-bold text-[var(--color-accent-bright)] hover:opacity-70"
               >
                 {t("viewAll")}
                 <ChevronRight className="size-4 shrink-0" />
@@ -208,7 +198,7 @@ export function FeaturedEvents({ news, videos }: { news: FeaturedNewsItem[]; vid
               </div>
               <Link
                 href="/news-events"
-                className="flex shrink-0 items-center gap-1 text-sm font-bold text-[var(--color-accent-bright)]"
+                className="flex shrink-0 items-center gap-1 text-sm font-bold text-[var(--color-accent-bright)] hover:opacity-70"
               >
                 {t("viewAll")}
                 <ChevronRight className="size-4 shrink-0" />
@@ -242,7 +232,6 @@ export function FeaturedEvents({ news, videos }: { news: FeaturedNewsItem[]; vid
           videoId={activeVideo.videoId}
           title={activeVideo.title}
           closeLabel={t("closeVideo")}
-          watchOnYoutubeLabel={t("watchOnYoutube")}
           onClose={() => setActiveVideo(null)}
         />
       )}

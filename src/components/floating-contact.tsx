@@ -22,12 +22,6 @@ const glowLayerClasses =
 const glowInnerClasses =
   "absolute inset-[3px] flex items-center justify-center rounded-[9px] bg-white";
 
-const scrollTopButtonClasses =
-  "relative flex size-[21px] shrink-0 items-center justify-center overflow-hidden rounded-[8px] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.12)] transition-transform hover:scale-105 sm:size-[29px] lg:size-[31px]";
-
-const scrollTopInnerClasses =
-  "absolute inset-[2px] flex items-center justify-center rounded-[6px] bg-white text-[var(--color-accent)]";
-
 function ScrollTopIcon() {
   return (
     <svg
@@ -37,7 +31,7 @@ function ScrollTopIcon() {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="size-[10px] sm:size-[13px] lg:size-4"
+      className="size-4 sm:size-6 lg:size-7"
       aria-hidden="true"
     >
       <path d="M12 19V5" />
@@ -65,48 +59,6 @@ export function FloatingContact() {
 
   return (
     <div className="fixed right-2 bottom-3 z-40 flex flex-col items-center gap-2 sm:right-4 sm:bottom-6 sm:gap-3 lg:right-6 lg:gap-4">
-      <a
-        href={ZALO_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={t("zaloLabel")}
-        className={iconOnlyClasses}
-      >
-        <Image
-          src="/images/footer/social-zalo.svg"
-          alt=""
-          width={48}
-          height={48}
-          className="size-8 sm:size-11 lg:size-[48px]"
-        />
-      </a>
-      <a
-        href={MESSENGER_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={t("messengerLabel")}
-        className={iconOnlyClasses}
-      >
-        <Image
-          src="/images/floating-contact/icon-messenger.svg"
-          alt=""
-          width={48}
-          height={48}
-          className="size-8 sm:size-11 lg:size-[48px]"
-        />
-      </a>
-      <a href={PHONE_TEL} aria-label={t("callLabel")} className={glowButtonClasses}>
-        <span aria-hidden className={glowLayerClasses} />
-        <span className={glowInnerClasses}>
-          <Image
-            src="/images/floating-contact/icon-call.svg"
-            alt=""
-            width={28}
-            height={28}
-            className="size-4 sm:size-6 lg:size-7"
-          />
-        </span>
-      </a>
       <Link
         href={{ pathname: "/", hash: "registration-form" }}
         aria-label={t("calendarLabel")}
@@ -123,15 +75,45 @@ export function FloatingContact() {
           />
         </span>
       </Link>
+      <a href={PHONE_TEL} aria-label={t("callLabel")} className={glowButtonClasses}>
+        <span aria-hidden className={glowLayerClasses} />
+        <span className={glowInnerClasses}>
+          <Image
+            src="/images/floating-contact/icon-call.svg"
+            alt=""
+            width={28}
+            height={28}
+            className="size-4 sm:size-6 lg:size-7"
+          />
+        </span>
+      </a>
+      <a href={ZALO_URL} aria-label={t("zaloLabel")} className={iconOnlyClasses}>
+        <Image
+          src="/images/footer/social-zalo.svg"
+          alt=""
+          width={48}
+          height={48}
+          className="size-8 sm:size-11 lg:size-[48px]"
+        />
+      </a>
+      <a href={MESSENGER_URL} aria-label={t("messengerLabel")} className={iconOnlyClasses}>
+        <Image
+          src="/images/floating-contact/icon-messenger.svg"
+          alt=""
+          width={48}
+          height={48}
+          className="size-8 sm:size-11 lg:size-[48px]"
+        />
+      </a>
       {showScrollTop && (
         <button
           type="button"
           onClick={scrollToTop}
           aria-label={t("scrollToTopLabel")}
-          className={scrollTopButtonClasses}
+          className={glowButtonClasses}
         >
           <span aria-hidden className={glowLayerClasses} />
-          <span className={scrollTopInnerClasses}>
+          <span className={glowInnerClasses}>
             <ScrollTopIcon />
           </span>
         </button>
