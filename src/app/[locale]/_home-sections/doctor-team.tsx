@@ -19,7 +19,7 @@ export function DoctorTeam({ doctors }: { doctors: DoctorItem[] }) {
             <Link
               key={doctor.id}
               href={doctor.slug ? { pathname: "/about/[slug]", params: { slug: doctor.slug } } : "/about"}
-              className="flex h-full flex-col items-center gap-2 overflow-hidden rounded-lg border border-[var(--color-accent)] transition-opacity hover:opacity-90"
+              className="flex h-full flex-col items-center gap-2 overflow-hidden rounded-lg border-2 border-[var(--color-accent)] transition-opacity hover:opacity-90"
             >
               <div className="relative aspect-[295/369] w-full">
                 <Image
