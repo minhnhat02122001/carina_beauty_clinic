@@ -1,7 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Carousel } from "@/components/carousel";
+import { scrollToRegistrationForm } from "@/lib/scroll-to-registration-form";
 import type { DoctorItem } from "@/sanity/lib/doctors";
 
 export function DoctorTeam({ doctors }: { doctors: DoctorItem[] }) {
@@ -45,6 +48,7 @@ export function DoctorTeam({ doctors }: { doctors: DoctorItem[] }) {
           </Link>
           <Link
             href={{ pathname: "/", hash: "registration-form" }}
+            onClick={scrollToRegistrationForm}
             className="rounded-full bg-[var(--color-accent)] px-3 py-2 text-center text-xs font-bold tracking-[0.16px] whitespace-nowrap text-[#fcfcfc] hover:opacity-90 sm:px-4 sm:text-sm lg:text-base"
           >
             {t("ctaBooking")}

@@ -4,7 +4,6 @@ import type { Locale } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import { getDoctorBySlug } from "@/sanity/lib/doctors";
 import { DoctorDetailView } from "@/components/doctors/doctor-detail";
-import { RegistrationForm } from "../../_home-sections/registration-form";
 
 export default async function DoctorDetailPage({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug } = await params;
@@ -29,7 +28,6 @@ export default async function DoctorDetailPage({ params }: { params: Promise<{ l
         scrollPrevLabel={t("scrollPrev")}
         scrollNextLabel={t("scrollNext")}
       />
-      <RegistrationForm />
     </div>
   );
 }

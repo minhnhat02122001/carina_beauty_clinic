@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Link } from "@/i18n/navigation";
+import { scrollToRegistrationForm } from "@/lib/scroll-to-registration-form";
 
 const ZALO_URL = "https://zalo.me/141525660384752857";
 const MESSENGER_URL = "https://m.me/carinatherealluxury";
@@ -63,6 +64,7 @@ export function FloatingContact() {
         href={{ pathname: "/", hash: "registration-form" }}
         aria-label={t("calendarLabel")}
         className={glowButtonClasses}
+        onClick={scrollToRegistrationForm}
       >
         <span aria-hidden className={glowLayerClasses} />
         <span className={glowInnerClasses}>

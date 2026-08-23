@@ -158,38 +158,44 @@
   "ServiceExclusive": {
     "heading": "Độc Quyền",
     "empty": "Chưa có dịch vụ trong danh mục này.",
-    "backToList": "← Quay lại Độc Quyền",
     "comingSoon": "Nội dung chi tiết đang được cập nhật."
   },
   "ServiceLiftingRejuvenation": {
     "heading": "Nâng Cơ - Xoá Nhăn",
     "empty": "Chưa có dịch vụ trong danh mục này.",
-    "backToList": "← Quay lại Nâng Cơ - Xoá Nhăn",
     "comingSoon": "Nội dung chi tiết đang được cập nhật."
   },
   "ServiceSkinTherapy": {
     "heading": "Điều Trị Da",
     "empty": "Chưa có dịch vụ trong danh mục này.",
-    "backToList": "← Quay lại Điều Trị Da",
     "comingSoon": "Nội dung chi tiết đang được cập nhật."
   },
   "ServiceRejuvenationInjections": {
     "heading": "Tiêm Trẻ Hóa",
     "empty": "Chưa có dịch vụ trong danh mục này.",
-    "backToList": "← Quay lại Tiêm Trẻ Hóa",
     "comingSoon": "Nội dung chi tiết đang được cập nhật."
   },
   "ServiceBodyCare": {
     "heading": "Chăm Sóc Vóc Dáng",
     "empty": "Chưa có dịch vụ trong danh mục này.",
-    "backToList": "← Quay lại Chăm Sóc Vóc Dáng",
     "comingSoon": "Nội dung chi tiết đang được cập nhật."
   },
   "ServiceSkinCare": {
     "heading": "Chăm Sóc Da",
     "empty": "Chưa có dịch vụ trong danh mục này.",
-    "backToList": "← Quay lại Chăm Sóc Da",
     "comingSoon": "Nội dung chi tiết đang được cập nhật."
+  },
+  "TreatmentDetail": {
+    "durationLabel": "Thời gian thực hiện",
+    "technologyLabel": "Công nghệ sử dụng",
+    "suitableForLabel": "Đối tượng phù hợp",
+    "downtimeLabel": "Thời gian nghỉ dưỡng",
+    "reviewedByLabel": "Tư vấn chuyên môn bởi",
+    "faqHeading": "Câu hỏi thường gặp",
+    "relatedHeading": "Dịch vụ liên quan",
+    "bookingCta": "ĐẶT LỊCH TƯ VẤN",
+    "scrollPrev": "Trước",
+    "scrollNext": "Tiếp theo"
   },
   "Gallery": {
     "heading": "Thư Viện Ảnh",

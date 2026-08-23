@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
+import { scrollToRegistrationForm } from "@/lib/scroll-to-registration-form";
 import type { ServiceHighlightItem } from "@/sanity/lib/service";
 
 const CHIP_KEYS = [
@@ -120,6 +121,7 @@ export function CustomerExperience({ cards }: { cards: ServiceHighlightItem[] })
       <div className="mt-4 flex items-center justify-center gap-4 px-2 lg:mt-6">
         <Link
           href={{ pathname: "/", hash: "registration-form" }}
+          onClick={scrollToRegistrationForm}
           className="rounded-full bg-[var(--color-accent)] px-3 py-2 text-center text-xs font-bold tracking-[0.16px] whitespace-nowrap text-[#fcfcfc] hover:opacity-90 sm:px-4 sm:text-sm lg:text-base"
         >
           {t("ctaBooking")}

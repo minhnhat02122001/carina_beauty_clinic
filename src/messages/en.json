@@ -158,38 +158,44 @@
   "ServiceExclusive": {
     "heading": "Exclusive",
     "empty": "No services in this category yet.",
-    "backToList": "← Back to Exclusive",
     "comingSoon": "Detailed content is coming soon."
   },
   "ServiceLiftingRejuvenation": {
     "heading": "Lifting - Anti-Wrinkle",
     "empty": "No services in this category yet.",
-    "backToList": "← Back to Lifting - Anti-Wrinkle",
     "comingSoon": "Detailed content is coming soon."
   },
   "ServiceSkinTherapy": {
     "heading": "Skin Therapy",
     "empty": "No services in this category yet.",
-    "backToList": "← Back to Skin Therapy",
     "comingSoon": "Detailed content is coming soon."
   },
   "ServiceRejuvenationInjections": {
     "heading": "Rejuvenation Injections",
     "empty": "No services in this category yet.",
-    "backToList": "← Back to Rejuvenation Injections",
     "comingSoon": "Detailed content is coming soon."
   },
   "ServiceBodyCare": {
     "heading": "Body Care",
     "empty": "No services in this category yet.",
-    "backToList": "← Back to Body Care",
     "comingSoon": "Detailed content is coming soon."
   },
   "ServiceSkinCare": {
     "heading": "Skin Care",
     "empty": "No services in this category yet.",
-    "backToList": "← Back to Skin Care",
     "comingSoon": "Detailed content is coming soon."
+  },
+  "TreatmentDetail": {
+    "durationLabel": "Duration",
+    "technologyLabel": "Technology Used",
+    "suitableForLabel": "Suitable For",
+    "downtimeLabel": "Downtime",
+    "reviewedByLabel": "Medically Reviewed By",
+    "faqHeading": "Frequently Asked Questions",
+    "relatedHeading": "Related Treatments",
+    "bookingCta": "BOOK A CONSULTATION",
+    "scrollPrev": "Previous",
+    "scrollNext": "Next"
   },
   "Gallery": {
     "heading": "Gallery",

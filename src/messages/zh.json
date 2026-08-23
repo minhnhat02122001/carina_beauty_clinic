@@ -158,38 +158,44 @@
   "ServiceExclusive": {
     "heading": "尊享项目",
     "empty": "该分类暂无服务项目。",
-    "backToList": "← 返回尊享项目",
     "comingSoon": "详细内容即将上线。"
   },
   "ServiceLiftingRejuvenation": {
     "heading": "提升除皱",
     "empty": "该分类暂无服务项目。",
-    "backToList": "← 返回提升除皱",
     "comingSoon": "详细内容即将上线。"
   },
   "ServiceSkinTherapy": {
     "heading": "皮肤治疗",
     "empty": "该分类暂无服务项目。",
-    "backToList": "← 返回皮肤治疗",
     "comingSoon": "详细内容即将上线。"
   },
   "ServiceRejuvenationInjections": {
     "heading": "焕颜注射",
     "empty": "该分类暂无服务项目。",
-    "backToList": "← 返回焕颜注射",
     "comingSoon": "详细内容即将上线。"
   },
   "ServiceBodyCare": {
     "heading": "身体护理",
     "empty": "该分类暂无服务项目。",
-    "backToList": "← 返回身体护理",
     "comingSoon": "详细内容即将上线。"
   },
   "ServiceSkinCare": {
     "heading": "护肤",
     "empty": "该分类暂无服务项目。",
-    "backToList": "← 返回护肤",
     "comingSoon": "详细内容即将上线。"
+  },
+  "TreatmentDetail": {
+    "durationLabel": "疗程时间",
+    "technologyLabel": "使用技术",
+    "suitableForLabel": "适合对象",
+    "downtimeLabel": "恢复时间",
+    "reviewedByLabel": "专业审核医师",
+    "faqHeading": "常见问题",
+    "relatedHeading": "相关服务",
+    "bookingCta": "预约咨询",
+    "scrollPrev": "上一页",
+    "scrollNext": "下一页"
   },
   "Gallery": {
     "heading": "图库",

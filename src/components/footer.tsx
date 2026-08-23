@@ -68,7 +68,7 @@ export function Footer() {
             <div className="text-sm text-white">
               <p className="font-bold">{t("careLabel")}</p>
               <p>{t("hotlineValue")}</p>
-              <p>{t("emailValue")}</p>
+              <p className="whitespace-nowrap">{t("emailValue")}</p>
             </div>
           </div>
 

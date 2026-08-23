@@ -49,8 +49,13 @@ function LinkIcon() {
 const buttonClasses =
   "flex size-9 shrink-0 items-center justify-center text-white transition-transform hover:scale-110";
 
-function subscribeNoop() {
-  return () => {};
+// useSyncExternalStore only re-renders when `subscribe`'s callback fires, and
+// the real URL is only known after mount (SSR/first paint must render "" to
+// avoid a hydration mismatch) — this callback fires once, right after mount,
+// to trigger that one re-render with the real `window.location.href`.
+function subscribeOnMount(callback: () => void) {
+  const id = setTimeout(callback, 0);
+  return () => clearTimeout(id);
 }
 
 function getUrlSnapshot() {
@@ -64,7 +69,7 @@ function getServerUrlSnapshot() {
 export function ShareButtons({ title, label, copyLabel, copiedLabel }: { title: string; label: string; copyLabel: string; copiedLabel: string }) {
   // Server and the first client render both see "" (avoids a hydration
   // mismatch); useSyncExternalStore re-reads the real URL right after mount.
-  const url = useSyncExternalStore(subscribeNoop, getUrlSnapshot, getServerUrlSnapshot);
+  const url = useSyncExternalStore(subscribeOnMount, getUrlSnapshot, getServerUrlSnapshot);
   const [copied, setCopied] = useState(false);
 
   async function handleCopy() {

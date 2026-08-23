@@ -1,5 +1,5 @@
 import { slugify } from "@/lib/slugify";
-import { defineField, defineType } from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity";
 
 const CATEGORY_OPTIONS = [
   { title: "Độc quyền", value: "exclusive" },
@@ -59,6 +59,108 @@ export const treatment = defineType({
       type: "array",
       group: "media",
       of: [{ type: "image", options: { hotspot: true } }],
+    }),
+    defineField({
+      name: "duration",
+      title: "Thời gian thực hiện",
+      description: "VD: 45–60 phút / buổi",
+      type: "string",
+      group: "vietnamese",
+    }),
+    defineField({ name: "durationEn", title: "Thời gian thực hiện (Tiếng Anh)", type: "string", group: "english" }),
+    defineField({ name: "durationZh", title: "Thời gian thực hiện (Tiếng Trung)", type: "string", group: "chinese" }),
+    defineField({
+      name: "technology",
+      title: "Công nghệ / Thiết bị sử dụng",
+      type: "string",
+      group: "vietnamese",
+    }),
+    defineField({
+      name: "technologyEn",
+      title: "Công nghệ / Thiết bị sử dụng (Tiếng Anh)",
+      type: "string",
+      group: "english",
+    }),
+    defineField({
+      name: "technologyZh",
+      title: "Công nghệ / Thiết bị sử dụng (Tiếng Trung)",
+      type: "string",
+      group: "chinese",
+    }),
+    defineField({
+      name: "suitableFor",
+      title: "Đối tượng phù hợp",
+      type: "string",
+      group: "vietnamese",
+    }),
+    defineField({ name: "suitableForEn", title: "Đối tượng phù hợp (Tiếng Anh)", type: "string", group: "english" }),
+    defineField({ name: "suitableForZh", title: "Đối tượng phù hợp (Tiếng Trung)", type: "string", group: "chinese" }),
+    defineField({
+      name: "downtime",
+      title: "Thời gian nghỉ dưỡng",
+      description: "VD: Không cần nghỉ dưỡng",
+      type: "string",
+      group: "vietnamese",
+    }),
+    defineField({ name: "downtimeEn", title: "Thời gian nghỉ dưỡng (Tiếng Anh)", type: "string", group: "english" }),
+    defineField({ name: "downtimeZh", title: "Thời gian nghỉ dưỡng (Tiếng Trung)", type: "string", group: "chinese" }),
+    defineField({
+      name: "sections",
+      title: "Các mục chi tiết",
+      description:
+        "Thêm các mục nội dung chi tiết tuỳ ý (VD: Quy trình thực hiện, Đối tượng chống chỉ định, Lưu ý trước/sau điều trị...).",
+      type: "array",
+      group: "vietnamese",
+      of: [
+        defineArrayMember({
+          type: "object",
+          name: "treatmentSection",
+          fields: [
+            defineField({ name: "heading", title: "Tiêu đề mục", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({ name: "headingEn", title: "Tiêu đề mục (Tiếng Anh)", type: "string" }),
+            defineField({ name: "headingZh", title: "Tiêu đề mục (Tiếng Trung)", type: "string" }),
+            defineField({ name: "body", title: "Nội dung", type: "array", of: [{ type: "block" }] }),
+            defineField({ name: "bodyEn", title: "Nội dung (Tiếng Anh)", type: "array", of: [{ type: "block" }] }),
+            defineField({ name: "bodyZh", title: "Nội dung (Tiếng Trung)", type: "array", of: [{ type: "block" }] }),
+          ],
+          preview: { select: { title: "heading" } },
+        }),
+      ],
+    }),
+    defineField({
+      name: "faqs",
+      title: "Câu hỏi thường gặp",
+      type: "array",
+      group: "vietnamese",
+      of: [
+        defineArrayMember({
+          type: "object",
+          name: "faqItem",
+          fields: [
+            defineField({ name: "question", title: "Câu hỏi", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({ name: "questionEn", title: "Câu hỏi (Tiếng Anh)", type: "string" }),
+            defineField({ name: "questionZh", title: "Câu hỏi (Tiếng Trung)", type: "string" }),
+            defineField({
+              name: "answer",
+              title: "Trả lời",
+              type: "text",
+              rows: 3,
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({ name: "answerEn", title: "Trả lời (Tiếng Anh)", type: "text", rows: 3 }),
+            defineField({ name: "answerZh", title: "Trả lời (Tiếng Trung)", type: "text", rows: 3 }),
+          ],
+          preview: { select: { title: "question" } },
+        }),
+      ],
+    }),
+    defineField({
+      name: "reviewedByDoctor",
+      title: "Bác sĩ tư vấn / kiểm duyệt chuyên môn",
+      description: "Hiển thị hộp xác nhận chuyên môn ở trang chi tiết dịch vụ. Để trống nếu không cần.",
+      type: "reference",
+      to: [{ type: "doctor" }],
+      group: "metadata",
     }),
     defineField({
       name: "slug",

@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { scrollToRegistrationForm } from "@/lib/scroll-to-registration-form";
 
 function Stat({ value, label, isMobileLeftColumn }: { value: string; label: string; isMobileLeftColumn: boolean }) {
   return (
@@ -47,6 +50,7 @@ export function Hero() {
             </Link>
             <Link
               href={{ pathname: "/", hash: "registration-form" }}
+              onClick={scrollToRegistrationForm}
               className="rounded-full border-2 border-[var(--color-accent)] bg-[#50260e] px-3 py-2 text-center text-xs font-bold whitespace-nowrap text-[var(--color-background-alt)] hover:opacity-90 sm:px-4 sm:text-sm lg:px-[18px] lg:py-2.5 lg:text-base"
             >
               {t("ctaBooking")}
