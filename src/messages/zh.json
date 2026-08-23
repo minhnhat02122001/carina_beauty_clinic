@@ -81,7 +81,11 @@
   "DoctorDetail": {
     "backToList": "← 返回医疗团队",
     "bookingCta": "预约1对1咨询",
-    "clinicalImages": "临床实拍图",
+    "extraInformation": "补充信息",
+    "realCustomerImages": "真实客户",
+    "internationalActivities": "国际活动与培训",
+    "scrollPrev": "上一页",
+    "scrollNext": "下一页",
     "comingSoon": "详细内容即将上线。"
   },
   "StrategicPartners": {

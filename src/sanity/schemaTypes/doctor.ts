@@ -94,19 +94,32 @@ export const doctor = defineType({
       ],
     }),
     defineField({
-      name: "image",
-      title: "Ảnh",
-      type: "image",
-      group: "media",
-      options: { hotspot: true },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "clinicalImages",
-      title: "Hình ảnh lâm sàng thực tế",
+      name: "images",
+      title: "Ảnh (dạng slider — có thể thêm nhiều ảnh)",
       type: "array",
       group: "media",
       of: [{ type: "image", options: { hotspot: true } }],
+      validation: (Rule) => Rule.required().min(1),
+    }),
+    defineField({
+      name: "extraInformation",
+      title: "Thông tin bổ sung",
+      type: "object",
+      group: "media",
+      fields: [
+        defineField({
+          name: "realCustomerImages",
+          title: "Khách Hàng Thực Tế",
+          type: "array",
+          of: [{ type: "image", options: { hotspot: true } }],
+        }),
+        defineField({
+          name: "internationalActivityImages",
+          title: "Hoạt Động & Đào Tạo Quốc Tế",
+          type: "array",
+          of: [{ type: "image", options: { hotspot: true } }],
+        }),
+      ],
     }),
     defineField({
       name: "slug",
@@ -126,6 +139,6 @@ export const doctor = defineType({
     }),
   ],
   preview: {
-    select: { title: "name", subtitle: "title", media: "image" },
+    select: { title: "name", subtitle: "title", media: "images.0" },
   },
 });

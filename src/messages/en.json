@@ -81,7 +81,11 @@
   "DoctorDetail": {
     "backToList": "← Back to Our Medical Team",
     "bookingCta": "Book a 1:1 Consultation",
-    "clinicalImages": "Real Clinical Images",
+    "extraInformation": "Additional Information",
+    "realCustomerImages": "Real Customers",
+    "internationalActivities": "International Activities & Training",
+    "scrollPrev": "Previous",
+    "scrollNext": "Next",
     "comingSoon": "Detailed content is coming soon."
   },
   "StrategicPartners": {

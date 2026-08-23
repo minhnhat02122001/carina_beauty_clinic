@@ -22,8 +22,12 @@ export default async function DoctorDetailPage({ params }: { params: Promise<{ l
       <DoctorDetailView
         doctor={doctor}
         bookingLabel={t("bookingCta")}
-        clinicalImagesLabel={t("clinicalImages")}
+        extraInformationLabel={t("extraInformation")}
+        realCustomerImagesLabel={t("realCustomerImages")}
+        internationalActivitiesLabel={t("internationalActivities")}
         comingSoonLabel={t("comingSoon")}
+        scrollPrevLabel={t("scrollPrev")}
+        scrollNextLabel={t("scrollNext")}
       />
       <RegistrationForm />
     </div>

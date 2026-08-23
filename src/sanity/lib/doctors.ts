@@ -3,6 +3,16 @@ import type { Locale } from "@/i18n/routing";
 import { client } from "./client";
 import { urlFor } from "./image";
 
+type SanityImageRef = Parameters<typeof urlFor>[0];
+
+// Array-of-image fields can contain a stub entry with no uploaded asset yet
+// (e.g. a slot added in Studio but never filled, or a leftover from the
+// `image` -> `images` field migration) — urlFor() throws on those, so they
+// must be filtered out before building URLs.
+function hasAsset(image: SanityImageRef): boolean {
+  return typeof image === "object" && image !== null && Boolean((image as { asset?: unknown }).asset);
+}
+
 const LOCALIZED_TITLE = `select($locale == "vi" => title, $locale == "zh" => coalesce(titleZh, title), coalesce(titleEn, title))`;
 const LOCALIZED_SUBTITLE = `select($locale == "vi" => subtitle, $locale == "zh" => coalesce(subtitleZh, subtitle), coalesce(subtitleEn, subtitle))`;
 const LOCALIZED_NATIONALITY = `select($locale == "vi" => nationality, $locale == "zh" => coalesce(nationalityZh, nationality), coalesce(nationalityEn, nationality))`;
@@ -30,10 +40,11 @@ export type DoctorDetail = {
   title: string;
   subtitle: string | null;
   nationality: string | null;
-  imageUrl: string;
+  imageUrls: string[];
   introduction: PortableTextBlock[];
   sections: DoctorSection[];
-  clinicalImageUrls: string[];
+  realCustomerImageUrls: string[];
+  internationalActivityImageUrls: string[];
 };
 
 const DOCTORS_QUERY = `*[_type == "doctor"] | order(order asc){
@@ -41,21 +52,24 @@ const DOCTORS_QUERY = `*[_type == "doctor"] | order(order asc){
   name,
   "title": ${LOCALIZED_TITLE},
   "slug": slug.current,
-  image
+  images
 }`;
 
 export async function getDoctors(locale: Locale): Promise<DoctorItem[]> {
   const doctors = await client.fetch<
-    { _id: string; name: string; title: string; slug: string | null; image: Parameters<typeof urlFor>[0] }[]
+    { _id: string; name: string; title: string; slug: string | null; images: SanityImageRef[] }[]
   >(DOCTORS_QUERY, { locale });
 
-  return doctors.map((item) => ({
-    id: item._id,
-    name: item.name,
-    title: item.title,
-    imageUrl: urlFor(item.image).width(590).height(738).fit("crop").url(),
-    slug: item.slug ?? null,
-  }));
+  return doctors
+    .map((item) => ({ ...item, images: item.images.filter(hasAsset) }))
+    .filter((item) => item.images.length > 0)
+    .map((item) => ({
+      id: item._id,
+      name: item.name,
+      title: item.title,
+      imageUrl: urlFor(item.images[0]).width(590).url(),
+      slug: item.slug ?? null,
+    }));
 }
 
 const DOCTOR_BY_SLUG_QUERY = `*[_type == "doctor" && slug.current == $slug][0]{
@@ -65,8 +79,9 @@ const DOCTOR_BY_SLUG_QUERY = `*[_type == "doctor" && slug.current == $slug][0]{
   "nationality": ${LOCALIZED_NATIONALITY},
   "introduction": ${LOCALIZED_INTRODUCTION},
   "sections": ${LOCALIZED_SECTIONS},
-  image,
-  clinicalImages
+  images,
+  "realCustomerImages": extraInformation.realCustomerImages,
+  "internationalActivityImages": extraInformation.internationalActivityImages
 }`;
 
 export async function getDoctorBySlug(slug: string, locale: Locale): Promise<DoctorDetail | null> {
@@ -77,8 +92,9 @@ export async function getDoctorBySlug(slug: string, locale: Locale): Promise<Doc
     nationality: string | null;
     introduction: PortableTextBlock[] | null;
     sections: { heading: string | null; body: PortableTextBlock[] | null }[] | null;
-    image: Parameters<typeof urlFor>[0];
-    clinicalImages: Parameters<typeof urlFor>[0][] | null;
+    images: SanityImageRef[];
+    realCustomerImages: SanityImageRef[] | null;
+    internationalActivityImages: SanityImageRef[] | null;
   } | null>(DOCTOR_BY_SLUG_QUERY, { slug, locale });
 
   if (!item) return null;
@@ -88,11 +104,16 @@ export async function getDoctorBySlug(slug: string, locale: Locale): Promise<Doc
     title: item.title,
     subtitle: item.subtitle,
     nationality: item.nationality,
-    imageUrl: urlFor(item.image).width(590).height(738).fit("crop").url(),
+    imageUrls: item.images.filter(hasAsset).map((image) => urlFor(image).width(590).url()),
     introduction: item.introduction ?? [],
     sections: (item.sections ?? [])
       .filter((section) => section.heading)
       .map((section) => ({ heading: section.heading as string, body: section.body ?? [] })),
-    clinicalImageUrls: (item.clinicalImages ?? []).map((image) => urlFor(image).width(800).height(600).fit("crop").url()),
+    realCustomerImageUrls: (item.realCustomerImages ?? [])
+      .filter(hasAsset)
+      .map((image) => urlFor(image).width(800).height(600).fit("crop").url()),
+    internationalActivityImageUrls: (item.internationalActivityImages ?? [])
+      .filter(hasAsset)
+      .map((image) => urlFor(image).width(800).height(600).fit("crop").url()),
   };
 }

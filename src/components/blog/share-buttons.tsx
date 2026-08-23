@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 
 const iconClasses = "size-4";
 
@@ -49,15 +49,23 @@ function LinkIcon() {
 const buttonClasses =
   "flex size-9 shrink-0 items-center justify-center text-white transition-transform hover:scale-110";
 
-export function ShareButtons({ title, label, copyLabel, copiedLabel }: { title: string; label: string; copyLabel: string; copiedLabel: string }) {
-  const [url, setUrl] = useState("");
-  const [copied, setCopied] = useState(false);
+function subscribeNoop() {
+  return () => {};
+}
 
-  // Read the real URL only after mount so server and first client render
-  // match (avoids a hydration mismatch) — links populate a moment after paint.
-  useEffect(() => {
-    setUrl(window.location.href);
-  }, []);
+function getUrlSnapshot() {
+  return window.location.href;
+}
+
+function getServerUrlSnapshot() {
+  return "";
+}
+
+export function ShareButtons({ title, label, copyLabel, copiedLabel }: { title: string; label: string; copyLabel: string; copiedLabel: string }) {
+  // Server and the first client render both see "" (avoids a hydration
+  // mismatch); useSyncExternalStore re-reads the real URL right after mount.
+  const url = useSyncExternalStore(subscribeNoop, getUrlSnapshot, getServerUrlSnapshot);
+  const [copied, setCopied] = useState(false);
 
   async function handleCopy() {
     if (!url) return;

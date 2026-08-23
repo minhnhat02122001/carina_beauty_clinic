@@ -81,7 +81,11 @@
   "DoctorDetail": {
     "backToList": "← Quay lại Đội Ngũ Bác Sĩ",
     "bookingCta": "Đặt Lịch Khám 1:1",
-    "clinicalImages": "Hình Ảnh Lâm Sàng Thực Tế",
+    "extraInformation": "Thông Tin Thêm",
+    "realCustomerImages": "Khách Hàng Thực Tế",
+    "internationalActivities": "Hoạt Động & Đào Tạo Quốc Tế",
+    "scrollPrev": "Trước",
+    "scrollNext": "Tiếp theo",
     "comingSoon": "Nội dung chi tiết đang được cập nhật."
   },
   "StrategicPartners": {

@@ -1,11 +1,14 @@
 import Image from "next/image";
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import type { ReactNode } from "react";
+import { Carousel } from "@/components/carousel";
 import type { DoctorDetail } from "@/sanity/lib/doctors";
 
 const components: PortableTextComponents = {
   block: {
-    normal: ({ children }) => <p className="text-base leading-relaxed text-[var(--foreground)]">{children}</p>,
+    normal: ({ children }) => (
+      <p className="text-justify text-base leading-relaxed text-[var(--foreground)]">{children}</p>
+    ),
     h2: ({ children }) => (
       <h3 className="pt-2 text-lg font-semibold text-[var(--color-accent)] lg:text-xl">{children}</h3>
     ),
@@ -40,27 +43,43 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
 export function DoctorDetailView({
   doctor,
   bookingLabel,
-  clinicalImagesLabel,
+  extraInformationLabel,
+  realCustomerImagesLabel,
+  internationalActivitiesLabel,
   comingSoonLabel,
+  scrollPrevLabel,
+  scrollNextLabel,
 }: {
   doctor: DoctorDetail;
   bookingLabel: string;
-  clinicalImagesLabel: string;
+  extraInformationLabel: string;
+  realCustomerImagesLabel: string;
+  internationalActivitiesLabel: string;
   comingSoonLabel: string;
+  scrollPrevLabel: string;
+  scrollNextLabel: string;
 }) {
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-6 px-4 py-8 sm:px-6 lg:gap-8 lg:px-0 lg:py-16">
       <div className="flex flex-col gap-6 lg:flex-row-reverse lg:items-start lg:gap-10">
-        <div className="relative aspect-[295/369] w-full max-w-xs shrink-0 self-center overflow-hidden rounded-2xl lg:w-2/5 lg:max-w-none">
-          <Image
-            src={doctor.imageUrl}
-            alt=""
-            fill
-            className="object-cover object-top"
-            sizes="(min-width: 1024px) 40vw, 60vw"
-            priority
-          />
-        </div>
+        {doctor.imageUrls.length > 0 && (
+          <div className="w-full max-w-xs shrink-0 self-center lg:w-2/5 lg:max-w-none">
+            <Carousel prevLabel={scrollPrevLabel} nextLabel={scrollNextLabel}>
+              {doctor.imageUrls.map((imageUrl, index) => (
+                <div key={imageUrl} className="relative aspect-[295/369] w-full overflow-hidden rounded-2xl">
+                  <Image
+                    src={imageUrl}
+                    alt=""
+                    fill
+                    className="object-cover object-top"
+                    sizes="(min-width: 1024px) 40vw, 60vw"
+                    priority={index === 0}
+                  />
+                </div>
+              ))}
+            </Carousel>
+          </div>
+        )}
 
         <div className="flex flex-1 flex-col gap-3">
           <div>
@@ -94,15 +113,45 @@ export function DoctorDetailView({
         </Section>
       ))}
 
-      {doctor.clinicalImageUrls.length > 0 && (
-        <Section title={clinicalImagesLabel}>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-            {doctor.clinicalImageUrls.map((imageUrl) => (
-              <div key={imageUrl} className="relative aspect-[4/3] w-full overflow-hidden rounded-xl">
-                <Image src={imageUrl} alt="" fill className="object-cover" sizes="(min-width: 640px) 33vw, 50vw" />
-              </div>
-            ))}
-          </div>
+      {(doctor.realCustomerImageUrls.length > 0 || doctor.internationalActivityImageUrls.length > 0) && (
+        <Section title={extraInformationLabel}>
+          {doctor.realCustomerImageUrls.length > 0 && (
+            <div className="flex flex-col gap-3">
+              <h3 className="text-base font-semibold text-[var(--color-accent)]">{realCustomerImagesLabel}</h3>
+              <Carousel prevLabel={scrollPrevLabel} nextLabel={scrollNextLabel} itemsPerView={{ base: 2, lg: 3 }}>
+                {doctor.realCustomerImageUrls.map((imageUrl) => (
+                  <div key={imageUrl} className="relative aspect-[4/3] w-full overflow-hidden rounded-xl">
+                    <Image
+                      src={imageUrl}
+                      alt=""
+                      fill
+                      className="object-cover"
+                      sizes="(min-width: 1024px) 33vw, 50vw"
+                    />
+                  </div>
+                ))}
+              </Carousel>
+            </div>
+          )}
+
+          {doctor.internationalActivityImageUrls.length > 0 && (
+            <div className="flex flex-col gap-3">
+              <h3 className="text-base font-semibold text-[var(--color-accent)]">{internationalActivitiesLabel}</h3>
+              <Carousel prevLabel={scrollPrevLabel} nextLabel={scrollNextLabel} itemsPerView={{ base: 2, lg: 3 }}>
+                {doctor.internationalActivityImageUrls.map((imageUrl) => (
+                  <div key={imageUrl} className="relative aspect-[4/3] w-full overflow-hidden rounded-xl">
+                    <Image
+                      src={imageUrl}
+                      alt=""
+                      fill
+                      className="object-cover"
+                      sizes="(min-width: 1024px) 33vw, 50vw"
+                    />
+                  </div>
+                ))}
+              </Carousel>
+            </div>
+          )}
         </Section>
       )}
     </div>
