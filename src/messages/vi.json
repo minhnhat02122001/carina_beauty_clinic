@@ -236,7 +236,10 @@
     "copyLink": "Sao chép liên kết",
     "linkCopied": "Đã sao chép liên kết!",
     "relatedPosts": "Bài Viết Liên Quan",
-    "recentPosts": "Bài Viết Mới"
+    "recentPosts": "Bài Viết Mới",
+    "gallery": "Thư Viện Ảnh",
+    "scrollPrev": "Trước",
+    "scrollNext": "Sau"
   },
   "ContentPolicy": {
     "heading": "Chính Sách Nội Dung",

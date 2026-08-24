@@ -44,7 +44,7 @@ export type DoctorDetail = {
   introduction: PortableTextBlock[];
   sections: DoctorSection[];
   realCustomerImageUrls: string[];
-  internationalActivityImageUrls: string[];
+  medicalActivityImageUrls: string[];
 };
 
 const DOCTORS_QUERY = `*[_type == "doctor"] | order(order asc){
@@ -81,7 +81,7 @@ const DOCTOR_BY_SLUG_QUERY = `*[_type == "doctor" && slug.current == $slug][0]{
   "sections": ${LOCALIZED_SECTIONS},
   images,
   "realCustomerImages": extraInformation.realCustomerImages,
-  "internationalActivityImages": extraInformation.internationalActivityImages
+  "medicalActivityImages": extraInformation.medicalActivityImages
 }`;
 
 export async function getDoctorBySlug(slug: string, locale: Locale): Promise<DoctorDetail | null> {
@@ -94,7 +94,7 @@ export async function getDoctorBySlug(slug: string, locale: Locale): Promise<Doc
     sections: { heading: string | null; body: PortableTextBlock[] | null }[] | null;
     images: SanityImageRef[];
     realCustomerImages: SanityImageRef[] | null;
-    internationalActivityImages: SanityImageRef[] | null;
+    medicalActivityImages: SanityImageRef[] | null;
   } | null>(DOCTOR_BY_SLUG_QUERY, { slug, locale });
 
   if (!item) return null;
@@ -112,7 +112,7 @@ export async function getDoctorBySlug(slug: string, locale: Locale): Promise<Doc
     realCustomerImageUrls: (item.realCustomerImages ?? [])
       .filter(hasAsset)
       .map((image) => urlFor(image).width(800).height(600).fit("crop").url()),
-    internationalActivityImageUrls: (item.internationalActivityImages ?? [])
+    medicalActivityImageUrls: (item.medicalActivityImages ?? [])
       .filter(hasAsset)
       .map((image) => urlFor(image).width(800).height(600).fit("crop").url()),
   };

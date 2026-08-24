@@ -20,11 +20,11 @@ export function BannerHero({ banners }: { banners: BannerItem[] }) {
           );
 
           return banner.url ? (
-            <a key={banner.id} href={banner.url} className="relative block aspect-video w-full lg:aspect-[1440/539]">
+            <a key={banner.id} href={banner.url} className="relative block aspect-[750/958] w-full lg:aspect-[1440/539]">
               {image}
             </a>
           ) : (
-            <div key={banner.id} className="relative aspect-video w-full lg:aspect-[1440/539]">
+            <div key={banner.id} className="relative aspect-[750/958] w-full lg:aspect-[1440/539]">
               {image}
             </div>
           );

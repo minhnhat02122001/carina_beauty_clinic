@@ -236,7 +236,10 @@
     "copyLink": "Copy link",
     "linkCopied": "Link copied!",
     "relatedPosts": "Related Articles",
-    "recentPosts": "Recent Posts"
+    "recentPosts": "Recent Posts",
+    "gallery": "Photo Gallery",
+    "scrollPrev": "Previous",
+    "scrollNext": "Next"
   },
   "ContentPolicy": {
     "heading": "Content Policy",

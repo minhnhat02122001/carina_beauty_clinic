@@ -114,8 +114,8 @@ export const doctor = defineType({
           of: [{ type: "image", options: { hotspot: true } }],
         }),
         defineField({
-          name: "internationalActivityImages",
-          title: "Hoạt Động & Đào Tạo Quốc Tế",
+          name: "medicalActivityImages",
+          title: "Hoạt động Y khoa & Đào tạo",
           type: "array",
           of: [{ type: "image", options: { hotspot: true } }],
         }),

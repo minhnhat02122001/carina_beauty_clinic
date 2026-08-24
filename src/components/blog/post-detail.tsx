@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
+import { Carousel } from "@/components/carousel";
 import { Link } from "@/i18n/navigation";
 import { urlFor } from "@/sanity/lib/image";
 import type { PostCategory, PostDetail, PostSummary } from "@/sanity/lib/posts";
@@ -49,6 +50,9 @@ export function PostDetailView({
   linkCopiedLabel,
   relatedPostsLabel,
   recentPostsLabel,
+  galleryLabel,
+  scrollPrevLabel,
+  scrollNextLabel,
 }: {
   post: PostDetail;
   category: PostCategory;
@@ -59,6 +63,9 @@ export function PostDetailView({
   linkCopiedLabel: string;
   relatedPostsLabel: string;
   recentPostsLabel: string;
+  galleryLabel: string;
+  scrollPrevLabel: string;
+  scrollNextLabel: string;
 }) {
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 py-8 sm:px-6 lg:px-0 lg:py-16">
@@ -95,6 +102,19 @@ export function PostDetailView({
           <div className="flex flex-col gap-4">
             <PortableText value={post.body} components={components} />
           </div>
+
+          {post.galleryImageUrls.length > 0 && (
+            <div className="flex flex-col gap-4">
+              <h2 className="text-xl font-semibold text-[var(--color-accent)] lg:text-2xl">{galleryLabel}</h2>
+              <Carousel prevLabel={scrollPrevLabel} nextLabel={scrollNextLabel} itemsPerView={{ base: 2, lg: 3 }}>
+                {post.galleryImageUrls.map((imageUrl) => (
+                  <div key={imageUrl} className="relative aspect-[4/3] w-full overflow-hidden rounded-xl">
+                    <Image src={imageUrl} alt="" fill className="object-cover" sizes="(min-width: 1024px) 33vw, 50vw" />
+                  </div>
+                ))}
+              </Carousel>
+            </div>
+          )}
 
           {post.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 pt-4">

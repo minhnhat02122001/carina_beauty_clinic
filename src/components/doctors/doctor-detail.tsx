@@ -129,7 +129,7 @@ export function DoctorDetailView({
           </Section>
         ))}
 
-        {(doctor.realCustomerImageUrls.length > 0 || doctor.internationalActivityImageUrls.length > 0) && (
+        {(doctor.realCustomerImageUrls.length > 0 || doctor.medicalActivityImageUrls.length > 0) && (
           <Section
             title={extraInformationLabel}
             variant={doctor.sections.length % 2 === 0 ? "alt-a" : "alt-b"}
@@ -153,11 +153,11 @@ export function DoctorDetailView({
               </div>
             )}
 
-            {doctor.internationalActivityImageUrls.length > 0 && (
+            {doctor.medicalActivityImageUrls.length > 0 && (
               <div className="flex flex-col gap-3">
                 <h3 className="text-base font-semibold text-[var(--color-accent)]">{internationalActivitiesLabel}</h3>
                 <Carousel prevLabel={scrollPrevLabel} nextLabel={scrollNextLabel} itemsPerView={{ base: 2, lg: 3 }}>
-                  {doctor.internationalActivityImageUrls.map((imageUrl) => (
+                  {doctor.medicalActivityImageUrls.map((imageUrl) => (
                     <div key={imageUrl} className="relative aspect-[4/3] w-full overflow-hidden rounded-xl">
                       <Image
                         src={imageUrl}

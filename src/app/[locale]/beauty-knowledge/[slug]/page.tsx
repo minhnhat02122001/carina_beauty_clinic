@@ -73,6 +73,9 @@ export default async function BeautyKnowledgeDetailPage({
         linkCopiedLabel={tBlog("linkCopied")}
         relatedPostsLabel={tBlog("relatedPosts")}
         recentPostsLabel={tBlog("recentPosts")}
+        galleryLabel={tBlog("gallery")}
+        scrollPrevLabel={tBlog("scrollPrev")}
+        scrollNextLabel={tBlog("scrollNext")}
       />
       <RegistrationForm />
     </div>

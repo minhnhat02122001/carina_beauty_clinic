@@ -3,6 +3,14 @@ import type { Locale } from "@/i18n/routing";
 import { client } from "./client";
 import { urlFor } from "./image";
 
+type SanityImageRef = Parameters<typeof urlFor>[0];
+
+// Array-of-image fields can contain a stub entry with no uploaded asset yet —
+// urlFor() throws on those, so they must be filtered out before building URLs.
+function hasAsset(image: SanityImageRef): boolean {
+  return typeof image === "object" && image !== null && Boolean((image as { asset?: unknown }).asset);
+}
+
 export type PostCategory = "newsEvents" | "promotions" | "beautyKnowledge";
 
 export type FeaturedNewsItem = {
@@ -29,6 +37,7 @@ export type PostDetail = {
   date: string;
   publishedAtISO: string;
   imageUrl: string | null;
+  galleryImageUrls: string[];
   tags: string[];
 };
 
@@ -128,6 +137,7 @@ const POST_BY_SLUG_QUERY = `*[_type == "post" && category == $category && slug.c
   "excerpt": ${LOCALIZED_EXCERPT},
   "body": ${LOCALIZED_BODY},
   coverImage,
+  gallery,
   publishedAt,
   tags
 }`;
@@ -137,7 +147,8 @@ export async function getPostBySlug(category: PostCategory, slug: string, locale
     title: string;
     excerpt: string | null;
     body: PortableTextBlock[] | null;
-    coverImage: Parameters<typeof urlFor>[0] | null;
+    coverImage: SanityImageRef | null;
+    gallery: SanityImageRef[] | null;
     publishedAt: string;
     tags: string[] | null;
   } | null>(POST_BY_SLUG_QUERY, { category, slug, locale });
@@ -151,6 +162,7 @@ export async function getPostBySlug(category: PostCategory, slug: string, locale
     date: formatDate(locale, post.publishedAt),
     publishedAtISO: post.publishedAt,
     imageUrl: post.coverImage ? urlFor(post.coverImage).width(1200).height(675).fit("crop").url() : null,
+    galleryImageUrls: (post.gallery ?? []).filter(hasAsset).map((image) => urlFor(image).width(800).url()),
     tags: post.tags ?? [],
   };
 }

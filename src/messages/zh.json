@@ -236,7 +236,10 @@
     "copyLink": "复制链接",
     "linkCopied": "链接已复制！",
     "relatedPosts": "相关文章",
-    "recentPosts": "最新文章"
+    "recentPosts": "最新文章",
+    "gallery": "图片库",
+    "scrollPrev": "上一个",
+    "scrollNext": "下一个"
   },
   "ContentPolicy": {
     "heading": "内容政策",
