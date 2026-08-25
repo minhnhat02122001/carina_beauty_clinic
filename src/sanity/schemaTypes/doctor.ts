@@ -41,13 +41,14 @@ export const doctor = defineType({
     defineField({ name: "subtitleEn", title: "Chức danh phụ (Tiếng Anh)", type: "string", group: "english" }),
     defineField({ name: "subtitleZh", title: "Chức danh phụ (Tiếng Trung)", type: "string", group: "chinese" }),
     defineField({
-      name: "nationality",
-      title: "Quốc tịch",
+      name: "languages",
+      title: "Ngôn ngữ",
+      description: "VD: Tiếng Việt & Tiếng Anh",
       type: "string",
       group: "vietnamese",
     }),
-    defineField({ name: "nationalityEn", title: "Quốc tịch (Tiếng Anh)", type: "string", group: "english" }),
-    defineField({ name: "nationalityZh", title: "Quốc tịch (Tiếng Trung)", type: "string", group: "chinese" }),
+    defineField({ name: "languagesEn", title: "Ngôn ngữ (Tiếng Anh)", type: "string", group: "english" }),
+    defineField({ name: "languagesZh", title: "Ngôn ngữ (Tiếng Trung)", type: "string", group: "chinese" }),
     defineField({
       name: "introduction",
       title: "Giới thiệu",

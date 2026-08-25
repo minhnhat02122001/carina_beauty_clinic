@@ -86,7 +86,9 @@
     "internationalActivities": "Hoạt Động & Đào Tạo Quốc Tế",
     "scrollPrev": "Trước",
     "scrollNext": "Tiếp theo",
-    "comingSoon": "Nội dung chi tiết đang được cập nhật."
+    "comingSoon": "Nội dung chi tiết đang được cập nhật.",
+    "closeImage": "Đóng ảnh",
+    "languagesLabel": "Ngôn ngữ"
   },
   "StrategicPartners": {
     "heading": "Đối Tác Quốc Tế"
@@ -195,7 +197,8 @@
     "relatedHeading": "Dịch vụ liên quan",
     "bookingCta": "ĐẶT LỊCH TƯ VẤN",
     "scrollPrev": "Trước",
-    "scrollNext": "Tiếp theo"
+    "scrollNext": "Tiếp theo",
+    "closeImage": "Đóng ảnh"
   },
   "Gallery": {
     "heading": "Thư Viện Ảnh",
@@ -237,7 +240,6 @@
     "linkCopied": "Đã sao chép liên kết!",
     "relatedPosts": "Bài Viết Liên Quan",
     "recentPosts": "Bài Viết Mới",
-    "gallery": "Thư Viện Ảnh",
     "scrollPrev": "Trước",
     "scrollNext": "Sau"
   },

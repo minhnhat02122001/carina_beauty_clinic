@@ -5,7 +5,6 @@ import { Link } from "@/i18n/navigation";
 import { urlFor } from "@/sanity/lib/image";
 import type { PostCategory, PostDetail, PostSummary } from "@/sanity/lib/posts";
 import { CATEGORY_ROUTES } from "./category-routes";
-import { PostList } from "./post-list";
 import { ShareButtons } from "./share-buttons";
 
 const components: PortableTextComponents = {
@@ -50,7 +49,6 @@ export function PostDetailView({
   linkCopiedLabel,
   relatedPostsLabel,
   recentPostsLabel,
-  galleryLabel,
   scrollPrevLabel,
   scrollNextLabel,
 }: {
@@ -63,12 +61,11 @@ export function PostDetailView({
   linkCopiedLabel: string;
   relatedPostsLabel: string;
   recentPostsLabel: string;
-  galleryLabel: string;
   scrollPrevLabel: string;
   scrollNextLabel: string;
 }) {
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 py-8 sm:px-6 lg:px-0 lg:py-16">
+    <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 py-8 sm:px-6 lg:px-0 lg:py-12">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-10">
         <article className="flex flex-col gap-6 lg:col-span-2">
           {post.imageUrl && (
@@ -90,7 +87,7 @@ export function PostDetailView({
             {post.excerpt && <p className="text-base text-[var(--foreground)] opacity-70">{post.excerpt}</p>}
           </div>
 
-          <div className="border-t border-b border-[var(--color-border)] py-4">
+          <div className="bg-[var(--color-background-alt)] px-4 py-4">
             <ShareButtons
               title={post.title}
               label={shareLabel}
@@ -102,19 +99,6 @@ export function PostDetailView({
           <div className="flex flex-col gap-4">
             <PortableText value={post.body} components={components} />
           </div>
-
-          {post.galleryImageUrls.length > 0 && (
-            <div className="flex flex-col gap-4">
-              <h2 className="text-xl font-semibold text-[var(--color-accent)] lg:text-2xl">{galleryLabel}</h2>
-              <Carousel prevLabel={scrollPrevLabel} nextLabel={scrollNextLabel} itemsPerView={{ base: 2, lg: 3 }}>
-                {post.galleryImageUrls.map((imageUrl) => (
-                  <div key={imageUrl} className="relative aspect-[4/3] w-full overflow-hidden rounded-xl">
-                    <Image src={imageUrl} alt="" fill className="object-cover" sizes="(min-width: 1024px) 33vw, 50vw" />
-                  </div>
-                ))}
-              </Carousel>
-            </div>
-          )}
 
           {post.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 pt-4">
@@ -131,32 +115,34 @@ export function PostDetailView({
         </article>
 
         {recentPosts.length > 0 && (
-          <aside className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold text-[var(--color-accent)]">{recentPostsLabel}</h2>
-            <div className="flex flex-col gap-4">
-              {recentPosts.map((item) => (
-                <Link
-                  key={item.id}
-                  href={{ pathname: CATEGORY_ROUTES[item.category], params: { slug: item.slug } }}
-                  className="group flex items-center gap-3"
-                >
-                  <div className="relative aspect-video w-24 shrink-0 overflow-hidden rounded-xl bg-[var(--color-background-alt)] sm:w-28">
-                    {item.imageUrl && (
-                      <Image
-                        src={item.imageUrl}
-                        alt=""
-                        fill
-                        className="object-cover transition group-hover:scale-105"
-                        sizes="(min-width: 640px) 112px, 96px"
-                      />
-                    )}
-                  </div>
-                  <div className="flex flex-col gap-0.5">
-                    <p className="line-clamp-2 text-sm font-semibold text-[var(--color-accent)]">{item.title}</p>
-                    <p className="text-xs text-[var(--color-muted)]">{item.date}</p>
-                  </div>
-                </Link>
-              ))}
+          <aside>
+            <div className="flex flex-col gap-4 lg:sticky lg:top-8">
+              <h2 className="text-lg font-semibold text-[var(--color-accent)]">{recentPostsLabel}</h2>
+              <div className="flex flex-col gap-4">
+                {recentPosts.map((item) => (
+                  <Link
+                    key={item.id}
+                    href={{ pathname: CATEGORY_ROUTES[item.category], params: { slug: item.slug } }}
+                    className="group flex items-center gap-3"
+                  >
+                    <div className="relative aspect-video w-24 shrink-0 overflow-hidden rounded-xl bg-[var(--color-background-alt)] sm:w-28">
+                      {item.imageUrl && (
+                        <Image
+                          src={item.imageUrl}
+                          alt=""
+                          fill
+                          className="object-cover transition group-hover:scale-105"
+                          sizes="(min-width: 640px) 112px, 96px"
+                        />
+                      )}
+                    </div>
+                    <div className="flex flex-col gap-0.5">
+                      <p className="line-clamp-2 text-sm font-semibold text-[var(--color-accent)]">{item.title}</p>
+                      <p className="text-xs text-[var(--color-muted)]">{item.date}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
           </aside>
         )}
@@ -165,11 +151,34 @@ export function PostDetailView({
       {relatedPosts.length > 0 && (
         <div className="flex flex-col gap-6">
           <h2 className="text-xl font-semibold text-[var(--color-accent)] lg:text-2xl">{relatedPostsLabel}</h2>
-          <PostList
-            posts={relatedPosts}
-            emptyLabel=""
-            getHref={(slug) => ({ pathname: CATEGORY_ROUTES[category], params: { slug } })}
-          />
+          <Carousel prevLabel={scrollPrevLabel} nextLabel={scrollNextLabel} itemsPerView={{ base: 1, lg: 3 }}>
+            {relatedPosts.map((item) => (
+              <Link
+                key={item.id}
+                href={{ pathname: CATEGORY_ROUTES[category], params: { slug: item.slug } }}
+                className="group flex flex-col gap-3"
+              >
+                <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-[var(--color-background-alt)]">
+                  {item.imageUrl && (
+                    <Image
+                      src={item.imageUrl}
+                      alt=""
+                      fill
+                      className="object-cover transition group-hover:scale-105"
+                      sizes="(min-width: 1024px) 380px, 100vw"
+                    />
+                  )}
+                </div>
+                <div className="flex flex-col gap-1">
+                  <p className="text-xs text-[var(--color-muted)]">{item.date}</p>
+                  <h3 className="text-base font-bold text-[var(--color-accent)] lg:text-lg">{item.title}</h3>
+                  {item.excerpt && (
+                    <p className="line-clamp-2 text-sm text-[var(--foreground)] opacity-70">{item.excerpt}</p>
+                  )}
+                </div>
+              </Link>
+            ))}
+          </Carousel>
         </div>
       )}
     </div>

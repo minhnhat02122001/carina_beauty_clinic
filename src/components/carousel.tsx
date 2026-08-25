@@ -1,10 +1,101 @@
 "use client";
 
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import Image from "next/image";
 import { Children, useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
 const EDGE_TOLERANCE_PX = 2;
 const AUTO_SCROLL_INTERVAL_MS = 3000;
 const GAP_PX = 16;
+
+function ImageLightbox({
+  images,
+  index,
+  closeLabel,
+  prevLabel,
+  nextLabel,
+  onClose,
+  onIndexChange,
+}: {
+  images: string[];
+  index: number;
+  closeLabel: string;
+  prevLabel: string;
+  nextLabel: string;
+  onClose: () => void;
+  onIndexChange: (index: number) => void;
+}) {
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft" && images.length > 1) onIndexChange((index - 1 + images.length) % images.length);
+      if (e.key === "ArrowRight" && images.length > 1) onIndexChange((index + 1) % images.length);
+    }
+    document.addEventListener("keydown", handleKeyDown);
+
+    // `overflow: hidden` alone doesn't block touch-driven scroll on iOS
+    // Safari — pinning the body via `position: fixed` does.
+    const scrollY = window.scrollY;
+    const { style } = document.body;
+    style.position = "fixed";
+    style.top = `-${scrollY}px`;
+    style.left = "0";
+    style.right = "0";
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      style.position = "";
+      style.top = "";
+      style.left = "";
+      style.right = "";
+      window.scrollTo(0, scrollY);
+    };
+  }, [onClose, onIndexChange, index, images.length]);
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4" onClick={onClose}>
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label={closeLabel}
+        className="absolute top-4 right-4 z-10 flex size-10 items-center justify-center text-white hover:opacity-80"
+      >
+        <X className="size-6" />
+      </button>
+
+      <div className="relative h-full max-h-[85vh] w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
+        <Image src={images[index]} alt="" fill className="object-contain" sizes="90vw" />
+      </div>
+
+      {images.length > 1 && (
+        <>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onIndexChange((index - 1 + images.length) % images.length);
+            }}
+            aria-label={prevLabel}
+            className="absolute top-1/2 left-2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 sm:left-4"
+          >
+            <ChevronLeft className="size-6" />
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onIndexChange((index + 1) % images.length);
+            }}
+            aria-label={nextLabel}
+            className="absolute top-1/2 right-2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 sm:right-4"
+          >
+            <ChevronRight className="size-6" />
+          </button>
+        </>
+      )}
+    </div>
+  );
+}
 
 function CarouselControl({
   direction,
@@ -68,6 +159,9 @@ export function Carousel({
   controlBackgroundClassName = "bg-white",
   controlBorderClassName = "border-[#eaeffa]",
   controlIconColorClassName = "bg-[var(--color-accent)]",
+  lightboxImages,
+  lightboxCloseLabel,
+  autoScrollIntervalMs = AUTO_SCROLL_INTERVAL_MS,
 }: {
   children: ReactNode;
   prevLabel: string;
@@ -85,10 +179,19 @@ export function Carousel({
   controlBorderClassName?: string;
   /** Tailwind background class for the chevron icon (it's mask-rendered, so its color comes from `background-color`). */
   controlIconColorClassName?: string;
+  /** Full-size image URLs, one per child in the same order. When set, each item becomes clickable
+   * and opens a full-screen lightbox at that index — only pass this for carousels of plain images
+   * (not ones whose children are already a `Link` to somewhere else). */
+  lightboxImages?: string[];
+  /** Required together with `lightboxImages` — aria-label for the lightbox's close button. */
+  lightboxCloseLabel?: string;
+  /** Milliseconds between auto-scroll advances. Defaults to 3000. */
+  autoScrollIntervalMs?: number;
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
   const [hasOverflow, setHasOverflow] = useState(false);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
   const count = Children.count(children);
 
   const perView = typeof itemsPerView === "number" ? { base: itemsPerView, lg: itemsPerView } : itemsPerView;
@@ -145,9 +248,9 @@ export function Carousel({
 
   useEffect(() => {
     if (!showControls || isPaused) return;
-    const id = setInterval(() => goTo("right"), AUTO_SCROLL_INTERVAL_MS);
+    const id = setInterval(() => goTo("right"), autoScrollIntervalMs);
     return () => clearInterval(id);
-  }, [showControls, isPaused, goTo]);
+  }, [showControls, isPaused, goTo, autoScrollIntervalMs]);
 
   return (
     <div
@@ -163,9 +266,19 @@ export function Carousel({
         className="flex w-full snap-x snap-mandatory [scrollbar-width:none] gap-4 overflow-x-auto scroll-smooth [&::-webkit-scrollbar]:hidden"
         style={trackStyle}
       >
-        {Children.map(children, (child) => (
+        {Children.map(children, (child, index) => (
           <div className="w-[var(--carousel-item-min-base)] shrink-0 snap-start lg:w-[var(--carousel-item-min-lg)]">
-            {child}
+            {lightboxImages ? (
+              <button
+                type="button"
+                onClick={() => setOpenIndex(index)}
+                className="block w-full cursor-zoom-in text-left"
+              >
+                {child}
+              </button>
+            ) : (
+              child
+            )}
           </div>
         ))}
       </div>
@@ -190,6 +303,17 @@ export function Carousel({
             iconColorClassName={controlIconColorClassName}
           />
         </>
+      )}
+      {lightboxImages && openIndex !== null && lightboxCloseLabel && (
+        <ImageLightbox
+          images={lightboxImages}
+          index={openIndex}
+          closeLabel={lightboxCloseLabel}
+          prevLabel={prevLabel}
+          nextLabel={nextLabel}
+          onClose={() => setOpenIndex(null)}
+          onIndexChange={setOpenIndex}
+        />
       )}
     </div>
   );

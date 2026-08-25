@@ -86,7 +86,9 @@
     "internationalActivities": "International Activities & Training",
     "scrollPrev": "Previous",
     "scrollNext": "Next",
-    "comingSoon": "Detailed content is coming soon."
+    "comingSoon": "Detailed content is coming soon.",
+    "closeImage": "Close image",
+    "languagesLabel": "Languages"
   },
   "StrategicPartners": {
     "heading": "International Partners"
@@ -195,7 +197,8 @@
     "relatedHeading": "Related Treatments",
     "bookingCta": "BOOK A CONSULTATION",
     "scrollPrev": "Previous",
-    "scrollNext": "Next"
+    "scrollNext": "Next",
+    "closeImage": "Close image"
   },
   "Gallery": {
     "heading": "Gallery",
@@ -237,7 +240,6 @@
     "linkCopied": "Link copied!",
     "relatedPosts": "Related Articles",
     "recentPosts": "Recent Posts",
-    "gallery": "Photo Gallery",
     "scrollPrev": "Previous",
     "scrollNext": "Next"
   },

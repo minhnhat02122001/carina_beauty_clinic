@@ -83,15 +83,6 @@ export const post = defineType({
       options: { hotspot: true },
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
-      name: "gallery",
-      title: "Thư viện ảnh",
-      description: "Ảnh bổ sung cho bài viết tổng kết sự kiện (VD: album mở hộp/sự kiện) — không bắt buộc.",
-      type: "array",
-      group: "media",
-      of: [{ type: "image", options: { hotspot: true } }],
-    }),
-
     // Metadata
     defineField({
       name: "slug",

@@ -36,6 +36,7 @@ export default async function SkinTherapyTreatmentDetailPage({
       bookingCta={tDetail("bookingCta")}
       scrollPrevLabel={tDetail("scrollPrev")}
       scrollNextLabel={tDetail("scrollNext")}
+      closeImageLabel={tDetail("closeImage")}
     />
   );
 }

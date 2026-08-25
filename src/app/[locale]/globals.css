@@ -25,7 +25,6 @@
   --color-accent-foreground: #ffffff;
   --color-border: #e8f1e8;
   --color-gold: #bd8c2e;
-  --color-link: #0088ff;
 }
 
 @theme inline {
@@ -38,7 +37,6 @@
   --color-accent-bright: var(--color-accent-bright);
   --color-border: var(--color-border);
   --color-gold: var(--color-gold);
-  --color-link: var(--color-link);
   --font-sans: var(--font-montserrat);
   --font-serif: var(--font-merriweather);
   --font-script: var(--font-script);

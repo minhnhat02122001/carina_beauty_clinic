@@ -6,8 +6,15 @@ export const heroBanner = defineType({
   type: "document",
   fields: [
     defineField({
-      name: "image",
-      title: "Hình ảnh",
+      name: "imageDesktop",
+      title: "Hình ảnh (Desktop)",
+      type: "image",
+      options: { hotspot: true },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "imageMobile",
+      title: "Hình ảnh (Mobile)",
       type: "image",
       options: { hotspot: true },
       validation: (Rule) => Rule.required(),
@@ -30,7 +37,7 @@ export const heroBanner = defineType({
     }),
   ],
   preview: {
-    select: { media: "image", order: "order" },
+    select: { media: "imageDesktop", order: "order" },
     prepare({ media, order }) {
       return { title: `Banner (thứ tự ${order ?? 0})`, media };
     },

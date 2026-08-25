@@ -67,6 +67,7 @@ export function TreatmentOverview({
   bookingCta,
   scrollPrevLabel,
   scrollNextLabel,
+  closeImageLabel,
 }: {
   treatment: TreatmentDetail;
   comingSoonLabel: string;
@@ -78,6 +79,7 @@ export function TreatmentOverview({
   bookingCta: string;
   scrollPrevLabel: string;
   scrollNextLabel: string;
+  closeImageLabel: string;
 }) {
   const allKeyInfoRows: { icon: ReactNode; label: string; value: string | null }[] = [
     { icon: <Clock className="size-4" />, label: durationLabel, value: treatment.keyInfo.duration },
@@ -93,7 +95,12 @@ export function TreatmentOverview({
     <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-10">
       <div className="flex w-full flex-col gap-4 lg:w-1/2 lg:shrink-0">
         {treatment.imageUrls.length > 0 && (
-          <Carousel prevLabel={scrollPrevLabel} nextLabel={scrollNextLabel}>
+          <Carousel
+            prevLabel={scrollPrevLabel}
+            nextLabel={scrollNextLabel}
+            lightboxImages={treatment.imageUrls}
+            lightboxCloseLabel={closeImageLabel}
+          >
             {treatment.imageUrls.map((imageUrl, index) => (
               // translateZ(0) forces its own compositing layer, so Chrome keeps
               // clipping the image to rounded-2xl mid-scroll instead of

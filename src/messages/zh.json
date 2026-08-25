@@ -86,7 +86,9 @@
     "internationalActivities": "国际活动与培训",
     "scrollPrev": "上一页",
     "scrollNext": "下一页",
-    "comingSoon": "详细内容即将上线。"
+    "comingSoon": "详细内容即将上线。",
+    "closeImage": "关闭图片",
+    "languagesLabel": "语言"
   },
   "StrategicPartners": {
     "heading": "国际合作伙伴"
@@ -195,7 +197,8 @@
     "relatedHeading": "相关服务",
     "bookingCta": "预约咨询",
     "scrollPrev": "上一页",
-    "scrollNext": "下一页"
+    "scrollNext": "下一页",
+    "closeImage": "关闭图片"
   },
   "Gallery": {
     "heading": "图库",
@@ -237,9 +240,8 @@
     "linkCopied": "链接已复制！",
     "relatedPosts": "相关文章",
     "recentPosts": "最新文章",
-    "gallery": "图片库",
-    "scrollPrev": "上一个",
-    "scrollNext": "下一个"
+    "scrollPrev": "上一页",
+    "scrollNext": "下一页"
   },
   "ContentPolicy": {
     "heading": "内容政策",

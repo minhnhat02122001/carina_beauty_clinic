@@ -15,13 +15,22 @@ export function StrategicPartners() {
       <div className="mx-auto flex max-w-[1216px] flex-col items-center gap-6 lg:gap-8">
         <h2 className="text-center text-2xl font-medium text-[var(--color-accent)] lg:text-5xl">{t("heading")}</h2>
 
-        <div className="relative aspect-[1216/628] w-full overflow-hidden rounded-2xl">
+        <div className="relative aspect-square w-full overflow-hidden rounded-2xl lg:hidden">
           <Image
-            src="/images/partners/partners-grid.png"
+            src="/images/partners/DoiTacHang-02.jpg"
             alt=""
             fill
             className="object-contain"
-            sizes="(min-width: 1024px) 1216px, 100vw"
+            sizes="100vw"
+          />
+        </div>
+        <div className="relative hidden aspect-[5000/2617] w-full overflow-hidden rounded-2xl lg:block">
+          <Image
+            src="/images/partners/DoiTacHang-01.jpg"
+            alt=""
+            fill
+            className="object-contain"
+            sizes="1216px"
           />
         </div>
       </div>

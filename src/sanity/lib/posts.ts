@@ -5,12 +5,6 @@ import { urlFor } from "./image";
 
 type SanityImageRef = Parameters<typeof urlFor>[0];
 
-// Array-of-image fields can contain a stub entry with no uploaded asset yet —
-// urlFor() throws on those, so they must be filtered out before building URLs.
-function hasAsset(image: SanityImageRef): boolean {
-  return typeof image === "object" && image !== null && Boolean((image as { asset?: unknown }).asset);
-}
-
 export type PostCategory = "newsEvents" | "promotions" | "beautyKnowledge";
 
 export type FeaturedNewsItem = {
@@ -37,7 +31,6 @@ export type PostDetail = {
   date: string;
   publishedAtISO: string;
   imageUrl: string | null;
-  galleryImageUrls: string[];
   tags: string[];
 };
 
@@ -116,10 +109,14 @@ export async function getPostsByCategory(category: PostCategory, locale: Locale)
   return posts.map((post) => toSummary(post, locale));
 }
 
-const RELATED_POSTS_LIMIT = 4;
+const RELATED_POSTS_LIMIT = 6;
 const RELATED_POSTS_QUERY = `*[_type == "post" && category == $category && slug.current != $excludeSlug] | order(publishedAt desc)[0...${RELATED_POSTS_LIMIT}]${POST_SUMMARY_PROJECTION}`;
 
-export async function getRelatedPosts(category: PostCategory, excludeSlug: string, locale: Locale): Promise<PostSummary[]> {
+export async function getRelatedPosts(
+  category: PostCategory,
+  excludeSlug: string,
+  locale: Locale,
+): Promise<PostSummary[]> {
   const posts = await client.fetch<RawPostSummary[]>(RELATED_POSTS_QUERY, { category, excludeSlug, locale });
   return posts.map((post) => toSummary(post, locale));
 }
@@ -137,7 +134,6 @@ const POST_BY_SLUG_QUERY = `*[_type == "post" && category == $category && slug.c
   "excerpt": ${LOCALIZED_EXCERPT},
   "body": ${LOCALIZED_BODY},
   coverImage,
-  gallery,
   publishedAt,
   tags
 }`;
@@ -148,7 +144,6 @@ export async function getPostBySlug(category: PostCategory, slug: string, locale
     excerpt: string | null;
     body: PortableTextBlock[] | null;
     coverImage: SanityImageRef | null;
-    gallery: SanityImageRef[] | null;
     publishedAt: string;
     tags: string[] | null;
   } | null>(POST_BY_SLUG_QUERY, { category, slug, locale });
@@ -162,7 +157,6 @@ export async function getPostBySlug(category: PostCategory, slug: string, locale
     date: formatDate(locale, post.publishedAt),
     publishedAtISO: post.publishedAt,
     imageUrl: post.coverImage ? urlFor(post.coverImage).width(1200).height(675).fit("crop").url() : null,
-    galleryImageUrls: (post.gallery ?? []).filter(hasAsset).map((image) => urlFor(image).width(800).url()),
     tags: post.tags ?? [],
   };
 }

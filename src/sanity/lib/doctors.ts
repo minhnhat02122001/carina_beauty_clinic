@@ -15,7 +15,7 @@ function hasAsset(image: SanityImageRef): boolean {
 
 const LOCALIZED_TITLE = `select($locale == "vi" => title, $locale == "zh" => coalesce(titleZh, title), coalesce(titleEn, title))`;
 const LOCALIZED_SUBTITLE = `select($locale == "vi" => subtitle, $locale == "zh" => coalesce(subtitleZh, subtitle), coalesce(subtitleEn, subtitle))`;
-const LOCALIZED_NATIONALITY = `select($locale == "vi" => nationality, $locale == "zh" => coalesce(nationalityZh, nationality), coalesce(nationalityEn, nationality))`;
+const LOCALIZED_LANGUAGES = `select($locale == "vi" => languages, $locale == "zh" => coalesce(languagesZh, languages), coalesce(languagesEn, languages))`;
 const LOCALIZED_INTRODUCTION = `select($locale == "vi" => introduction, $locale == "zh" => coalesce(introductionZh, introduction), coalesce(introductionEn, introduction))`;
 const LOCALIZED_SECTIONS = `sections[]{
   "heading": select($locale == "vi" => heading, $locale == "zh" => coalesce(headingZh, heading), coalesce(headingEn, heading)),
@@ -39,7 +39,7 @@ export type DoctorDetail = {
   name: string;
   title: string;
   subtitle: string | null;
-  nationality: string | null;
+  languages: string | null;
   imageUrls: string[];
   introduction: PortableTextBlock[];
   sections: DoctorSection[];
@@ -76,7 +76,7 @@ const DOCTOR_BY_SLUG_QUERY = `*[_type == "doctor" && slug.current == $slug][0]{
   name,
   "title": ${LOCALIZED_TITLE},
   "subtitle": ${LOCALIZED_SUBTITLE},
-  "nationality": ${LOCALIZED_NATIONALITY},
+  "languages": ${LOCALIZED_LANGUAGES},
   "introduction": ${LOCALIZED_INTRODUCTION},
   "sections": ${LOCALIZED_SECTIONS},
   images,
@@ -89,7 +89,7 @@ export async function getDoctorBySlug(slug: string, locale: Locale): Promise<Doc
     name: string;
     title: string;
     subtitle: string | null;
-    nationality: string | null;
+    languages: string | null;
     introduction: PortableTextBlock[] | null;
     sections: { heading: string | null; body: PortableTextBlock[] | null }[] | null;
     images: SanityImageRef[];
@@ -103,7 +103,7 @@ export async function getDoctorBySlug(slug: string, locale: Locale): Promise<Doc
     name: item.name,
     title: item.title,
     subtitle: item.subtitle,
-    nationality: item.nationality,
+    languages: item.languages,
     imageUrls: item.images.filter(hasAsset).map((image) => urlFor(image).width(590).url()),
     introduction: item.introduction ?? [],
     sections: (item.sections ?? [])

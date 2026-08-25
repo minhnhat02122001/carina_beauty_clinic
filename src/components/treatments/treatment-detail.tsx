@@ -25,6 +25,7 @@ export function TreatmentDetailView({
   bookingCta,
   scrollPrevLabel,
   scrollNextLabel,
+  closeImageLabel,
 }: {
   treatment: TreatmentDetail;
   category: TreatmentCategory;
@@ -41,6 +42,7 @@ export function TreatmentDetailView({
   bookingCta: string;
   scrollPrevLabel: string;
   scrollNextLabel: string;
+  closeImageLabel: string;
 }) {
   return (
     <>
@@ -68,6 +70,7 @@ export function TreatmentDetailView({
           bookingCta={bookingCta}
           scrollPrevLabel={scrollPrevLabel}
           scrollNextLabel={scrollNextLabel}
+          closeImageLabel={closeImageLabel}
         />
 
         <TreatmentContent sections={treatment.sections} faqs={treatment.faqs} faqHeading={faqHeading} />

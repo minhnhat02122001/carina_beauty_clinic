@@ -15,17 +15,34 @@ export function BannerHero({ banners }: { banners: BannerItem[] }) {
     >
       <Carousel prevLabel={t("scrollPrev")} nextLabel={t("scrollNext")}>
         {banners.map((banner, i) => {
-          const image = (
-            <Image src={banner.imageUrl} alt="" fill priority={i === 0} sizes="100vw" className="object-cover" />
+          const images = (
+            <>
+              <Image
+                src={banner.imageMobileUrl}
+                alt=""
+                fill
+                priority={i === 0}
+                sizes="100vw"
+                className="object-cover lg:hidden"
+              />
+              <Image
+                src={banner.imageDesktopUrl}
+                alt=""
+                fill
+                priority={i === 0}
+                sizes="100vw"
+                className="hidden object-cover lg:block"
+              />
+            </>
           );
 
           return banner.url ? (
             <a key={banner.id} href={banner.url} className="relative block aspect-[750/958] w-full lg:aspect-[1440/539]">
-              {image}
+              {images}
             </a>
           ) : (
             <div key={banner.id} className="relative aspect-[750/958] w-full lg:aspect-[1440/539]">
-              {image}
+              {images}
             </div>
           );
         })}

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
-import { Link } from "@/i18n/navigation";
+import { getPathname, Link } from "@/i18n/navigation";
 import { getPostBySlug, getRecentPosts, getRelatedPosts } from "@/sanity/lib/posts";
 import { PostDetailView } from "@/components/blog/post-detail";
 import { localizedAlternates } from "@/lib/metadata";
@@ -27,6 +27,7 @@ export async function generateMetadata({
     openGraph: {
       title: post.title,
       description: post.excerpt || undefined,
+      url: getPathname({ locale, href }),
       type: "article",
       publishedTime: post.publishedAtISO,
       images: post.imageUrl ? [{ url: post.imageUrl }] : undefined,
@@ -40,11 +41,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function NewsEventsDetailPage({
-  params,
-}: {
-  params: Promise<{ locale: Locale; slug: string }>;
-}) {
+export default async function NewsEventsDetailPage({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug } = await params;
   const [t, tBlog, post, relatedPosts, recentPosts] = await Promise.all([
     getTranslations("NewsEvents"),
@@ -58,8 +55,8 @@ export default async function NewsEventsDetailPage({
 
   return (
     <div>
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <Link href="/news-events" className="mt-8 inline-block text-sm font-bold text-[var(--color-link)]">
+      <div className="mx-auto max-w-6xl">
+        <Link href="/news-events" className="mt-8 inline-block text-sm font-bold text-[var(--color-accent-bright)]">
           {t("backToList")}
         </Link>
       </div>
@@ -73,7 +70,6 @@ export default async function NewsEventsDetailPage({
         linkCopiedLabel={tBlog("linkCopied")}
         relatedPostsLabel={tBlog("relatedPosts")}
         recentPostsLabel={tBlog("recentPosts")}
-        galleryLabel={tBlog("gallery")}
         scrollPrevLabel={tBlog("scrollPrev")}
         scrollNextLabel={tBlog("scrollNext")}
       />

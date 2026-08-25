@@ -13,8 +13,8 @@ export default async function DoctorDetailPage({ params }: { params: Promise<{ l
 
   return (
     <div>
-      <div className="mx-auto max-w-4xl px-4 sm:px-6">
-        <Link href="/about" className="mt-8 inline-block text-sm font-bold text-[var(--color-link)]">
+      <div className="mx-auto max-w-4xl">
+        <Link href="/about" className="mt-8 inline-block text-sm font-bold text-[var(--color-accent-bright)]">
           {t("backToList")}
         </Link>
       </div>
@@ -27,6 +27,8 @@ export default async function DoctorDetailPage({ params }: { params: Promise<{ l
         comingSoonLabel={t("comingSoon")}
         scrollPrevLabel={t("scrollPrev")}
         scrollNextLabel={t("scrollNext")}
+        closeImageLabel={t("closeImage")}
+        languagesLabel={t("languagesLabel")}
       />
     </div>
   );
