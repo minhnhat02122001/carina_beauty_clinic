@@ -81,8 +81,6 @@ export function ShareButtons({ title, label, copyLabel, copiedLabel }: { title: 
       <div className="flex items-center justify-start gap-2 self-center rounded-lg bg-[var(--color-gold)] px-1 py-0.5 sm:ml-auto sm:self-auto">
         <a
           href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
-          target="_blank"
-          rel="noopener noreferrer"
           aria-label="Facebook"
           className={buttonClasses}
         >
@@ -90,8 +88,6 @@ export function ShareButtons({ title, label, copyLabel, copiedLabel }: { title: 
         </a>
         <a
           href={`https://sp.zalo.me/share?u=${encodeURIComponent(url)}`}
-          target="_blank"
-          rel="noopener noreferrer"
           aria-label="Zalo"
           className={buttonClasses}
         >

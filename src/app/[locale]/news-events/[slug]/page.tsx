@@ -55,7 +55,7 @@ export default async function NewsEventsDetailPage({ params }: { params: Promise
 
   return (
     <div>
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-6xl px-4 sm:px-0">
         <Link href="/news-events" className="mt-8 inline-block text-sm font-bold text-[var(--color-accent-bright)]">
           {t("backToList")}
         </Link>
