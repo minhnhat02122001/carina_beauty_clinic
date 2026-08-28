@@ -46,13 +46,13 @@ export function WhyChooseUs() {
           ))}
         </div>
 
-        <div className="grid w-full grid-cols-2 gap-x-2 gap-y-4 rounded-3xl bg-[var(--foreground)] px-3 py-2 sm:px-4 sm:py-3 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-0 lg:px-2 lg:py-3">
+        <div className="grid w-full grid-cols-2 gap-x-2 gap-y-4 rounded-3xl bg-[var(--foreground)] px-3 pt-2 pb-[20px] sm:px-4 sm:py-3 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-0 lg:px-2 lg:py-6">
           {STATS.map((stat) => (
             <div key={stat.valueKey} className="flex flex-col items-center gap-2 lg:gap-0">
-              <p className="font-cormorant text-center text-[24px] font-semibold text-[var(--color-background-alt)] sm:text-[32px] lg:text-[56px]">
+              <p className="font-cormorant text-center text-[48px] leading-none font-semibold text-[var(--color-background-alt)] sm:text-[56px] lg:text-[64px]">
                 {t(stat.valueKey)}
               </p>
-              <p className="text-center text-[10px] text-white/80 sm:text-xs lg:pt-5 lg:text-base xl:text-xl">
+              <p className="text-center text-[10px] text-white/80 sm:text-xs lg:py-4 lg:text-base xl:text-xl">
                 {t(stat.labelKey)}
               </p>
             </div>

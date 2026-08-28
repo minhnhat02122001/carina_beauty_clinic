@@ -21,6 +21,14 @@ export default defineConfig({
   dataset,
   // Add and edit the content schema in the './sanity/schemaTypes' folder
   schema,
+  // navigationSettings is a singleton (see ./src/sanity/structure.ts) — it's
+  // never created or deleted through the UI, so strip those actions.
+  document: {
+    actions: (input, context) =>
+      context.schemaType === "navigationSettings"
+        ? input.filter(({ action }) => action !== "delete" && action !== "duplicate")
+        : input,
+  },
   plugins: [
     structureTool({ structure }),
     // Vision is for querying with GROQ from inside the Studio

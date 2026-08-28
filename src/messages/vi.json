@@ -234,6 +234,12 @@
     "empty": "Chưa có tin tức nào — vui lòng quay lại sau.",
     "backToList": "← Quay lại Tin Tức - Sự Kiện"
   },
+  "Videos": {
+    "heading": "Video Ngắn",
+    "description": "Toàn bộ video ngắn từ Carina Beauty Clinic.",
+    "empty": "Chưa có video nào — vui lòng quay lại sau.",
+    "closeVideo": "Đóng video"
+  },
   "BlogPost": {
     "share": "Chia sẻ bài viết này",
     "copyLink": "Sao chép liên kết",

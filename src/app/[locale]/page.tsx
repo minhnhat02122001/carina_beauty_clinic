@@ -3,6 +3,7 @@ import { getBeautyKnowledgeHome, getFeaturedNews } from "@/sanity/lib/posts";
 import { getFeaturedVideos } from "@/sanity/lib/videos";
 import { getHeroBanners } from "@/sanity/lib/banners";
 import { getEquipmentItems } from "@/sanity/lib/equipment";
+import { getNavigationSettings } from "@/sanity/lib/nav";
 import { getServiceHighlights } from "@/sanity/lib/service";
 import { getDoctors } from "@/sanity/lib/doctors";
 import { BannerHero } from "./_home-sections/banner-hero";
@@ -18,21 +19,23 @@ import { RegistrationForm } from "./_home-sections/registration-form";
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
-  const [news, videos, banners, equipment, serviceHighlights, doctors, beautyKnowledge] = await Promise.all([
-    getFeaturedNews(locale),
-    getFeaturedVideos(locale),
-    getHeroBanners(),
-    getEquipmentItems(),
-    getServiceHighlights(locale),
-    getDoctors(locale),
-    getBeautyKnowledgeHome(locale),
-  ]);
+  const [news, videos, banners, equipment, serviceHighlights, doctors, beautyKnowledge, navigationSettings] =
+    await Promise.all([
+      getFeaturedNews(locale),
+      getFeaturedVideos(locale),
+      getHeroBanners(),
+      getEquipmentItems(),
+      getServiceHighlights(locale),
+      getDoctors(locale),
+      getBeautyKnowledgeHome(locale),
+      getNavigationSettings(),
+    ]);
 
   return (
     <div className="flex flex-1 flex-col">
       <BannerHero banners={banners} />
       <Hero />
-      <CustomerExperience cards={serviceHighlights} />
+      <CustomerExperience cards={serviceHighlights} navigationSettings={navigationSettings} />
       <Equipment items={equipment} />
       <DoctorTeam doctors={doctors} />
       <StrategicPartners />

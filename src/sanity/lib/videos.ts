@@ -9,7 +9,8 @@ export type VideoItem = {
   videoId: string;
 };
 
-const FEATURED_VIDEOS_QUERY = `*[_type == "video" && featured == true] | order(publishedAt desc){
+const FEATURED_VIDEOS_LIMIT = 10;
+const FEATURED_VIDEOS_QUERY = `*[_type == "video" && featured == true] | order(publishedAt desc)[0...${FEATURED_VIDEOS_LIMIT}]{
   _id,
   "caption": select($locale == "vi" => description, $locale == "zh" => coalesce(descriptionZh, description), coalesce(descriptionEn, description)),
   thumbnail,
@@ -38,6 +39,26 @@ export async function getFeaturedVideos(locale: Locale): Promise<VideoItem[]> {
   const videos = await client.fetch<
     { _id: string; caption: string; thumbnail: Parameters<typeof urlFor>[0] | null; youtubeUrl: string | null }[]
   >(FEATURED_VIDEOS_QUERY, { locale });
+
+  return videos.map((item) => ({
+    id: item._id,
+    caption: item.caption,
+    thumbnailUrl: item.thumbnail ? urlFor(item.thumbnail).width(440).height(780).fit("crop").url() : null,
+    videoId: extractYoutubeId(item.youtubeUrl),
+  }));
+}
+
+const ALL_VIDEOS_QUERY = `*[_type == "video"] | order(publishedAt desc){
+  _id,
+  "caption": select($locale == "vi" => description, $locale == "zh" => coalesce(descriptionZh, description), coalesce(descriptionEn, description)),
+  thumbnail,
+  youtubeUrl
+}`;
+
+export async function getAllVideos(locale: Locale): Promise<VideoItem[]> {
+  const videos = await client.fetch<
+    { _id: string; caption: string; thumbnail: Parameters<typeof urlFor>[0] | null; youtubeUrl: string | null }[]
+  >(ALL_VIDEOS_QUERY, { locale });
 
   return videos.map((item) => ({
     id: item._id,

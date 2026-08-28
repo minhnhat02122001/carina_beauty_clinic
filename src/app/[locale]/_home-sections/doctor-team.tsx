@@ -22,18 +22,20 @@ export function DoctorTeam({ doctors }: { doctors: DoctorItem[] }) {
             <Link
               key={doctor.id}
               href={doctor.slug ? { pathname: "/about/[slug]", params: { slug: doctor.slug } } : "/about"}
-              className="flex h-full flex-col items-center gap-2 overflow-hidden rounded-lg border-2 border-[var(--color-accent)] transition-opacity hover:opacity-90"
+              className="group flex h-full flex-col items-center gap-2 overflow-hidden rounded-lg border-2 border-[var(--color-accent)] shadow-sm transition-shadow hover:border-[var(--color-gold)] hover:shadow-lg"
             >
-              <div className="relative aspect-[295/369] w-full">
+              <div className="relative aspect-[295/369] w-full overflow-hidden">
                 <Image
                   src={doctor.imageUrl}
                   alt=""
                   fill
-                  className="object-cover object-top"
+                  className="object-cover object-top transition-transform duration-300 group-hover:scale-110"
                   sizes="(min-width: 1024px) 295px, 220px"
                 />
               </div>
-              <p className="text-center text-base font-semibold text-[var(--color-accent)]">{doctor.name}</p>
+              <p className="text-center text-base font-semibold text-[var(--color-accent)] transition-colors group-hover:text-[var(--color-gold)]">
+                {doctor.name}
+              </p>
               <p className="pb-2 text-center text-sm font-medium tracking-[0.14px] text-[#6b7280]">{doctor.title}</p>
             </Link>
           ))}

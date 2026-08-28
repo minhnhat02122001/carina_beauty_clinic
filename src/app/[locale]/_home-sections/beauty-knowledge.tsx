@@ -37,7 +37,7 @@ export function BeautyKnowledgeHome({ hero, thumbnails }: BeautyKnowledgeHome) {
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
           <Link
             href={{ pathname: "/beauty-knowledge/[slug]", params: { slug: hero.slug } }}
-            className="flex flex-col gap-4 lg:w-[700px] lg:shrink-0"
+            className="group flex flex-col gap-4 lg:w-[700px] lg:shrink-0"
           >
             <div className="relative aspect-[343/193] w-full overflow-hidden rounded-2xl shadow-xl lg:aspect-[700/344]">
               {hero.imageUrl && (
@@ -45,12 +45,14 @@ export function BeautyKnowledgeHome({ hero, thumbnails }: BeautyKnowledgeHome) {
                   src={hero.imageUrl}
                   alt=""
                   fill
-                  className="object-cover"
+                  className="object-cover transition group-hover:scale-105"
                   sizes="(min-width: 1024px) 700px, 100vw"
                 />
               )}
             </div>
-            <p className="text-sm font-bold text-[rgba(80,38,14,0.7)] lg:text-base">{hero.title}</p>
+            <p className="text-sm font-bold text-[rgba(80,38,14,0.7)] transition-colors group-hover:text-[var(--color-accent-bright)] lg:text-base">
+              {hero.title}
+            </p>
           </Link>
 
           <div className="flex flex-1 flex-col gap-3">
@@ -58,12 +60,20 @@ export function BeautyKnowledgeHome({ hero, thumbnails }: BeautyKnowledgeHome) {
               <Link
                 key={item.id}
                 href={{ pathname: "/beauty-knowledge/[slug]", params: { slug: item.slug } }}
-                className="flex items-start gap-2"
+                className="group flex items-start gap-2"
               >
                 <div className="relative aspect-[132/74] w-[132px] shrink-0 overflow-hidden rounded-xl lg:w-[200px]">
-                  {item.imageUrl && <Image src={item.imageUrl} alt="" fill className="object-cover" sizes="200px" />}
+                  {item.imageUrl && (
+                    <Image
+                      src={item.imageUrl}
+                      alt=""
+                      fill
+                      className="object-cover transition group-hover:scale-105"
+                      sizes="200px"
+                    />
+                  )}
                 </div>
-                <p className="line-clamp-4 flex-1 text-xs font-bold text-[rgba(80,38,14,0.7)] lg:line-clamp-5 lg:text-sm">
+                <p className="line-clamp-4 flex-1 text-xs font-bold text-[rgba(80,38,14,0.7)] transition-colors group-hover:text-[var(--color-accent-bright)] lg:line-clamp-5 lg:text-sm">
                   {item.title}
                 </p>
               </Link>

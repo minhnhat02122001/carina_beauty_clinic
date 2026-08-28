@@ -234,6 +234,12 @@
     "empty": "No news yet — check back soon.",
     "backToList": "← Back to News & Events"
   },
+  "Videos": {
+    "heading": "Videos",
+    "description": "All short videos from Carina Beauty Clinic.",
+    "empty": "No videos yet — check back soon.",
+    "closeVideo": "Close video"
+  },
   "BlogPost": {
     "share": "Share this article",
     "copyLink": "Copy link",

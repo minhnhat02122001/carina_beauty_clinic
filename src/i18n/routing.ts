@@ -18,6 +18,7 @@ export const routing = defineRouting({
     "/promotions/[slug]": { vi: "/khuyen-mai/[slug]" },
     "/news-events": { vi: "/tin-tuc-su-kien" },
     "/news-events/[slug]": { vi: "/tin-tuc-su-kien/[slug]" },
+    "/videos": { vi: "/video-ngan" },
     "/content-policy": { vi: "/chinh-sach-noi-dung" },
     "/privacy-policy": { vi: "/chinh-sach-bao-mat" },
     "/media-policy": { vi: "/chinh-sach-hinh-anh-video" },

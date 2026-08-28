@@ -229,7 +229,7 @@ export async function getTreatmentBySlug(
   return {
     name: item.name,
     body: item.body ?? [],
-    imageUrls: (item.images ?? []).map((image) => urlFor(image).width(1200).height(675).fit("crop").url()),
+    imageUrls: (item.images ?? []).map((image) => urlFor(image).width(1200).url()),
     keyInfo: {
       duration: item.duration,
       technology: item.technology,

@@ -7,6 +7,7 @@ import { RegistrationForm } from "../../app/[locale]/_home-sections/registration
 import { Carousel } from "@/components/carousel";
 import { scrollToRegistrationForm } from "@/lib/scroll-to-registration-form";
 import type { DoctorDetail } from "@/sanity/lib/doctors";
+import { urlFor } from "@/sanity/lib/image";
 
 const components: PortableTextComponents = {
   block: {
@@ -32,6 +33,23 @@ const components: PortableTextComponents = {
   },
   listItem: {
     bullet: ({ children }) => <li className="list-disc">{children}</li>,
+  },
+  types: {
+    image: ({ value }) => {
+      if (!value?.asset) return null;
+
+      return (
+        <span className="relative my-2 block aspect-video w-full overflow-hidden rounded-2xl">
+          <Image
+            src={urlFor(value).width(1200).url()}
+            alt=""
+            fill
+            className="object-cover"
+            sizes="(min-width: 1024px) 768px, 100vw"
+          />
+        </span>
+      );
+    },
   },
 };
 
@@ -158,7 +176,7 @@ export function DoctorDetailView({
                 <Carousel
                   prevLabel={scrollPrevLabel}
                   nextLabel={scrollNextLabel}
-                  itemsPerView={{ base: 2, lg: 3 }}
+                  itemsPerView={{ base: 1, lg: 2 }}
                   lightboxImages={doctor.realCustomerImageUrls}
                   lightboxCloseLabel={closeImageLabel}
                 >
@@ -169,7 +187,7 @@ export function DoctorDetailView({
                         alt=""
                         fill
                         className="object-cover"
-                        sizes="(min-width: 1024px) 33vw, 50vw"
+                        sizes="(min-width: 1024px) 50vw, 100vw"
                       />
                     </div>
                   ))}
@@ -183,7 +201,7 @@ export function DoctorDetailView({
                 <Carousel
                   prevLabel={scrollPrevLabel}
                   nextLabel={scrollNextLabel}
-                  itemsPerView={{ base: 2, lg: 3 }}
+                  itemsPerView={{ base: 1, lg: 2 }}
                   lightboxImages={doctor.medicalActivityImageUrls}
                   lightboxCloseLabel={closeImageLabel}
                 >
@@ -194,7 +212,7 @@ export function DoctorDetailView({
                         alt=""
                         fill
                         className="object-cover"
-                        sizes="(min-width: 1024px) 33vw, 50vw"
+                        sizes="(min-width: 1024px) 50vw, 100vw"
                       />
                     </div>
                   ))}

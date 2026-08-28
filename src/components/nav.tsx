@@ -2,6 +2,7 @@
 
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Link } from "@/i18n/navigation";
+import type { NavigationSettings } from "@/sanity/lib/nav";
 import {
   groupTreatmentsBySubgroup,
   treatmentHref,
@@ -14,14 +15,34 @@ import Image from "next/image";
 import { useState } from "react";
 
 const NAV_LINKS = [
-  { href: "/about", key: "about", category: null },
-  { href: "/services/exclusive", key: "exclusive", category: "exclusive" },
-  { href: "/services/lifting-rejuvenation", key: "liftingRejuvenation", category: "lifting-rejuvenation" },
-  { href: "/services/skin-therapy", key: "skinTherapy", category: "skin-therapy" },
-  { href: "/services/rejuvenation-injections", key: "rejuvenationInjections", category: "rejuvenation-injections" },
-  { href: "/services/body-care", key: "bodyCare", category: "body-care" },
-  { href: "/services/skin-care", key: "skinCare", category: "skin-care" },
-] as const satisfies { href: string; key: string; category: TreatmentCategory | null }[];
+  { href: "/about", key: "about", category: null, settingsKey: null },
+  { href: "/services/exclusive", key: "exclusive", category: "exclusive", settingsKey: "showExclusive" },
+  {
+    href: "/services/lifting-rejuvenation",
+    key: "liftingRejuvenation",
+    category: "lifting-rejuvenation",
+    settingsKey: "showLiftingRejuvenation",
+  },
+  {
+    href: "/services/skin-therapy",
+    key: "skinTherapy",
+    category: "skin-therapy",
+    settingsKey: "showSkinTherapy",
+  },
+  {
+    href: "/services/rejuvenation-injections",
+    key: "rejuvenationInjections",
+    category: "rejuvenation-injections",
+    settingsKey: "showRejuvenationInjections",
+  },
+  { href: "/services/body-care", key: "bodyCare", category: "body-care", settingsKey: "showBodyCare" },
+  { href: "/services/skin-care", key: "skinCare", category: "skin-care", settingsKey: "showSkinCare" },
+] as const satisfies {
+  href: string;
+  key: string;
+  category: TreatmentCategory | null;
+  settingsKey: keyof NavigationSettings | null;
+}[];
 
 function ChevronIcon({ className }: { className?: string }) {
   return (
@@ -95,12 +116,19 @@ function MobileServiceAccordion({ isOpen, onToggle }: { isOpen: boolean; onToggl
   );
 }
 
-export function Nav({ treatmentsByCategory }: { treatmentsByCategory: TreatmentsByCategory }) {
+export function Nav({
+  treatmentsByCategory,
+  navigationSettings,
+}: {
+  treatmentsByCategory: TreatmentsByCategory;
+  navigationSettings: NavigationSettings;
+}) {
   const t = useTranslations("Nav");
   const [menuOpen, setMenuOpen] = useState(false);
   const [openMobileCategory, setOpenMobileCategory] = useState<TreatmentCategory | null>(null);
   const [openMobileSubgroups, setOpenMobileSubgroups] = useState<Set<string>>(new Set());
   const [isDropdownHovered, setIsDropdownHovered] = useState(false);
+  const visibleNavLinks = NAV_LINKS.filter((link) => !link.settingsKey || navigationSettings[link.settingsKey]);
 
   const toggleMobileSubgroup = (key: string) => {
     setOpenMobileSubgroups((prev) => {
@@ -127,7 +155,7 @@ export function Nav({ treatmentsByCategory }: { treatmentsByCategory: Treatments
             />
           </Link>
           <nav className="flex items-center gap-2 2xl:gap-4" aria-label={t("menu")}>
-            {NAV_LINKS.map((link) => (
+            {visibleNavLinks.map((link) => (
               <div
                 key={link.href}
                 className="group relative"
@@ -187,7 +215,7 @@ export function Nav({ treatmentsByCategory }: { treatmentsByCategory: Treatments
             aria-label={t("menu")}
             className="flex max-h-[calc(100dvh-4rem)] flex-col gap-1 overflow-y-auto overscroll-contain px-4 py-4 lg:hidden"
           >
-            {NAV_LINKS.map((link) => {
+            {visibleNavLinks.map((link) => {
               const items = link.category ? (treatmentsByCategory[link.category] ?? []) : [];
               const hasSubmenu = link.category && items.length > 0;
               const isOpen = openMobileCategory === link.category;

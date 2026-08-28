@@ -9,6 +9,7 @@ export type PostCategory = "newsEvents" | "promotions" | "beautyKnowledge";
 
 export type FeaturedNewsItem = {
   id: string;
+  slug: string;
   title: string;
   date: string;
   imageUrl: string | null;
@@ -82,8 +83,10 @@ const POST_SUMMARY_PROJECTION = `{
   publishedAt
 }`;
 
-const FEATURED_NEWS_QUERY = `*[_type == "post" && category == "newsEvents" && featured == true] | order(publishedAt desc)[0...3]{
+const FEATURED_NEWS_LIMIT = 6;
+const FEATURED_NEWS_QUERY = `*[_type == "post" && category == "newsEvents" && featured == true] | order(publishedAt desc)[0...${FEATURED_NEWS_LIMIT}]{
   _id,
+  "slug": slug.current,
   "title": ${LOCALIZED_TITLE},
   coverImage,
   publishedAt
@@ -91,11 +94,12 @@ const FEATURED_NEWS_QUERY = `*[_type == "post" && category == "newsEvents" && fe
 
 export async function getFeaturedNews(locale: Locale): Promise<FeaturedNewsItem[]> {
   const posts = await client.fetch<
-    { _id: string; title: string; coverImage: Parameters<typeof urlFor>[0] | null; publishedAt: string }[]
+    { _id: string; slug: string; title: string; coverImage: Parameters<typeof urlFor>[0] | null; publishedAt: string }[]
   >(FEATURED_NEWS_QUERY, { locale });
 
   return posts.map((post) => ({
     id: post._id,
+    slug: post.slug,
     title: post.title,
     date: formatDate(locale, post.publishedAt),
     imageUrl: post.coverImage ? urlFor(post.coverImage).width(760).height(434).fit("crop").url() : null,

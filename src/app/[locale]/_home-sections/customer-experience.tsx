@@ -6,16 +6,17 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
 import { scrollToRegistrationForm } from "@/lib/scroll-to-registration-form";
+import type { NavigationSettings } from "@/sanity/lib/nav";
 import type { ServiceHighlightItem } from "@/sanity/lib/service";
 
-const CHIP_KEYS = [
-  "chipExclusive",
-  "chipLiftingRejuvenation",
-  "chipSkinTreatment",
-  "chipRejuvenationInjections",
-  "chipBodyCare",
-  "chipSkinCare",
-] as const;
+const CHIPS = [
+  { key: "chipExclusive", settingsKey: "showExclusive" },
+  { key: "chipLiftingRejuvenation", settingsKey: "showLiftingRejuvenation" },
+  { key: "chipSkinTreatment", settingsKey: "showSkinTherapy" },
+  { key: "chipRejuvenationInjections", settingsKey: "showRejuvenationInjections" },
+  { key: "chipBodyCare", settingsKey: "showBodyCare" },
+  { key: "chipSkinCare", settingsKey: "showSkinCare" },
+] as const satisfies { key: string; settingsKey: keyof NavigationSettings }[];
 
 const activeChipClasses = "border-[#ffe15a] bg-white text-[#f3c213]";
 const inactiveChipClasses = "border-[#a9b2be] bg-white text-[#4a4f63] hover:border-[#ffe15a] hover:text-[#f3c213]";
@@ -47,9 +48,16 @@ function Chip({ label, active, onClick }: { label: string; active: boolean; onCl
   );
 }
 
-export function CustomerExperience({ cards }: { cards: ServiceHighlightItem[] }) {
+export function CustomerExperience({
+  cards,
+  navigationSettings,
+}: {
+  cards: ServiceHighlightItem[];
+  navigationSettings: NavigationSettings;
+}) {
   const t = useTranslations("CustomerExperience");
-  const [activeFilter, setActiveFilter] = useState<string>(CHIP_KEYS[0]);
+  const visibleChips = CHIPS.filter((chip) => navigationSettings[chip.settingsKey]);
+  const [activeFilter, setActiveFilter] = useState<string>(() => (visibleChips[0] ?? CHIPS[0]).key);
 
   const visibleCards = cards.filter((card) => card.categories.includes(activeFilter));
 
@@ -71,7 +79,7 @@ export function CustomerExperience({ cards }: { cards: ServiceHighlightItem[] })
         <h2 className="text-center text-2xl text-[var(--color-accent)] lg:text-5xl">{t("heading")}</h2>
 
         <div className="flex w-full [scrollbar-width:none] items-start gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-          {CHIP_KEYS.map((key) => (
+          {visibleChips.map(({ key }) => (
             <Chip key={key} label={t(key)} active={activeFilter === key} onClick={() => setActiveFilter(key)} />
           ))}
         </div>
@@ -85,8 +93,27 @@ export function CustomerExperience({ cards }: { cards: ServiceHighlightItem[] })
             itemsPerView={{ base: 1, lg: 3 }}
           >
             {visibleCards.map((card) => {
-              const content = (
-                <>
+              const image = (
+                <div className="relative aspect-square w-full overflow-hidden rounded-2xl">
+                  <Image
+                    src={card.imageUrl}
+                    alt=""
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    sizes="(min-width: 1024px) 384px, calc(100vw - 64px)"
+                  />
+                </div>
+              );
+
+              return card.href ? (
+                <Link key={card.id} href={card.href} className="group flex flex-col items-center gap-2">
+                  {image}
+                  <p className="text-center font-sans text-sm font-bold text-[var(--color-accent)] transition-colors group-hover:text-[var(--color-accent-bright)] lg:text-lg">
+                    {card.name}
+                  </p>
+                </Link>
+              ) : (
+                <div key={card.id} className="flex flex-col items-center gap-2">
                   <div className="relative aspect-square w-full overflow-hidden rounded-2xl">
                     <Image
                       src={card.imageUrl}
@@ -99,16 +126,6 @@ export function CustomerExperience({ cards }: { cards: ServiceHighlightItem[] })
                   <p className="text-center font-sans text-sm font-bold text-[var(--color-accent)] lg:text-lg">
                     {card.name}
                   </p>
-                </>
-              );
-
-              return card.href ? (
-                <Link key={card.id} href={card.href} className="flex flex-col items-center gap-2">
-                  {content}
-                </Link>
-              ) : (
-                <div key={card.id} className="flex flex-col items-center gap-2">
-                  {content}
                 </div>
               );
             })}

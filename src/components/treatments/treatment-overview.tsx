@@ -107,13 +107,13 @@ export function TreatmentOverview({
               // briefly showing its square corners during the snap animation.
               <div
                 key={imageUrl}
-                className="relative aspect-square w-full [transform:translateZ(0)] overflow-hidden rounded-2xl"
+                className="relative aspect-square w-full [transform:translateZ(0)] overflow-hidden rounded-2xl bg-[var(--color-background-alt)]"
               >
                 <Image
                   src={imageUrl}
                   alt=""
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   priority={index === 0}
                 />

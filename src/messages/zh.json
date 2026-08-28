@@ -234,6 +234,12 @@
     "empty": "暂无新闻 — 请稍后再来查看。",
     "backToList": "← 返回新闻与活动"
   },
+  "Videos": {
+    "heading": "短视频",
+    "description": "Carina Beauty Clinic 的全部短视频。",
+    "empty": "暂无视频 — 请稍后再来查看。",
+    "closeVideo": "关闭视频"
+  },
   "BlogPost": {
     "share": "分享这篇文章",
     "copyLink": "复制链接",
