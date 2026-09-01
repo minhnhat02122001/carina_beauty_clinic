@@ -251,15 +251,121 @@
   },
   "ContentPolicy": {
     "heading": "Content Policy",
-    "placeholder": "Content policy details will appear here."
+    "intro": "Welcome to Carina Beauty Clinic. We are committed to offering our clients not only high-tech dermatology solutions, but also the most accurate, transparent, and trustworthy medical information. This content policy details our editorial principles, medical review process, and legal responsibility for all information published on Carina Beauty Clinic's media channels.",
+    "section1Heading": "1. Content Standards",
+    "section1Intro": "All articles, images, videos, and media materials at Carina Beauty Clinic aim to be:",
+    "section1Items": [
+      "Medical & Scientific: Providing accurate aesthetic knowledge, kept up to date with clinical research and global medical trends.",
+      "Truthful: Saying no to misleading information, exaggerated advertising, sensationalism, or unrealistic promises.",
+      "Experience-Optimized: Helping clients clearly understand their skin, the technology, and the procedure before deciding on treatment."
+    ],
+    "section2Heading": "2. Content Editorial Standards & Process",
+    "section2Intro": "To ensure absolute accuracy, all published information is reviewed by the Carina team:",
+    "section2Items": [
+      "Step 1: Research & Drafting",
+      "Step 2: Medical Review by a Doctor",
+      "Step 3: Editing & Publishing"
+    ],
+    "section3Heading": "3. Image & Treatment Results Policy",
+    "section3Body": "All images and videos published on Carina Beauty Clinic's official media channels (including the Website, Fanpage, TikTok, YouTube, etc.) — before/after treatment photos, images of doctors during consultations, and treatment procedures — are genuine clinical results from Carina.",
+    "section6Heading": "6. Medical Disclaimer",
+    "section6Body1": "Information on Carina Beauty Clinic's website/fanpage serves the purpose of visual communication and providing aesthetic knowledge. Any diagnosis or treatment plan must be directly consulted on and carried out by a Specialist Doctor from Carina Beauty Clinic.",
+    "section6Body2": "Clients are always encouraged to have a direct 1:1 consultation with a Specialist Doctor at the Clinic before undergoing any procedure or treatment.",
+    "section6Note": "Note: The effects/results of treatments may vary depending on each client's individual condition, skin type, and adherence to the treatment plan.",
+    "section7Heading": "7. Content Authorship & Copyright Policy",
+    "section7Body1": "All text, images, videos, and graphic designs on the website are the copyrighted property of Carina Beauty Clinic.",
+    "section7Body2": "Copying or quoting content for commercial purposes without prior written consent from Carina Beauty Clinic constitutes copyright infringement.",
+    "section7Body3": "For non-commercial citation, please clearly credit the original source: Carina Beauty Clinic.",
+    "section8Heading": "8. Contact Information",
+    "section8Intro": "If you have any questions or would like to submit a request, please contact:",
+    "contactName": "Carina Beauty Clinic - High-Tech Dermatology Clinic",
+    "contactHotlineLabel": "Hotline",
+    "contactHotlineValue": "+84 77 399 3968",
+    "contactEmailLabel": "Feedback Email",
+    "contactEmailValue": "carinabeauty.info@gmail.com",
+    "contactAddressLabel": "Address",
+    "contactAddressValue": "09 B4 Street, Sala Urban Area, An Khanh, Ho Chi Minh City"
   },
   "PrivacyPolicy": {
     "heading": "Privacy Policy",
-    "placeholder": "Privacy policy details will appear here."
+    "intro": "Carina Beauty Clinic is committed to respecting and fully protecting the privacy and personal data of our clients. This privacy policy explains how we collect, use, store, and protect your information when you interact with our website, booking system, or use our services directly at the clinic.",
+    "section1Heading": "1. Purpose of Collecting Personal Information",
+    "section1Intro": "Carina Beauty Clinic collects your information for the following main purposes:",
+    "section1Items": [
+      "Booking & Consultation: Scheduling 1:1 appointments with Specialist Doctors, sending appointment confirmations, and supporting consultations on skin concerns.",
+      "Personalized Treatment: Storing treatment records so doctors can track your skin's recovery progress across each session.",
+      "Customer Care: Sending follow-up appointment reminders, at-home skincare guidance, and answering your questions.",
+      "Promotional Updates: Sending information about promotions and loyalty events exclusively for our valued clients.",
+      "Service Improvement: Analyzing experience data to optimize the website interface and the quality of service at the Clinic."
+    ],
+    "section2Heading": "2. Scope of Information Collected",
+    "section2Items": [
+      "Identification information: Full name, gender, date of birth.",
+      "Contact information: Phone number, email address, mailing address.",
+      "Service needs: Skin condition, services of interest, preferred appointment time, or personal notes submitted via the registration form.",
+      "Technical data: IP address, browser type, access time (via Cookies on the website to improve page-loading speed)."
+    ],
+    "section3Heading": "3. Data Retention Period",
+    "section3Body": "Your personal data will be securely stored on Carina Beauty Clinic's internal server systems until you request its cancellation or modification via our Hotline/Email support.",
+    "section4Heading": "4. Commitment to Not Sharing Data With Third Parties",
+    "section4Body": "Carina Beauty Clinic commits to NOT selling, renting, sharing, or disclosing your personal information to any third party for commercial purposes.",
+    "section4SubIntro": "Information is only provided in the following exceptional cases:",
+    "section4Items": [
+      "With your confirmed consent in writing or by message.",
+      "When formally requested in writing by competent State management or legal authorities."
+    ],
+    "section5Heading": "5. Data Protection and Security Methods",
+    "section5Body": "We apply strict cybersecurity standards to protect your data from unauthorized access, loss, or leakage. Only authorized personnel (Doctors, Care Receptionists) are granted access to customer information in order to carry out treatment.",
+    "section6Heading": "6. Customer Rights Over Personal Data",
+    "section6Intro": "You are fully entitled to exercise the following rights at any time:",
+    "section6Items": [
+      "Review, update, or correct your own personal information.",
+      "Request complete deletion of your personal data from our online storage systems."
+    ],
+    "section6Closing": "To exercise the rights above, please contact our Customer Care department using the information below.",
+    "section7Heading": "7. Changes to This Privacy Policy",
+    "section7Body": "Carina Beauty Clinic reserves the right to update and revise this Privacy Policy to comply with new legal regulations or changes in operations. Any changes will be publicly posted on the Carina Beauty Clinic website.",
+    "section8Heading": "8. Contact Information",
+    "section8Intro": "If you have any questions or would like to submit a request, please contact:",
+    "contactName": "Carina Beauty Clinic - High-Tech Dermatology Clinic",
+    "contactHotlineLabel": "Hotline",
+    "contactHotlineValue": "+84 77 399 3968",
+    "contactEmailLabel": "Feedback Email",
+    "contactEmailValue": "carinabeauty.info@gmail.com",
+    "contactAddressLabel": "Address",
+    "contactAddressValue": "09 B4 Street, Sala Urban Area, An Khanh, Ho Chi Minh City"
   },
   "MediaPolicy": {
     "heading": "Image & Video Policy",
-    "placeholder": "Image and video usage policy details will appear here."
+    "intro": "Carina Beauty Clinic is committed to transparency, authenticity, and full respect for our clients' image privacy. This policy sets out the principles for collecting, using, and protecting images across all of our media platforms.",
+    "section1Heading": "1. Our Commitment on Images",
+    "section1Body": "All images and videos published on Carina Beauty Clinic's official media channels (including the Website, Fanpage, TikTok, YouTube, etc.) — before/after treatment photos, images of doctors during consultations, and treatment procedures — are genuine clinical results from Carina.",
+    "section2Heading": "2. Principles of Privacy and Client Consent",
+    "section2Intro": "Carina Beauty Clinic understands that dermatological images and likeness are extremely sensitive personal information. We therefore operate on the following principles:",
+    "section2Items": [
+      "Consent required: We only capture, store, or use your images with your confirmed consent.",
+      "Optional anonymity: You may choose to have your eyes or other identifying facial features blurred if you only wish to contribute images of the treated skin area for medical record-keeping or clinical research purposes."
+    ],
+    "section3Heading": "3. Purpose of Using Images",
+    "section3Intro": "Your images will only be used for the following legitimate purposes:",
+    "section3Items": [
+      "Clinical Record-Keeping: Helping doctors accurately track recovery progress and treatment effectiveness across sessions.",
+      "Professional Reference & Education: Serving as illustrative material to help new clients better understand skin conditions and real treatment outcomes.",
+      "Communications: Publishing on Carina Beauty Clinic's official channels to showcase our doctors' expertise and the clinic's technology."
+    ],
+    "section4Heading": "4. Protecting Carina Beauty Clinic's Image Copyright",
+    "section4Intro": "All images, graphic designs, and video clips published on the website and media channels are the intellectual property of Carina Beauty Clinic:",
+    "section4Body1": "Copying, downloading, editing, or reusing Carina's images for commercial purposes without prior written consent constitutes a serious copyright infringement.",
+    "section4Body2": "We will proactively pursue legal measures to protect the clinic's images and clients' likeness from being impersonated or used without authorization by other parties.",
+    "section5Heading": "5. Contact Information",
+    "section5Intro": "If you have any questions or would like to submit a request, please contact:",
+    "contactName": "Carina Beauty Clinic - High-Tech Dermatology Clinic",
+    "contactHotlineLabel": "Hotline",
+    "contactHotlineValue": "+84 77 399 3968",
+    "contactEmailLabel": "Feedback Email",
+    "contactEmailValue": "carinabeauty.info@gmail.com",
+    "contactAddressLabel": "Address",
+    "contactAddressValue": "09 B4 Street, Sala Urban Area, An Khanh, Ho Chi Minh City"
   },
   "FloatingContact": {
     "zaloLabel": "Chat on Zalo",
