@@ -73,6 +73,18 @@ export function ShareButtons({ title, label, copyLabel, copiedLabel }: { title: 
     setTimeout(() => setCopied(false), 2000);
   }
 
+  // On mobile, letting the OS handle a plain click on a facebook.com/zalo.me
+  // link hands it to the installed app via universal links — but the app
+  // doesn't know how to open these share URLs as a compose screen, so it
+  // just opens to the feed/home and the share is lost. Opening it as a
+  // named popup instead keeps it in the browser (or an in-app browser
+  // tab), where the share page reliably shows its dialog with the link
+  // attached.
+  function handleSocialShare(event: React.MouseEvent<HTMLAnchorElement>) {
+    event.preventDefault();
+    window.open(event.currentTarget.href, "social-share", "width=600,height=520,noopener,noreferrer");
+  }
+
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
       <p className="-mx-4 bg-[var(--color-background-alt)] px-4 py-2 text-center text-sm font-semibold text-[var(--color-accent)] sm:mx-0 sm:bg-transparent sm:px-0 sm:py-0 sm:text-left">
@@ -81,6 +93,7 @@ export function ShareButtons({ title, label, copyLabel, copiedLabel }: { title: 
       <div className="flex items-center justify-start gap-2 self-center rounded-lg bg-[var(--color-gold)] px-1 py-0.5 sm:ml-auto sm:self-auto">
         <a
           href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
+          onClick={handleSocialShare}
           aria-label="Facebook"
           className={buttonClasses}
         >
@@ -88,6 +101,7 @@ export function ShareButtons({ title, label, copyLabel, copiedLabel }: { title: 
         </a>
         <a
           href={`https://sp.zalo.me/share?u=${encodeURIComponent(url)}`}
+          onClick={handleSocialShare}
           aria-label="Zalo"
           className={buttonClasses}
         >
