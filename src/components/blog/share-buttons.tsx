@@ -1,6 +1,5 @@
 "use client";
 
-import { FacebookShareButton } from "next-share";
 import { useState, useSyncExternalStore } from "react";
 
 const iconClasses = "size-6";
@@ -80,18 +79,13 @@ export function ShareButtons({ title, label, copyLabel, copiedLabel }: { title: 
         {label}
       </p>
       <div className="flex items-center justify-start gap-2 self-center rounded-lg bg-[var(--color-gold)] px-1 py-0.5 sm:ml-auto sm:self-auto">
-        {/* next-share's button only forwards `style`, not `className`, so the
-            sizing/hover classes live on this wrapper and the button itself
-            just fills it. */}
-        <span className={buttonClasses}>
-          <FacebookShareButton
-            url={url}
-            aria-label="Facebook"
-            style={{ display: "flex", width: "100%", height: "100%", alignItems: "center", justifyContent: "center" }}
-          >
-            <FacebookIcon />
-          </FacebookShareButton>
-        </span>
+        <a
+          href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
+          aria-label="Facebook"
+          className={buttonClasses}
+        >
+          <FacebookIcon />
+        </a>
         <a
           href={`https://sp.zalo.me/share?u=${encodeURIComponent(url)}`}
           aria-label="Zalo"
