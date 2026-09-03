@@ -34,9 +34,9 @@ export function RegistrationForm() {
                     <Image src={item.icon} alt="" fill className="object-contain" sizes="24px" />
                   </span>
                 </span>
-                <div className="flex flex-col gap-1">
+                <div className="flex min-w-0 flex-col gap-1">
                   <p className="text-sm font-semibold text-[var(--color-accent)] lg:text-base">{t(item.labelKey)}</p>
-                  <p className="text-sm text-[rgba(99,43,14,0.7)]">{t(item.valueKey)}</p>
+                  <p className="text-sm break-words text-[rgba(99,43,14,0.7)]">{t(item.valueKey)}</p>
                 </div>
               </div>
             ))}

@@ -116,7 +116,7 @@ export function PostDetailView({
 
         {recentPosts.length > 0 && (
           <aside>
-            <div className="flex flex-col gap-4 lg:sticky lg:top-8">
+            <div className="flex flex-col gap-4 lg:sticky lg:top-28">
               <h2 className="text-lg font-semibold text-[var(--color-accent)]">{recentPostsLabel}</h2>
               <div className="flex flex-col gap-4">
                 {recentPosts.map((item) => (
