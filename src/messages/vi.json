@@ -251,15 +251,121 @@
   },
   "ContentPolicy": {
     "heading": "Chính Sách Nội Dung",
-    "placeholder": "Chi tiết chính sách nội dung sẽ hiển thị tại đây."
+    "intro": "Chào mừng bạn đến với Carina Beauty Clinic. Chúng tôi cam kết mang đến cho khách hàng không chỉ các giải pháp thẩm mỹ da công nghệ cao mà còn là những thông tin y khoa chính xác, minh bạch và đáng tin cậy nhất. Chính sách nội dung này quy định chi tiết về nguyên tắc biên tập, quy trình thẩm định y khoa và trách nhiệm pháp lý đối với toàn bộ thông tin được xuất bản trên hệ thống truyền thông của Carina Beauty Clinic.",
+    "section1Heading": "1. Quy Định Nội Dung",
+    "section1Intro": "Tất cả các bài viết, hình ảnh, video và tư liệu truyền thông tại Carina Beauty Clinic đều hướng tới:",
+    "section1Items": [
+      "Tính Y Khoa & Khoa Học: Cung cấp kiến thức thẩm mỹ chuẩn xác, cập nhật theo các nghiên cứu lâm sàng và xu hướng y khoa thế giới.",
+      "Tôn Trọng Sự Thật: Nói không với thông tin sai lệch, quảng cáo lố, giật gân hoặc cam kết phi thực tế.",
+      "Tối Ưu Trải Nghiệm: Giúp khách hàng hiểu rõ về làn da, công nghệ và quy trình trước khi quyết định trị liệu."
+    ],
+    "section2Heading": "2. Tiêu Chuẩn & Quy Trình Biên Tập Nội Dung",
+    "section2Intro": "Để đảm bảo tính chính xác tuyệt đối, mọi thông tin xuất bản đều được Đội ngũ Carina kiểm duyệt:",
+    "section2Items": [
+      "Bước 1: Nghiên cứu & Soạn thảo",
+      "Bước 2: Thẩm định Y khoa bởi Bác sĩ",
+      "Bước 3: Biên tập & Xuất bản"
+    ],
+    "section3Heading": "3. Chính Sách Hình Ảnh & Kết Quả Điều Trị",
+    "section3Body": "Toàn bộ hình ảnh và video được đăng tải trên hệ thống truyền thông chính thức của Carina Beauty Clinic (bao gồm Website, Fanpage, TikTok, YouTube...), hình ảnh trước/sau trị liệu, hình ảnh Bác sĩ thăm khám và quy trình thực hiện đều là kết quả lâm sàng thực tế tại Carina.",
+    "section6Heading": "6. Miễn Trừ Trách Nhiệm Y Khoa (Medical Disclaimer)",
+    "section6Body1": "Thông tin trên website/fanpage của Carina Beauty Clinic phục vụ mục đích truyền thông hình ảnh, cung cấp kiến thức thẩm mỹ. Mọi chẩn đoán hoặc phác đồ điều trị, Quý Khách cần phải tư vấn/thực hiện trực tiếp bởi Bác sĩ Chuyên Khoa từ Carina Beauty Clinic.",
+    "section6Body2": "Khách hàng luôn được khuyến khích thăm khám trực tiếp 1:1 cùng Bác sĩ Chuyên khoa tại Clinic trước khi tiến hành bất kỳ thủ thuật hay trị liệu nào.",
+    "section6Note": "Lưu ý: Tác dụng/hiệu quả của các liệu trình có thể khác nhau tùy thuộc vào cơ địa, tình trạng da và mức độ tuân thủ phác đồ của từng khách hàng.",
+    "section7Heading": "7. Chính Sách Tác Quyền & Bản Quyền Nội Dung",
+    "section7Body1": "Toàn bộ văn bản, hình ảnh, video, thiết kế đồ họa trên website thuộc bản quyền sở hữu của Carina Beauty Clinic.",
+    "section7Body2": "Mọi hành vi sao chép, trích dẫn nội dung vì mục đích thương mại mà chưa có sự đồng ý bằng văn bản từ Carina Beauty Clinic đều là vi phạm bản quyền.",
+    "section7Body3": "Trường hợp trích dẫn phi thương mại, vui lòng ghi rõ nguồn dẫn gốc: Carina Beauty Clinic.",
+    "section8Heading": "8. Thông Tin Liên Hệ",
+    "section8Intro": "Nếu Quý khách có bất kỳ thắc mắc nào hoặc muốn gửi yêu cầu, xin vui lòng liên hệ:",
+    "contactName": "Carina Beauty Clinic - Phòng khám da liễu Công Nghệ Cao",
+    "contactHotlineLabel": "Hotline",
+    "contactHotlineValue": "+84 77 399 3968",
+    "contactEmailLabel": "Email tiếp nhận phản hồi",
+    "contactEmailValue": "carinabeauty.info@gmail.com",
+    "contactAddressLabel": "Địa chỉ",
+    "contactAddressValue": "09 Đường B4, Khu Đô Thị Sala, An Khánh, TP.HCM"
   },
   "PrivacyPolicy": {
     "heading": "Chính Sách Bảo Mật",
-    "placeholder": "Chi tiết chính sách bảo mật sẽ hiển thị tại đây."
+    "intro": "Carina Beauty Clinic cam kết tôn trọng và bảo vệ tuyệt đối quyền riêng tư cùng dữ liệu cá nhân của Quý khách hàng. Chính sách bảo mật này giải thích cách chúng tôi thu thập, sử dụng, lưu trữ và bảo vệ thông tin khi Quý khách tương tác với website, hệ thống đặt lịch hoặc sử dụng dịch vụ trực tiếp tại phòng khám.",
+    "section1Heading": "1. Mục Đích Thu Thập Thông Tin Cá Nhân",
+    "section1Intro": "Carina Beauty Clinic thu thập thông tin của Quý khách nhằm các mục đích chính sau:",
+    "section1Items": [
+      "Đặt lịch & Tư vấn: Xếp lịch thăm khám 1:1 cùng Bác sĩ Chuyên khoa, gửi xác nhận lịch hẹn và hỗ trợ tư vấn các vấn đề về da.",
+      "Cá nhân hóa phác đồ: Lưu trữ hồ sơ điều trị để Bác sĩ theo dõi tiến trình phục hồi da qua từng liệu trình.",
+      "Chăm sóc khách hàng: Gửi thông báo nhắc lịch tái khám, hướng dẫn chăm sóc da tại nhà và giải đáp thắc mắc.",
+      "Cập nhật ưu đãi: Gửi thông tin về các chương trình khuyến mãi, sự kiện tri ân dành riêng cho khách hàng thân thiết.",
+      "Nâng cao chất lượng: Phân tích dữ liệu trải nghiệm để tối ưu hóa giao diện website và chất lượng dịch vụ tại Clinic."
+    ],
+    "section2Heading": "2. Phạm Vi Thu Thập Thông Tin",
+    "section2Items": [
+      "Thông tin định danh: Họ và tên, giới tính, ngày tháng năm sinh.",
+      "Thông tin liên hệ: Số điện thoại, địa chỉ email, địa chỉ liên lạc.",
+      "Nhu cầu dịch vụ: Tình trạng da, dịch vụ quan tâm, lịch hẹn mong muốn hoặc các ghi chú cá nhân gửi qua Form đăng ký.",
+      "Dữ liệu kỹ thuật: Địa chỉ IP, loại trình duyệt, thời gian truy cập (thông qua Cookies trên website để cải thiện tốc độ tải trang)."
+    ],
+    "section3Heading": "3. Thời Gian Lưu Trữ Thông Tin",
+    "section3Body": "Dữ liệu cá nhân của Quý khách sẽ được lưu trữ an toàn trên hệ thống máy chủ nội bộ của Carina Beauty Clinic cho đến khi Quý khách có yêu cầu hủy bỏ hoặc thay đổi thông tin qua Hotline/Email hỗ trợ.",
+    "section4Heading": "4. Cam Kết Không Chia Sẻ Dữ Liệu Cho Bên Thứ Ba",
+    "section4Body": "Carina Beauty Clinic cam kết KHÔNG bán, cho thuê, chia sẻ hay tiết lộ thông tin cá nhân của Quý khách cho bất kỳ bên thứ ba nào vì mục đích thương mại.",
+    "section4SubIntro": "Thông tin chỉ được cung cấp trong các trường hợp ngoại lệ sau:",
+    "section4Items": [
+      "Có sự đồng ý xác nhận bằng văn bản hoặc tin nhắn từ phía Quý khách.",
+      "Khi có yêu cầu chính thức bằng văn bản từ các cơ quan quản lý Nhà nước hoặc cơ quan pháp luật có thẩm quyền."
+    ],
+    "section5Heading": "5. Phương Thức Bảo Vệ An Toàn Dữ Liệu",
+    "section5Body": "Chúng tôi áp dụng các tiêu chuẩn an ninh mạng nghiêm ngặt để bảo vệ dữ liệu của Quý khách khỏi các rủi ro truy cập trái phép, mất mát hoặc rò rỉ. Chỉ những nhân sự có thẩm quyền (Bác sĩ, Lễ tân chăm sóc) mới được cấp quyền truy cập thông tin khách hàng để phục vụ quá trình trị liệu.",
+    "section6Heading": "6. Quyền Của Khách Hàng Đối Với Dữ Liệu Cá Nhân",
+    "section6Intro": "Quý khách toàn quyền thực hiện các quyền sau bất kỳ lúc nào:",
+    "section6Items": [
+      "Kiểm tra, cập nhật hoặc điều chỉnh thông tin cá nhân của mình.",
+      "Yêu cầu xóa bỏ hoàn toàn dữ liệu cá nhân trên hệ thống lưu trữ trực tuyến."
+    ],
+    "section6Closing": "Để thực hiện các quyền trên, Quý khách vui lòng liên hệ với bộ phận Chăm sóc Khách hàng của chúng tôi theo thông tin bên dưới.",
+    "section7Heading": "7. Thay Đổi Chính Sách Bảo Mật",
+    "section7Body": "Carina Beauty Clinic có quyền cập nhật và chỉnh sửa Chính sách bảo mật này để phù hợp với quy định pháp luật mới hoặc sự thay đổi trong vận hành. Mọi thay đổi đều sẽ được đăng tải công khai trên trang Website Carina Beauty Clinic.",
+    "section8Heading": "8. Thông Tin Liên Hệ",
+    "section8Intro": "Nếu Quý khách có bất kỳ thắc mắc nào hoặc muốn gửi yêu cầu, xin vui lòng liên hệ:",
+    "contactName": "Carina Beauty Clinic - Phòng khám da liễu Công Nghệ Cao",
+    "contactHotlineLabel": "Hotline",
+    "contactHotlineValue": "+84 77 399 3968",
+    "contactEmailLabel": "Email tiếp nhận phản hồi",
+    "contactEmailValue": "carinabeauty.info@gmail.com",
+    "contactAddressLabel": "Địa chỉ",
+    "contactAddressValue": "09 Đường B4, Khu Đô Thị Sala, An Khánh, TP.HCM"
   },
   "MediaPolicy": {
     "heading": "Chính Sách Hình Ảnh, Video",
-    "placeholder": "Chi tiết chính sách hình ảnh, video sẽ hiển thị tại đây."
+    "intro": "Carina Beauty Clinic cam kết tính minh bạch, chân thực và tôn trọng tuyệt đối quyền riêng tư hình ảnh của Quý khách hàng. Chính sách này quy định rõ các nguyên tắc thu thập, sử dụng và bảo hộ hình ảnh trên mọi nền tảng truyền thông của chúng tôi.",
+    "section1Heading": "1. Cam Kết Hình Ảnh",
+    "section1Body": "Toàn bộ hình ảnh và video được đăng tải trên hệ thống truyền thông chính thức của Carina Beauty Clinic (bao gồm Website, Fanpage, TikTok, YouTube...), hình ảnh trước/sau trị liệu, hình ảnh Bác sĩ thăm khám và quy trình thực hiện đều là kết quả lâm sàng thực tế tại Carina.",
+    "section2Heading": "2. Nguyên Tắc Tôn Trọng Quyền Riêng Tư & Đồng Ý Của Khách Hàng",
+    "section2Intro": "Carina Beauty Clinic hiểu rằng dữ liệu hình ảnh da liễu và diện mạo là thông tin cá nhân vô cùng nhạy cảm. Vì vậy, chúng tôi dựa trên nguyên tắc:",
+    "section2Items": [
+      "Được sự chấp thuận: Chúng tôi chỉ chụp, lưu trữ hoặc sử dụng hình ảnh của Quý khách khi có sự đồng ý xác nhận của Quý khách.",
+      "Tùy chọn bảo mật diện mạo: Quý khách toàn quyền lựa chọn việc che mắt / che các phần nhận diện gương mặt nếu chỉ muốn đóng góp hình ảnh vùng da điều trị cho mục đích lưu trữ hồ sơ y khoa hoặc nghiên cứu lâm sàng."
+    ],
+    "section3Heading": "3. Mục Đích Sử Dụng Hình Ảnh",
+    "section3Intro": "Hình ảnh của Quý khách sẽ chỉ được sử dụng cho các mục đích chính đáng sau:",
+    "section3Items": [
+      "Lưu trữ Hồ sơ Lâm sàng: Giúp Bác sĩ theo dõi chính xác tiến trình phục hồi và hiệu quả của phác đồ qua từng buổi trị liệu.",
+      "Tham khảo Chuyên môn & Giáo dục: Làm tư liệu minh họa cho khách hàng mới hiểu rõ hơn về tình trạng da và kết quả thực tế của liệu trình.",
+      "Truyền thông: Đăng tải trên các kênh chính thức của Carina Beauty Clinic nhằm giới thiệu năng lực chuyên môn của Bác sĩ và công nghệ tại phòng khám."
+    ],
+    "section4Heading": "4. Bảo Vệ Bản Quyền Hình Ảnh Carina Beauty Clinic",
+    "section4Intro": "Toàn bộ hình ảnh, thiết kế đồ họa và video clip đăng tải trên website và các kênh truyền thông đều thuộc sở hữu trí tuệ của Carina Beauty Clinic:",
+    "section4Body1": "Mọi hành vi sao chép, tải về, cắt ghép hoặc sử dụng lại hình ảnh của Carina cho mục đích thương mại mà chưa có sự đồng ý bằng văn bản đều là vi phạm bản quyền nghiêm trọng.",
+    "section4Body2": "Chúng tôi sẽ chủ động áp dụng các biện pháp pháp lý để bảo vệ hình ảnh của phòng khám cũng như diện mạo của khách hàng khỏi việc bị các đơn vị khác mạo danh hay sử dụng trái phép.",
+    "section5Heading": "5. Thông Tin Liên Hệ",
+    "section5Intro": "Nếu Quý khách có bất kỳ thắc mắc nào hoặc muốn gửi yêu cầu, xin vui lòng liên hệ:",
+    "contactName": "Carina Beauty Clinic - Phòng khám da liễu Công Nghệ Cao",
+    "contactHotlineLabel": "Hotline",
+    "contactHotlineValue": "+84 77 399 3968",
+    "contactEmailLabel": "Email tiếp nhận phản hồi",
+    "contactEmailValue": "carinabeauty.info@gmail.com",
+    "contactAddressLabel": "Địa chỉ",
+    "contactAddressValue": "09 Đường B4, Khu Đô Thị Sala, An Khánh, TP.HCM"
   },
   "FloatingContact": {
     "zaloLabel": "Chat qua Zalo",

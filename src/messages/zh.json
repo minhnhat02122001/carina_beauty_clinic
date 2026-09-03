@@ -251,15 +251,121 @@
   },
   "ContentPolicy": {
     "heading": "内容政策",
-    "placeholder": "内容政策详情将在此显示。"
+    "intro": "欢迎来到 Carina Beauty Clinic。我们承诺为客户提供的不仅是高科技皮肤美容方案，更是最准确、透明、值得信赖的医学信息。本内容政策详细规定了 Carina Beauty Clinic 传媒渠道所发布全部信息的编辑原则、医学审核流程及法律责任。",
+    "section1Heading": "1. 内容规范",
+    "section1Intro": "Carina Beauty Clinic 的所有文章、图片、视频及传媒资料均致力于：",
+    "section1Items": [
+      "医学与科学性：提供准确的美容知识，并根据临床研究与全球医学趋势持续更新。",
+      "尊重事实：坚决拒绝虚假信息、夸大宣传、耸动内容或不切实际的承诺。",
+      "优化体验：帮助客户在决定接受治疗前，充分了解自身肌肤、技术与流程。"
+    ],
+    "section2Heading": "2. 内容编辑标准与流程",
+    "section2Intro": "为确保信息绝对准确，所有发布内容均经 Carina 团队审核：",
+    "section2Items": [
+      "第一步：研究与撰写",
+      "第二步：由医生进行医学审核",
+      "第三步：编辑与发布"
+    ],
+    "section3Heading": "3. 图像与治疗成果政策",
+    "section3Body": "发布于 Carina Beauty Clinic 官方传媒渠道（包括网站、粉丝专页、TikTok、YouTube 等）上的所有图片与视频——治疗前后对比图、医生问诊照片以及治疗过程画面——均为 Carina 真实的临床成果。",
+    "section6Heading": "6. 医疗免责声明",
+    "section6Body1": "Carina Beauty Clinic 网站/粉丝专页上的信息仅用于形象传播及美容知识普及。任何诊断或治疗方案，均须由 Carina Beauty Clinic 的专科医生直接咨询并执行。",
+    "section6Body2": "我们始终建议客户在接受任何疗程或治疗前，先至诊所与专科医生进行一对一面诊。",
+    "section6Note": "注意：疗程的效果可能因每位客户的个人体质、肌肤状况及对治疗方案的依从程度而有所不同。",
+    "section7Heading": "7. 内容著作权与版权政策",
+    "section7Body1": "网站上的所有文字、图片、视频及平面设计，均属于 Carina Beauty Clinic 的版权所有。",
+    "section7Body2": "未经 Carina Beauty Clinic 书面同意，出于商业目的复制或引用内容的行为均属侵犯版权。",
+    "section7Body3": "如需非商业性引用，请明确注明原始来源：Carina Beauty Clinic。",
+    "section8Heading": "8. 联系信息",
+    "section8Intro": "如您有任何疑问或需要提交请求，请联系：",
+    "contactName": "Carina Beauty Clinic - 高科技皮肤科诊所",
+    "contactHotlineLabel": "热线",
+    "contactHotlineValue": "+84 77 399 3968",
+    "contactEmailLabel": "反馈邮箱",
+    "contactEmailValue": "carinabeauty.info@gmail.com",
+    "contactAddressLabel": "地址",
+    "contactAddressValue": "09 Đường B4, Sala Urban Area, An Khánh, 胡志明市"
   },
   "PrivacyPolicy": {
     "heading": "隐私政策",
-    "placeholder": "隐私政策详情将在此显示。"
+    "intro": "Carina Beauty Clinic 承诺尊重并全力保护客户的隐私权与个人数据。本隐私政策说明了当您使用本网站、预约系统或亲临诊所接受服务时，我们如何收集、使用、存储及保护您的信息。",
+    "section1Heading": "1. 收集个人信息的目的",
+    "section1Intro": "Carina Beauty Clinic 收集您的信息主要用于以下目的：",
+    "section1Items": [
+      "预约与咨询：安排与专科医生的一对一就诊、发送预约确认，并协助解答肌肤相关问题。",
+      "个性化疗程：保存治疗档案，以便医生追踪您在各疗程中的肌肤恢复进度。",
+      "客户关怀：发送复诊提醒、居家护肤指导，并解答您的疑问。",
+      "优惠资讯：发送专属于尊贵客户的优惠活动及答谢活动信息。",
+      "提升服务品质：分析体验数据，以优化网站界面及诊所服务品质。"
+    ],
+    "section2Heading": "2. 收集信息的范围",
+    "section2Items": [
+      "身份信息：姓名、性别、出生日期。",
+      "联系信息：电话号码、电子邮箱、联络地址。",
+      "服务需求：肌肤状况、感兴趣的服务、期望的预约时间，或通过登记表单提交的个人备注。",
+      "技术数据：IP 地址、浏览器类型、访问时间（通过网站上的 Cookie 以提升页面加载速度）。"
+    ],
+    "section3Heading": "3. 信息保存期限",
+    "section3Body": "您的个人数据将安全保存于 Carina Beauty Clinic 内部服务器系统中，直至您通过热线/邮箱联系客服要求取消或变更该信息为止。",
+    "section4Heading": "4. 不向第三方分享数据的承诺",
+    "section4Body": "Carina Beauty Clinic 承诺绝不出于商业目的向任何第三方出售、出租、分享或透露您的个人信息。",
+    "section4SubIntro": "仅在以下例外情况下，信息方可被提供：",
+    "section4Items": [
+      "已获得您以书面或消息形式确认的同意。",
+      "国家管理机关或有权机构以正式书面形式提出要求时。"
+    ],
+    "section5Heading": "5. 数据保护与安全措施",
+    "section5Body": "我们采用严格的网络安全标准，保护您的数据免受未经授权的访问、丢失或泄露等风险。仅授权人员（医生、护理前台）方可获得客户信息访问权限，以便进行治疗。",
+    "section6Heading": "6. 客户对个人数据享有的权利",
+    "section6Intro": "您有权在任何时候行使以下权利：",
+    "section6Items": [
+      "查看、更新或修正自己的个人信息。",
+      "要求在线存储系统中的个人数据被完全删除。"
+    ],
+    "section6Closing": "如需行使上述权利，请通过以下信息联系我们的客户服务部门。",
+    "section7Heading": "7. 隐私政策的变更",
+    "section7Body": "Carina Beauty Clinic 有权更新和修订本隐私政策，以符合新的法律法规或运营变化。任何变更都将在 Carina Beauty Clinic 官方网站上公开发布。",
+    "section8Heading": "8. 联系信息",
+    "section8Intro": "如您有任何疑问或需要提交请求，请联系：",
+    "contactName": "Carina Beauty Clinic - 高科技皮肤科诊所",
+    "contactHotlineLabel": "热线",
+    "contactHotlineValue": "+84 77 399 3968",
+    "contactEmailLabel": "反馈邮箱",
+    "contactEmailValue": "carinabeauty.info@gmail.com",
+    "contactAddressLabel": "地址",
+    "contactAddressValue": "09 Đường B4, Sala Urban Area, An Khánh, 胡志明市"
   },
   "MediaPolicy": {
     "heading": "图片与视频使用政策",
-    "placeholder": "图片与视频使用政策详情将在此显示。"
+    "intro": "Carina Beauty Clinic 承诺以透明、真实的态度，全力尊重客户的肖像隐私权。本政策明确规定了我们在所有传媒平台上收集、使用及保护图像的原则。",
+    "section1Heading": "1. 图像承诺",
+    "section1Body": "发布于 Carina Beauty Clinic 官方传媒渠道（包括网站、粉丝专页、TikTok、YouTube 等）上的所有图片与视频——治疗前后对比图、医生问诊照片以及治疗过程画面——均为 Carina 真实的临床成果。",
+    "section2Heading": "2. 尊重隐私与客户同意原则",
+    "section2Intro": "Carina Beauty Clinic 深知皮肤影像及外貌数据属于极为敏感的个人信息，因此我们遵循以下原则：",
+    "section2Items": [
+      "征得同意：我们仅在获得您确认同意后，才会拍摄、保存或使用您的图像。",
+      "外貌保密选项：若您仅希望提供治疗部位的皮肤图像用于医疗档案存档或临床研究，您有权选择遮挡眼部或其他可辨识面部特征的部位。"
+    ],
+    "section3Heading": "3. 图像使用目的",
+    "section3Intro": "您的图像仅会用于以下正当目的：",
+    "section3Items": [
+      "临床档案存档：帮助医生准确追踪各疗程的恢复进度与疗效。",
+      "专业参考与教育：作为说明资料，帮助新客户更好地了解肌肤状况及疗程的真实效果。",
+      "传媒宣传：发布于 Carina Beauty Clinic 官方渠道，以展示医生的专业能力及诊所的技术实力。"
+    ],
+    "section4Heading": "4. Carina Beauty Clinic 图像版权保护",
+    "section4Intro": "发布于网站及各传媒渠道的所有图片、平面设计与视频素材，均属于 Carina Beauty Clinic 的知识产权：",
+    "section4Body1": "任何未经书面同意，出于商业目的复制、下载、剪辑或再利用 Carina 图像的行为，均属严重侵犯版权。",
+    "section4Body2": "我们将主动采取法律措施，保护诊所图像及客户肖像不被其他单位冒用或未经授权使用。",
+    "section5Heading": "5. 联系信息",
+    "section5Intro": "如您有任何疑问或需要提交请求，请联系：",
+    "contactName": "Carina Beauty Clinic - 高科技皮肤科诊所",
+    "contactHotlineLabel": "热线",
+    "contactHotlineValue": "+84 77 399 3968",
+    "contactEmailLabel": "反馈邮箱",
+    "contactEmailValue": "carinabeauty.info@gmail.com",
+    "contactAddressLabel": "地址",
+    "contactAddressValue": "09 Đường B4, Sala Urban Area, An Khánh, 胡志明市"
   },
   "FloatingContact": {
     "zaloLabel": "通过 Zalo 聊天",

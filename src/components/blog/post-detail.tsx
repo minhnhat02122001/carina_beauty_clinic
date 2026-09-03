@@ -87,7 +87,7 @@ export function PostDetailView({
             {post.excerpt && <p className="text-base text-[var(--foreground)] opacity-70">{post.excerpt}</p>}
           </div>
 
-          <div className="bg-[var(--color-background-alt)] px-4 py-4">
+          <div className="-mx-4 bg-[var(--color-background-alt)] px-4 py-4 sm:mx-0">
             <ShareButtons
               title={post.title}
               label={shareLabel}

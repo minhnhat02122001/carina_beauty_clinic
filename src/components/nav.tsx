@@ -90,7 +90,7 @@ function DesktopServiceDropdown({ category, items }: { category: TreatmentCatego
             <Link
               key={item.id}
               href={treatmentHref(category, item.slug)}
-              className="rounded-lg py-1.5 pr-2 pl-4 text-sm text-[var(--foreground)] hover:opacity-70"
+              className="rounded-lg py-1.5 pr-2 pl-4 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--color-accent)] hover:text-[var(--color-accent-foreground)]"
             >
               {item.name}
             </Link>
@@ -141,7 +141,7 @@ export function Nav({
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-[var(--background)] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.08)] lg:relative lg:shadow-none">
+      <header className="sticky top-0 z-50 bg-[var(--background)] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.08)]">
         {/* Desktop */}
         <div className="mx-auto hidden max-w-[1440px] items-center justify-between gap-4 px-4 py-4 lg:flex 2xl:gap-6 2xl:px-6">
           <Link href="/" aria-label={t("home")} className="relative aspect-[205/68] h-14 w-auto shrink-0 xl:h-[68px]">
@@ -246,7 +246,7 @@ export function Nav({
                               key={item.id}
                               href={treatmentHref(link.category!, item.slug)}
                               onClick={() => setMenuOpen(false)}
-                              className="rounded-lg px-2 py-2 text-sm text-[var(--foreground)] hover:opacity-70"
+                              className="rounded-lg px-2 py-2 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--color-accent)] hover:text-[var(--color-accent-foreground)]"
                             >
                               {item.name}
                             </Link>
@@ -278,7 +278,7 @@ export function Nav({
                                     key={item.id}
                                     href={treatmentHref(link.category!, item.slug)}
                                     onClick={() => setMenuOpen(false)}
-                                    className="rounded-lg px-2 py-2 text-sm text-[var(--foreground)] hover:opacity-70"
+                                    className="rounded-lg px-2 py-2 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--color-accent)] hover:text-[var(--color-accent-foreground)]"
                                   >
                                     {item.name}
                                   </Link>
