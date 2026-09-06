@@ -44,7 +44,7 @@ export function DoctorTeam({ doctors }: { doctors: DoctorItem[] }) {
         <div className="flex items-center justify-center gap-4 px-2">
           <Link
             href="/about"
-            className="rounded-full border border-[var(--color-accent)] bg-white px-3 py-2 text-center text-xs font-bold tracking-[0.16px] whitespace-nowrap text-[#50260e] transition-colors hover:bg-[var(--color-accent)] hover:text-[var(--color-accent-foreground)] sm:px-4 sm:text-sm lg:text-base"
+            className="rounded-full border-2 border-[var(--color-accent)] bg-white px-3 py-2 text-center text-xs font-bold tracking-[0.16px] whitespace-nowrap text-[var(--color-accent)] transition-colors hover:bg-[var(--color-accent)] hover:text-[var(--color-accent-foreground)] sm:px-4 sm:text-sm lg:text-base"
           >
             {t("ctaMore")}
           </Link>
