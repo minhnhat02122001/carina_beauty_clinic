@@ -83,7 +83,7 @@
     "bookingCta": "Book a 1:1 Consultation",
     "extraInformation": "Additional Information",
     "realCustomerImages": "Real Customers",
-    "internationalActivities": "International Activities & Training",
+    "medicalActivities": "Medical Activities & Training",
     "scrollPrev": "Previous",
     "scrollNext": "Next",
     "comingSoon": "Detailed content is coming soon.",
@@ -188,10 +188,6 @@
     "comingSoon": "Detailed content is coming soon."
   },
   "TreatmentDetail": {
-    "durationLabel": "Duration",
-    "technologyLabel": "Technology Used",
-    "suitableForLabel": "Suitable For",
-    "downtimeLabel": "Downtime",
     "reviewedByLabel": "Medically Reviewed By",
     "faqHeading": "Frequently Asked Questions",
     "relatedHeading": "Related Treatments",

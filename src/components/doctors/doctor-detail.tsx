@@ -77,7 +77,7 @@ export function DoctorDetailView({
   bookingLabel,
   extraInformationLabel,
   realCustomerImagesLabel,
-  internationalActivitiesLabel,
+  medicalActivitiesLabel,
   comingSoonLabel,
   scrollPrevLabel,
   scrollNextLabel,
@@ -88,7 +88,7 @@ export function DoctorDetailView({
   bookingLabel: string;
   extraInformationLabel: string;
   realCustomerImagesLabel: string;
-  internationalActivitiesLabel: string;
+  medicalActivitiesLabel: string;
   comingSoonLabel: string;
   scrollPrevLabel: string;
   scrollNextLabel: string;
@@ -148,7 +148,7 @@ export function DoctorDetailView({
             <a
               href="#registration-form"
               onClick={scrollToRegistrationForm}
-              className="mt-2 inline-flex w-fit items-center justify-center rounded-full bg-[var(--color-accent)] px-5 py-3 text-sm font-bold tracking-[0.16px] whitespace-nowrap text-white hover:opacity-90"
+              className="mt-2 inline-flex w-fit items-center justify-center rounded-full border-2 border-transparent bg-[var(--color-accent)] px-5 py-3 text-sm font-bold tracking-[0.16px] whitespace-nowrap text-white transition-colors hover:border-[var(--color-accent)] hover:bg-transparent hover:text-[var(--color-accent)]"
             >
               {bookingLabel}
             </a>
@@ -197,7 +197,7 @@ export function DoctorDetailView({
 
             {doctor.medicalActivityImageUrls.length > 0 && (
               <div className="flex flex-col gap-3">
-                <h3 className="text-base font-semibold text-[var(--color-accent)]">{internationalActivitiesLabel}</h3>
+                <h3 className="text-base font-semibold text-[var(--color-accent)]">{medicalActivitiesLabel}</h3>
                 <Carousel
                   prevLabel={scrollPrevLabel}
                   nextLabel={scrollNextLabel}

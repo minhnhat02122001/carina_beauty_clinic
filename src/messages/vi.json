@@ -83,7 +83,7 @@
     "bookingCta": "Đặt Lịch Khám 1:1",
     "extraInformation": "Thông Tin Thêm",
     "realCustomerImages": "Khách Hàng Thực Tế",
-    "internationalActivities": "Hoạt Động & Đào Tạo Quốc Tế",
+    "medicalActivities": "Hoạt Động Y Khoa & Đào Tạo",
     "scrollPrev": "Trước",
     "scrollNext": "Tiếp theo",
     "comingSoon": "Nội dung chi tiết đang được cập nhật.",
@@ -188,10 +188,6 @@
     "comingSoon": "Nội dung chi tiết đang được cập nhật."
   },
   "TreatmentDetail": {
-    "durationLabel": "Thời gian thực hiện",
-    "technologyLabel": "Công nghệ sử dụng",
-    "suitableForLabel": "Đối tượng phù hợp",
-    "downtimeLabel": "Thời gian nghỉ dưỡng",
     "reviewedByLabel": "Tư vấn chuyên môn bởi",
     "faqHeading": "Câu hỏi thường gặp",
     "relatedHeading": "Dịch vụ liên quan",

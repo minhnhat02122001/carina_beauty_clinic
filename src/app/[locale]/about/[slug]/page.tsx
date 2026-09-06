@@ -23,7 +23,7 @@ export default async function DoctorDetailPage({ params }: { params: Promise<{ l
         bookingLabel={t("bookingCta")}
         extraInformationLabel={t("extraInformation")}
         realCustomerImagesLabel={t("realCustomerImages")}
-        internationalActivitiesLabel={t("internationalActivities")}
+        medicalActivitiesLabel={t("medicalActivities")}
         comingSoonLabel={t("comingSoon")}
         scrollPrevLabel={t("scrollPrev")}
         scrollNextLabel={t("scrollNext")}

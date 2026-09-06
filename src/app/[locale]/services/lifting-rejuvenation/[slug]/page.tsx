@@ -26,10 +26,6 @@ export default async function LiftingRejuvenationTreatmentDetailPage({
       comingSoonLabel={t("comingSoon")}
       homeLabel={tNav("home")}
       categoryLabel={t("heading")}
-      durationLabel={tDetail("durationLabel")}
-      technologyLabel={tDetail("technologyLabel")}
-      suitableForLabel={tDetail("suitableForLabel")}
-      downtimeLabel={tDetail("downtimeLabel")}
       reviewedByLabel={tDetail("reviewedByLabel")}
       faqHeading={tDetail("faqHeading")}
       relatedHeading={tDetail("relatedHeading")}
