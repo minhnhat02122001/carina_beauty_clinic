@@ -19,11 +19,9 @@ export type TreatmentSummary = {
   imageUrl: string | null;
 };
 
-export type TreatmentKeyInfo = {
-  duration: string | null;
-  technology: string | null;
-  suitableFor: string | null;
-  downtime: string | null;
+export type TreatmentCriterion = {
+  label: string;
+  value: string;
 };
 
 export type TreatmentSection = {
@@ -47,20 +45,20 @@ export type TreatmentDetail = {
   name: string;
   body: PortableTextBlock[];
   imageUrls: string[];
-  keyInfo: TreatmentKeyInfo;
+  keyInfo: TreatmentCriterion[];
   sections: TreatmentSection[];
   faqs: TreatmentFaq[];
-  reviewedByDoctor: TreatmentReviewer | null;
+  reviewedByDoctors: TreatmentReviewer[];
   relatedTreatments: TreatmentSummary[];
 };
 
 const LOCALIZED_NAME = `select($locale == "vi" => name, $locale == "zh" => coalesce(nameZh, name), coalesce(nameEn, name))`;
 const LOCALIZED_BODY = `select($locale == "vi" => description, $locale == "zh" => coalesce(descriptionZh, description), coalesce(descriptionEn, description))`;
 const LOCALIZED_SUBGROUP = `select($locale == "vi" => subgroup, $locale == "zh" => coalesce(subgroupZh, subgroup), coalesce(subgroupEn, subgroup))`;
-const LOCALIZED_DURATION = `select($locale == "vi" => duration, $locale == "zh" => coalesce(durationZh, duration), coalesce(durationEn, duration))`;
-const LOCALIZED_TECHNOLOGY = `select($locale == "vi" => technology, $locale == "zh" => coalesce(technologyZh, technology), coalesce(technologyEn, technology))`;
-const LOCALIZED_SUITABLE_FOR = `select($locale == "vi" => suitableFor, $locale == "zh" => coalesce(suitableForZh, suitableFor), coalesce(suitableForEn, suitableFor))`;
-const LOCALIZED_DOWNTIME = `select($locale == "vi" => downtime, $locale == "zh" => coalesce(downtimeZh, downtime), coalesce(downtimeEn, downtime))`;
+const LOCALIZED_KEY_INFO = `keyInfo[]{
+  "label": select($locale == "vi" => label, $locale == "zh" => coalesce(labelZh, label), coalesce(labelEn, label)),
+  "value": select($locale == "vi" => value, $locale == "zh" => coalesce(valueZh, value), coalesce(valueEn, value))
+}`;
 const LOCALIZED_DOCTOR_TITLE = `select($locale == "vi" => title, $locale == "zh" => coalesce(titleZh, title), coalesce(titleEn, title))`;
 const LOCALIZED_TREATMENT_SECTIONS = `sections[]{
   "heading": select($locale == "vi" => heading, $locale == "zh" => coalesce(headingZh, heading), coalesce(headingEn, heading)),
@@ -177,13 +175,10 @@ const TREATMENT_BY_SLUG_QUERY = `*[_type == "treatment" && category == $category
   "name": ${LOCALIZED_NAME},
   "body": ${LOCALIZED_BODY},
   images,
-  "duration": ${LOCALIZED_DURATION},
-  "technology": ${LOCALIZED_TECHNOLOGY},
-  "suitableFor": ${LOCALIZED_SUITABLE_FOR},
-  "downtime": ${LOCALIZED_DOWNTIME},
+  "keyInfo": ${LOCALIZED_KEY_INFO},
   "sections": ${LOCALIZED_TREATMENT_SECTIONS},
   "faqs": ${LOCALIZED_FAQS},
-  "reviewedByDoctor": reviewedByDoctor->{
+  "reviewedByDoctors": reviewedByDoctors[]->{
     name,
     "title": ${LOCALIZED_DOCTOR_TITLE},
     "slug": slug.current,
@@ -207,52 +202,45 @@ export async function getTreatmentBySlug(
     name: string;
     body: PortableTextBlock[] | null;
     images: Parameters<typeof urlFor>[0][] | null;
-    duration: string | null;
-    technology: string | null;
-    suitableFor: string | null;
-    downtime: string | null;
+    keyInfo: { label: string | null; value: string | null }[] | null;
     sections: { heading: string | null; body: PortableTextBlock[] | null }[] | null;
     faqs: { question: string | null; answer: string | null }[] | null;
-    reviewedByDoctor: {
+    reviewedByDoctors: {
       name: string;
       title: string;
       slug: string | null;
       images: Parameters<typeof urlFor>[0][] | null;
-    } | null;
+    }[] | null;
     relatedTreatments: RawTreatmentSummary[] | null;
   } | null>(TREATMENT_BY_SLUG_QUERY, { category, slug, locale });
 
   if (!item) return null;
 
-  const reviewerImage = item.reviewedByDoctor?.images?.[0];
-
   return {
     name: item.name,
     body: item.body ?? [],
     imageUrls: (item.images ?? []).map((image) => urlFor(image).width(1200).url()),
-    keyInfo: {
-      duration: item.duration,
-      technology: item.technology,
-      suitableFor: item.suitableFor,
-      downtime: item.downtime,
-    },
+    keyInfo: (item.keyInfo ?? [])
+      .filter((criterion) => criterion.label && criterion.value)
+      .map((criterion) => ({ label: criterion.label as string, value: criterion.value as string })),
     sections: (item.sections ?? [])
       .filter((section) => section.heading)
       .map((section) => ({ heading: section.heading as string, body: section.body ?? [] })),
     faqs: (item.faqs ?? [])
       .filter((faq) => faq.question && faq.answer)
       .map((faq) => ({ question: faq.question as string, answer: faq.answer as string })),
-    reviewedByDoctor: item.reviewedByDoctor
-      ? {
-          name: item.reviewedByDoctor.name,
-          title: item.reviewedByDoctor.title,
-          slug: item.reviewedByDoctor.slug,
-          imageUrl:
-            reviewerImage && (reviewerImage as { asset?: unknown }).asset
-              ? urlFor(reviewerImage).width(160).url()
-              : null,
-        }
-      : null,
+    reviewedByDoctors: (item.reviewedByDoctors ?? []).map((doctor) => {
+      const reviewerImage = doctor.images?.[0];
+      return {
+        name: doctor.name,
+        title: doctor.title,
+        slug: doctor.slug,
+        imageUrl:
+          reviewerImage && (reviewerImage as { asset?: unknown }).asset
+            ? urlFor(reviewerImage).width(160).url()
+            : null,
+      };
+    }),
     relatedTreatments: (item.relatedTreatments ?? []).map(toSummary),
   };
 }

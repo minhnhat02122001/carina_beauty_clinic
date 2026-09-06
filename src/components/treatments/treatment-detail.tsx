@@ -15,10 +15,6 @@ export function TreatmentDetailView({
   comingSoonLabel,
   homeLabel,
   categoryLabel,
-  durationLabel,
-  technologyLabel,
-  suitableForLabel,
-  downtimeLabel,
   reviewedByLabel,
   faqHeading,
   relatedHeading,
@@ -32,10 +28,6 @@ export function TreatmentDetailView({
   comingSoonLabel: string;
   homeLabel: string;
   categoryLabel: string;
-  durationLabel: string;
-  technologyLabel: string;
-  suitableForLabel: string;
-  downtimeLabel: string;
   reviewedByLabel: string;
   faqHeading: string;
   relatedHeading: string;
@@ -62,10 +54,6 @@ export function TreatmentDetailView({
         <TreatmentOverview
           treatment={treatment}
           comingSoonLabel={comingSoonLabel}
-          durationLabel={durationLabel}
-          technologyLabel={technologyLabel}
-          suitableForLabel={suitableForLabel}
-          downtimeLabel={downtimeLabel}
           reviewedByLabel={reviewedByLabel}
           bookingCta={bookingCta}
           scrollPrevLabel={scrollPrevLabel}

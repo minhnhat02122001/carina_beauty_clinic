@@ -44,14 +44,14 @@ export function Hero() {
           <div className="grid grid-cols-2 gap-3 pt-2 lg:flex lg:gap-4">
             <Link
               href="/about"
-              className="rounded-full border-2 border-[var(--color-accent)] px-3 py-2 text-center text-xs font-bold whitespace-nowrap text-[var(--color-accent)] hover:opacity-80 sm:px-4 sm:text-sm lg:px-[50px] lg:py-2.5 lg:text-base"
+              className="rounded-full border-2 border-[var(--color-accent)] px-3 py-2 text-center text-xs font-bold whitespace-nowrap text-[var(--color-accent)] transition-colors hover:bg-[var(--color-accent)] hover:text-[var(--color-accent-foreground)] sm:px-4 sm:text-sm lg:px-[50px] lg:py-2.5 lg:text-base"
             >
               {t("ctaMore")}
             </Link>
             <Link
               href={{ pathname: "/", hash: "registration-form" }}
               onClick={scrollToRegistrationForm}
-              className="rounded-full border-2 border-[var(--color-accent)] bg-[#50260e] px-3 py-2 text-center text-xs font-bold whitespace-nowrap text-[var(--color-background-alt)] hover:opacity-90 sm:px-4 sm:text-sm lg:px-[18px] lg:py-2.5 lg:text-base"
+              className="rounded-full border-2 border-[var(--color-accent)] bg-[var(--color-accent)] px-3 py-2 text-center text-xs font-bold whitespace-nowrap text-[var(--color-background-alt)] transition-colors hover:bg-transparent hover:text-[var(--color-accent)] sm:px-4 sm:text-sm lg:px-[18px] lg:py-2.5 lg:text-base"
             >
               {t("ctaBooking")}
             </Link>

@@ -139,7 +139,7 @@ export function CustomerExperience({
         <Link
           href={{ pathname: "/", hash: "registration-form" }}
           onClick={scrollToRegistrationForm}
-          className="rounded-full bg-[var(--color-accent)] px-3 py-2 text-center text-xs font-bold tracking-[0.16px] whitespace-nowrap text-[#fcfcfc] hover:opacity-90 sm:px-4 sm:text-sm lg:text-base"
+          className="rounded-full border-2 border-transparent bg-[var(--color-accent)] px-3 py-2 text-center text-xs font-bold tracking-[0.16px] whitespace-nowrap text-[#fcfcfc] transition-colors hover:border-[var(--color-accent)] hover:bg-transparent hover:text-[var(--color-accent)] sm:px-4 sm:text-sm lg:text-base"
         >
           {t("ctaBooking")}
         </Link>

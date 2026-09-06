@@ -41,7 +41,7 @@ export function WhyChooseUs() {
               <p className="text-center text-base font-semibold text-[var(--color-accent)] lg:pb-1 lg:text-lg">
                 {t(item.titleKey)}
               </p>
-              <p className="text-center text-[10px] text-[rgba(99,43,14,0.7)] lg:pt-3 lg:text-sm">{t(item.descKey)}</p>
+              <p className="text-center text-xs text-[rgba(99,43,14,0.7)] lg:pt-3 lg:text-sm">{t(item.descKey)}</p>
             </div>
           ))}
         </div>
@@ -52,7 +52,7 @@ export function WhyChooseUs() {
               <p className="font-cormorant text-center text-[48px] leading-none font-semibold text-[var(--color-background-alt)] sm:text-[56px] lg:text-[64px]">
                 {t(stat.valueKey)}
               </p>
-              <p className="text-center text-[10px] text-white/80 sm:text-xs lg:py-4 lg:text-base xl:text-xl">
+              <p className="text-center text-sm text-white/80 sm:text-base lg:py-4 lg:text-base xl:text-xl">
                 {t(stat.labelKey)}
               </p>
             </div>

@@ -61,49 +61,28 @@ export const treatment = defineType({
       of: [{ type: "image", options: { hotspot: true } }],
     }),
     defineField({
-      name: "duration",
-      title: "Thời gian thực hiện",
-      description: "VD: 45–60 phút / buổi",
-      type: "string",
+      name: "keyInfo",
+      title: "Thông tin nhanh",
+      description:
+        "Các tiêu chí hiển thị ở đầu trang chi tiết dịch vụ (VD: Thời gian thực hiện, Công nghệ sử dụng...). Mỗi dịch vụ có thể có số lượng và loại tiêu chí khác nhau — thêm bao nhiêu tuỳ ý.",
+      type: "array",
       group: "vietnamese",
+      of: [
+        defineArrayMember({
+          type: "object",
+          name: "treatmentCriterion",
+          fields: [
+            defineField({ name: "label", title: "Tên tiêu chí", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({ name: "labelEn", title: "Tên tiêu chí (Tiếng Anh)", type: "string" }),
+            defineField({ name: "labelZh", title: "Tên tiêu chí (Tiếng Trung)", type: "string" }),
+            defineField({ name: "value", title: "Giá trị", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({ name: "valueEn", title: "Giá trị (Tiếng Anh)", type: "string" }),
+            defineField({ name: "valueZh", title: "Giá trị (Tiếng Trung)", type: "string" }),
+          ],
+          preview: { select: { title: "label", subtitle: "value" } },
+        }),
+      ],
     }),
-    defineField({ name: "durationEn", title: "Thời gian thực hiện (Tiếng Anh)", type: "string", group: "english" }),
-    defineField({ name: "durationZh", title: "Thời gian thực hiện (Tiếng Trung)", type: "string", group: "chinese" }),
-    defineField({
-      name: "technology",
-      title: "Công nghệ / Thiết bị sử dụng",
-      type: "string",
-      group: "vietnamese",
-    }),
-    defineField({
-      name: "technologyEn",
-      title: "Công nghệ / Thiết bị sử dụng (Tiếng Anh)",
-      type: "string",
-      group: "english",
-    }),
-    defineField({
-      name: "technologyZh",
-      title: "Công nghệ / Thiết bị sử dụng (Tiếng Trung)",
-      type: "string",
-      group: "chinese",
-    }),
-    defineField({
-      name: "suitableFor",
-      title: "Đối tượng phù hợp",
-      type: "string",
-      group: "vietnamese",
-    }),
-    defineField({ name: "suitableForEn", title: "Đối tượng phù hợp (Tiếng Anh)", type: "string", group: "english" }),
-    defineField({ name: "suitableForZh", title: "Đối tượng phù hợp (Tiếng Trung)", type: "string", group: "chinese" }),
-    defineField({
-      name: "downtime",
-      title: "Thời gian nghỉ dưỡng",
-      description: "VD: Không cần nghỉ dưỡng",
-      type: "string",
-      group: "vietnamese",
-    }),
-    defineField({ name: "downtimeEn", title: "Thời gian nghỉ dưỡng (Tiếng Anh)", type: "string", group: "english" }),
-    defineField({ name: "downtimeZh", title: "Thời gian nghỉ dưỡng (Tiếng Trung)", type: "string", group: "chinese" }),
     defineField({
       name: "sections",
       title: "Các mục chi tiết",
@@ -170,12 +149,19 @@ export const treatment = defineType({
       ],
     }),
     defineField({
-      name: "reviewedByDoctor",
+      name: "reviewedByDoctors",
       title: "Bác sĩ tư vấn / kiểm duyệt chuyên môn",
       description: "Hiển thị hộp xác nhận chuyên môn ở trang chi tiết dịch vụ. Để trống nếu không cần.",
-      type: "reference",
-      to: [{ type: "doctor" }],
+      type: "array",
+      of: [defineArrayMember({ type: "reference", to: [{ type: "doctor" }] })],
       group: "metadata",
+      // Pre-fill new documents with every doctor that already exists, since
+      // most treatments are reviewed by the whole medical team by default.
+      initialValue: async (_, { getClient }) => {
+        const client = getClient({ apiVersion: "2024-01-01" });
+        const doctorIds: string[] = await client.fetch(`*[_type == "doctor"] | order(order asc)._id`);
+        return doctorIds.map((id) => ({ _type: "reference", _ref: id, _key: id }));
+      },
     }),
     defineField({
       name: "slug",
