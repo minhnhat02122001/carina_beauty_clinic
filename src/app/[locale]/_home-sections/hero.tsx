@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { scrollToRegistrationForm } from "@/lib/scroll-to-registration-form";
@@ -19,6 +19,27 @@ function Stat({ value, label, isMobileLeftColumn }: { value: string; label: stri
 function StatDivider() {
   return <div className="hidden bg-[rgba(99,43,14,0.2)] lg:block lg:w-px" />;
 }
+
+const {
+  props: { srcSet: heroDesktopSrcSet },
+} = getImageProps({
+  src: "/images/hero/building-desktop.png",
+  alt: "",
+  width: 1752,
+  height: 1752,
+  quality: 90,
+  priority: true,
+});
+const {
+  props: { srcSet: heroMobileSrcSet, ...heroMobileImgProps },
+} = getImageProps({
+  src: "/images/hero/building-mobile.png",
+  alt: "",
+  width: 1290,
+  height: 1290,
+  quality: 90,
+  priority: true,
+});
 
 export function Hero() {
   const t = useTranslations("Hero");
@@ -67,13 +88,16 @@ export function Hero() {
           </div>
         </div>
         <div className="relative aspect-square w-full overflow-hidden rounded-2xl">
-          <Image
-            src="/images/hero/hero-building.png"
-            alt=""
-            fill
-            className="object-cover"
-            sizes="(min-width: 1024px) 584px, 100vw"
-          />
+          <picture>
+            <source media="(min-width: 1024px)" srcSet={heroDesktopSrcSet} sizes="584px" />
+            <img
+              {...heroMobileImgProps}
+              srcSet={heroMobileSrcSet}
+              sizes="100vw"
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </picture>
         </div>
       </div>
     </section>

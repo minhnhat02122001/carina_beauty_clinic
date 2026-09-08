@@ -15,28 +15,34 @@ function ReviewerRow({ doctor }: { doctor: TreatmentDetail["reviewedByDoctors"][
           <Image src={doctor.imageUrl} alt="" fill className="object-cover object-top" sizes="48px" />
         </span>
       )}
-      <div className="flex flex-wrap items-baseline gap-x-2">
+      <div className="flex min-w-0 flex-col">
         {doctor.slug ? (
           <Link
             href={{ pathname: "/about/[slug]", params: { slug: doctor.slug } }}
-            className="text-sm font-semibold text-[var(--color-accent)] hover:opacity-80"
+            className="text-sm font-semibold whitespace-nowrap text-[var(--color-accent)] hover:opacity-80"
           >
             {doctor.name}
           </Link>
         ) : (
-          <p className="text-sm font-semibold text-[var(--color-accent)]">{doctor.name}</p>
+          <p className="text-sm font-semibold whitespace-nowrap text-[var(--color-accent)]">{doctor.name}</p>
         )}
-        <span className="text-xs text-[var(--foreground)]">{doctor.title}</span>
+        <span className="text-xs whitespace-nowrap text-[var(--foreground)]">{doctor.title}</span>
       </div>
     </div>
   );
 }
 
-function ReviewerBadge({ reviewedByLabel, doctors }: { reviewedByLabel: string; doctors: TreatmentDetail["reviewedByDoctors"] }) {
+function ReviewerBadge({
+  reviewedByLabel,
+  doctors,
+}: {
+  reviewedByLabel: string;
+  doctors: TreatmentDetail["reviewedByDoctors"];
+}) {
   return (
     <div className="flex flex-col gap-3 rounded-2xl bg-[var(--color-background-alt)] p-4">
       <p className="text-xs font-bold tracking-wide text-[var(--color-muted)] uppercase">{reviewedByLabel}</p>
-      <div className="flex flex-col gap-3 lg:grid lg:grid-cols-4 lg:gap-x-6 lg:gap-y-4">
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-center lg:gap-4">
         {doctors.map((doctor) => (
           <ReviewerRow key={doctor.slug ?? doctor.name} doctor={doctor} />
         ))}
