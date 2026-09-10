@@ -172,12 +172,50 @@ export const treatment = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "category",
-      title: "Danh mục",
-      type: "string",
+      name: "categoryOrders",
+      title: "Danh mục & thứ tự hiển thị",
+      description:
+        "Một dịch vụ có thể thuộc nhiều danh mục — mỗi danh mục có vị trí hiển thị (thứ tự) riêng trong menu và danh sách của danh mục đó. Số nhỏ hơn hiển thị trước. Thêm ít nhất một danh mục.",
+      type: "array",
       group: "metadata",
-      options: { list: CATEGORY_OPTIONS, layout: "radio" },
-      validation: (Rule) => Rule.required(),
+      of: [
+        defineArrayMember({
+          type: "object",
+          name: "categoryOrder",
+          fields: [
+            defineField({
+              name: "category",
+              title: "Danh mục",
+              type: "string",
+              options: { list: CATEGORY_OPTIONS, search: { weight: 5 } },
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "order",
+              title: "Thứ tự",
+              description: "Số nhỏ hơn sẽ hiển thị trước trong menu và danh sách của danh mục này.",
+              type: "number",
+              initialValue: 0,
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          preview: {
+            select: { category: "category", order: "order" },
+            prepare({ category, order }) {
+              const label = CATEGORY_OPTIONS.find((option) => option.value === category)?.title ?? category;
+              return { title: `${label} (${category})`, subtitle: `Thứ tự: ${order}` };
+            },
+          },
+        }),
+      ],
+      validation: (Rule) =>
+        Rule.required()
+          .min(1)
+          .custom((items) => {
+            if (!items) return true;
+            const categories = (items as { category?: string }[]).map((item) => item.category).filter(Boolean);
+            return new Set(categories).size !== categories.length ? "Mỗi danh mục chỉ được chọn một lần." : true;
+          }),
     }),
     defineField({
       name: "subgroup",
@@ -189,17 +227,15 @@ export const treatment = defineType({
     }),
     defineField({ name: "subgroupEn", title: "Nhóm con (Tiếng Anh)", type: "string", group: "english" }),
     defineField({ name: "subgroupZh", title: "Nhóm con (Tiếng Trung)", type: "string", group: "chinese" }),
-    defineField({
-      name: "order",
-      title: "Thứ tự",
-      description: "Số nhỏ hơn sẽ hiển thị trước trong menu và danh sách.",
-      type: "number",
-      group: "metadata",
-      initialValue: 0,
-      validation: (Rule) => Rule.required(),
-    }),
   ],
   preview: {
-    select: { title: "name", subtitle: "category", media: "images.0" },
+    select: { title: "name", categoryOrders: "categoryOrders", media: "images.0" },
+    prepare({ title, categoryOrders, media }) {
+      const labels = (categoryOrders as { category: string }[] | undefined)?.map((item) => {
+        const label = CATEGORY_OPTIONS.find((option) => option.value === item.category)?.title ?? item.category;
+        return `${label} (${item.category})`;
+      });
+      return { title, subtitle: labels?.join(", "), media };
+    },
   },
 });

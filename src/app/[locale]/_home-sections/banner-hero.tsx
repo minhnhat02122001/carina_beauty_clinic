@@ -31,17 +31,18 @@ export function BannerHero({ banners }: { banners: BannerItem[] }) {
                 fill
                 priority={i === 0}
                 sizes="100vw"
-                className="hidden object-cover lg:block"
+                className="hidden object-contain lg:block"
               />
             </>
           );
+          const boxClassName = "relative block aspect-[750/958] w-full lg:aspect-[2400/960]";
 
           return banner.url ? (
-            <a key={banner.id} href={banner.url} className="relative block aspect-[750/958] w-full lg:aspect-[1440/539]">
+            <a key={banner.id} href={banner.url} className={boxClassName}>
               {images}
             </a>
           ) : (
-            <div key={banner.id} className="relative aspect-[750/958] w-full lg:aspect-[1440/539]">
+            <div key={banner.id} className={boxClassName}>
               {images}
             </div>
           );

@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { useState, type FormEvent } from "react";
 
 const CONTACT_ITEMS = [
   { icon: "/images/registration/icon-address.svg", labelKey: "addressLabel", valueKey: "addressValue" },
@@ -34,8 +37,44 @@ function SendIcon() {
   );
 }
 
+type SubmitStatus = "idle" | "submitting" | "success" | "error";
+
 export function RegistrationForm() {
   const t = useTranslations("RegistrationForm");
+  const [status, setStatus] = useState<SubmitStatus>("idle");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+
+    // Honeypot: real visitors never see or fill this field.
+    if (data.get("company")) {
+      form.reset();
+      setStatus("success");
+      return;
+    }
+
+    setStatus("submitting");
+    try {
+      const response = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.get("name"),
+          phone: data.get("phone"),
+          service: data.get("service"),
+          email: data.get("email") || undefined,
+          note: data.get("note") || undefined,
+        }),
+      });
+      if (!response.ok) throw new Error("request_failed");
+      form.reset();
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
+  }
 
   return (
     <section id="registration-form" className="scroll-mt-20 bg-white px-4 py-8 sm:px-6 md:px-10 lg:px-28 lg:py-12">
@@ -76,41 +115,61 @@ export function RegistrationForm() {
         </div>
 
         <div className="order-1 flex-1 lg:order-2">
-          <form className="flex flex-col gap-4 rounded-3xl border border-[var(--color-accent)] bg-[var(--color-background-alt)] p-5 shadow-lg lg:p-8">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-4 rounded-3xl border border-[var(--color-accent)] bg-[var(--color-background-alt)] p-5 shadow-lg lg:p-8"
+          >
+            <input
+              type="text"
+              name="company"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              className="absolute -left-full opacity-0"
+            />
+
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-semibold text-[var(--color-accent)]">{t("nameLabel")}</label>
-                <input type="text" placeholder={t("namePlaceholder")} className={inputClasses} />
+                <input type="text" name="name" required placeholder={t("namePlaceholder")} className={inputClasses} />
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-semibold text-[var(--color-accent)]">{t("phoneFieldLabel")}</label>
-                <input type="tel" placeholder={t("phoneFieldPlaceholder")} className={inputClasses} />
+                <input type="tel" name="phone" required placeholder={t("phoneFieldPlaceholder")} className={inputClasses} />
               </div>
             </div>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-semibold text-[var(--color-accent)]">{t("serviceLabel")}</label>
-                <input type="text" placeholder={t("servicePlaceholder")} className={inputClasses} />
+                <input type="text" name="service" required placeholder={t("servicePlaceholder")} className={inputClasses} />
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-semibold text-[var(--color-accent)]">{t("emailFieldLabel")}</label>
-                <input type="email" placeholder={t("emailFieldPlaceholder")} className={inputClasses} />
+                <input type="email" name="email" placeholder={t("emailFieldPlaceholder")} className={inputClasses} />
               </div>
             </div>
 
             <div className="flex flex-col gap-2">
               <label className="text-sm font-semibold text-[var(--color-accent)]">{t("noteLabel")}</label>
-              <textarea rows={3} placeholder={t("notePlaceholder")} className={`${inputClasses} resize-none`} />
+              <textarea rows={3} name="note" placeholder={t("notePlaceholder")} className={`${inputClasses} resize-none`} />
             </div>
 
             <button
-              type="button"
-              className="mt-2 flex items-center justify-center gap-2 rounded-full border-2 border-transparent bg-[var(--color-accent)] px-4 py-3 text-sm font-bold tracking-[0.16px] text-white transition-colors hover:border-[var(--color-accent)] hover:bg-transparent hover:text-[var(--color-accent)]"
+              type="submit"
+              disabled={status === "submitting"}
+              className="mt-2 flex items-center justify-center gap-2 rounded-full border-2 border-transparent bg-[var(--color-accent)] px-4 py-3 text-sm font-bold tracking-[0.16px] text-white transition-colors hover:border-[var(--color-accent)] hover:bg-transparent hover:text-[var(--color-accent)] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-[var(--color-accent)] disabled:hover:text-white"
             >
-              {t("submitCta")}
+              {status === "submitting" ? t("submittingCta") : t("submitCta")}
               <SendIcon />
             </button>
+
+            {status === "success" && (
+              <p className="text-center text-sm font-semibold text-[var(--color-success)]">{t("successMessage")}</p>
+            )}
+            {status === "error" && (
+              <p className="text-center text-sm font-semibold text-[var(--color-error)]">{t("errorMessage")}</p>
+            )}
 
             <p className="pt-2 text-center text-[11px] text-[rgba(99,43,14,0.6)]">{t("disclaimer")}</p>
           </form>

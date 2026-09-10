@@ -8,27 +8,37 @@ import type { TreatmentDetail } from "@/sanity/lib/service";
 import { treatmentPortableTextComponents } from "./portable-text-components";
 
 function ReviewerRow({ doctor }: { doctor: TreatmentDetail["reviewedByDoctors"][number] }) {
-  return (
-    <div className="flex items-center gap-3">
-      {doctor.imageUrl && (
-        <span className="relative aspect-square size-12 shrink-0 overflow-hidden rounded-full">
-          <Image src={doctor.imageUrl} alt="" fill className="object-cover object-top" sizes="48px" />
-        </span>
-      )}
-      <div className="flex min-w-0 flex-col">
-        {doctor.slug ? (
-          <Link
-            href={{ pathname: "/about/[slug]", params: { slug: doctor.slug } }}
-            className="text-sm font-semibold whitespace-nowrap text-[var(--color-accent)] hover:opacity-80"
-          >
-            {doctor.name}
-          </Link>
-        ) : (
-          <p className="text-sm font-semibold whitespace-nowrap text-[var(--color-accent)]">{doctor.name}</p>
-        )}
-        <span className="text-xs whitespace-nowrap text-[var(--foreground)]">{doctor.title}</span>
+  const avatar = doctor.imageUrl && (
+    <span className="relative aspect-square size-12 shrink-0 overflow-hidden rounded-full">
+      <Image src={doctor.imageUrl} alt="" fill className="object-cover object-top" sizes="48px" />
+    </span>
+  );
+  const name = <p className="text-sm font-semibold whitespace-nowrap text-[var(--color-accent)]">{doctor.name}</p>;
+  const title = <span className="text-xs whitespace-nowrap text-[var(--foreground)]">{doctor.title}</span>;
+
+  if (!doctor.slug) {
+    return (
+      <div className="flex items-center gap-3">
+        {avatar}
+        <div className="flex min-w-0 flex-col">
+          {name}
+          {title}
+        </div>
       </div>
-    </div>
+    );
+  }
+
+  return (
+    <Link
+      href={{ pathname: "/about/[slug]", params: { slug: doctor.slug } }}
+      className="flex items-center gap-3 hover:opacity-80"
+    >
+      {avatar}
+      <div className="flex min-w-0 flex-col">
+        {name}
+        {title}
+      </div>
+    </Link>
   );
 }
 

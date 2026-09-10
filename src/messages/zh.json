@@ -151,7 +151,10 @@
     "noteLabel": "备注",
     "notePlaceholder": "预约时间、咨询方式、指定医生需求(选填)",
     "submitCta": "提交咨询",
-    "disclaimer": "*提交此信息即表示您同意我们的隐私政策与服务条款。"
+    "disclaimer": "*提交此信息即表示您同意我们的隐私政策与服务条款。",
+    "submittingCta": "提交中...",
+    "successMessage": "感谢您的预约申请!我们的团队将尽快与您联系。",
+    "errorMessage": "提交失败,请重试或直接致电我们。"
   },
   "Services": {
     "heading": "我们的服务",
