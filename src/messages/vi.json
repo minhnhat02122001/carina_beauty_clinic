@@ -151,7 +151,10 @@
     "noteLabel": "Ghi chú",
     "notePlaceholder": "Lịch hẹn, phương thức tư vấn, yêu cầu bác sĩ (không bắt buộc)",
     "submitCta": "GỬI YÊU CẦU TƯ VẤN",
-    "disclaimer": "*Bằng việc gửi thông tin, bạn đồng ý với Chính sách bảo mật và Điều khoản dịch vụ của chúng tôi."
+    "disclaimer": "*Bằng việc gửi thông tin, bạn đồng ý với Chính sách bảo mật và Điều khoản dịch vụ của chúng tôi.",
+    "submittingCta": "ĐANG GỬI...",
+    "successMessage": "Cảm ơn bạn đã đăng ký! Đội ngũ Carina sẽ liên hệ lại trong thời gian sớm nhất.",
+    "errorMessage": "Rất tiếc, đã có lỗi xảy ra. Vui lòng thử lại hoặc gọi trực tiếp cho chúng tôi."
   },
   "Services": {
     "heading": "Dịch Vụ Của Chúng Tôi",

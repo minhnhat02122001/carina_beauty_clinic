@@ -25,6 +25,8 @@
   --color-accent-foreground: #ffffff;
   --color-border: #e8f1e8;
   --color-gold: #bd8c2e;
+  --color-success: #3f6b4a;
+  --color-error: #a13a2e;
 }
 
 @theme inline {
@@ -37,6 +39,8 @@
   --color-accent-bright: var(--color-accent-bright);
   --color-border: var(--color-border);
   --color-gold: var(--color-gold);
+  --color-success: var(--color-success);
+  --color-error: var(--color-error);
   --font-sans: var(--font-montserrat);
   --font-serif: var(--font-merriweather);
   --font-script: var(--font-script);
@@ -52,6 +56,8 @@
     --color-accent: #632b0e;
     --color-accent-bright: #c9561d;
     --color-border: #3a2e28;
+    --color-success: #3f6b4a;
+    --color-error: #a13a2e;
   }
 }
 

@@ -8,35 +8,51 @@ import type { TreatmentDetail } from "@/sanity/lib/service";
 import { treatmentPortableTextComponents } from "./portable-text-components";
 
 function ReviewerRow({ doctor }: { doctor: TreatmentDetail["reviewedByDoctors"][number] }) {
-  return (
-    <div className="flex items-center gap-3">
-      {doctor.imageUrl && (
-        <span className="relative aspect-square size-12 shrink-0 overflow-hidden rounded-full">
-          <Image src={doctor.imageUrl} alt="" fill className="object-cover object-top" sizes="48px" />
-        </span>
-      )}
-      <div className="flex flex-wrap items-baseline gap-x-2">
-        {doctor.slug ? (
-          <Link
-            href={{ pathname: "/about/[slug]", params: { slug: doctor.slug } }}
-            className="text-sm font-semibold text-[var(--color-accent)] hover:opacity-80"
-          >
-            {doctor.name}
-          </Link>
-        ) : (
-          <p className="text-sm font-semibold text-[var(--color-accent)]">{doctor.name}</p>
-        )}
-        <span className="text-xs text-[var(--foreground)]">{doctor.title}</span>
+  const avatar = doctor.imageUrl && (
+    <span className="relative aspect-square size-12 shrink-0 overflow-hidden rounded-full">
+      <Image src={doctor.imageUrl} alt="" fill className="object-cover object-top" sizes="48px" />
+    </span>
+  );
+  const name = <p className="text-sm font-semibold whitespace-nowrap text-[var(--color-accent)]">{doctor.name}</p>;
+  const title = <span className="text-xs whitespace-nowrap text-[var(--foreground)]">{doctor.title}</span>;
+
+  if (!doctor.slug) {
+    return (
+      <div className="flex items-center gap-3">
+        {avatar}
+        <div className="flex min-w-0 flex-col">
+          {name}
+          {title}
+        </div>
       </div>
-    </div>
+    );
+  }
+
+  return (
+    <Link
+      href={{ pathname: "/about/[slug]", params: { slug: doctor.slug } }}
+      className="flex items-center gap-3 hover:opacity-80"
+    >
+      {avatar}
+      <div className="flex min-w-0 flex-col">
+        {name}
+        {title}
+      </div>
+    </Link>
   );
 }
 
-function ReviewerBadge({ reviewedByLabel, doctors }: { reviewedByLabel: string; doctors: TreatmentDetail["reviewedByDoctors"] }) {
+function ReviewerBadge({
+  reviewedByLabel,
+  doctors,
+}: {
+  reviewedByLabel: string;
+  doctors: TreatmentDetail["reviewedByDoctors"];
+}) {
   return (
     <div className="flex flex-col gap-3 rounded-2xl bg-[var(--color-background-alt)] p-4">
       <p className="text-xs font-bold tracking-wide text-[var(--color-muted)] uppercase">{reviewedByLabel}</p>
-      <div className="flex flex-col gap-3 lg:grid lg:grid-cols-4 lg:gap-x-6 lg:gap-y-4">
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-center lg:gap-4">
         {doctors.map((doctor) => (
           <ReviewerRow key={doctor.slug ?? doctor.name} doctor={doctor} />
         ))}

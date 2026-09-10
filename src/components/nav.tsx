@@ -12,7 +12,7 @@ import {
 } from "@/sanity/lib/service";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const NAV_LINKS = [
   { href: "/about", key: "about", category: null, settingsKey: null },
@@ -75,28 +75,83 @@ function MenuIcon() {
 }
 
 function DesktopServiceDropdown({ category, items }: { category: TreatmentCategory; items: TreatmentSummary[] }) {
+  const groups = groupTreatmentsBySubgroup(items);
+  const [activeSubgroup, setActiveSubgroup] = useState<string | null>(null);
+  const [alignRight, setAlignRight] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    // Panels size to their content (w-max), so whether they'd overflow the
+    // viewport can only be known after render — measure and flip the anchor
+    // side rather than guessing from the link's position alone.
+    const checkOverflow = () => {
+      const rect = el.getBoundingClientRect();
+      setAlignRight(rect.right > window.innerWidth);
+    };
+
+    checkOverflow();
+    window.addEventListener("resize", checkOverflow);
+    return () => window.removeEventListener("resize", checkOverflow);
+  }, [activeSubgroup]);
+
   if (items.length === 0) return null;
 
   return (
-    <div className="absolute top-full left-0 z-20 hidden w-72 flex-col gap-2 rounded-2xl border border-[var(--color-border)] bg-[var(--color-submenu-background)] p-3 shadow-[0px_16px_32px_0px_rgba(0,0,0,0.12)] group-hover:flex">
-      {groupTreatmentsBySubgroup(items).map((group) => (
-        <div key={group.subgroup ?? "_"} className="flex flex-col gap-0.5">
-          {group.subgroup && (
-            <p className="rounded-lg px-2 py-1.5 text-sm font-bold tracking-wide text-[var(--color-muted)]">
-              {group.subgroup}
-            </p>
-          )}
-          {group.items.map((item) => (
-            <Link
-              key={item.id}
-              href={treatmentHref(category, item.slug)}
-              className="rounded-lg py-1.5 pr-2 pl-4 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--color-accent)] hover:text-[var(--color-accent-foreground)]"
+    <div
+      ref={containerRef}
+      className={`invisible absolute top-full z-20 flex items-start gap-2 group-hover:visible ${
+        alignRight ? "right-0" : "left-0"
+      }`}
+      onMouseLeave={() => setActiveSubgroup(null)}
+    >
+      <div className="flex w-max max-w-80 flex-col gap-0.5 rounded-2xl bg-[var(--color-submenu-background)] p-3 shadow-[0px_16px_32px_0px_rgba(0,0,0,0.12)]">
+        {groups.map((group) =>
+          !group.subgroup ? (
+            group.items.map((item) => (
+              <Link
+                key={item.id}
+                href={treatmentHref(category, item.slug)}
+                className="rounded-lg px-3 py-2 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--color-accent)] hover:text-[var(--color-accent-foreground)]"
+              >
+                {item.name}
+              </Link>
+            ))
+          ) : (
+            <button
+              key={group.subgroup}
+              type="button"
+              onMouseEnter={() => setActiveSubgroup(group.subgroup)}
+              className={`flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-left text-sm font-bold tracking-wide transition-colors ${
+                activeSubgroup === group.subgroup
+                  ? "bg-[var(--color-accent)] text-[var(--color-accent-foreground)]"
+                  : "text-[var(--color-muted)]"
+              }`}
             >
-              {item.name}
-            </Link>
-          ))}
+              {group.subgroup}
+              <ChevronIcon className="size-2.5 shrink-0 -rotate-90" />
+            </button>
+          ),
+        )}
+      </div>
+
+      {activeSubgroup && (
+        <div className="flex w-max max-w-80 flex-col gap-0.5 rounded-2xl bg-[var(--color-submenu-background)] p-3 shadow-[0px_16px_32px_0px_rgba(0,0,0,0.12)]">
+          {groups
+            .find((group) => group.subgroup === activeSubgroup)
+            ?.items.map((item) => (
+              <Link
+                key={item.id}
+                href={treatmentHref(category, item.slug)}
+                className="rounded-lg px-3 py-2 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--color-accent)] hover:text-[var(--color-accent-foreground)]"
+              >
+                {item.name}
+              </Link>
+            ))}
         </div>
-      ))}
+      )}
     </div>
   );
 }

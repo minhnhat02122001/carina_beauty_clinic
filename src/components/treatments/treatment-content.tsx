@@ -19,7 +19,7 @@ export function TreatmentContent({
         <Section
           key={`${section.heading}-${index}`}
           title={section.heading}
-          variant={index % 2 === 0 ? "alt-a" : "alt-b"}
+          variant={index % 2 === 0 ? "alt-b" : "alt-a"}
         >
           <PortableText value={section.body} components={treatmentPortableTextComponents} />
         </Section>

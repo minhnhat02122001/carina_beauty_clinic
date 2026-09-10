@@ -148,7 +148,7 @@ export function DoctorDetailView({
             <a
               href="#registration-form"
               onClick={scrollToRegistrationForm}
-              className="mt-2 inline-flex w-fit items-center justify-center rounded-full border-2 border-transparent bg-[var(--color-accent)] px-5 py-3 text-sm font-bold tracking-[0.16px] whitespace-nowrap text-white transition-colors hover:border-[var(--color-accent)] hover:bg-transparent hover:text-[var(--color-accent)]"
+              className="mt-2 inline-flex w-fit items-center justify-center self-center rounded-full border-2 border-transparent bg-[var(--color-accent)] px-5 py-3 text-sm font-bold tracking-[0.16px] whitespace-nowrap text-white transition-colors hover:border-[var(--color-accent)] hover:bg-transparent hover:text-[var(--color-accent)] lg:self-start"
             >
               {bookingLabel}
             </a>

@@ -77,6 +77,10 @@ type RawTreatmentSummary = {
   images: Parameters<typeof urlFor>[0][] | null;
 };
 
+type RawTreatmentWithCategoryOrders = RawTreatmentSummary & {
+  categoryOrders: { category: TreatmentCategory; order: number }[];
+};
+
 function toSummary(item: RawTreatmentSummary): TreatmentSummary {
   const firstImage = item.images?.[0];
   return {
@@ -137,41 +141,50 @@ export function groupTreatmentsBySubgroup(items: TreatmentSummary[]): { subgroup
   return order.map((subgroup) => ({ subgroup, items: map.get(subgroup)! }));
 }
 
-const ALL_TREATMENTS_QUERY = `*[_type == "treatment"] | order(category asc, order asc){
+const ALL_TREATMENTS_QUERY = `*[_type == "treatment"]{
   _id,
   "slug": slug.current,
   "name": ${LOCALIZED_NAME},
   "subgroup": ${LOCALIZED_SUBGROUP},
-  category,
+  categoryOrders,
   images
 }`;
 
 export async function getTreatmentsGroupedByCategory(locale: Locale): Promise<TreatmentsByCategory> {
-  const items = await client.fetch<(RawTreatmentSummary & { category: TreatmentCategory })[]>(ALL_TREATMENTS_QUERY, {
+  const items = await client.fetch<RawTreatmentWithCategoryOrders[]>(ALL_TREATMENTS_QUERY, {
     locale,
   });
 
-  const grouped: TreatmentsByCategory = {};
+  const grouped: Partial<Record<TreatmentCategory, { order: number; summary: TreatmentSummary }[]>> = {};
   for (const item of items) {
-    (grouped[item.category] ??= []).push(toSummary(item));
+    const summary = toSummary(item);
+    for (const { category, order } of item.categoryOrders) {
+      (grouped[category] ??= []).push({ order, summary });
+    }
   }
-  return grouped;
+
+  const result: TreatmentsByCategory = {};
+  for (const category of Object.keys(grouped) as TreatmentCategory[]) {
+    result[category] = grouped[category]!.sort((a, b) => a.order - b.order).map((entry) => entry.summary);
+  }
+  return result;
 }
 
-const TREATMENTS_BY_CATEGORY_QUERY = `*[_type == "treatment" && category == $category] | order(order asc){
+const TREATMENTS_BY_CATEGORY_QUERY = `*[_type == "treatment" && $category in categoryOrders[].category]{
   _id,
   "slug": slug.current,
   "name": ${LOCALIZED_NAME},
   "subgroup": ${LOCALIZED_SUBGROUP},
-  images
-}`;
+  images,
+  "categoryOrder": categoryOrders[category == $category][0].order
+} | order(categoryOrder asc)`;
 
 export async function getTreatmentsByCategory(category: TreatmentCategory, locale: Locale): Promise<TreatmentSummary[]> {
   const items = await client.fetch<RawTreatmentSummary[]>(TREATMENTS_BY_CATEGORY_QUERY, { category, locale });
   return items.map(toSummary);
 }
 
-const TREATMENT_BY_SLUG_QUERY = `*[_type == "treatment" && category == $category && slug.current == $slug][0]{
+const TREATMENT_BY_SLUG_QUERY = `*[_type == "treatment" && $category in categoryOrders[].category && slug.current == $slug][0]{
   "name": ${LOCALIZED_NAME},
   "body": ${LOCALIZED_BODY},
   images,
@@ -184,13 +197,14 @@ const TREATMENT_BY_SLUG_QUERY = `*[_type == "treatment" && category == $category
     "slug": slug.current,
     images
   },
-  "relatedTreatments": *[_type == "treatment" && category == $category && slug.current != $slug] | order(order asc) [0...4]{
+  "relatedTreatments": *[_type == "treatment" && $category in categoryOrders[].category && slug.current != $slug]{
     _id,
     "slug": slug.current,
     "name": ${LOCALIZED_NAME},
     "subgroup": ${LOCALIZED_SUBGROUP},
-    images
-  }
+    images,
+    "categoryOrder": categoryOrders[category == $category][0].order
+  } | order(categoryOrder asc) [0...4]
 }`;
 
 export async function getTreatmentBySlug(
@@ -258,7 +272,7 @@ const SERVICE_HIGHLIGHTS_QUERY = `*[_type == "serviceHighlight"] | order(order a
   "name": ${LOCALIZED_NAME},
   image,
   categories,
-  "treatmentCategory": treatment->category,
+  "treatmentCategory": treatment->categoryOrders[0].category,
   "treatmentSlug": treatment->slug.current
 }`;
 

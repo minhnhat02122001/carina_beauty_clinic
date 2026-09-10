@@ -151,7 +151,10 @@
     "noteLabel": "Note",
     "notePlaceholder": "Preferred date, consultation method, doctor request (optional)",
     "submitCta": "SEND REQUEST",
-    "disclaimer": "*By submitting this information, you agree to our Privacy Policy and Terms of Service."
+    "disclaimer": "*By submitting this information, you agree to our Privacy Policy and Terms of Service.",
+    "submittingCta": "SENDING...",
+    "successMessage": "Thank you for registering! Our team will contact you shortly.",
+    "errorMessage": "Something went wrong. Please try again or call us directly."
   },
   "Services": {
     "heading": "Our Services",
