@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import { Carousel } from "@/components/carousel";
+import { PortableTextImage } from "@/components/portable-text-image";
 import { Link } from "@/i18n/navigation";
-import { urlFor } from "@/sanity/lib/image";
 import type { PostCategory, PostDetail, PostSummary } from "@/sanity/lib/posts";
 import { CATEGORY_ROUTES } from "./category-routes";
 import { ShareButtons } from "./share-buttons";
@@ -21,21 +21,7 @@ const components: PortableTextComponents = {
     ),
   },
   types: {
-    image: ({ value }) => {
-      if (!value?.asset) return null;
-
-      return (
-        <span className="relative my-2 block aspect-video w-full overflow-hidden rounded-2xl">
-          <Image
-            src={urlFor(value).width(1200).url()}
-            alt=""
-            fill
-            className="object-cover"
-            sizes="(min-width: 1024px) 768px, 100vw"
-          />
-        </span>
-      );
-    },
+    image: ({ value }) => <PortableTextImage value={value} />,
   },
 };
 

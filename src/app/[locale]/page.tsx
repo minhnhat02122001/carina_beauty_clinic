@@ -4,7 +4,7 @@ import { getFeaturedVideos } from "@/sanity/lib/videos";
 import { getHeroBanners } from "@/sanity/lib/banners";
 import { getEquipmentItems } from "@/sanity/lib/equipment";
 import { getNavigationSettings } from "@/sanity/lib/nav";
-import { getServiceHighlights } from "@/sanity/lib/service";
+import { getServiceHighlightsSettings } from "@/sanity/lib/service-highlights";
 import { getDoctors } from "@/sanity/lib/doctors";
 import { BannerHero } from "./_home-sections/banner-hero";
 import { Hero } from "./_home-sections/hero";
@@ -25,17 +25,17 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       getFeaturedVideos(locale),
       getHeroBanners(),
       getEquipmentItems(),
-      getServiceHighlights(locale),
+      getServiceHighlightsSettings(locale),
       getDoctors(locale),
       getBeautyKnowledgeHome(locale),
-      getNavigationSettings(),
+      getNavigationSettings(locale),
     ]);
 
   return (
     <div className="flex flex-1 flex-col">
       <BannerHero banners={banners} />
       <Hero />
-      <CustomerExperience cards={serviceHighlights} navigationSettings={navigationSettings} />
+      <CustomerExperience highlightsByCategory={serviceHighlights} navigationSettings={navigationSettings} />
       <Equipment items={equipment} />
       <DoctorTeam doctors={doctors} />
       <StrategicPartners />

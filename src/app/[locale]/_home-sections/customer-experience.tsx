@@ -7,16 +7,8 @@ import Image from "next/image";
 import { useState } from "react";
 import { scrollToRegistrationForm } from "@/lib/scroll-to-registration-form";
 import type { NavigationSettings } from "@/sanity/lib/nav";
-import type { ServiceHighlightItem } from "@/sanity/lib/service";
-
-const CHIPS = [
-  { key: "chipExclusive", settingsKey: "showExclusive" },
-  { key: "chipLiftingRejuvenation", settingsKey: "showLiftingRejuvenation" },
-  { key: "chipSkinTreatment", settingsKey: "showSkinTherapy" },
-  { key: "chipRejuvenationInjections", settingsKey: "showRejuvenationInjections" },
-  { key: "chipBodyCare", settingsKey: "showBodyCare" },
-  { key: "chipSkinCare", settingsKey: "showSkinCare" },
-] as const satisfies { key: string; settingsKey: keyof NavigationSettings }[];
+import type { ServiceHighlightsByCategory } from "@/sanity/lib/service-highlights";
+import { TREATMENT_CATEGORIES } from "@/sanity/lib/treatmentCategories";
 
 const activeChipClasses = "border-[#ffe15a] bg-white text-[#f3c213]";
 const inactiveChipClasses = "border-[#a9b2be] bg-white text-[#4a4f63] hover:border-[#ffe15a] hover:text-[#f3c213]";
@@ -49,17 +41,20 @@ function Chip({ label, active, onClick }: { label: string; active: boolean; onCl
 }
 
 export function CustomerExperience({
-  cards,
+  highlightsByCategory,
   navigationSettings,
 }: {
-  cards: ServiceHighlightItem[];
+  highlightsByCategory: ServiceHighlightsByCategory;
   navigationSettings: NavigationSettings;
 }) {
   const t = useTranslations("CustomerExperience");
-  const visibleChips = CHIPS.filter((chip) => navigationSettings[chip.settingsKey]);
-  const [activeFilter, setActiveFilter] = useState<string>(() => (visibleChips[0] ?? CHIPS[0]).key);
+  const tNav = useTranslations("Nav");
+  const visibleCategories = TREATMENT_CATEGORIES.filter((category) => navigationSettings[category.settingsKey].show);
+  const [activeFilter, setActiveFilter] = useState(
+    () => (visibleCategories[0] ?? TREATMENT_CATEGORIES[0]).settingsKey,
+  );
 
-  const visibleCards = cards.filter((card) => card.categories.includes(activeFilter));
+  const visibleCards = highlightsByCategory[activeFilter] ?? [];
 
   return (
     <section
@@ -79,8 +74,13 @@ export function CustomerExperience({
         <h2 className="text-center text-2xl text-[var(--color-accent)] lg:text-5xl">{t("heading")}</h2>
 
         <div className="flex w-full [scrollbar-width:none] items-start gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-          {visibleChips.map(({ key }) => (
-            <Chip key={key} label={t(key)} active={activeFilter === key} onClick={() => setActiveFilter(key)} />
+          {visibleCategories.map(({ settingsKey }) => (
+            <Chip
+              key={settingsKey}
+              label={tNav(settingsKey)}
+              active={activeFilter === settingsKey}
+              onClick={() => setActiveFilter(settingsKey)}
+            />
           ))}
         </div>
 

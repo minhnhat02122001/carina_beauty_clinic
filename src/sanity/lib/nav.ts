@@ -1,44 +1,61 @@
+import { toSummary, type RawTreatmentSummary, type TreatmentSubgroupGroup } from "./service";
+import { TREATMENT_CATEGORIES, type NavigationSettingsKey } from "./treatmentCategories";
 import { client } from "./client";
 
-export type NavigationSettings = {
-  showExclusive: boolean;
-  showLiftingRejuvenation: boolean;
-  showSkinTherapy: boolean;
-  showRejuvenationInjections: boolean;
-  showBodyCare: boolean;
-  showSkinCare: boolean;
+export type NavigationCategorySettings = {
+  show: boolean;
+  subgroups: TreatmentSubgroupGroup[];
 };
 
-// Falls back to "everything visible" when the singleton hasn't been created
-// yet in Sanity, so the nav never silently loses links before setup.
-const DEFAULT_NAVIGATION_SETTINGS: NavigationSettings = {
-  showExclusive: true,
-  showLiftingRejuvenation: true,
-  showSkinTherapy: true,
-  showRejuvenationInjections: true,
-  showBodyCare: true,
-  showSkinCare: true,
-};
+export type NavigationSettings = Record<NavigationSettingsKey, NavigationCategorySettings>;
+
+const LOCALIZED_NAME = `select($locale == "vi" => name, $locale == "zh" => coalesce(nameZh, name), coalesce(nameEn, name))`;
+const LOCALIZED_SUBGROUP_LABEL = `select($locale == "vi" => label, $locale == "zh" => coalesce(labelZh, label), coalesce(labelEn, label))`;
+
+// Falls back to "everything visible, no subgroups" when the singleton hasn't
+// been created yet in Sanity, so the nav never silently loses links before setup.
+const DEFAULT_CATEGORY_SETTINGS: NavigationCategorySettings = { show: true, subgroups: [] };
 
 const NAVIGATION_SETTINGS_QUERY = `*[_type == "navigationSettings"][0]{
-  showExclusive,
-  showLiftingRejuvenation,
-  showSkinTherapy,
-  showRejuvenationInjections,
-  showBodyCare,
-  showSkinCare
+  ${TREATMENT_CATEGORIES.map(
+    ({ settingsKey }) => `"${settingsKey}": ${settingsKey}{
+    show,
+    "subgroups": subgroups[]{
+      "subgroup": ${LOCALIZED_SUBGROUP_LABEL},
+      "items": treatments[]->{
+        _id,
+        "slug": slug.current,
+        "name": ${LOCALIZED_NAME},
+        images
+      }
+    }
+  }`,
+  ).join(",\n  ")}
 }`;
 
-export async function getNavigationSettings(): Promise<NavigationSettings> {
-  const settings = await client.fetch<Partial<NavigationSettings> | null>(NAVIGATION_SETTINGS_QUERY);
+type RawCategorySettings = {
+  show?: boolean;
+  subgroups?: { subgroup: string | null; items: RawTreatmentSummary[] }[];
+};
 
-  return {
-    showExclusive: settings?.showExclusive ?? DEFAULT_NAVIGATION_SETTINGS.showExclusive,
-    showLiftingRejuvenation: settings?.showLiftingRejuvenation ?? DEFAULT_NAVIGATION_SETTINGS.showLiftingRejuvenation,
-    showSkinTherapy: settings?.showSkinTherapy ?? DEFAULT_NAVIGATION_SETTINGS.showSkinTherapy,
-    showRejuvenationInjections:
-      settings?.showRejuvenationInjections ?? DEFAULT_NAVIGATION_SETTINGS.showRejuvenationInjections,
-    showBodyCare: settings?.showBodyCare ?? DEFAULT_NAVIGATION_SETTINGS.showBodyCare,
-    showSkinCare: settings?.showSkinCare ?? DEFAULT_NAVIGATION_SETTINGS.showSkinCare,
-  };
+export async function getNavigationSettings(locale: string): Promise<NavigationSettings> {
+  const settings = await client.fetch<Partial<Record<NavigationSettingsKey, RawCategorySettings>> | null>(
+    NAVIGATION_SETTINGS_QUERY,
+    { locale },
+  );
+
+  const result = {} as NavigationSettings;
+  for (const { settingsKey } of TREATMENT_CATEGORIES) {
+    const raw = settings?.[settingsKey];
+    result[settingsKey] = raw
+      ? {
+          show: raw.show ?? DEFAULT_CATEGORY_SETTINGS.show,
+          subgroups: (raw.subgroups ?? []).map((group) => ({
+            subgroup: group.subgroup,
+            items: group.items.map(toSummary),
+          })),
+        }
+      : DEFAULT_CATEGORY_SETTINGS;
+  }
+  return result;
 }
