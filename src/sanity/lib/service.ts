@@ -1,22 +1,21 @@
 import type { PortableTextBlock } from "@portabletext/react";
 import type { Locale } from "@/i18n/routing";
+import { categoryToSettingsKey, type TreatmentCategory } from "./treatmentCategories";
 import { client } from "./client";
 import { urlFor } from "./image";
 
-export type TreatmentCategory =
-  | "exclusive"
-  | "lifting-rejuvenation"
-  | "skin-therapy"
-  | "rejuvenation-injections"
-  | "body-care"
-  | "skin-care";
+export type { TreatmentCategory } from "./treatmentCategories";
 
 export type TreatmentSummary = {
   id: string;
   slug: string;
   name: string;
-  subgroup: string | null;
   imageUrl: string | null;
+};
+
+export type TreatmentSubgroupGroup = {
+  subgroup: string | null;
+  items: TreatmentSummary[];
 };
 
 export type TreatmentCriterion = {
@@ -54,7 +53,7 @@ export type TreatmentDetail = {
 
 const LOCALIZED_NAME = `select($locale == "vi" => name, $locale == "zh" => coalesce(nameZh, name), coalesce(nameEn, name))`;
 const LOCALIZED_BODY = `select($locale == "vi" => description, $locale == "zh" => coalesce(descriptionZh, description), coalesce(descriptionEn, description))`;
-const LOCALIZED_SUBGROUP = `select($locale == "vi" => subgroup, $locale == "zh" => coalesce(subgroupZh, subgroup), coalesce(subgroupEn, subgroup))`;
+const LOCALIZED_SUBGROUP_LABEL = `select($locale == "vi" => label, $locale == "zh" => coalesce(labelZh, label), coalesce(labelEn, label))`;
 const LOCALIZED_KEY_INFO = `keyInfo[]{
   "label": select($locale == "vi" => label, $locale == "zh" => coalesce(labelZh, label), coalesce(labelEn, label)),
   "value": select($locale == "vi" => value, $locale == "zh" => coalesce(valueZh, value), coalesce(valueEn, value))
@@ -69,25 +68,19 @@ const LOCALIZED_FAQS = `faqs[]{
   "answer": select($locale == "vi" => answer, $locale == "zh" => coalesce(answerZh, answer), coalesce(answerEn, answer))
 }`;
 
-type RawTreatmentSummary = {
+export type RawTreatmentSummary = {
   _id: string;
   slug: string;
   name: string;
-  subgroup: string | null;
   images: Parameters<typeof urlFor>[0][] | null;
 };
 
-type RawTreatmentWithCategoryOrders = RawTreatmentSummary & {
-  categoryOrders: { category: TreatmentCategory; order: number }[];
-};
-
-function toSummary(item: RawTreatmentSummary): TreatmentSummary {
+export function toSummary(item: RawTreatmentSummary): TreatmentSummary {
   const firstImage = item.images?.[0];
   return {
     id: item._id,
     slug: item.slug,
     name: item.name,
-    subgroup: item.subgroup,
     imageUrl: firstImage ? urlFor(firstImage).width(400).height(400).fit("crop").url() : null,
   };
 }
@@ -126,65 +119,34 @@ export function categoryRootHref(category: TreatmentCategory) {
   }
 }
 
-export type TreatmentsByCategory = Partial<Record<TreatmentCategory, TreatmentSummary[]>>;
-
-export function groupTreatmentsBySubgroup(items: TreatmentSummary[]): { subgroup: string | null; items: TreatmentSummary[] }[] {
-  const order: (string | null)[] = [];
-  const map = new Map<string | null, TreatmentSummary[]>();
-  for (const item of items) {
-    if (!map.has(item.subgroup)) {
-      map.set(item.subgroup, []);
-      order.push(item.subgroup);
+// Category membership/order/subgrouping now lives entirely on the
+// navigationSettings singleton (src/sanity/lib/nav.ts) — a treatment document
+// no longer knows which categories it belongs to. Field names can't be
+// parameterized in GROQ, so the (fixed, code-controlled) settings key is
+// interpolated directly into the query text rather than passed as a $param.
+function categorySubgroupsQuery(settingsKey: string) {
+  return `*[_type == "navigationSettings"][0].${settingsKey}.subgroups[]{
+    "subgroup": ${LOCALIZED_SUBGROUP_LABEL},
+    "items": treatments[]->{
+      _id,
+      "slug": slug.current,
+      "name": ${LOCALIZED_NAME},
+      images
     }
-    map.get(item.subgroup)!.push(item);
-  }
-  return order.map((subgroup) => ({ subgroup, items: map.get(subgroup)! }));
+  }`;
 }
 
-const ALL_TREATMENTS_QUERY = `*[_type == "treatment"]{
-  _id,
-  "slug": slug.current,
-  "name": ${LOCALIZED_NAME},
-  "subgroup": ${LOCALIZED_SUBGROUP},
-  categoryOrders,
-  images
-}`;
+type RawSubgroupGroup = { subgroup: string | null; items: RawTreatmentSummary[] };
 
-export async function getTreatmentsGroupedByCategory(locale: Locale): Promise<TreatmentsByCategory> {
-  const items = await client.fetch<RawTreatmentWithCategoryOrders[]>(ALL_TREATMENTS_QUERY, {
+export async function getTreatmentsByCategory(category: TreatmentCategory, locale: Locale): Promise<TreatmentSubgroupGroup[]> {
+  const groups = await client.fetch<RawSubgroupGroup[]>(categorySubgroupsQuery(categoryToSettingsKey(category)), {
     locale,
   });
-
-  const grouped: Partial<Record<TreatmentCategory, { order: number; summary: TreatmentSummary }[]>> = {};
-  for (const item of items) {
-    const summary = toSummary(item);
-    for (const { category, order } of item.categoryOrders) {
-      (grouped[category] ??= []).push({ order, summary });
-    }
-  }
-
-  const result: TreatmentsByCategory = {};
-  for (const category of Object.keys(grouped) as TreatmentCategory[]) {
-    result[category] = grouped[category]!.sort((a, b) => a.order - b.order).map((entry) => entry.summary);
-  }
-  return result;
+  return groups.map((group) => ({ subgroup: group.subgroup, items: group.items.map(toSummary) }));
 }
 
-const TREATMENTS_BY_CATEGORY_QUERY = `*[_type == "treatment" && $category in categoryOrders[].category]{
+const TREATMENT_BY_SLUG_QUERY = `*[_type == "treatment" && slug.current == $slug][0]{
   _id,
-  "slug": slug.current,
-  "name": ${LOCALIZED_NAME},
-  "subgroup": ${LOCALIZED_SUBGROUP},
-  images,
-  "categoryOrder": categoryOrders[category == $category][0].order
-} | order(categoryOrder asc)`;
-
-export async function getTreatmentsByCategory(category: TreatmentCategory, locale: Locale): Promise<TreatmentSummary[]> {
-  const items = await client.fetch<RawTreatmentSummary[]>(TREATMENTS_BY_CATEGORY_QUERY, { category, locale });
-  return items.map(toSummary);
-}
-
-const TREATMENT_BY_SLUG_QUERY = `*[_type == "treatment" && $category in categoryOrders[].category && slug.current == $slug][0]{
   "name": ${LOCALIZED_NAME},
   "body": ${LOCALIZED_BODY},
   images,
@@ -196,15 +158,7 @@ const TREATMENT_BY_SLUG_QUERY = `*[_type == "treatment" && $category in category
     "title": ${LOCALIZED_DOCTOR_TITLE},
     "slug": slug.current,
     images
-  },
-  "relatedTreatments": *[_type == "treatment" && $category in categoryOrders[].category && slug.current != $slug]{
-    _id,
-    "slug": slug.current,
-    "name": ${LOCALIZED_NAME},
-    "subgroup": ${LOCALIZED_SUBGROUP},
-    images,
-    "categoryOrder": categoryOrders[category == $category][0].order
-  } | order(categoryOrder asc) [0...4]
+  }
 }`;
 
 export async function getTreatmentBySlug(
@@ -212,23 +166,33 @@ export async function getTreatmentBySlug(
   slug: string,
   locale: Locale,
 ): Promise<TreatmentDetail | null> {
-  const item = await client.fetch<{
-    name: string;
-    body: PortableTextBlock[] | null;
-    images: Parameters<typeof urlFor>[0][] | null;
-    keyInfo: { label: string | null; value: string | null }[] | null;
-    sections: { heading: string | null; body: PortableTextBlock[] | null }[] | null;
-    faqs: { question: string | null; answer: string | null }[] | null;
-    reviewedByDoctors: {
+  const [item, groups] = await Promise.all([
+    client.fetch<{
+      _id: string;
       name: string;
-      title: string;
-      slug: string | null;
+      body: PortableTextBlock[] | null;
       images: Parameters<typeof urlFor>[0][] | null;
-    }[] | null;
-    relatedTreatments: RawTreatmentSummary[] | null;
-  } | null>(TREATMENT_BY_SLUG_QUERY, { category, slug, locale });
+      keyInfo: { label: string | null; value: string | null }[] | null;
+      sections: { heading: string | null; body: PortableTextBlock[] | null }[] | null;
+      faqs: { question: string | null; answer: string | null }[] | null;
+      reviewedByDoctors: {
+        name: string;
+        title: string;
+        slug: string | null;
+        images: Parameters<typeof urlFor>[0][] | null;
+      }[] | null;
+    } | null>(TREATMENT_BY_SLUG_QUERY, { slug, locale }),
+    client.fetch<RawSubgroupGroup[]>(categorySubgroupsQuery(categoryToSettingsKey(category)), { locale }),
+  ]);
 
   if (!item) return null;
+
+  // Confirms this slug is actually placed under this category in
+  // navigationSettings (not just that a treatment with this slug exists
+  // somewhere) — otherwise e.g. /services/body-care/<skin-therapy-slug>
+  // would incorrectly resolve.
+  const categoryItems = groups.flatMap((group) => group.items);
+  if (!categoryItems.some((sibling) => sibling._id === item._id)) return null;
 
   return {
     name: item.name,
@@ -255,47 +219,10 @@ export async function getTreatmentBySlug(
             : null,
       };
     }),
-    relatedTreatments: (item.relatedTreatments ?? []).map(toSummary),
+    relatedTreatments: categoryItems
+      .filter((sibling) => sibling._id !== item._id)
+      .slice(0, 4)
+      .map(toSummary),
   };
 }
 
-export type ServiceHighlightItem = {
-  id: string;
-  name: string;
-  imageUrl: string;
-  categories: string[];
-  href: ReturnType<typeof treatmentHref> | null;
-};
-
-const SERVICE_HIGHLIGHTS_QUERY = `*[_type == "serviceHighlight"] | order(order asc){
-  _id,
-  "name": ${LOCALIZED_NAME},
-  image,
-  categories,
-  "treatmentCategory": treatment->categoryOrders[0].category,
-  "treatmentSlug": treatment->slug.current
-}`;
-
-export async function getServiceHighlights(locale: Locale): Promise<ServiceHighlightItem[]> {
-  const items = await client.fetch<
-    {
-      _id: string;
-      name: string;
-      image: Parameters<typeof urlFor>[0];
-      categories: string[];
-      treatmentCategory: TreatmentCategory | null;
-      treatmentSlug: string | null;
-    }[]
-  >(SERVICE_HIGHLIGHTS_QUERY, { locale });
-
-  return items.map((item) => ({
-    id: item._id,
-    name: item.name,
-    imageUrl: urlFor(item.image).width(768).height(768).fit("crop").url(),
-    categories: item.categories,
-    href:
-      item.treatmentCategory && item.treatmentSlug
-        ? treatmentHref(item.treatmentCategory, item.treatmentSlug)
-        : null,
-  }));
-}

@@ -3,40 +3,34 @@
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Link } from "@/i18n/navigation";
 import type { NavigationSettings } from "@/sanity/lib/nav";
-import {
-  groupTreatmentsBySubgroup,
-  treatmentHref,
-  type TreatmentCategory,
-  type TreatmentsByCategory,
-  type TreatmentSummary,
-} from "@/sanity/lib/service";
+import { treatmentHref, type TreatmentCategory, type TreatmentSubgroupGroup } from "@/sanity/lib/service";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const NAV_LINKS = [
   { href: "/about", key: "about", category: null, settingsKey: null },
-  { href: "/services/exclusive", key: "exclusive", category: "exclusive", settingsKey: "showExclusive" },
+  { href: "/services/exclusive", key: "exclusive", category: "exclusive", settingsKey: "exclusive" },
   {
     href: "/services/lifting-rejuvenation",
     key: "liftingRejuvenation",
     category: "lifting-rejuvenation",
-    settingsKey: "showLiftingRejuvenation",
+    settingsKey: "liftingRejuvenation",
   },
   {
     href: "/services/skin-therapy",
     key: "skinTherapy",
     category: "skin-therapy",
-    settingsKey: "showSkinTherapy",
+    settingsKey: "skinTherapy",
   },
   {
     href: "/services/rejuvenation-injections",
     key: "rejuvenationInjections",
     category: "rejuvenation-injections",
-    settingsKey: "showRejuvenationInjections",
+    settingsKey: "rejuvenationInjections",
   },
-  { href: "/services/body-care", key: "bodyCare", category: "body-care", settingsKey: "showBodyCare" },
-  { href: "/services/skin-care", key: "skinCare", category: "skin-care", settingsKey: "showSkinCare" },
+  { href: "/services/body-care", key: "bodyCare", category: "body-care", settingsKey: "bodyCare" },
+  { href: "/services/skin-care", key: "skinCare", category: "skin-care", settingsKey: "skinCare" },
 ] as const satisfies {
   href: string;
   key: string;
@@ -74,8 +68,15 @@ function MenuIcon() {
   );
 }
 
-function DesktopServiceDropdown({ category, items }: { category: TreatmentCategory; items: TreatmentSummary[] }) {
-  const groups = groupTreatmentsBySubgroup(items);
+function DesktopServiceDropdown({
+  category,
+  groups,
+  isOpen,
+}: {
+  category: TreatmentCategory;
+  groups: TreatmentSubgroupGroup[];
+  isOpen: boolean;
+}) {
   const [activeSubgroup, setActiveSubgroup] = useState<string | null>(null);
   const [alignRight, setAlignRight] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -97,15 +98,12 @@ function DesktopServiceDropdown({ category, items }: { category: TreatmentCatego
     return () => window.removeEventListener("resize", checkOverflow);
   }, [activeSubgroup]);
 
-  if (items.length === 0) return null;
+  if (groups.every((group) => group.items.length === 0)) return null;
 
   return (
     <div
       ref={containerRef}
-      className={`invisible absolute top-full z-20 flex items-start gap-2 group-hover:visible ${
-        alignRight ? "right-0" : "left-0"
-      }`}
-      onMouseLeave={() => setActiveSubgroup(null)}
+      className={`absolute top-full z-20 ${isOpen ? "visible" : "invisible"} ${alignRight ? "right-0" : "left-0"}`}
     >
       <div className="flex w-max max-w-80 flex-col gap-0.5 rounded-2xl bg-[var(--color-submenu-background)] p-3 shadow-[0px_16px_32px_0px_rgba(0,0,0,0.12)]">
         {groups.map((group) =>
@@ -120,38 +118,41 @@ function DesktopServiceDropdown({ category, items }: { category: TreatmentCatego
               </Link>
             ))
           ) : (
-            <button
-              key={group.subgroup}
-              type="button"
-              onMouseEnter={() => setActiveSubgroup(group.subgroup)}
-              className={`flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-left text-sm font-bold tracking-wide transition-colors ${
-                activeSubgroup === group.subgroup
-                  ? "bg-[var(--color-accent)] text-[var(--color-accent-foreground)]"
-                  : "text-[var(--color-muted)]"
-              }`}
-            >
-              {group.subgroup}
-              <ChevronIcon className="size-2.5 shrink-0 -rotate-90" />
-            </button>
+            <div key={group.subgroup} className="relative">
+              <button
+                type="button"
+                onMouseEnter={() => setActiveSubgroup(group.subgroup)}
+                className={`flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left text-sm font-bold tracking-wide transition-colors ${
+                  activeSubgroup === group.subgroup
+                    ? "bg-[var(--color-accent)] text-[var(--color-accent-foreground)]"
+                    : "text-[var(--color-muted)]"
+                }`}
+              >
+                {group.subgroup}
+                <ChevronIcon className="size-2.5 shrink-0 -rotate-90" />
+              </button>
+
+              {activeSubgroup === group.subgroup && (
+                <div
+                  className={`absolute top-0 flex w-max max-w-80 flex-col gap-0.5 rounded-2xl bg-[var(--color-submenu-background)] p-3 shadow-[0px_16px_32px_0px_rgba(0,0,0,0.12)] ${
+                    alignRight ? "right-full mr-4" : "left-full ml-4"
+                  }`}
+                >
+                  {group.items.map((item) => (
+                    <Link
+                      key={item.id}
+                      href={treatmentHref(category, item.slug)}
+                      className="rounded-lg px-3 py-2 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--color-accent)] hover:text-[var(--color-accent-foreground)]"
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           ),
         )}
       </div>
-
-      {activeSubgroup && (
-        <div className="flex w-max max-w-80 flex-col gap-0.5 rounded-2xl bg-[var(--color-submenu-background)] p-3 shadow-[0px_16px_32px_0px_rgba(0,0,0,0.12)]">
-          {groups
-            .find((group) => group.subgroup === activeSubgroup)
-            ?.items.map((item) => (
-              <Link
-                key={item.id}
-                href={treatmentHref(category, item.slug)}
-                className="rounded-lg px-3 py-2 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--color-accent)] hover:text-[var(--color-accent-foreground)]"
-              >
-                {item.name}
-              </Link>
-            ))}
-        </div>
-      )}
     </div>
   );
 }
@@ -171,19 +172,44 @@ function MobileServiceAccordion({ isOpen, onToggle }: { isOpen: boolean; onToggl
   );
 }
 
-export function Nav({
-  treatmentsByCategory,
-  navigationSettings,
-}: {
-  treatmentsByCategory: TreatmentsByCategory;
-  navigationSettings: NavigationSettings;
-}) {
+// How long a hovered dropdown/flyout stays open after the pointer leaves —
+// long enough to cover a normal mouse path across the visual gap between the
+// category panel and its subgroup flyout without feeling laggy on close.
+const DROPDOWN_CLOSE_DELAY_MS = 250;
+
+export function Nav({ navigationSettings }: { navigationSettings: NavigationSettings }) {
   const t = useTranslations("Nav");
   const [menuOpen, setMenuOpen] = useState(false);
   const [openMobileCategory, setOpenMobileCategory] = useState<TreatmentCategory | null>(null);
   const [openMobileSubgroups, setOpenMobileSubgroups] = useState<Set<string>>(new Set());
-  const [isDropdownHovered, setIsDropdownHovered] = useState(false);
-  const visibleNavLinks = NAV_LINKS.filter((link) => !link.settingsKey || navigationSettings[link.settingsKey]);
+  const [openDesktopCategory, setOpenDesktopCategory] = useState<string | null>(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const visibleNavLinks = NAV_LINKS.filter((link) => !link.settingsKey || navigationSettings[link.settingsKey].show);
+
+  const cancelDesktopClose = () => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  };
+
+  const openDesktopDropdown = (href: string) => {
+    cancelDesktopClose();
+    setOpenDesktopCategory(href);
+  };
+
+  // Delay the close instead of clearing immediately: the pointer briefly
+  // crosses unpainted space when moving from the category panel to its
+  // flyout (or back), which would otherwise fire this leave and slam the
+  // whole dropdown shut before the pointer arrives.
+  const scheduleDesktopClose = (href: string) => {
+    cancelDesktopClose();
+    closeTimerRef.current = setTimeout(() => {
+      setOpenDesktopCategory((current) => (current === href ? null : current));
+    }, DROPDOWN_CLOSE_DELAY_MS);
+  };
+
+  useEffect(() => cancelDesktopClose, []);
 
   const toggleMobileSubgroup = (key: string) => {
     setOpenMobileSubgroups((prev) => {
@@ -210,27 +236,39 @@ export function Nav({
             />
           </Link>
           <nav className="flex items-center gap-2 2xl:gap-4" aria-label={t("menu")}>
-            {visibleNavLinks.map((link) => (
-              <div
-                key={link.href}
-                className="group relative"
-                onMouseEnter={link.category ? () => setIsDropdownHovered(true) : undefined}
-                onMouseLeave={link.category ? () => setIsDropdownHovered(false) : undefined}
-              >
-                <Link
-                  href={link.href}
-                  className="flex items-center gap-1 text-base font-bold whitespace-nowrap text-[var(--foreground)] opacity-80 hover:opacity-60"
+            {visibleNavLinks.map((link) => {
+              const isOpen = openDesktopCategory === link.href;
+              return (
+                <div
+                  key={link.href}
+                  className="relative"
+                  onMouseEnter={link.category ? () => openDesktopDropdown(link.href) : undefined}
+                  onMouseLeave={link.category ? () => scheduleDesktopClose(link.href) : undefined}
                 >
-                  {t(link.key)}
+                  <Link
+                    href={link.href}
+                    className="flex items-center gap-1 text-base font-bold whitespace-nowrap text-[var(--foreground)] opacity-80 hover:opacity-60"
+                  >
+                    {t(link.key)}
+                    {link.category && (
+                      <ChevronIcon
+                        className={`size-2.5 shrink-0 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                      />
+                    )}
+                  </Link>
                   {link.category && (
-                    <ChevronIcon className="size-2.5 shrink-0 transition-transform group-hover:rotate-180" />
+                    // Remount on each open so a stale flyout from the previous
+                    // hover session never flashes before the user re-hovers it.
+                    <DesktopServiceDropdown
+                      key={`${link.href}-${isOpen}`}
+                      category={link.category}
+                      groups={navigationSettings[link.settingsKey!].subgroups}
+                      isOpen={isOpen}
+                    />
                   )}
-                </Link>
-                {link.category && (
-                  <DesktopServiceDropdown category={link.category} items={treatmentsByCategory[link.category] ?? []} />
-                )}
-              </div>
-            ))}
+                </div>
+              );
+            })}
           </nav>
           <div className="flex items-center border-[var(--color-border)] pl-4 2xl:pl-6">
             <LocaleSwitcher />
@@ -271,8 +309,8 @@ export function Nav({
             className="flex max-h-[calc(100dvh-4rem)] flex-col gap-1 overflow-y-auto overscroll-contain px-4 py-4 lg:hidden"
           >
             {visibleNavLinks.map((link) => {
-              const items = link.category ? (treatmentsByCategory[link.category] ?? []) : [];
-              const hasSubmenu = link.category && items.length > 0;
+              const groups = link.settingsKey ? navigationSettings[link.settingsKey].subgroups : [];
+              const hasSubmenu = link.category && groups.some((group) => group.items.length > 0);
               const isOpen = openMobileCategory === link.category;
 
               return (
@@ -294,7 +332,7 @@ export function Nav({
                   </div>
                   {hasSubmenu && isOpen && (
                     <div className="flex flex-col gap-1 bg-[var(--color-submenu-background)] py-2 pl-4">
-                      {groupTreatmentsBySubgroup(items).map((group) => {
+                      {groups.map((group) => {
                         if (!group.subgroup) {
                           return group.items.map((item) => (
                             <Link
@@ -354,7 +392,7 @@ export function Nav({
       <div
         aria-hidden="true"
         className={`pointer-events-none fixed inset-0 z-40 hidden bg-black/50 transition-opacity duration-200 lg:block ${
-          isDropdownHovered ? "opacity-100" : "opacity-0"
+          openDesktopCategory ? "opacity-100" : "opacity-0"
         }`}
       />
     </>

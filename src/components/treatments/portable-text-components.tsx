@@ -1,6 +1,5 @@
-import Image from "next/image";
 import type { PortableTextComponents } from "@portabletext/react";
-import { urlFor } from "@/sanity/lib/image";
+import { PortableTextImage } from "@/components/portable-text-image";
 
 export const treatmentPortableTextComponents: PortableTextComponents = {
   block: {
@@ -28,20 +27,6 @@ export const treatmentPortableTextComponents: PortableTextComponents = {
     bullet: ({ children }) => <li className="list-disc">{children}</li>,
   },
   types: {
-    image: ({ value }) => {
-      if (!value?.asset) return null;
-
-      return (
-        <span className="relative my-2 block aspect-video w-full overflow-hidden rounded-2xl">
-          <Image
-            src={urlFor(value).width(1200).url()}
-            alt=""
-            fill
-            className="object-cover"
-            sizes="(min-width: 1024px) 768px, 100vw"
-          />
-        </span>
-      );
-    },
+    image: ({ value }) => <PortableTextImage value={value} />,
   },
 };

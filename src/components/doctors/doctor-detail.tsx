@@ -5,9 +5,9 @@ import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import type { ReactNode } from "react";
 import { RegistrationForm } from "../../app/[locale]/_home-sections/registration-form";
 import { Carousel } from "@/components/carousel";
+import { PortableTextImage } from "@/components/portable-text-image";
 import { scrollToRegistrationForm } from "@/lib/scroll-to-registration-form";
 import type { DoctorDetail } from "@/sanity/lib/doctors";
-import { urlFor } from "@/sanity/lib/image";
 
 const components: PortableTextComponents = {
   block: {
@@ -35,21 +35,7 @@ const components: PortableTextComponents = {
     bullet: ({ children }) => <li className="list-disc">{children}</li>,
   },
   types: {
-    image: ({ value }) => {
-      if (!value?.asset) return null;
-
-      return (
-        <span className="relative my-2 block aspect-video w-full overflow-hidden rounded-2xl">
-          <Image
-            src={urlFor(value).width(1200).url()}
-            alt=""
-            fill
-            className="object-cover"
-            sizes="(min-width: 1024px) 768px, 100vw"
-          />
-        </span>
-      );
-    },
+    image: ({ value }) => <PortableTextImage value={value} />,
   },
 };
 

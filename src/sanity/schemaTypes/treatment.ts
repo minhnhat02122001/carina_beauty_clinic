@@ -1,15 +1,6 @@
 import { slugify } from "@/lib/slugify";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
-const CATEGORY_OPTIONS = [
-  { title: "Độc quyền", value: "exclusive" },
-  { title: "Nâng cơ - xoá nhăn", value: "lifting-rejuvenation" },
-  { title: "Điều trị da", value: "skin-therapy" },
-  { title: "Tiêm trẻ hóa", value: "rejuvenation-injections" },
-  { title: "Chăm sóc vóc dáng", value: "body-care" },
-  { title: "Chăm sóc da, cơ thể", value: "skin-care" },
-];
-
 export const treatment = defineType({
   name: "treatment",
   title: "Dịch Vụ Chi Tiết",
@@ -171,71 +162,8 @@ export const treatment = defineType({
       options: { source: "name", maxLength: 96, slugify },
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
-      name: "categoryOrders",
-      title: "Danh mục & thứ tự hiển thị",
-      description:
-        "Một dịch vụ có thể thuộc nhiều danh mục — mỗi danh mục có vị trí hiển thị (thứ tự) riêng trong menu và danh sách của danh mục đó. Số nhỏ hơn hiển thị trước. Thêm ít nhất một danh mục.",
-      type: "array",
-      group: "metadata",
-      of: [
-        defineArrayMember({
-          type: "object",
-          name: "categoryOrder",
-          fields: [
-            defineField({
-              name: "category",
-              title: "Danh mục",
-              type: "string",
-              options: { list: CATEGORY_OPTIONS, search: { weight: 5 } },
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: "order",
-              title: "Thứ tự",
-              description: "Số nhỏ hơn sẽ hiển thị trước trong menu và danh sách của danh mục này.",
-              type: "number",
-              initialValue: 0,
-              validation: (Rule) => Rule.required(),
-            }),
-          ],
-          preview: {
-            select: { category: "category", order: "order" },
-            prepare({ category, order }) {
-              const label = CATEGORY_OPTIONS.find((option) => option.value === category)?.title ?? category;
-              return { title: `${label} (${category})`, subtitle: `Thứ tự: ${order}` };
-            },
-          },
-        }),
-      ],
-      validation: (Rule) =>
-        Rule.required()
-          .min(1)
-          .custom((items) => {
-            if (!items) return true;
-            const categories = (items as { category?: string }[]).map((item) => item.category).filter(Boolean);
-            return new Set(categories).size !== categories.length ? "Mỗi danh mục chỉ được chọn một lần." : true;
-          }),
-    }),
-    defineField({
-      name: "subgroup",
-      title: "Nhóm con",
-      description:
-        "Tùy chọn cho mọi danh mục — nhóm các dịch vụ theo tiêu đề phụ (VD: Điều trị sắc tố - mạch máu, Điều trị mụn, Điều trị sẹo - lỗ chân lông). Để trống nếu không thuộc nhóm con nào.",
-      type: "string",
-      group: "metadata",
-    }),
-    defineField({ name: "subgroupEn", title: "Nhóm con (Tiếng Anh)", type: "string", group: "english" }),
-    defineField({ name: "subgroupZh", title: "Nhóm con (Tiếng Trung)", type: "string", group: "chinese" }),
   ],
   preview: {
-    select: { title: "name", categoryOrders: "categoryOrders", media: "images.0" },
-    prepare({ title, categoryOrders, media }) {
-      const labels = (categoryOrders as { category: string }[] | undefined)?.map((item) => {
-        const label = CATEGORY_OPTIONS.find((option) => option.value === item.category)?.title ?? item.category;
-        return `${label} (${item.category})`;
-      });
-      return { title, subtitle: labels?.join(", "), media };
-    },
+    select: { title: "name", media: "images.0" },
   },
 });

@@ -5,7 +5,7 @@ import { TreatmentList } from "@/components/treatments/treatment-list";
 
 export default async function ServiceLiftingRejuvenationPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
-  const [t, treatments] = await Promise.all([
+  const [t, groups] = await Promise.all([
     getTranslations("ServiceLiftingRejuvenation"),
     getTreatmentsByCategory("lifting-rejuvenation", locale),
   ]);
@@ -15,7 +15,7 @@ export default async function ServiceLiftingRejuvenationPage({ params }: { param
       <h1 className="text-2xl font-semibold text-[var(--color-accent)] lg:text-4xl">{t("heading")}</h1>
       <div className="mt-8">
         <TreatmentList
-          treatments={treatments}
+          groups={groups}
           emptyLabel={t("empty")}
           getHref={(slug) => ({ pathname: "/services/lifting-rejuvenation/[slug]", params: { slug } })}
         />

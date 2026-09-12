@@ -4,10 +4,10 @@ import { equipmentItem } from "./equipmentItem";
 import { heroBanner } from "./heroBanner";
 import { navigationSettings } from "./navigationSettings";
 import { post } from "./post";
-import { serviceHighlight } from "./serviceHighlight";
+import { serviceHighlightsSettings } from "./serviceHighlightsSettings";
 import { treatment } from "./treatment";
 import { video } from "./video";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [post, video, treatment, serviceHighlight, heroBanner, doctor, equipmentItem, navigationSettings],
+  types: [post, video, treatment, heroBanner, doctor, equipmentItem, navigationSettings, serviceHighlightsSettings],
 };
