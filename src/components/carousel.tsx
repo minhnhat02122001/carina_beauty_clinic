@@ -1,6 +1,8 @@
 "use client";
 
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { X } from "lucide-react";
+import { ChevronLeftIcon } from "@/components/icons/chevron-left";
+import { ChevronRightIcon } from "@/components/icons/chevron-right";
 import Image from "next/image";
 import { Children, useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
@@ -78,7 +80,7 @@ function ImageLightbox({
             aria-label={prevLabel}
             className="absolute top-1/2 left-2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 sm:left-4"
           >
-            <ChevronLeft className="size-6" />
+            <ChevronLeftIcon size={24} />
           </button>
           <button
             type="button"
@@ -89,7 +91,7 @@ function ImageLightbox({
             aria-label={nextLabel}
             className="absolute top-1/2 right-2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 sm:right-4"
           >
-            <ChevronRight className="size-6" />
+            <ChevronRightIcon size={24} />
           </button>
         </>
       )}
@@ -122,30 +124,15 @@ function CarouselControl({
       : direction === "left"
         ? "left-2"
         : "right-2";
-  const iconSrc = direction === "left" ? "/images/services/icon-chevron-left.svg" : "/images/services/icon-chevron-right.svg";
+  const ChevronIcon = direction === "left" ? ChevronLeftIcon : ChevronRightIcon;
   return (
     <button
       type="button"
       onClick={onClick}
       aria-label={label}
-      className={`absolute top-1/2 z-10 hidden size-10 -translate-y-1/2 items-center justify-center rounded-full border shadow-[0px_2px_16px_0px_rgba(0,17,45,0.06),0px_2px_6px_0px_rgba(0,17,45,0.03)] backdrop-blur-[10px] lg:flex ${backgroundClassName} ${borderClassName} ${offsetClassName}`}
+      className={`absolute top-1/2 z-10 hidden size-10 -translate-y-1/2 items-center justify-center rounded-full border shadow-[0px_2px_16px_0px_rgba(0,17,45,0.06),0px_2px_6px_0px_rgba(0,17,45,0.03)] backdrop-blur-[10px] lg:flex ${backgroundClassName} ${borderClassName} ${offsetClassName} ${iconColorClassName}`}
     >
-      {/* Recolored via mask instead of next/image, since the source SVG has a
-          single baked-in fill and iconColorClassName needs to override it. */}
-      <span
-        aria-hidden="true"
-        className={`size-6 shrink-0 ${iconColorClassName}`}
-        style={{
-          maskImage: `url(${iconSrc})`,
-          maskSize: "contain",
-          maskRepeat: "no-repeat",
-          maskPosition: "center",
-          WebkitMaskImage: `url(${iconSrc})`,
-          WebkitMaskSize: "contain",
-          WebkitMaskRepeat: "no-repeat",
-          WebkitMaskPosition: "center",
-        }}
-      />
+      <ChevronIcon size={24} />
     </button>
   );
 }
@@ -158,7 +145,7 @@ export function Carousel({
   itemsPerView = 1,
   controlBackgroundClassName = "bg-white",
   controlBorderClassName = "border-[#eaeffa]",
-  controlIconColorClassName = "bg-[var(--color-accent)]",
+  controlIconColorClassName = "text-[var(--color-accent)]",
   lightboxImages,
   lightboxCloseLabel,
   autoScrollIntervalMs = AUTO_SCROLL_INTERVAL_MS,
@@ -177,7 +164,7 @@ export function Carousel({
   controlBackgroundClassName?: string;
   /** Tailwind border class for the prev/next control buttons. */
   controlBorderClassName?: string;
-  /** Tailwind background class for the chevron icon (it's mask-rendered, so its color comes from `background-color`). */
+  /** Tailwind text-color class for the chevron icon (it renders via `stroke="currentColor"`). */
   controlIconColorClassName?: string;
   /** Full-size image URLs, one per child in the same order. When set, each item becomes clickable
    * and opens a full-screen lightbox at that index — only pass this for carousels of plain images

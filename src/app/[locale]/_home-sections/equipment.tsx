@@ -22,7 +22,7 @@ export function Equipment({ items }: { items: EquipmentListItem[] }) {
           itemsPerView={{ base: 2, lg: 4 }}
           controlBackgroundClassName="bg-[var(--color-accent)]"
           controlBorderClassName="border-[var(--color-border)]"
-          controlIconColorClassName="bg-white"
+          controlIconColorClassName="text-white"
         >
           {items.map((item) => (
             <div key={item.id} className="flex flex-col items-center gap-4">

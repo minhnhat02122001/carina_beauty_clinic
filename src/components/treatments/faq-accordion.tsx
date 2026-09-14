@@ -21,25 +21,43 @@ export function FaqAccordion({ faqs }: { faqs: TreatmentFaq[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-3">
       {faqs.map((faq, index) => {
         const isOpen = openIndex === index;
         return (
-          <div key={faq.question} className="rounded-lg">
+          <div
+            key={faq.question}
+            className={`rounded-2xl bg-white transition-shadow duration-300 ${
+              isOpen ? "shadow-[0px_6px_18px_0px_rgba(99,43,14,0.08)]" : ""
+            }`}
+          >
             <button
               type="button"
               onClick={() => setOpenIndex(isOpen ? null : index)}
               aria-expanded={isOpen}
-              className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm font-bold text-[var(--foreground)] transition-colors hover:text-[var(--color-accent)]"
+              className={`flex w-full items-center justify-between gap-3 px-4 py-4 text-left text-sm font-bold transition-colors hover:text-[var(--color-accent)] sm:px-5 lg:text-base ${
+                isOpen ? "text-[var(--color-accent)]" : "text-[var(--foreground)]"
+              }`}
             >
               {faq.question}
-              <ChevronIcon
-                className={`size-3 shrink-0 text-[var(--color-accent)] transition-transform ${isOpen ? "rotate-180" : ""}`}
-              />
+              <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--color-gold)_15%,transparent)] text-[var(--color-accent)]">
+                <ChevronIcon
+                  className={`size-3 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                />
+              </span>
             </button>
-            {isOpen && (
-              <p className="px-4 pb-4 text-sm leading-relaxed text-[var(--foreground)]">{faq.answer}</p>
-            )}
+            <div
+              inert={!isOpen}
+              className={`grid transition-[grid-template-rows] duration-300 ease-out ${
+                isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+              }`}
+            >
+              <div className="overflow-hidden">
+                <p className="px-4 pb-4 text-sm leading-relaxed text-[var(--foreground)] sm:px-5 sm:pb-5">
+                  {faq.answer}
+                </p>
+              </div>
+            </div>
           </div>
         );
       })}

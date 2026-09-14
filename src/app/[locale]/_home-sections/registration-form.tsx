@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useState, type FormEvent } from "react";
+import { SendIcon } from "@/components/icons/send";
 
 const CONTACT_ITEMS = [
   { icon: "/images/registration/icon-address.svg", labelKey: "addressLabel", valueKey: "addressValue" },
@@ -13,29 +14,6 @@ const CONTACT_ITEMS = [
 
 const inputClasses =
   "w-full rounded-xl border border-[var(--color-border)] bg-white px-4 py-3 text-sm text-[var(--foreground)] placeholder:text-black/40 focus:border-[var(--color-accent)] focus:outline-none";
-
-// Inlined (rather than <Image src="icon-send.svg">) so `stroke="currentColor"`
-// picks up the button's text color, including on hover.
-function SendIcon() {
-  return (
-    <svg viewBox="0 0 20 20" fill="none" className="size-5" aria-hidden="true">
-      <path
-        d="M12.1133 18.0717C12.145 18.1506 12.2 18.2179 12.2711 18.2646C12.3421 18.3113 12.4257 18.3352 12.5107 18.333C12.5957 18.3309 12.678 18.3027 12.7465 18.2524C12.8151 18.2021 12.8666 18.1321 12.8942 18.0517L18.3108 2.21833C18.3375 2.14449 18.3426 2.06459 18.3255 1.98796C18.3084 1.91134 18.2699 1.84116 18.2144 1.78565C18.1588 1.73013 18.0887 1.69158 18.012 1.67449C17.9354 1.65741 17.8555 1.6625 17.7817 1.68917L1.94833 7.10583C1.86791 7.13341 1.79785 7.18493 1.74756 7.25348C1.69727 7.32202 1.66914 7.40431 1.66697 7.4893C1.66479 7.57429 1.68866 7.65791 1.73538 7.72894C1.7821 7.79997 1.84943 7.85501 1.92833 7.88667L8.53667 10.5367C8.74557 10.6203 8.93538 10.7454 9.09464 10.9044C9.2539 11.0633 9.37932 11.2529 9.46333 11.4617L12.1133 18.0717Z"
-        stroke="currentColor"
-        strokeWidth="1.66667"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M18.2117 1.78917L9.095 10.905"
-        stroke="currentColor"
-        strokeWidth="1.66667"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
 type SubmitStatus = "idle" | "submitting" | "success" | "error";
 
@@ -161,7 +139,7 @@ export function RegistrationForm() {
               className="mt-2 flex items-center justify-center gap-2 rounded-full border-2 border-transparent bg-[var(--color-accent)] px-4 py-3 text-sm font-bold tracking-[0.16px] text-white transition-colors hover:border-[var(--color-accent)] hover:bg-transparent hover:text-[var(--color-accent)] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-[var(--color-accent)] disabled:hover:text-white"
             >
               {status === "submitting" ? t("submittingCta") : t("submitCta")}
-              <SendIcon />
+              <SendIcon size={20} className="size-5" />
             </button>
 
             {status === "success" && (
