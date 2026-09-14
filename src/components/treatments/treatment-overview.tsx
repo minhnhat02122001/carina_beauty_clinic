@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Sparkles } from "lucide-react";
+import { SparklesIcon } from "@/components/icons/sparkles";
 import { PortableText } from "@portabletext/react";
 import { Carousel } from "@/components/carousel";
 import { Link } from "@/i18n/navigation";
@@ -65,7 +65,7 @@ function KeyInfoRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-start gap-3">
       <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[var(--color-gold)] text-[var(--color-accent-foreground)]">
-        <Sparkles className="size-4" />
+        <SparklesIcon size={16} />
       </span>
       <div className="flex flex-col">
         <p className="text-xs font-bold tracking-wide text-[var(--color-accent)] uppercase">{label}</p>
