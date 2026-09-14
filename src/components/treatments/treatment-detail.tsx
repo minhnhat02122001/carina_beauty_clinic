@@ -64,26 +64,29 @@ export function TreatmentDetailView({
         <TreatmentContent sections={treatment.sections} faqs={treatment.faqs} faqHeading={faqHeading} />
 
         {treatment.relatedTreatments.length > 0 && (
-          <Section title={relatedHeading}>
+          <Section title={relatedHeading} variant="plain">
             <Carousel prevLabel={scrollPrevLabel} nextLabel={scrollNextLabel} itemsPerView={{ base: 2, lg: 3 }}>
               {treatment.relatedTreatments.map((item) => (
                 <Link
                   key={item.id}
                   href={treatmentHref(category, item.slug)}
-                  className="flex flex-col items-center gap-2 rounded-lg hover:opacity-90"
+                  className="group relative block aspect-square w-full [transform:translateZ(0)] overflow-hidden rounded-xl bg-[var(--color-background-alt)] sm:rounded-2xl"
                 >
-                  <div className="relative aspect-square w-full overflow-hidden rounded-xl">
-                    {item.imageUrl && (
-                      <Image
-                        src={item.imageUrl}
-                        alt=""
-                        fill
-                        className="object-cover"
-                        sizes="(min-width: 1024px) 33vw, 50vw"
-                      />
-                    )}
+                  {item.imageUrl && (
+                    <Image
+                      src={item.imageUrl}
+                      alt=""
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(min-width: 1024px) 33vw, 50vw"
+                    />
+                  )}
+                  {/* Tall, near-solid fade because many CMS photos have headline text baked into their bottom third. */}
+                  <div className="absolute inset-x-0 bottom-0 flex h-[45%] items-end bg-gradient-to-t from-[rgba(99,43,14,0.97)] from-40% via-[rgba(99,43,14,0.75)] via-50% to-transparent px-3 pb-3 sm:px-4 sm:pb-4">
+                    <p className="text-sm font-semibold text-[var(--color-accent-foreground)] sm:text-base lg:text-lg">
+                      {item.name}
+                    </p>
                   </div>
-                  <p className="text-center text-sm font-semibold text-[var(--color-accent)]">{item.name}</p>
                 </Link>
               ))}
             </Carousel>

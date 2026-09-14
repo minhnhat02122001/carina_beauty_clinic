@@ -26,7 +26,7 @@ export function TreatmentContent({
       ))}
 
       {faqs.length > 0 && (
-        <Section title={faqHeading}>
+        <Section title={faqHeading} variant="alt-a">
           <FaqAccordion faqs={faqs} />
         </Section>
       )}
