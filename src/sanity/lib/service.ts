@@ -145,7 +145,24 @@ export async function getTreatmentsByCategory(category: TreatmentCategory, local
   return groups.map((group) => ({ subgroup: group.subgroup, items: group.items.map(toSummary) }));
 }
 
-const TREATMENT_BY_SLUG_QUERY = `*[_type == "treatment" && slug.current == $slug][0]{
+export type ServiceOption = {
+  /** Vietnamese name, so HubSpot receives the same value whichever locale the visitor used. */
+  value: string;
+  label: string;
+};
+
+const SERVICE_OPTIONS_QUERY = `*[_type == "treatment" && defined(name)]{
+  "value": name,
+  "label": ${LOCALIZED_NAME}
+}`;
+
+export async function getServiceOptions(locale: Locale): Promise<ServiceOption[]> {
+  const options = await client.fetch<ServiceOption[]>(SERVICE_OPTIONS_QUERY, { locale });
+  const unique = new Map(options.map((option) => [option.value, option]));
+  return [...unique.values()].sort((a, b) => a.label.localeCompare(b.label, locale));
+}
+
+const TREATMENT_BY_SLUG_QUERY =`*[_type == "treatment" && slug.current == $slug][0]{
   _id,
   "name": ${LOCALIZED_NAME},
   "body": ${LOCALIZED_BODY},

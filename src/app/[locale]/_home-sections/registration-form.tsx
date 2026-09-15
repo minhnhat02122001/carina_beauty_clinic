@@ -2,8 +2,11 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useState, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { SendIcon } from "@/components/icons/send";
+import { ServiceCombobox } from "./service-combobox";
+import { ScheduleDateField, displayDateToIso, todayIsoDate } from "./schedule-date-field";
+import { SuccessDialog } from "./success-dialog";
 
 const CONTACT_ITEMS = [
   { icon: "/images/registration/icon-address.svg", labelKey: "addressLabel", valueKey: "addressValue" },
@@ -15,21 +18,96 @@ const CONTACT_ITEMS = [
 const inputClasses =
   "w-full rounded-xl border border-[var(--color-border)] bg-white px-4 py-3 text-sm text-[var(--foreground)] placeholder:text-black/40 focus:border-[var(--color-accent)] focus:outline-none";
 
+const errorInputClasses = "border-[var(--color-error)] focus:border-[var(--color-error)]";
+
 type SubmitStatus = "idle" | "submitting" | "success" | "error";
+type FieldName = "name" | "phone" | "email" | "scheduleDate";
+type FieldErrors = Partial<
+  Record<
+    FieldName,
+    "nameRequired" | "phoneRequired" | "phoneInvalid" | "emailInvalid" | "scheduleDateInvalid" | "scheduleDatePast"
+  >
+>;
+
+const FIELD_ORDER: FieldName[] = ["name", "phone", "email", "scheduleDate"];
+
+function validate(data: FormData): FieldErrors {
+  const errors: FieldErrors = {};
+  const name = String(data.get("name") ?? "").trim();
+  const phone = String(data.get("phone") ?? "").trim();
+  const email = String(data.get("email") ?? "").trim();
+  const scheduleDateText = String(data.get("scheduleDate") ?? "").trim();
+
+  if (scheduleDateText) {
+    const scheduleDate = displayDateToIso(scheduleDateText);
+    if (!scheduleDate) errors.scheduleDate = "scheduleDateInvalid";
+    // Same-format YYYY-MM-DD strings compare correctly as plain strings.
+    else if (scheduleDate < todayIsoDate()) errors.scheduleDate = "scheduleDatePast";
+  }
+
+  if (!name) errors.name = "nameRequired";
+
+  const phoneDigits = phone.replace(/[\s.\-()+]/g, "");
+  if (!phone) errors.phone = "phoneRequired";
+  else if (!/^\d{8,15}$/.test(phoneDigits)) errors.phone = "phoneInvalid";
+
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = "emailInvalid";
+
+  return errors;
+}
 
 export function RegistrationForm() {
   const t = useTranslations("RegistrationForm");
   const [status, setStatus] = useState<SubmitStatus>("idle");
+  const [services, setServices] = useState<string[]>([]);
+  const [errors, setErrors] = useState<FieldErrors>({});
+  const serviceLabelId = useId();
+  const fieldIdPrefix = useId();
+  const fieldId = (field: FieldName) => `${fieldIdPrefix}-${field}`;
+  const errorId = (field: FieldName) => `${fieldIdPrefix}-${field}-error`;
+  const mountedAtRef = useRef(0);
+
+  useEffect(() => {
+    mountedAtRef.current = Date.now();
+  }, []);
+
+  function clearError(field: FieldName) {
+    if (errors[field]) setErrors((current) => ({ ...current, [field]: undefined }));
+  }
+
+  function fieldProps(field: FieldName) {
+    const hasError = Boolean(errors[field]);
+    return {
+      id: fieldId(field),
+      name: field,
+      "aria-invalid": hasError,
+      "aria-describedby": hasError ? errorId(field) : undefined,
+      onChange: () => clearError(field),
+      className: `${inputClasses} ${hasError ? errorInputClasses : ""}`,
+    };
+  }
+
+  function fieldError(field: FieldName) {
+    const error = errors[field];
+    return error ? (
+      <p id={errorId(field)} className="text-xs font-medium text-[var(--color-error)]">
+        {t(error)}
+      </p>
+    ) : null;
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
     const data = new FormData(form);
 
-    // Honeypot: real visitors never see or fill this field.
-    if (data.get("company")) {
-      form.reset();
-      setStatus("success");
+    const validationErrors = validate(data);
+    setErrors(validationErrors);
+    const firstInvalid = FIELD_ORDER.find((field) => validationErrors[field]);
+    if (firstInvalid) {
+      const input = document.getElementById(fieldId(firstInvalid));
+      input?.scrollIntoView({ behavior: "smooth", block: "center" });
+      input?.focus({ preventScroll: true });
       return;
     }
 
@@ -41,14 +119,20 @@ export function RegistrationForm() {
         body: JSON.stringify({
           name: data.get("name"),
           phone: data.get("phone"),
-          service: data.get("service"),
+          services,
           email: data.get("email") || undefined,
           note: data.get("note") || undefined,
+          scheduleDate: displayDateToIso(String(data.get("scheduleDate") ?? "")) ?? undefined,
+          hp_field: data.get("hp_field") || undefined,
+          elapsed_ms: Date.now() - mountedAtRef.current,
         }),
       });
       if (!response.ok) throw new Error("request_failed");
       form.reset();
+      setServices([]);
+      setErrors({});
       setStatus("success");
+      mountedAtRef.current = Date.now();
     } catch {
       setStatus("error");
     }
@@ -95,36 +179,69 @@ export function RegistrationForm() {
         <div className="order-1 flex-1 lg:order-2">
           <form
             onSubmit={handleSubmit}
+            noValidate
             className="flex flex-col gap-4 rounded-3xl border border-[var(--color-accent)] bg-[var(--color-background-alt)] p-5 shadow-lg lg:p-8"
           >
             <input
               type="text"
-              name="company"
+              // Must stay `hidden` (not rendered), not just visually hidden: browser autofill and autofill
+              // extensions fill invisible-but-rendered inputs regardless of name, which dropped real leads.
+              name="hp_field"
+              hidden
               tabIndex={-1}
               autoComplete="off"
+              data-1p-ignore
+              data-lpignore="true"
               aria-hidden="true"
-              className="absolute -left-full opacity-0"
             />
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="flex flex-col gap-2">
-                <label className="text-sm font-semibold text-[var(--color-accent)]">{t("nameLabel")}</label>
-                <input type="text" name="name" required placeholder={t("namePlaceholder")} className={inputClasses} />
+                <label htmlFor={fieldId("name")} className="text-sm font-semibold text-[var(--color-accent)]">
+                  {t("nameLabel")}
+                </label>
+                <input type="text" autoComplete="name" required placeholder={t("namePlaceholder")} {...fieldProps("name")} />
+                {fieldError("name")}
               </div>
               <div className="flex flex-col gap-2">
-                <label className="text-sm font-semibold text-[var(--color-accent)]">{t("phoneFieldLabel")}</label>
-                <input type="tel" name="phone" required placeholder={t("phoneFieldPlaceholder")} className={inputClasses} />
+                <label htmlFor={fieldId("phone")} className="text-sm font-semibold text-[var(--color-accent)]">
+                  {t("phoneFieldLabel")}
+                </label>
+                <input type="tel" autoComplete="tel" required placeholder={t("phoneFieldPlaceholder")} {...fieldProps("phone")} />
+                {fieldError("phone")}
               </div>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <span id={serviceLabelId} className="text-sm font-semibold text-[var(--color-accent)]">
+                {t("serviceLabel")}
+              </span>
+              <ServiceCombobox
+                value={services}
+                onChange={setServices}
+                labelId={serviceLabelId}
+                triggerClassName={inputClasses}
+              />
             </div>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="flex flex-col gap-2">
-                <label className="text-sm font-semibold text-[var(--color-accent)]">{t("serviceLabel")}</label>
-                <input type="text" name="service" required placeholder={t("servicePlaceholder")} className={inputClasses} />
+                <label htmlFor={fieldId("email")} className="text-sm font-semibold text-[var(--color-accent)]">
+                  {t("emailFieldLabel")}
+                </label>
+                <input type="email" autoComplete="email" placeholder={t("emailFieldPlaceholder")} {...fieldProps("email")} />
+                {fieldError("email")}
               </div>
               <div className="flex flex-col gap-2">
-                <label className="text-sm font-semibold text-[var(--color-accent)]">{t("emailFieldLabel")}</label>
-                <input type="email" name="email" placeholder={t("emailFieldPlaceholder")} className={inputClasses} />
+                <label htmlFor={fieldId("scheduleDate")} className="text-sm font-semibold text-[var(--color-accent)]">
+                  {t("scheduleDateLabel")}
+                </label>
+                <ScheduleDateField
+                  {...fieldProps("scheduleDate")}
+                  placeholder={t("scheduleDatePlaceholder")}
+                  pickerLabel={t("scheduleDatePickerLabel")}
+                />
+                {fieldError("scheduleDate")}
               </div>
             </div>
 
@@ -142,15 +259,19 @@ export function RegistrationForm() {
               <SendIcon size={20} className="size-5" />
             </button>
 
-            {status === "success" && (
-              <p className="text-center text-sm font-semibold text-[var(--color-success)]">{t("successMessage")}</p>
-            )}
             {status === "error" && (
               <p className="text-center text-sm font-semibold text-[var(--color-error)]">{t("errorMessage")}</p>
             )}
 
             <p className="pt-2 text-center text-[11px] text-[rgba(99,43,14,0.6)]">{t("disclaimer")}</p>
           </form>
+          <SuccessDialog
+            open={status === "success"}
+            onClose={() => setStatus("idle")}
+            title={t("successTitle")}
+            message={t("successMessage")}
+            closeLabel={t("successClose")}
+          />
         </div>
       </div>
     </section>

@@ -5,12 +5,17 @@ const HUBSPOT_CONTACTS_URL = "https://api.hubapi.com/crm/v3/objects/contacts";
 type LeadPayload = {
   name: string;
   phone: string;
-  service: string;
+  services?: string[];
   email?: string;
   note?: string;
+  scheduleDate?: string;
   // Honeypot: real visitors never fill this hidden field — bots usually do.
-  company?: string;
+  hp_field?: string;
+  elapsed_ms?: number;
 };
+
+// Bots post instantly; a person needs longer than this to fill in name and phone, even with autofill.
+const MIN_FILL_TIME_MS = 1500;
 
 function hubspotHeaders(token: string) {
   return {
@@ -19,47 +24,62 @@ function hubspotHeaders(token: string) {
   };
 }
 
-async function createOrUpdateContact(token: string, properties: Record<string, string>) {
-  const createRes = await fetch(HUBSPOT_CONTACTS_URL, {
-    method: "POST",
+// Custom contact properties that only exist once someone creates them in HubSpot's UI.
+const CUSTOM_PROPERTIES = ["service_of_interest", "preferred_schedule_date"] as const;
+
+async function sendContact(token: string, properties: Record<string, string>, existingId?: string) {
+  return fetch(existingId ? `${HUBSPOT_CONTACTS_URL}/${existingId}` : HUBSPOT_CONTACTS_URL, {
+    method: existingId ? "PATCH" : "POST",
     headers: hubspotHeaders(token),
     body: JSON.stringify({ properties }),
   });
+}
 
-  if (createRes.ok) return createRes;
+const CUSTOM_PROPERTY_LABELS: Record<(typeof CUSTOM_PROPERTIES)[number], string> = {
+  service_of_interest: "Service of interest",
+  preferred_schedule_date: "Schedule date",
+};
 
-  const body = await createRes.json().catch(() => null);
+/** Custom properties HubSpot rejected as not existing, or an empty list for any other kind of response. */
+async function missingCustomProperties(res: Response) {
+  if (res.status !== 400) return [];
+  const body = await res.clone().text().catch(() => "");
+  if (!/does not exist/i.test(body)) return [];
+  const named = CUSTOM_PROPERTIES.filter((key) => body.includes(key));
+  return named.length ? named : [...CUSTOM_PROPERTIES];
+}
 
-  // HubSpot returns 409 when a contact with the same email already exists;
-  // its error message embeds the existing contact's id so we can update it
-  // instead of failing the whole submission.
-  if (createRes.status === 409) {
+// If a custom property hasn't been created in HubSpot yet, keep the lead instead of failing it: drop that
+// property and append its value to the built-in `message` property so nothing is lost.
+function moveToMessage(properties: Record<string, string>, keys: readonly (typeof CUSTOM_PROPERTIES)[number][]) {
+  const adjusted = { ...properties };
+  const extraLines = keys.filter((key) => adjusted[key]).map((key) => `${CUSTOM_PROPERTY_LABELS[key]}: ${adjusted[key]}`);
+  for (const key of keys) delete adjusted[key];
+  if (extraLines.length) adjusted.message = [adjusted.message, ...extraLines].filter(Boolean).join("\n");
+  return adjusted;
+}
+
+async function sendWithFallback(token: string, properties: Record<string, string>, existingId?: string) {
+  const res = await sendContact(token, properties, existingId);
+  const missing = await missingCustomProperties(res);
+  if (!missing.length) return res;
+  console.warn("HubSpot custom properties missing, values moved to message:", missing.join(", "));
+  return sendContact(token, moveToMessage(properties, missing), existingId);
+}
+
+async function createOrUpdateContact(token: string, properties: Record<string, string>) {
+  const res = await sendWithFallback(token, properties);
+  if (res.ok) return res;
+
+  // HubSpot returns 409 when a contact with the same email already exists; its error message embeds the
+  // existing contact's id so we can update that contact instead of failing the whole submission.
+  if (res.status === 409) {
+    const body = await res.json().catch(() => null);
     const existingId: string | undefined = body?.message?.match(/Existing ID:\s*(\d+)/)?.[1];
-    if (existingId) {
-      return fetch(`${HUBSPOT_CONTACTS_URL}/${existingId}`, {
-        method: "PATCH",
-        headers: hubspotHeaders(token),
-        body: JSON.stringify({ properties }),
-      });
-    }
+    if (existingId) return sendWithFallback(token, properties, existingId);
   }
 
-  // Free HubSpot accounts don't have `service_of_interest`/`message` created
-  // as contact properties until someone adds them once in HubSpot's UI. If
-  // that hasn't happened yet, retry with only HubSpot's built-in properties
-  // so the lead is still captured instead of being dropped entirely.
-  if (createRes.status === 400 && /property .* does not exist/i.test(body?.message ?? "")) {
-    const standardProperties = { ...properties };
-    delete standardProperties.service_of_interest;
-    delete standardProperties.message;
-    return fetch(HUBSPOT_CONTACTS_URL, {
-      method: "POST",
-      headers: hubspotHeaders(token),
-      body: JSON.stringify({ properties: standardProperties }),
-    });
-  }
-
-  return createRes;
+  return res;
 }
 
 export async function POST(request: Request) {
@@ -76,25 +96,37 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "invalid_body" }, { status: 400 });
   }
 
-  // Silently accept honeypot-triggered submissions without forwarding them.
-  if (payload.company) {
+  // Silently accept honeypot-triggered submissions without forwarding them, but log it: a real visitor
+  // whose browser autofilled the hidden field would otherwise be dropped with no trace anywhere.
+  if (payload.hp_field) {
+    console.warn("Lead dropped by honeypot field");
+    return NextResponse.json({ ok: true });
+  }
+  if (typeof payload.elapsed_ms === "number" && payload.elapsed_ms < MIN_FILL_TIME_MS) {
+    console.warn("Lead dropped: submitted too quickly", payload.elapsed_ms);
     return NextResponse.json({ ok: true });
   }
 
   const name = payload.name?.trim();
   const phone = payload.phone?.trim();
-  const service = payload.service?.trim();
-  if (!name || !phone || !service) {
+  if (!name || !phone) {
     return NextResponse.json({ error: "missing_required_fields" }, { status: 400 });
   }
 
   const properties: Record<string, string> = {
     firstname: name,
     phone,
-    service_of_interest: service,
   };
+  // "; " rather than ", " because some service names already contain commas.
+  const services = Array.isArray(payload.services)
+    ? payload.services.filter((service): service is string => typeof service === "string" && service.trim() !== "")
+    : [];
+  if (services.length) properties.service_of_interest = services.map((service) => service.trim()).join("; ");
   if (payload.email?.trim()) properties.email = payload.email.trim();
   if (payload.note?.trim()) properties.message = payload.note.trim();
+  if (typeof payload.scheduleDate === "string" && /^\d{4}-\d{2}-\d{2}$/.test(payload.scheduleDate)) {
+    properties.preferred_schedule_date = payload.scheduleDate;
+  }
 
   const hubspotRes = await createOrUpdateContact(token, properties);
 
@@ -103,6 +135,8 @@ export async function POST(request: Request) {
     console.error("HubSpot contact submission failed", hubspotRes.status, errorBody);
     return NextResponse.json({ error: "hubspot_error" }, { status: 502 });
   }
+
+  console.info("Lead sent to HubSpot", hubspotRes.status);
 
   return NextResponse.json({ ok: true });
 }
