@@ -46,6 +46,21 @@
   --font-script: var(--font-script);
   --font-cormorant: var(--font-cormorant);
   --font-mono: var(--font-geist-mono);
+  --animate-backdrop-in: backdrop-in 150ms ease-out;
+  --animate-backdrop-out: backdrop-out 150ms ease-in forwards;
+}
+
+/* A dialog's ::backdrop can't be animated by Motion (it isn't an element), so it fades via CSS. */
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes backdrop-out {
+  to {
+    opacity: 0;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

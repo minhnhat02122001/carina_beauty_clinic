@@ -12,6 +12,8 @@ export interface CircleCheckIconHandle {
 
 interface CircleCheckIconProps extends HTMLAttributes<HTMLDivElement> {
   size?: number;
+  /** Keep redrawing the tick. Off when something else in the UI carries the ongoing motion. */
+  loop?: boolean;
 }
 
 const CIRCLE_VARIANTS: Variants = {
@@ -45,10 +47,16 @@ const PATH_VARIANTS: Variants = {
       opacity: { duration: 0.1, delay: 0.4, repeat: Infinity, repeatDelay: 2.55 },
     },
   },
+  animateOnce: {
+    opacity: [0, 1],
+    pathLength: [0, 1],
+    transition: { delay: 0.4, duration: 0.55, ease: "easeOut", opacity: { duration: 0.1, delay: 0.4 } },
+  },
 };
 
 const CircleCheckIcon = forwardRef<CircleCheckIconHandle, CircleCheckIconProps>(
-  ({ onMouseEnter, onMouseLeave, className, size = 28, ...props }, ref) => {
+  ({ onMouseEnter, onMouseLeave, className, size = 28, loop = true, ...props }, ref) => {
+    const tickVariant = loop ? "animate" : "animateOnce";
     const circleControls = useAnimation();
     const pathControls = useAnimation();
     const isControlledRef = useRef(false);
@@ -59,7 +67,7 @@ const CircleCheckIcon = forwardRef<CircleCheckIconHandle, CircleCheckIconProps>(
       return {
         startAnimation: () => {
           circleControls.start("animate");
-          pathControls.start("animate");
+          pathControls.start(tickVariant);
         },
         stopAnimation: () => {
           circleControls.start("normal");
@@ -70,18 +78,18 @@ const CircleCheckIcon = forwardRef<CircleCheckIconHandle, CircleCheckIconProps>(
 
     useEffect(() => {
       circleControls.start("animate");
-      pathControls.start("animate");
-    }, [circleControls, pathControls]);
+      pathControls.start(tickVariant);
+    }, [circleControls, pathControls, tickVariant]);
 
     const handleMouseEnter = useCallback(
       (e: React.MouseEvent<HTMLDivElement>) => {
         if (isControlledRef.current) {
           onMouseEnter?.(e);
         } else {
-          pathControls.start("animate");
+          pathControls.start(tickVariant);
         }
       },
-      [pathControls, onMouseEnter]
+      [pathControls, onMouseEnter, tickVariant]
     );
 
     const handleMouseLeave = useCallback(
