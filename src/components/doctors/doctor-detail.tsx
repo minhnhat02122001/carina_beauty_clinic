@@ -1,43 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { PortableText, type PortableTextComponents } from "@portabletext/react";
+import { PortableText } from "@portabletext/react";
 import type { ReactNode } from "react";
 import { RegistrationForm } from "../../app/[locale]/_home-sections/registration-form";
 import { Carousel } from "@/components/carousel";
-import { PortableTextImage } from "@/components/portable-text-image";
+import { doctorPortableTextComponents, portableTextContainerClasses } from "@/components/portable-text-components";
 import { scrollToRegistrationForm } from "@/lib/scroll-to-registration-form";
 import type { DoctorDetail } from "@/sanity/lib/doctors";
-
-const components: PortableTextComponents = {
-  block: {
-    normal: ({ children }) => (
-      <p className="text-justify text-base leading-relaxed text-[var(--foreground)]">{children}</p>
-    ),
-    h2: ({ children }) => (
-      <h3 className="pt-2 text-lg font-semibold text-[var(--color-accent)] lg:text-xl">{children}</h3>
-    ),
-    h3: ({ children }) => <h4 className="pt-1 text-base font-semibold text-[var(--color-accent)]">{children}</h4>,
-    blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-[var(--color-border)] pl-4 text-[var(--foreground)] italic opacity-80">
-        {children}
-      </blockquote>
-    ),
-  },
-  list: {
-    bullet: ({ children }) => (
-      <ul className="flex flex-col gap-2 pl-5 text-base leading-relaxed text-[var(--foreground)] marker:text-[var(--color-accent)]">
-        {children}
-      </ul>
-    ),
-  },
-  listItem: {
-    bullet: ({ children }) => <li className="list-disc">{children}</li>,
-  },
-  types: {
-    image: ({ value }) => <PortableTextImage value={value} />,
-  },
-};
 
 function Section({
   title,
@@ -83,7 +53,7 @@ export function DoctorDetailView({
 }) {
   return (
     <>
-      <div className="mx-auto flex w-full max-w-4xl flex-col gap-6 px-4 py-8 sm:px-6 lg:gap-8 lg:px-0 lg:py-16">
+      <div className="mx-auto flex w-full max-w-4xl flex-col gap-4 px-4 py-8 sm:px-6 lg:gap-6 lg:px-0 lg:py-16">
         <div className="flex flex-col gap-6 lg:flex-row-reverse lg:items-start lg:gap-10">
           {doctor.imageUrls.length > 0 && (
             <div className="w-full shrink-0 self-center lg:w-2/5 lg:max-w-none">
@@ -124,8 +94,8 @@ export function DoctorDetailView({
             )}
 
             {doctor.introduction.length > 0 ? (
-              <div className="flex flex-col gap-3">
-                <PortableText value={doctor.introduction} components={components} />
+              <div className={portableTextContainerClasses}>
+                <PortableText value={doctor.introduction} components={doctorPortableTextComponents} />
               </div>
             ) : (
               <p className="text-base text-[var(--color-muted)]">{comingSoonLabel}</p>
@@ -147,15 +117,14 @@ export function DoctorDetailView({
             title={section.heading}
             variant={index % 2 === 0 ? "alt-a" : "alt-b"}
           >
-            <PortableText value={section.body} components={components} />
+            <div className={portableTextContainerClasses}>
+              <PortableText value={section.body} components={doctorPortableTextComponents} />
+            </div>
           </Section>
         ))}
 
         {(doctor.realCustomerImageUrls.length > 0 || doctor.medicalActivityImageUrls.length > 0) && (
-          <Section
-            title={extraInformationLabel}
-            variant={doctor.sections.length % 2 === 0 ? "alt-a" : "alt-b"}
-          >
+          <Section title={extraInformationLabel} variant={doctor.sections.length % 2 === 0 ? "alt-a" : "alt-b"}>
             {doctor.realCustomerImageUrls.length > 0 && (
               <div className="flex flex-col gap-3">
                 <h3 className="text-base font-semibold text-[var(--color-accent)]">{realCustomerImagesLabel}</h3>

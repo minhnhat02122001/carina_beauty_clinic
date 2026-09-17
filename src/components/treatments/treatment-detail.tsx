@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
+import { Carousel } from "@/components/carousel";
 import { Link } from "@/i18n/navigation";
 import { categoryRootHref, treatmentHref, type TreatmentCategory, type TreatmentDetail } from "@/sanity/lib/service";
+import Image from "next/image";
 import { RegistrationForm } from "../../app/[locale]/_home-sections/registration-form";
-import { Carousel } from "@/components/carousel";
 import { Section } from "./section";
 import { TreatmentContent } from "./treatment-content";
 import { TreatmentOverview } from "./treatment-overview";
@@ -38,7 +38,7 @@ export function TreatmentDetailView({
 }) {
   return (
     <>
-      <article className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-8 sm:px-6 lg:max-w-5xl lg:px-0 lg:py-16">
+      <article className="mx-auto flex w-full max-w-3xl flex-col gap-4 px-4 py-8 sm:px-6 lg:max-w-5xl lg:gap-6 lg:px-0 lg:py-16">
         <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1 text-sm text-[var(--color-muted)]">
           <Link href="/" className="hover:opacity-70">
             {homeLabel}
