@@ -7,6 +7,10 @@
   `--color-accent`, `--color-muted`, `--color-border`). Reference them via
   Tailwind (`bg-[var(--color-accent)]`) or the `@theme inline` tokens —
   never a literal hex value in a component.
+- The site is deliberately light-only. `globals.css` opts out of automatic
+  darkening, and its `prefers-color-scheme: dark` block re-asserts the same
+  light values on purpose — that is not a copy-paste mistake, so don't "fix"
+  it into a dark theme.
 - Path alias `@/*` maps to `src/*` (see `tsconfig.json`).
 - No comments explaining what code does — only for non-obvious _why_
   (a workaround, a hidden constraint).
