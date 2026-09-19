@@ -1,29 +1,11 @@
 import Image from "next/image";
-import { PortableText, type PortableTextComponents } from "@portabletext/react";
+import { PortableText } from "@portabletext/react";
 import { Carousel } from "@/components/carousel";
-import { PortableTextImage } from "@/components/portable-text-image";
+import { portableTextContainerClasses, postPortableTextComponents } from "@/components/portable-text-components";
 import { Link } from "@/i18n/navigation";
 import type { PostCategory, PostDetail, PostSummary } from "@/sanity/lib/posts";
 import { CATEGORY_ROUTES } from "./category-routes";
 import { ShareButtons } from "./share-buttons";
-
-const components: PortableTextComponents = {
-  block: {
-    normal: ({ children }) => <p className="text-base leading-relaxed text-[var(--foreground)]">{children}</p>,
-    h2: ({ children }) => (
-      <h2 className="pt-2 text-xl font-semibold text-[var(--color-accent)] lg:text-2xl">{children}</h2>
-    ),
-    h3: ({ children }) => <h3 className="pt-2 text-lg font-semibold text-[var(--color-accent)]">{children}</h3>,
-    blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-[var(--color-border)] pl-4 text-[var(--foreground)] italic opacity-80">
-        {children}
-      </blockquote>
-    ),
-  },
-  types: {
-    image: ({ value }) => <PortableTextImage value={value} />,
-  },
-};
 
 export function PostDetailView({
   post,
@@ -82,8 +64,8 @@ export function PostDetailView({
             />
           </div>
 
-          <div className="flex flex-col gap-4">
-            <PortableText value={post.body} components={components} />
+          <div className={portableTextContainerClasses}>
+            <PortableText value={post.body} components={postPortableTextComponents} />
           </div>
 
           {post.tags.length > 0 && (

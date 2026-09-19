@@ -1,7 +1,7 @@
 import { PortableText } from "@portabletext/react";
 import type { TreatmentDetail } from "@/sanity/lib/service";
 import { FaqAccordion } from "./faq-accordion";
-import { treatmentPortableTextComponents } from "./portable-text-components";
+import { portableTextContainerClasses, treatmentPortableTextComponents } from "@/components/portable-text-components";
 import { Section } from "./section";
 
 export function TreatmentContent({
@@ -21,7 +21,9 @@ export function TreatmentContent({
           title={section.heading}
           variant={index % 2 === 0 ? "alt-b" : "alt-a"}
         >
-          <PortableText value={section.body} components={treatmentPortableTextComponents} />
+          <div className={portableTextContainerClasses}>
+            <PortableText value={section.body} components={treatmentPortableTextComponents} />
+          </div>
         </Section>
       ))}
 

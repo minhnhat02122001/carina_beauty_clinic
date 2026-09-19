@@ -5,7 +5,7 @@ import { Carousel } from "@/components/carousel";
 import { Link } from "@/i18n/navigation";
 import { scrollToRegistrationForm } from "@/lib/scroll-to-registration-form";
 import type { TreatmentDetail } from "@/sanity/lib/service";
-import { treatmentPortableTextComponents } from "./portable-text-components";
+import { portableTextContainerClasses, treatmentPortableTextComponents } from "@/components/portable-text-components";
 
 function ReviewerRow({ doctor }: { doctor: TreatmentDetail["reviewedByDoctors"][number] }) {
   const avatar = doctor.imageUrl && (
@@ -137,7 +137,7 @@ export function TreatmentOverview({
           )}
 
           {treatment.body.length > 0 ? (
-            <div className="flex flex-col gap-4">
+            <div className={portableTextContainerClasses}>
               <PortableText value={treatment.body} components={treatmentPortableTextComponents} />
             </div>
           ) : (
