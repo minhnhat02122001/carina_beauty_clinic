@@ -1,4 +1,5 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
+import { sendLeadNotification, type LeadNotification } from "@/lib/lead-notification";
 
 const HUBSPOT_CONTACTS_URL = "https://api.hubapi.com/crm/v3/objects/contacts";
 
@@ -9,6 +10,7 @@ type LeadPayload = {
   email?: string;
   note?: string;
   scheduleDate?: string;
+  locale?: string;
   // Honeypot: real visitors never fill this hidden field — bots usually do.
   hp_field?: string;
   elapsed_ms?: number;
@@ -83,12 +85,6 @@ async function createOrUpdateContact(token: string, properties: Record<string, s
 }
 
 export async function POST(request: Request) {
-  const token = process.env.HUBSPOT_ACCESS_TOKEN;
-  if (!token) {
-    console.error("HUBSPOT_ACCESS_TOKEN is not configured");
-    return NextResponse.json({ error: "server_not_configured" }, { status: 500 });
-  }
-
   let payload: LeadPayload;
   try {
     payload = await request.json();
@@ -128,15 +124,42 @@ export async function POST(request: Request) {
     properties.preferred_schedule_date = payload.scheduleDate;
   }
 
+  const notification: Omit<LeadNotification, "hubspotOk"> = {
+    name,
+    phone,
+    email: payload.email?.trim(),
+    services: services.map((service) => service.trim()),
+    note: payload.note?.trim(),
+    scheduleDate: properties.preferred_schedule_date,
+    locale: payload.locale,
+  };
+
+  // The email is the fallback that keeps a lead from being lost when HubSpot can't take it, so on every
+  // HubSpot failure it is awaited: the customer must only see an error when the lead reached nowhere at all.
+  const token = process.env.HUBSPOT_ACCESS_TOKEN;
+  if (!token) {
+    console.error("HUBSPOT_ACCESS_TOKEN is not configured");
+    const notified = await sendLeadNotification({ ...notification, hubspotOk: false });
+    return notified
+      ? NextResponse.json({ ok: true })
+      : NextResponse.json({ error: "server_not_configured" }, { status: 500 });
+  }
+
   const hubspotRes = await createOrUpdateContact(token, properties);
 
   if (!hubspotRes.ok) {
     const errorBody = await hubspotRes.text().catch(() => "");
     console.error("HubSpot contact submission failed", hubspotRes.status, errorBody);
-    return NextResponse.json({ error: "hubspot_error" }, { status: 502 });
+    const notified = await sendLeadNotification({ ...notification, hubspotOk: false });
+    return notified
+      ? NextResponse.json({ ok: true })
+      : NextResponse.json({ error: "hubspot_error" }, { status: 502 });
   }
 
   console.info("Lead sent to HubSpot", hubspotRes.status);
+
+  // Happy path only: sent after the response so the customer never waits on the email provider.
+  after(() => sendLeadNotification({ ...notification, hubspotOk: true }));
 
   return NextResponse.json({ ok: true });
 }

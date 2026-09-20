@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { SendIcon } from "@/components/icons/send";
 import { ServiceCombobox } from "./service-combobox";
@@ -58,6 +58,7 @@ function validate(data: FormData): FieldErrors {
 
 export function RegistrationForm() {
   const t = useTranslations("RegistrationForm");
+  const locale = useLocale();
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [services, setServices] = useState<string[]>([]);
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -123,6 +124,7 @@ export function RegistrationForm() {
           email: data.get("email") || undefined,
           note: data.get("note") || undefined,
           scheduleDate: displayDateToIso(String(data.get("scheduleDate") ?? "")) ?? undefined,
+          locale,
           hp_field: data.get("hp_field") || undefined,
           elapsed_ms: Date.now() - mountedAtRef.current,
         }),
