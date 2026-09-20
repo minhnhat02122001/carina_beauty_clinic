@@ -51,3 +51,13 @@ next-env.d.ts
 
 # HubSpot config file
 hubspot.config.yml
+
+# resend integration skills — installed by `vercel integration add`, tracked by
+# skills-lock.json. `.agents/` is fetched content and the `.claude/skills/`
+# entries are absolute symlinks into it, so neither is portable across machines.
+.agents/
+.claude/skills/agent-email-inbox
+.claude/skills/email-best-practices
+.claude/skills/react-email
+.claude/skills/resend
+.claude/skills/resend-cli
