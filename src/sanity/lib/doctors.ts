@@ -30,6 +30,17 @@ export type DoctorItem = {
   slug: string | null;
 };
 
+export type DoctorProfile = {
+  id: string;
+  name: string;
+  title: string;
+  subtitle: string | null;
+  languages: string | null;
+  introduction: PortableTextBlock[];
+  imageUrl: string;
+  slug: string | null;
+};
+
 export type DoctorSection = {
   heading: string;
   body: PortableTextBlock[];
@@ -67,6 +78,49 @@ export async function getDoctors(locale: Locale): Promise<DoctorItem[]> {
       id: item._id,
       name: item.name,
       title: item.title,
+      imageUrl: urlFor(item.images[0]).width(590).url(),
+      slug: item.slug ?? null,
+    }));
+}
+
+// Same `order asc` as DOCTORS_QUERY so the "Về Chúng Tôi" rows keep the homepage's
+// order, but kept separate: the homepage carousel shouldn't fetch full bios it
+// never renders.
+const DOCTOR_PROFILES_QUERY = `*[_type == "doctor"] | order(order asc){
+  _id,
+  name,
+  "title": ${LOCALIZED_TITLE},
+  "subtitle": ${LOCALIZED_SUBTITLE},
+  "languages": ${LOCALIZED_LANGUAGES},
+  "introduction": ${LOCALIZED_INTRODUCTION},
+  "slug": slug.current,
+  images
+}`;
+
+export async function getDoctorProfiles(locale: Locale): Promise<DoctorProfile[]> {
+  const doctors = await client.fetch<
+    {
+      _id: string;
+      name: string;
+      title: string;
+      subtitle: string | null;
+      languages: string | null;
+      introduction: PortableTextBlock[] | null;
+      slug: string | null;
+      images: SanityImageRef[];
+    }[]
+  >(DOCTOR_PROFILES_QUERY, { locale });
+
+  return doctors
+    .map((item) => ({ ...item, images: item.images.filter(hasAsset) }))
+    .filter((item) => item.images.length > 0)
+    .map((item) => ({
+      id: item._id,
+      name: item.name,
+      title: item.title,
+      subtitle: item.subtitle,
+      languages: item.languages,
+      introduction: item.introduction ?? [],
       imageUrl: urlFor(item.images[0]).width(590).url(),
       slug: item.slug ?? null,
     }));
