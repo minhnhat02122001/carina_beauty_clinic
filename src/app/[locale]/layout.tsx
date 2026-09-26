@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Montserrat, Merriweather, Geist_Mono, Cormorant_Garamond } from "next/font/google";
 import localFont from "next/font/local";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
@@ -50,6 +50,16 @@ export function generateStaticParams() {
 // production only picks up new/edited content on the next deploy. Applies to
 // every page under this layout unless a route overrides it.
 export const revalidate = 60;
+
+// iOS Safari defaults minimum-scale to 0.25, so a pinch shrinks the page below
+// the screen and parks it there until a reload — the white canvas then shows
+// beside every section as a strip down the right edge. Pinching to zoom IN is
+// left alone, so WCAG 1.4.4 still holds; only zooming out past 100% is blocked.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  minimumScale: 1,
+};
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
