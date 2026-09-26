@@ -222,13 +222,7 @@ export function Nav({ navigationSettings }: { navigationSettings: NavigationSett
 
   return (
     <>
-      {/* transform-gpu puts the bar on its own compositing layer. Without it iOS
-          Safari composites the sticky bar against the scrolling content and a
-          few pixels of that content bleed through the top of the bar during a
-          momentum flick, showing as a faint line across the top. Safe here only
-          because nothing inside the header is position:fixed — a transform would
-          otherwise become their containing block. */}
-      <header className="sticky top-0 z-50 transform-gpu bg-[var(--background)] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.08)]">
+      <header className="sticky top-0 z-50 bg-[var(--background)] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.08)]">
         {/* Desktop */}
         <div className="mx-auto hidden max-w-[1440px] items-center justify-between gap-4 px-4 py-4 lg:flex 2xl:gap-6 2xl:px-6">
           <Link href="/" aria-label={t("home")} className="relative aspect-[205/68] h-14 w-auto shrink-0 xl:h-[68px]">
