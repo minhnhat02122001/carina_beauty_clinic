@@ -76,6 +76,14 @@
   }
 }
 
+/* One element wider than the screen makes iOS Safari shrink the whole page to
+   fit it, which reads as a blank strip down the right edge on every section.
+   `clip` rather than `hidden`: it contains the overflow without turning the
+   root into a scroll container, so the sticky header keeps pinning. */
+html {
+  overflow-x: clip;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
