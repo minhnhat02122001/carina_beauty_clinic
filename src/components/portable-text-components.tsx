@@ -22,8 +22,11 @@ export function createPortableTextComponents({
 } = {}): PortableTextComponents {
   // whitespace-pre-line keeps Shift+Enter line breaks, which HTML would otherwise collapse.
   const paragraphClasses = `${justify ? "text-justify " : ""}text-base leading-relaxed whitespace-pre-line text-[var(--foreground)]`;
+  // w-full and text-left are defensive: a list inherits text-align, and a centring
+  // ancestor (the doctor cards centre their copy on mobile) leaves the bullets
+  // ragged. Centred list items are never wanted, so pin it here for every caller.
   const listClasses =
-    "flex flex-col gap-2 pl-5 text-base leading-relaxed whitespace-pre-line text-[var(--foreground)] marker:text-[var(--color-accent)] [&_ul]:mt-2 [&_ul]:pl-5 [&_ol]:mt-2 [&_ol]:pl-5 [&_ul_li]:list-[circle]";
+    "flex w-full flex-col gap-2 pl-5 text-left text-base leading-relaxed whitespace-pre-line text-[var(--foreground)] marker:text-[var(--color-accent)] [&_ul]:mt-2 [&_ul]:pl-5 [&_ol]:mt-2 [&_ol]:pl-5 [&_ul_li]:list-[circle]";
   const headingClasses =
     headingScale === "compact"
       ? {

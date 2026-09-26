@@ -59,6 +59,11 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   minimumScale: 1,
+  // Without this, iOS Safari picks its own fill for the status-bar strip above
+  // the page and lands a shade off the header, leaving a hairline seam across
+  // the top. Must stay equal to --background in globals.css, which is what the
+  // header paints itself with — a meta tag cannot read a CSS variable.
+  themeColor: "#ffffff",
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
