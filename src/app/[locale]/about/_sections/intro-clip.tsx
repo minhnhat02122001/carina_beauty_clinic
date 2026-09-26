@@ -38,33 +38,56 @@ export function IntroClip({
   useEffect(() => {
     if (!isPlayerMounted) return;
 
+    let isAcknowledged = false;
+
     function handleMessage(event: MessageEvent) {
       if (!event.origin.includes("youtube")) return;
-      let payload: { event?: string; info?: number };
+      // Any reply at all means the player is now reporting to us.
+      isAcknowledged = true;
+      let payload: { event?: string; info?: number | { playerState?: number } };
       try {
         payload = JSON.parse(event.data);
       } catch {
         return;
       }
+      // The widget protocol reports state on infoDelivery.info.playerState.
+      // onStateChange, with info as a bare number, only arrives through the
+      // official API wrapper — listening for that alone never fires here.
+      const state =
+        payload.event === "infoDelivery" && typeof payload.info === "object"
+          ? payload.info?.playerState
+          : payload.event === "onStateChange" && typeof payload.info === "number"
+            ? payload.info
+            : undefined;
+
       // 1 playing, 3 buffering — either means the tap reached the player.
-      if (payload.event === "onStateChange" && (payload.info === 1 || payload.info === 3)) {
-        setHasStarted(true);
-      }
+      if (state === 1 || state === 3) setHasStarted(true);
     }
 
-    // Fallback for a handshake that never lands: focus moves into the iframe on
-    // the tap, and a poster left up would sit over a video already playing.
-    function handleBlur() {
-      if (document.activeElement === iframeRef.current) setHasStarted(true);
-    }
+    // The player silently drops a handshake that arrives before its own script
+    // has run, and a warm cache makes that the normal case: the iframe's load
+    // event beats the player, the one handshake is lost, and the poster then
+    // sits over a video that is already playing. So keep asking until it
+    // answers — which is immediately, once it is listening.
+    const handshake = setInterval(() => {
+      if (isAcknowledged) {
+        clearInterval(handshake);
+        return;
+      }
+      iframeRef.current?.contentWindow?.postMessage(
+        JSON.stringify({ event: "listening", id: videoId, channel: "widget" }),
+        "*",
+      );
+    }, 300);
+    const giveUp = setTimeout(() => clearInterval(handshake), 20000);
 
     window.addEventListener("message", handleMessage);
-    window.addEventListener("blur", handleBlur);
     return () => {
       window.removeEventListener("message", handleMessage);
-      window.removeEventListener("blur", handleBlur);
+      clearInterval(handshake);
+      clearTimeout(giveUp);
     };
-  }, [isPlayerMounted]);
+  }, [isPlayerMounted, videoId]);
 
   return (
     <div
@@ -79,12 +102,6 @@ export function IntroClip({
           // itself. enablejsapi is what lets the player report that it did.
           src={`https://www.youtube-nocookie.com/embed/${videoId}?playsinline=1&rel=0&enablejsapi=1`}
           title={playLabel}
-          onLoad={() =>
-            iframeRef.current?.contentWindow?.postMessage(
-              JSON.stringify({ event: "listening", id: videoId, channel: "widget" }),
-              "*",
-            )
-          }
           // `fullscreen` has to be in the allow list, not just the allowFullScreen
           // attribute: once an explicit allow list is present Safari builds the
           // permission from it alone and drops the legacy attribute, so the player
