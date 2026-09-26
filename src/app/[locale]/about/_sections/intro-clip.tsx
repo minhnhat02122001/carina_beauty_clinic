@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function IntroClip({
   videoId,
@@ -12,32 +12,96 @@ export function IntroClip({
   thumbnailUrl: string | null;
   playLabel: string;
 }) {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [isPlayerMounted, setIsPlayerMounted] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
+
+  // An idle visit still pays nothing: the player is only fetched once the clip
+  // comes near the viewport, which is well before anyone can tap it.
+  useEffect(() => {
+    const node = containerRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setIsPlayerMounted(true);
+        observer.disconnect();
+      },
+      { rootMargin: "200px" },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isPlayerMounted) return;
+
+    function handleMessage(event: MessageEvent) {
+      if (!event.origin.includes("youtube")) return;
+      let payload: { event?: string; info?: number };
+      try {
+        payload = JSON.parse(event.data);
+      } catch {
+        return;
+      }
+      // 1 playing, 3 buffering — either means the tap reached the player.
+      if (payload.event === "onStateChange" && (payload.info === 1 || payload.info === 3)) {
+        setHasStarted(true);
+      }
+    }
+
+    // Fallback for a handshake that never lands: focus moves into the iframe on
+    // the tap, and a poster left up would sit over a video already playing.
+    function handleBlur() {
+      if (document.activeElement === iframeRef.current) setHasStarted(true);
+    }
+
+    window.addEventListener("message", handleMessage);
+    window.addEventListener("blur", handleBlur);
+    return () => {
+      window.removeEventListener("message", handleMessage);
+      window.removeEventListener("blur", handleBlur);
+    };
+  }, [isPlayerMounted]);
 
   return (
-    <div className="relative mx-auto aspect-[9/16] w-2/3 max-w-[280px] overflow-hidden rounded-2xl bg-[var(--color-background-alt)] sm:max-w-[320px] lg:w-full lg:max-w-[420px]">
-      {isPlaying ? (
-        // `fullscreen` has to be in the allow list, not just the allowFullScreen
-        // attribute: once an explicit allow list is present Safari builds the
-        // permission from it alone and drops the legacy attribute, so the player
-        // sees fullscreen as denied and hides its fullscreen button. Chrome merges
-        // the two, which is why this only shows up on iPhone.
+    <div
+      ref={containerRef}
+      className="group relative mx-auto aspect-[9/16] w-2/3 max-w-[280px] overflow-hidden rounded-2xl bg-[var(--color-background-alt)] sm:max-w-[320px] lg:w-full lg:max-w-[420px]"
+    >
+      {isPlayerMounted && (
         <iframe
-          src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&playsinline=1&rel=0`}
+          ref={iframeRef}
+          // No autoplay to ask for: iOS Safari refuses audible playback that a
+          // gesture outside the frame asked for, so the tap has to reach YouTube
+          // itself. enablejsapi is what lets the player report that it did.
+          src={`https://www.youtube-nocookie.com/embed/${videoId}?playsinline=1&rel=0&enablejsapi=1`}
           title={playLabel}
+          onLoad={() =>
+            iframeRef.current?.contentWindow?.postMessage(
+              JSON.stringify({ event: "listening", id: videoId, channel: "widget" }),
+              "*",
+            )
+          }
+          // `fullscreen` has to be in the allow list, not just the allowFullScreen
+          // attribute: once an explicit allow list is present Safari builds the
+          // permission from it alone and drops the legacy attribute, so the player
+          // sees fullscreen as denied and hides its fullscreen button.
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture; web-share"
           allowFullScreen
           className="absolute inset-0 size-full"
         />
-      ) : (
-        // The poster stands in until play is pressed, so an idle visit never pays
-        // for YouTube's player on mobile.
-        <button
-          type="button"
-          onClick={() => setIsPlaying(true)}
-          aria-label={playLabel}
-          className="group relative size-full"
-        >
+      )}
+
+      {/* Inert on purpose. This used to be a button that swapped in an autoplaying
+          embed, which cost a second tap on iPhone — the first one only built the
+          player and iOS then refused to start it. Letting the tap fall straight
+          through to YouTube makes one tap enough, and keeps the editor's own
+          thumbnail rather than YouTube's. */}
+      {!hasStarted && (
+        <span aria-hidden="true" className="pointer-events-none absolute inset-0 block">
           {thumbnailUrl && (
             <Image
               src={thumbnailUrl}
@@ -54,7 +118,7 @@ export function IntroClip({
               <Image src="/images/featured-events/icon-play.svg" alt="" fill className="object-contain" sizes="32px" />
             </span>
           </span>
-        </button>
+        </span>
       )}
     </div>
   );
