@@ -21,13 +21,10 @@ export type AboutPressMention = {
 export type AboutSettings = {
   introVideoId: string;
   introVideoThumbnailUrl: string | null;
-  facadeImageUrl: string | null;
   technologyImages: AboutImage[];
-  spaceImageUrl: string | null;
-  doctorCustomerImageUrl: string | null;
   testimonialImages: AboutImage[];
   pressMentions: AboutPressMention[];
-  closingImageUrl: string | null;
+  closingImages: AboutImage[];
 };
 
 const LOCALIZED_PRESS_TITLE = `select($locale == "vi" => title, $locale == "zh" => coalesce(titleZh, title), coalesce(titleEn, title))`;
@@ -37,10 +34,7 @@ const LOCALIZED_PRESS_TITLE = `select($locale == "vi" => title, $locale == "zh" 
 const ABOUT_SETTINGS_QUERY = `*[_type == "aboutSettings"][0]{
   introVideoUrl,
   "introVideoThumbnail": select(defined(introVideoThumbnail.asset) => introVideoThumbnail),
-  "facadeImage": select(defined(facadeImage.asset) => facadeImage),
   "technologyImages": technologyImages[defined(asset)],
-  "spaceImage": select(defined(spaceImage.asset) => spaceImage),
-  "doctorCustomerImage": select(defined(doctorCustomerImage.asset) => doctorCustomerImage),
   "testimonialImages": testimonialImages[defined(asset)],
   "pressMentions": pressMentions[defined(screenshot.asset)]{
     _key,
@@ -49,7 +43,7 @@ const ABOUT_SETTINGS_QUERY = `*[_type == "aboutSettings"][0]{
     url,
     screenshot
   },
-  "closingImage": select(defined(closingImage.asset) => closingImage)
+  "closingImages": closingImages[defined(asset)]
 }`;
 
 type RawImage = SanityImageRef & { _key: string };
@@ -57,26 +51,20 @@ type RawImage = SanityImageRef & { _key: string };
 type RawAboutSettings = {
   introVideoUrl: string | null;
   introVideoThumbnail: SanityImageRef | null;
-  facadeImage: SanityImageRef | null;
   technologyImages: RawImage[] | null;
-  spaceImage: SanityImageRef | null;
-  doctorCustomerImage: SanityImageRef | null;
   testimonialImages: RawImage[] | null;
   pressMentions:
     { _key: string; title: string; outletName: string | null; url: string; screenshot: SanityImageRef }[] | null;
-  closingImage: SanityImageRef | null;
+  closingImages: RawImage[] | null;
 };
 
 const EMPTY_SETTINGS: AboutSettings = {
   introVideoId: "",
   introVideoThumbnailUrl: null,
-  facadeImageUrl: null,
   technologyImages: [],
-  spaceImageUrl: null,
-  doctorCustomerImageUrl: null,
   testimonialImages: [],
   pressMentions: [],
-  closingImageUrl: null,
+  closingImages: [],
 };
 
 function toImages(images: RawImage[] | null, width: number): AboutImage[] {
@@ -93,12 +81,7 @@ export async function getAboutSettings(locale: Locale): Promise<AboutSettings> {
     introVideoThumbnailUrl: settings.introVideoThumbnail
       ? urlFor(settings.introVideoThumbnail).width(440).height(780).fit("crop").url()
       : null,
-    facadeImageUrl: settings.facadeImage ? urlFor(settings.facadeImage).width(1200).url() : null,
     technologyImages: toImages(settings.technologyImages, 600),
-    spaceImageUrl: settings.spaceImage ? urlFor(settings.spaceImage).width(1600).url() : null,
-    doctorCustomerImageUrl: settings.doctorCustomerImage
-      ? urlFor(settings.doctorCustomerImage).width(1600).url()
-      : null,
     // Rendered with object-contain so review screenshots of any shape survive uncropped.
     testimonialImages: toImages(settings.testimonialImages, 800),
     pressMentions: (settings.pressMentions ?? []).map((item) => ({
@@ -108,6 +91,6 @@ export async function getAboutSettings(locale: Locale): Promise<AboutSettings> {
       url: item.url,
       screenshotUrl: urlFor(item.screenshot).width(800).height(450).fit("crop").url(),
     })),
-    closingImageUrl: settings.closingImage ? urlFor(settings.closingImage).width(1600).url() : null,
+    closingImages: toImages(settings.closingImages, 1200),
   };
 }

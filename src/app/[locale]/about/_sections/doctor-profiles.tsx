@@ -1,14 +1,14 @@
 "use client";
 
-import Image from "next/image";
+import StackingCards, { StackingCardItem } from "@/components/fancy/blocks/stacking-cards";
+import { doctorPortableTextComponents, portableTextContainerClasses } from "@/components/portable-text-components";
+import { Link } from "@/i18n/navigation";
+import type { DoctorProfile } from "@/sanity/lib/doctors";
+import type { PortableTextBlock } from "@portabletext/react";
 import { PortableText } from "@portabletext/react";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import type { PortableTextBlock } from "@portabletext/react";
-import { Link } from "@/i18n/navigation";
-import { doctorPortableTextComponents, portableTextContainerClasses } from "@/components/portable-text-components";
-import StackingCards, { StackingCardItem } from "@/components/fancy/blocks/stacking-cards";
-import type { DoctorProfile } from "@/sanity/lib/doctors";
 
 // A card must fit the viewport for the stacking to work, so a long bio gets
 // bounded. The fade only appears when text is actually cut off — drawn
@@ -29,7 +29,7 @@ function DoctorBio({ introduction }: { introduction: PortableTextBlock[] }) {
   }, []);
 
   return (
-    <div ref={boxRef} className="relative min-h-0 w-full flex-1 overflow-hidden lg:max-h-[60%] lg:flex-none">
+    <div ref={boxRef} className="relative min-h-0 w-full flex-initial overflow-hidden">
       <div className={`${portableTextContainerClasses} text-xs text-[rgba(99,43,14,0.7)] sm:text-sm lg:text-base`}>
         <PortableText value={introduction} components={doctorPortableTextComponents} />
       </div>
@@ -58,18 +58,19 @@ export function DoctorProfiles({ doctors }: { doctors: DoctorProfile[] }) {
         <StackingCards totalCards={doctors.length} className="w-full">
           {doctors.map((doctor, index) => {
             return (
-              // The item wrapper is taller than the card it holds; that surplus is
-              // the scroll distance the next card travels before it lands. The top
-              // offsets clear the sticky site header (60px, 100px at lg) — the
-              // component's own `top-0` would pin each card underneath it.
+              // Wrappers must all be the SAME height: a sticky item releases once
+              // `containerBottom - itemHeight` passes its pin line, so a taller
+              // neighbour releases earlier and visibly slides while another card is
+              // still pinned. The top offsets clear the sticky site header (60px,
+              // 100px at lg) — the component's own `top-0` would pin cards under it.
               <StackingCardItem
                 key={doctor.id}
                 index={index}
                 topPosition={`${index * 16}px`}
-                className="top-16 h-[92vh] sm:h-[95vh] lg:top-28"
+                className="top-16 h-[86vh] sm:h-[88vh] lg:top-28 lg:h-[84vh]"
               >
-                <div className="flex h-[72vh] flex-col overflow-hidden rounded-3xl bg-white shadow-xl sm:h-[74vh] lg:h-[70vh] lg:flex-row-reverse">
-                  <div className="relative h-[38%] w-full shrink-0 lg:h-full lg:w-2/5">
+                <div className="flex h-[80vh] flex-col overflow-hidden rounded-3xl bg-white shadow-xl sm:h-[80vh] lg:h-[76vh] lg:flex-row-reverse">
+                  <div className="relative aspect-[3/2] w-full shrink-0 sm:aspect-[2/1] lg:aspect-auto lg:w-2/5">
                     <Image
                       src={doctor.imageUrl}
                       alt=""
@@ -79,7 +80,7 @@ export function DoctorProfiles({ doctors }: { doctors: DoctorProfile[] }) {
                     />
                   </div>
 
-                  <div className="flex min-h-0 flex-1 flex-col items-center gap-2 p-4 text-center sm:gap-3 sm:p-6 lg:items-start lg:justify-center lg:p-10 lg:text-left">
+                  <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-2 p-4 text-center sm:gap-3 sm:p-6 lg:items-start lg:p-10 lg:text-left">
                     <h3 className="text-lg font-semibold text-[var(--color-accent)] sm:text-xl md:text-2xl lg:text-3xl">
                       {doctor.name}
                     </h3>
@@ -108,6 +109,10 @@ export function DoctorProfiles({ doctors }: { doctors: DoctorProfile[] }) {
               </StackingCardItem>
             );
           })}
+          {/* A sticky item can only stay pinned while its container extends below it,
+              and the last card IS the container's last child — without this spacer its
+              pin range is zero and it scrolls straight past instead of landing. */}
+          <div aria-hidden className="h-[10vh]" />
         </StackingCards>
       </div>
     </section>

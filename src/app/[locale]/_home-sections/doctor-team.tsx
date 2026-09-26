@@ -17,7 +17,7 @@ export function DoctorTeam({ doctors }: { doctors: DoctorItem[] }) {
       <div className="mx-auto flex max-w-[1216px] flex-col items-center gap-8">
         <h2 className="text-2xl font-medium text-[var(--color-accent)] lg:text-5xl">{t("heading")}</h2>
 
-        <Carousel prevLabel={t("scrollPrev")} nextLabel={t("scrollNext")} itemsPerView={{ base: 2, lg: 4 }}>
+        <Carousel prevLabel={t("scrollPrev")} nextLabel={t("scrollNext")} itemsPerView={{ base: 2, lg: 4 }} hoverShadow>
           {doctors.map((doctor) => (
             <Link
               key={doctor.id}

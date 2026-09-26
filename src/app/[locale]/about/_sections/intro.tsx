@@ -12,7 +12,7 @@ export function Intro({ videoId, thumbnailUrl }: { videoId: string; thumbnailUrl
           <p className="font-serif text-[10px] tracking-[2.4px] text-[var(--color-accent)] uppercase sm:text-xs">
             {t("introEyebrow")}
           </p>
-          <h1 className="text-xl font-medium text-[var(--color-accent)] sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
+          <h1 className="text-xl leading-normal font-medium text-[var(--color-accent)] sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
             {t("introHeading")}
           </h1>
           <p className="text-xs leading-relaxed text-[rgba(99,43,14,0.7)] sm:text-sm lg:text-base">

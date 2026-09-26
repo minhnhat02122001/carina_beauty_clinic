@@ -17,14 +17,14 @@ export function Press({ mentions }: { mentions: AboutPressMention[] }) {
 
         {/* No lightboxImages here — the cards are already links, and the Carousel
             would wrap each one in a button. */}
-        <Carousel prevLabel={t("scrollPrev")} nextLabel={t("scrollNext")} itemsPerView={{ base: 1, lg: 3 }}>
+        <Carousel prevLabel={t("scrollPrev")} nextLabel={t("scrollNext")} itemsPerView={{ base: 1, lg: 3 }} hoverShadow>
           {mentions.map((mention) => (
             <a
               key={mention.key}
               href={mention.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex h-full flex-col gap-3 overflow-hidden rounded-xl bg-[var(--color-background-alt)] pb-4 transition-shadow hover:shadow-lg"
+              className="group flex h-full flex-col gap-3 overflow-hidden rounded-xl bg-[var(--background)] pb-4 transition-shadow hover:shadow-lg"
             >
               <div className="relative aspect-video w-full overflow-hidden">
                 <Image

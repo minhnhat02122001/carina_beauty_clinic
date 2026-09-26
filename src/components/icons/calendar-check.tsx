@@ -32,81 +32,75 @@ const CHECK_VARIANTS: Variants = {
   },
 };
 
-const CalendarCheckIcon = forwardRef<
-  CalendarCheckIconHandle,
-  CalendarCheckIconProps
->(({ onMouseEnter, onMouseLeave, className, size = 28, ...props }, ref) => {
-  const controls = useAnimation();
-  const isControlledRef = useRef(false);
+const CalendarCheckIcon = forwardRef<CalendarCheckIconHandle, CalendarCheckIconProps>(
+  ({ onMouseEnter, onMouseLeave, className, size = 28, ...props }, ref) => {
+    const controls = useAnimation();
+    const isControlledRef = useRef(false);
 
-  useImperativeHandle(ref, () => {
-    isControlledRef.current = true;
+    useImperativeHandle(ref, () => {
+      isControlledRef.current = true;
 
-    return {
-      startAnimation: () => controls.start("animate"),
-      stopAnimation: () => controls.start("normal"),
-    };
-  });
+      return {
+        startAnimation: () => controls.start("animate"),
+        stopAnimation: () => controls.start("normal"),
+      };
+    });
 
-  useEffect(() => {
-    controls.start("animate");
-  }, [controls]);
+    useEffect(() => {
+      controls.start("animate");
+    }, [controls]);
 
-  const handleMouseEnter = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      if (isControlledRef.current) {
-        onMouseEnter?.(e);
-      } else {
-        controls.start("animate");
-      }
-    },
-    [controls, onMouseEnter]
-  );
+    const handleMouseEnter = useCallback(
+      (e: React.MouseEvent<HTMLDivElement>) => {
+        // Nothing to trigger on hover: the loop already runs from mount, and
+        // restarting it at its own target value ends it after one cycle.
+        if (isControlledRef.current) {
+          onMouseEnter?.(e);
+        }
+      },
+      [onMouseEnter],
+    );
 
-  const handleMouseLeave = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      if (isControlledRef.current) {
-        onMouseLeave?.(e);
-      } else {
-        controls.start("normal");
-      }
-    },
-    [controls, onMouseLeave]
-  );
+    const handleMouseLeave = useCallback(
+      (e: React.MouseEvent<HTMLDivElement>) => {
+        // Animates continuously from mount — stopping here would cancel that
+        // loop and leave the icon frozen after a single hover.
+        if (isControlledRef.current) {
+          onMouseLeave?.(e);
+        }
+      },
+      [onMouseLeave],
+    );
 
-  return (
-    <div
-      className={className}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      {...props}
-    >
-      <svg
-        fill="none"
-        height={size}
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        viewBox="0 0 24 24"
-        width={size}
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path d="M8 2v4" />
-        <path d="M16 2v4" />
-        <rect height="18" rx="2" width="18" x="3" y="4" />
-        <path d="M3 10h18" />
-        <motion.path
-          animate={controls}
-          d="m9 16 2 2 4-4"
-          initial="normal"
-          style={{ transformOrigin: "center" }}
-          variants={CHECK_VARIANTS}
-        />
-      </svg>
-    </div>
-  );
-});
+    return (
+      <div className={className} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} {...props}>
+        <svg
+          fill="none"
+          height={size}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={size}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M8 2v4" />
+          <path d="M16 2v4" />
+          <rect height="18" rx="2" width="18" x="3" y="4" />
+          <path d="M3 10h18" />
+          <motion.path
+            animate={controls}
+            d="m9 16 2 2 4-4"
+            initial="normal"
+            style={{ transformOrigin: "center" }}
+            variants={CHECK_VARIANTS}
+          />
+        </svg>
+      </div>
+    );
+  },
+);
 
 CalendarCheckIcon.displayName = "CalendarCheckIcon";
 

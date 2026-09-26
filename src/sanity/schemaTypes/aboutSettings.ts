@@ -11,7 +11,6 @@ export const aboutSettings = defineType({
   groups: [
     { name: "intro", title: "Giới thiệu", default: true },
     { name: "technology", title: "Công nghệ" },
-    { name: "space", title: "Không gian" },
     { name: "testimonials", title: "Đánh giá khách hàng" },
     { name: "press", title: "Báo chí" },
     { name: "closing", title: "Kết trang" },
@@ -34,13 +33,6 @@ export const aboutSettings = defineType({
       group: "intro",
       options: { hotspot: true },
     }),
-    defineField({
-      name: "facadeImage",
-      title: "Ảnh mặt tiền",
-      type: "image",
-      group: "intro",
-      options: { hotspot: true },
-    }),
 
     // Công nghệ
     defineField({
@@ -50,22 +42,6 @@ export const aboutSettings = defineType({
       type: "array",
       group: "technology",
       of: [defineArrayMember({ type: "image", options: { hotspot: true } })],
-    }),
-
-    // Không gian
-    defineField({
-      name: "spaceImage",
-      title: "Ảnh không gian phòng khám",
-      type: "image",
-      group: "space",
-      options: { hotspot: true },
-    }),
-    defineField({
-      name: "doctorCustomerImage",
-      title: "Ảnh bác sĩ và khách hàng",
-      type: "image",
-      group: "space",
-      options: { hotspot: true },
     }),
 
     // Đánh giá khách hàng
@@ -125,11 +101,11 @@ export const aboutSettings = defineType({
 
     // Kết trang
     defineField({
-      name: "closingImage",
-      title: "Ảnh kết trang",
-      type: "image",
+      name: "closingImages",
+      title: "Ảnh kết trang (kéo thả để sắp xếp)",
+      type: "array",
       group: "closing",
-      options: { hotspot: true },
+      of: [defineArrayMember({ type: "image", options: { hotspot: true } })],
     }),
   ],
   preview: {

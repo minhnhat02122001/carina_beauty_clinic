@@ -149,6 +149,7 @@ export function Carousel({
   lightboxImages,
   lightboxCloseLabel,
   autoScrollIntervalMs = AUTO_SCROLL_INTERVAL_MS,
+  hoverShadow = false,
 }: {
   children: ReactNode;
   prevLabel: string;
@@ -174,6 +175,12 @@ export function Carousel({
   lightboxCloseLabel?: string;
   /** Milliseconds between auto-scroll advances. Defaults to 3000. */
   autoScrollIntervalMs?: number;
+  /** Pads the scroll track vertically so an item's hover shadow isn't clipped away.
+   * `overflow-x-auto` makes the track a scroll container on BOTH axes (a non-visible
+   * overflow on one axis forces the other to auto), and items stretch to its full
+   * height, so a shadow falls outside the clip. Off by default — it adds ~28px of
+   * height, which only carousels with a hover shadow should pay for. */
+  hoverShadow?: boolean;
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
@@ -248,9 +255,13 @@ export function Carousel({
       onPointerUp={() => setIsPaused(false)}
       onPointerCancel={() => setIsPaused(false)}
     >
+      {/* Vertical padding only: horizontal padding would desync `goTo`, which
+          compares an item's offsetLeft against the track's scrollLeft. */}
       <div
         ref={trackRef}
-        className="flex w-full snap-x snap-mandatory [scrollbar-width:none] gap-4 overflow-x-auto scroll-smooth [&::-webkit-scrollbar]:hidden"
+        className={`flex w-full snap-x snap-mandatory [scrollbar-width:none] gap-4 overflow-x-auto scroll-smooth [&::-webkit-scrollbar]:hidden ${
+          hoverShadow ? "pt-1 pb-6" : ""
+        }`}
         style={trackStyle}
       >
         {Children.map(children, (child, index) => (

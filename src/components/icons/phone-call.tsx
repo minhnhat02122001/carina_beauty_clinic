@@ -91,35 +91,29 @@ const PhoneCallIcon = forwardRef<PhoneCallIconHandle, PhoneCallIconProps>(
     }, [runPathIntro, svgControls]);
 
     const handleMouseEnter = useCallback(
-      async (e: React.MouseEvent<HTMLDivElement>) => {
+      (e: React.MouseEvent<HTMLDivElement>) => {
+        // Nothing to trigger on hover: the loop already runs from mount, and
+        // restarting it at its own target value ends it after one cycle.
         if (isControlledRef.current) {
           onMouseEnter?.(e);
-        } else {
-          await Promise.all([svgControls.start("animate"), runPathIntro()]);
         }
       },
-      [onMouseEnter, runPathIntro, svgControls]
+      [onMouseEnter],
     );
 
     const handleMouseLeave = useCallback(
       (e: React.MouseEvent<HTMLDivElement>) => {
+        // Animates continuously from mount — stopping here would cancel that
+        // loop and leave the icon frozen after a single hover.
         if (isControlledRef.current) {
           onMouseLeave?.(e);
-        } else {
-          svgControls.start("normal");
-          pathControls.start("normal");
         }
       },
-      [onMouseLeave, pathControls, svgControls]
+      [onMouseLeave],
     );
 
     return (
-      <div
-        className={className}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        {...props}
-      >
+      <div className={className} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} {...props}>
         <motion.svg
           animate={svgControls}
           fill="none"
@@ -153,7 +147,7 @@ const PhoneCallIcon = forwardRef<PhoneCallIconHandle, PhoneCallIconProps>(
         </motion.svg>
       </div>
     );
-  }
+  },
 );
 
 PhoneCallIcon.displayName = "PhoneCallIcon";
