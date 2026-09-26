@@ -17,10 +17,15 @@ export function IntroClip({
   return (
     <div className="relative mx-auto aspect-[9/16] w-2/3 max-w-[280px] overflow-hidden rounded-2xl bg-[var(--color-background-alt)] sm:max-w-[320px] lg:w-full lg:max-w-[420px]">
       {isPlaying ? (
+        // `fullscreen` has to be in the allow list, not just the allowFullScreen
+        // attribute: once an explicit allow list is present Safari builds the
+        // permission from it alone and drops the legacy attribute, so the player
+        // sees fullscreen as denied and hides its fullscreen button. Chrome merges
+        // the two, which is why this only shows up on iPhone.
         <iframe
           src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&playsinline=1&rel=0`}
           title={playLabel}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture; web-share"
           allowFullScreen
           className="absolute inset-0 size-full"
         />
