@@ -76,11 +76,26 @@
   }
 }
 
-/* One element wider than the screen makes iOS Safari shrink the whole page to
-   fit it, which reads as a blank strip down the right edge on every section.
-   `clip` rather than `hidden`: it contains the overflow without turning the
-   root into a scroll container, so the sticky header keeps pinning. */
-html {
+/* Contains any element wider than the screen, which otherwise lets the page
+   swipe sideways on iOS and exposes the white canvas beside every section.
+
+   Both selectors are required, and `clip` is required. Measured in WebKit
+   against a deliberately overflowing probe (700px child, viewport 430):
+
+     html only, clip or hidden ... still scrolls to 270 — the root's overflow
+                                   propagates to the viewport, leaving the root
+                                   itself `visible`, so nothing clips.
+     body only, clip ............. still scrolls to 270, same reason.
+     html + body, hidden ......... scroll blocked, but body becomes a scroll
+                                   container and the sticky header stops pinning
+                                   (measured top: -3000 instead of 0).
+     html + body, clip ........... scroll blocked AND header still pins.
+
+   `clip` never creates a scroll container, which is why it is the only value
+   that does both. Fixed children (the floating contact buttons) are unaffected:
+   their containing block is the viewport, not body. */
+html,
+body {
   overflow-x: clip;
 }
 
