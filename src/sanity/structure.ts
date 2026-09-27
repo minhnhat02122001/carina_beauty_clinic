@@ -3,6 +3,7 @@ import type { StructureResolver } from "sanity/structure";
 const SINGLETONS = [
   { type: "navigationSettings", id: "navigationSettings", title: "Cài Đặt Menu" },
   { type: "serviceHighlightsSettings", id: "serviceHighlightsSettings", title: "Cài Đặt Dịch Vụ Nổi Bật" },
+  { type: "aboutSettings", id: "aboutSettings", title: "Cài Đặt Trang Về Chúng Tôi" },
 ];
 
 // Pulled out of the regular alphabetized content list below and grouped
@@ -22,10 +23,7 @@ export const structure: StructureResolver = (S) =>
             .title("Cài Đặt")
             .items([
               ...SINGLETONS.map(({ type, id, title }) =>
-                S.listItem()
-                  .title(title)
-                  .id(id)
-                  .child(S.document().schemaType(type).documentId(id)),
+                S.listItem().title(title).id(id).child(S.document().schemaType(type).documentId(id)),
               ),
               S.documentTypeListItem("media.tag"),
               S.documentTypeListItem("media.folder"),

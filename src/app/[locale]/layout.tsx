@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Montserrat, Merriweather, Geist_Mono, Cormorant_Garamond } from "next/font/google";
 import localFont from "next/font/local";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
@@ -50,6 +50,15 @@ export function generateStaticParams() {
 // production only picks up new/edited content on the next deploy. Applies to
 // every page under this layout unless a route overrides it.
 export const revalidate = 60;
+
+// With no theme-color, a mobile browser derives its own tint for the chrome
+// around the page. One value, not a light/dark pair: the site is light-only on
+// purpose (globals.css re-asserts the light palette under prefers-color-scheme:
+// dark), so a dark variant would tint the chrome for a page that never darkens.
+// Must stay equal to --background there — a meta tag cannot read a CSS variable.
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
+};
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;

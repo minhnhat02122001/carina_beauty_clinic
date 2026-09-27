@@ -32,33 +32,28 @@ const SendIcon = forwardRef<SendIconHandle, SendIconProps>(
 
     const handleMouseEnter = useCallback(
       (e: React.MouseEvent<HTMLDivElement>) => {
+        // Nothing to trigger on hover: the loop already runs from mount, and
+        // restarting it at its own target value ends it after one cycle.
         if (isControlledRef.current) {
           onMouseEnter?.(e);
-        } else {
-          controls.start("animate");
         }
       },
-      [controls, onMouseEnter]
+      [onMouseEnter],
     );
 
     const handleMouseLeave = useCallback(
       (e: React.MouseEvent<HTMLDivElement>) => {
+        // Animates continuously from mount — stopping here would cancel that
+        // loop and leave the icon frozen after a single hover.
         if (isControlledRef.current) {
           onMouseLeave?.(e);
-        } else {
-          controls.start("normal");
         }
       },
-      [controls, onMouseLeave]
+      [onMouseLeave],
     );
 
     return (
-      <div
-        className={className}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        {...props}
-      >
+      <div className={className} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} {...props}>
         <svg
           className="overflow-visible"
           fill="none"
@@ -114,7 +109,7 @@ const SendIcon = forwardRef<SendIconHandle, SendIconProps>(
         </svg>
       </div>
     );
-  }
+  },
 );
 
 SendIcon.displayName = "SendIcon";

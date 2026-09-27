@@ -12,7 +12,6 @@ import { CustomerExperience } from "./_home-sections/customer-experience";
 import { Equipment } from "./_home-sections/equipment";
 import { DoctorTeam } from "./_home-sections/doctor-team";
 import { StrategicPartners } from "./_home-sections/strategic-partners";
-import { WhyChooseUs } from "./_home-sections/why-choose-us";
 import { FeaturedEvents } from "./_home-sections/featured-events";
 import { BeautyKnowledgeHome } from "./_home-sections/beauty-knowledge";
 import { RegistrationForm } from "./_home-sections/registration-form";
@@ -39,7 +38,6 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       <Equipment items={equipment} />
       <DoctorTeam doctors={doctors} />
       <StrategicPartners />
-      <WhyChooseUs />
       <FeaturedEvents news={news} videos={videos} />
       <BeautyKnowledgeHome hero={beautyKnowledge.hero} thumbnails={beautyKnowledge.thumbnails} />
       <RegistrationForm />

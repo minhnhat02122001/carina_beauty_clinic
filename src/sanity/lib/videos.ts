@@ -19,7 +19,7 @@ const FEATURED_VIDEOS_QUERY = `*[_type == "video" && featured == true] | order(p
 
 // Editors paste whatever URL YouTube gives them (watch?v=, youtu.be/, /shorts/,
 // with tracking params like ?si=) — normalize all of them down to a bare video ID.
-function extractYoutubeId(url: string | null): string {
+export function extractYoutubeId(url: string | null): string {
   if (!url) return "";
   try {
     const parsed = new URL(url);
