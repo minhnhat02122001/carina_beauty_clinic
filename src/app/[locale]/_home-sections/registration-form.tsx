@@ -148,11 +148,13 @@ export function RegistrationForm() {
         <p className="text-sm text-[rgba(99,43,14,0.7)] lg:text-base">{t("description")}</p>
       </div>
 
-      <div className="mx-auto flex max-w-[1216px] flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
+      {/* No items-start from lg: the columns stretch to a shared height so the map
+          below can absorb whatever the form doesn't use, and the two columns end level. */}
+      <div className="mx-auto flex max-w-[1216px] flex-col gap-8 lg:flex-row lg:gap-12">
         <div className="order-2 flex flex-1 flex-col gap-6 lg:order-1">
           <h3 className="text-xl font-bold text-[var(--color-accent)] lg:text-[30px]">{t("companyName")}</h3>
 
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-4">
             {CONTACT_ITEMS.map((item) => (
               <div key={item.labelKey} className="flex items-center gap-4">
                 <span className="relative flex size-12 shrink-0 items-center justify-center rounded-full bg-[var(--color-accent)]">
@@ -168,7 +170,12 @@ export function RegistrationForm() {
             ))}
           </div>
 
-          <div className="h-[182px] overflow-hidden rounded-2xl lg:h-[338px]">
+          {/* h-0 + flex-1 rather than a fixed height: a fixed one can only be right for
+              one locale at one width, since the form is 16px shorter in en/zh and the
+              contact block wraps taller in a narrow column. Basis 0 keeps the map out of
+              the column's natural height, so the row is sized by the form and the map
+              then grows into exactly the space left over. */}
+          <div className="h-[182px] overflow-hidden rounded-2xl lg:h-0 lg:min-h-0 lg:flex-1">
             <iframe
               src="https://www.google.com/maps?q=Carina+Beauty+Clinic%2C+09+%C4%90%C6%B0%E1%BB%9Dng+B4%2C+An+Kh%C3%A1nh%2C+Thu+Duc%2C+Ho+Chi+Minh+City%2C+Vietnam&output=embed"
               title={t("mapTitle")}
@@ -202,14 +209,26 @@ export function RegistrationForm() {
                 <label htmlFor={fieldId("name")} className="text-sm font-semibold text-[var(--color-accent)]">
                   {t("nameLabel")}
                 </label>
-                <input type="text" autoComplete="name" required placeholder={t("namePlaceholder")} {...fieldProps("name")} />
+                <input
+                  type="text"
+                  autoComplete="name"
+                  required
+                  placeholder={t("namePlaceholder")}
+                  {...fieldProps("name")}
+                />
                 {fieldError("name")}
               </div>
               <div className="flex flex-col gap-2">
                 <label htmlFor={fieldId("phone")} className="text-sm font-semibold text-[var(--color-accent)]">
                   {t("phoneFieldLabel")}
                 </label>
-                <input type="tel" autoComplete="tel" required placeholder={t("phoneFieldPlaceholder")} {...fieldProps("phone")} />
+                <input
+                  type="tel"
+                  autoComplete="tel"
+                  required
+                  placeholder={t("phoneFieldPlaceholder")}
+                  {...fieldProps("phone")}
+                />
                 {fieldError("phone")}
               </div>
             </div>
@@ -231,7 +250,12 @@ export function RegistrationForm() {
                 <label htmlFor={fieldId("email")} className="text-sm font-semibold text-[var(--color-accent)]">
                   {t("emailFieldLabel")}
                 </label>
-                <input type="email" autoComplete="email" placeholder={t("emailFieldPlaceholder")} {...fieldProps("email")} />
+                <input
+                  type="email"
+                  autoComplete="email"
+                  placeholder={t("emailFieldPlaceholder")}
+                  {...fieldProps("email")}
+                />
                 {fieldError("email")}
               </div>
               <div className="flex flex-col gap-2">
@@ -249,7 +273,12 @@ export function RegistrationForm() {
 
             <div className="flex flex-col gap-2">
               <label className="text-sm font-semibold text-[var(--color-accent)]">{t("noteLabel")}</label>
-              <textarea rows={3} name="note" placeholder={t("notePlaceholder")} className={`${inputClasses} resize-none`} />
+              <textarea
+                rows={3}
+                name="note"
+                placeholder={t("notePlaceholder")}
+                className={`${inputClasses} resize-none`}
+              />
             </div>
 
             <button

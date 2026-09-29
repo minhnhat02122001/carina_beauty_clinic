@@ -3,6 +3,7 @@
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { useEffect, useId, useRef, useState } from "react";
 import { CircleCheckIcon } from "@/components/icons/circle-check";
+import { useScrollLock } from "@/lib/use-scroll-lock";
 
 const EXIT_MS = 170;
 
@@ -61,14 +62,7 @@ export function SuccessDialog({
     if (!open && dialog.open) dialog.close();
   }, [open]);
 
-  useEffect(() => {
-    if (!open) return;
-    const previousOverflow = document.documentElement.style.overflow;
-    document.documentElement.style.overflow = "hidden";
-    return () => {
-      document.documentElement.style.overflow = previousOverflow;
-    };
-  }, [open]);
+  useScrollLock(open);
 
   // Plays the exit animation first, then unmounts. The timeout matches EXIT_MS rather than Motion's
   // completion callback, which doesn't fire reliably for a staggered parent variant.
@@ -111,7 +105,15 @@ export function SuccessDialog({
             aria-label={closeLabel}
             className="absolute top-3 right-3 flex size-9 items-center justify-center rounded-full text-[var(--color-muted)] transition-colors hover:bg-[var(--color-background-alt)] hover:text-[var(--color-accent)]"
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true" className="size-5">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              aria-hidden="true"
+              className="size-5"
+            >
               <path d="M18 6 6 18M6 6l12 12" />
             </svg>
           </button>
@@ -129,7 +131,12 @@ export function SuccessDialog({
                 transition={{ duration: 1.3, ease: "easeOut", delay: 0.5, repeat: Infinity, repeatDelay: 1.9 }}
               />
             )}
-            <CircleCheckIcon size={48} loop={false} className="size-11 sm:size-12 [&>svg]:size-full" aria-hidden="true" />
+            <CircleCheckIcon
+              size={48}
+              loop={false}
+              className="size-11 sm:size-12 [&>svg]:size-full"
+              aria-hidden="true"
+            />
           </motion.span>
 
           <motion.h3

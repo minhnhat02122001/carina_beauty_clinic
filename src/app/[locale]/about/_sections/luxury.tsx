@@ -1,22 +1,9 @@
-import { Merriweather } from "next/font/google";
 import { getImageProps } from "next/image";
 import { useTranslations } from "next-intl";
-import BreathingText from "@/components/fancy/text/breathing-text";
+import { cn } from "@/lib/utils";
+import { sectionHeadingClasses } from "./section-heading";
 
-const PARAGRAPH_KEYS = [
-  "luxuryParagraph1",
-  "luxuryParagraph2",
-  "luxuryParagraph3",
-  "luxuryParagraph4",
-  "luxuryParagraph5",
-] as const;
-
-// BreathingText animates the wght axis, which only exists on the variable cut of
-// the heading font — the root layout loads Merriweather as static 400/700, where
-// font-variation-settings does nothing. Declared here so the extra file is
-// fetched on this page alone and every other heading on the site keeps rendering
-// exactly as before.
-const merriweatherVariable = Merriweather({ subsets: ["latin", "vietnamese"] });
+const POINT_KEYS = ["luxuryPoint1", "luxuryPoint2", "luxuryPoint3", "luxuryPoint4"] as const;
 
 // Two sizes of the same square photo, swapped by <picture> like the homepage
 // hero. These are the hero's own files: the facade shot is the same building at
@@ -54,31 +41,27 @@ export function Luxury() {
         <div className="flex flex-1 flex-col items-center gap-3 text-center sm:gap-4">
           {/* Heading and its subtitle are one unit, closer than the paragraph rhythm. */}
           <div className="flex flex-col items-center gap-1">
-            {/* Kept on one line from lg, where the text column is only ~432px at 1024px
-                and ~682px at 1440px. Merriweather uppercase runs ~0.61em per glyph, so
-                these 38 characters need ~23em — 30px would overflow at every PC width.
-                The breath tops out at 600, the weight this heading already had, so the
-                animation never makes the line wider than that fit allows. */}
-            <BreathingText
-              as="h2"
-              className={`${merriweatherVariable.className} text-base font-semibold text-[var(--color-accent)] sm:text-lg md:text-xl lg:text-lg lg:whitespace-nowrap xl:text-2xl`}
-              fromFontVariationSettings="'wght' 800"
-              toFontVariationSettings="'wght' 300"
-              transition={{ duration: 2, ease: "backInOut" }}
-              staggerDuration={0.03}
-              staggerFrom="first"
-            >
-              {t("luxuryHeading")}
-            </BreathingText>
+            {/* One step below the shared scale from lg: this is the only section heading in a
+                narrow side column rather than the full page width. cn() is what makes the
+                override win — two conflicting text sizes in one class list resolve by
+                Tailwind's own output order otherwise, not by the order written here. */}
+            <h2 className={cn(sectionHeadingClasses, "lg:text-4xl")}>{t("luxuryHeading")}</h2>
             <p className="font-serif text-xs text-[var(--color-gold)] italic sm:text-sm lg:text-base">
               {t("luxurySubtitle")}
             </p>
           </div>
-          {PARAGRAPH_KEYS.map((key) => (
-            <p key={key} className="text-xs leading-relaxed text-[rgba(99,43,14,0.7)] sm:text-sm lg:text-base">
-              {t(key)}
-            </p>
-          ))}
+          {/* w-full and text-justify override the centring this column applies to the
+              heading: justified copy needs the full measure, and a bulleted list reads
+              wrong centred. */}
+          <div className="flex w-full flex-col gap-2 text-justify text-xs leading-relaxed text-[rgba(99,43,14,0.7)] sm:gap-3 sm:text-sm lg:text-base">
+            <p>{t("luxuryLead")}</p>
+            <ul className="flex list-disc flex-col gap-1 pl-5 marker:text-[var(--color-accent)]">
+              {POINT_KEYS.map((key) => (
+                <li key={key}>{t(key)}</li>
+              ))}
+            </ul>
+            <p>{t("luxuryClosing")}</p>
+          </div>
         </div>
       </div>
     </section>

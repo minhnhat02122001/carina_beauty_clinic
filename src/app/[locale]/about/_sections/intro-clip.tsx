@@ -92,7 +92,7 @@ export function IntroClip({
   return (
     <div
       ref={containerRef}
-      className="group relative mx-auto aspect-[9/16] w-2/3 max-w-[280px] overflow-hidden rounded-2xl bg-[var(--color-background-alt)] sm:max-w-[320px] lg:w-full lg:max-w-[420px]"
+      className="group relative mx-auto aspect-[9/16] w-2/3 max-w-[280px] overflow-hidden rounded-2xl bg-[var(--color-background-alt)] sm:max-w-[320px] lg:w-full lg:max-w-[320px]"
     >
       {isPlayerMounted && (
         <iframe
@@ -126,7 +126,7 @@ export function IntroClip({
               fill
               priority
               className="object-cover transition-transform duration-300 group-hover:scale-110"
-              sizes="(min-width: 1024px) 420px, (min-width: 640px) 320px, 66vw"
+              sizes="(min-width: 640px) 320px, 66vw"
             />
           )}
           <span className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20" />

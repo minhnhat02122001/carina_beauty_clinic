@@ -81,9 +81,9 @@ export async function getAboutSettings(locale: Locale): Promise<AboutSettings> {
     introVideoThumbnailUrl: settings.introVideoThumbnail
       ? urlFor(settings.introVideoThumbnail).width(440).height(780).fit("crop").url()
       : null,
-    technologyImages: toImages(settings.technologyImages, 600),
+    technologyImages: toImages(settings.technologyImages, 1200),
     // Rendered with object-contain so review screenshots of any shape survive uncropped.
-    testimonialImages: toImages(settings.testimonialImages, 800),
+    testimonialImages: toImages(settings.testimonialImages, 1200),
     pressMentions: (settings.pressMentions ?? []).map((item) => ({
       key: item._key,
       title: item.title,

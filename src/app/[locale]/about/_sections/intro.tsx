@@ -9,10 +9,10 @@ export function Intro({ videoId, thumbnailUrl }: { videoId: string; thumbnailUrl
     <section className="bg-[var(--color-background-alt)] px-4 py-8 sm:px-6 md:px-10 lg:px-28 lg:py-12">
       <div className="mx-auto flex max-w-[1216px] flex-col gap-6 sm:gap-8 lg:flex-row lg:items-center lg:gap-12">
         <div className="flex flex-1 flex-col gap-3 sm:gap-4">
-          <p className="font-serif text-[10px] tracking-[2.4px] text-[var(--color-accent)] uppercase sm:text-xs">
+          <p className="font-serif text-[10px] font-bold tracking-[2.4px] text-[var(--color-gold)] uppercase sm:text-xs lg:text-sm">
             {t("introEyebrow")}
           </p>
-          <h1 className="text-xl leading-normal font-medium text-[var(--color-accent)] sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
+          <h1 className="text-xl leading-normal text-[var(--color-accent)] sm:text-2xl md:text-3xl lg:text-5xl">
             {t("introHeading")}
           </h1>
           <p className="text-xs leading-relaxed text-[rgba(99,43,14,0.7)] sm:text-sm lg:text-base">
