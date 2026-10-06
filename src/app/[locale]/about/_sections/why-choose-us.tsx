@@ -33,7 +33,7 @@ export function WhyChooseUs() {
         <div className="grid w-full grid-cols-2 gap-x-2 gap-y-5 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-0 lg:py-8">
           {ITEMS.map((item) => (
             <div key={item.titleKey} className="flex flex-col items-center gap-2 lg:gap-0">
-              <div className="relative mb-2 flex size-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-background-alt)] shadow-lg lg:mb-0 lg:size-20">
+              <div className="relative mb-2 flex size-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-background-alt)] shadow-lg md:mb-3 lg:mb-4 lg:size-20">
                 <span className="relative size-5 lg:size-10">
                   <Image src={item.icon} alt="" fill className="object-contain" sizes="40px" />
                 </span>

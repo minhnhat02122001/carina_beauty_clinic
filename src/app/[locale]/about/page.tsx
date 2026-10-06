@@ -4,7 +4,6 @@ import type { Locale } from "@/i18n/routing";
 import { localizedAlternates } from "@/lib/metadata";
 import { getAboutSettings } from "@/sanity/lib/about";
 import { getDoctorProfiles } from "@/sanity/lib/doctors";
-import { WhyChooseUs } from "../_home-sections/why-choose-us";
 import { RegistrationForm } from "../_home-sections/registration-form";
 import { BannerBlock } from "./_sections/banner-block";
 import { Closing } from "./_sections/closing";
@@ -14,6 +13,7 @@ import { Luxury } from "./_sections/luxury";
 import { Press } from "./_sections/press";
 import { Technology } from "./_sections/technology";
 import { Testimonials } from "./_sections/testimonials";
+import { WhyChooseUs } from "./_sections/why-choose-us";
 
 // The wide banners are static files, not Sanity uploads — the client drops the
 // final artwork at these paths and nothing else changes. Each slot needs two
@@ -52,13 +52,13 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <DoctorProfiles doctors={doctors} />
       <BannerBlock
         heading={t("privacyHeading")}
-        lines={[t("privacyLine1"), t("privacyLine2")]}
+        lines={[t("privacyLine")]}
         imageUrl={SPACE_BANNER}
         mobileImageUrl={SPACE_BANNER_MOBILE}
         imageAlt={t("privacyBannerAlt")}
       />
       <BannerBlock
-        lines={[t("personalizedLine1"), t("personalizedLine2")]}
+        lines={[t("personalizedLine")]}
         imageUrl={DOCTOR_CUSTOMER_BANNER}
         mobileImageUrl={DOCTOR_CUSTOMER_BANNER_MOBILE}
         imageAlt={t("personalizedBannerAlt")}

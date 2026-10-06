@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Carousel } from "@/components/carousel";
 import type { AboutPressMention } from "@/sanity/lib/about";
+import { sectionHeadingClasses } from "./section-heading";
 
 export function Press({ mentions }: { mentions: AboutPressMention[] }) {
   const t = useTranslations("About");
@@ -11,9 +12,7 @@ export function Press({ mentions }: { mentions: AboutPressMention[] }) {
   return (
     <section className="bg-[var(--color-background-alt)] px-4 py-8 sm:px-6 md:px-10 lg:px-28 lg:py-12">
       <div className="mx-auto flex max-w-[1216px] flex-col items-center gap-6 lg:gap-8">
-        <h2 className="text-center text-lg font-medium text-[var(--color-accent)] sm:text-xl md:text-2xl lg:text-4xl">
-          {t("pressHeading")}
-        </h2>
+        <h2 className={sectionHeadingClasses}>{t("pressHeading")}</h2>
 
         {/* No lightboxImages here — the cards are already links, and the Carousel
             would wrap each one in a button. */}

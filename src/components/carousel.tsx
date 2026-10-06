@@ -3,6 +3,7 @@
 import { X } from "lucide-react";
 import { ChevronLeftIcon } from "@/components/icons/chevron-left";
 import { ChevronRightIcon } from "@/components/icons/chevron-right";
+import { useScrollLock } from "@/lib/use-scroll-lock";
 import Image from "next/image";
 import { Children, useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
@@ -34,25 +35,10 @@ function ImageLightbox({
       if (e.key === "ArrowRight" && images.length > 1) onIndexChange((index + 1) % images.length);
     }
     document.addEventListener("keydown", handleKeyDown);
-
-    // `overflow: hidden` alone doesn't block touch-driven scroll on iOS
-    // Safari — pinning the body via `position: fixed` does.
-    const scrollY = window.scrollY;
-    const { style } = document.body;
-    style.position = "fixed";
-    style.top = `-${scrollY}px`;
-    style.left = "0";
-    style.right = "0";
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      style.position = "";
-      style.top = "";
-      style.left = "";
-      style.right = "";
-      window.scrollTo(0, scrollY);
-    };
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [onClose, onIndexChange, index, images.length]);
+
+  useScrollLock();
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4" onClick={onClose}>

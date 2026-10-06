@@ -4,10 +4,21 @@ import SimpleMarquee from "@/components/fancy/blocks/simple-marquee";
 import type { AboutImage } from "@/sanity/lib/about";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { sectionHeadingClasses } from "./section-heading";
 
 function MarqueeRow({ images, direction }: { images: AboutImage[]; direction: "left" | "right" }) {
   return (
-    <SimpleMarquee className="w-full" direction={direction} baseVelocity={5} slowdownOnHover draggable grabCursor>
+    // dragSensitivity well under the component's 0.2 default: the row drifts at baseVelocity 1,
+    // so a drag at the default rate shoots past the idle speed and the two read as different rows.
+    <SimpleMarquee
+      className="w-full"
+      direction={direction}
+      baseVelocity={1}
+      dragSensitivity={0.05}
+      slowdownOnHover
+      draggable
+      grabCursor
+    >
       {images.map((image) => (
         <div
           key={image.key}
@@ -42,9 +53,7 @@ export function Closing({ images }: { images: AboutImage[] }) {
         {/* The rows are wider than the screen by design, so they are clipped here
             rather than letting them push the page into horizontal scroll. */}
         <div className="flex flex-col items-center gap-1 px-4 sm:gap-2 sm:px-6">
-          <h2 className="text-center text-lg font-medium text-[var(--color-accent)] sm:text-xl md:text-2xl lg:text-4xl">
-            {t("closingWordmark")}
-          </h2>
+          <h2 className={sectionHeadingClasses}>{t("closingWordmark")}</h2>
           <p className="text-center font-serif text-xs text-[rgba(99,43,14,0.7)] italic sm:text-sm lg:text-lg">
             {t("closingTagline")}
           </p>
