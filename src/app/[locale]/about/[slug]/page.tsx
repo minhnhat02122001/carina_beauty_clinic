@@ -14,7 +14,11 @@ export default async function DoctorDetailPage({ params }: { params: Promise<{ l
   return (
     <div>
       <div className="mx-auto max-w-4xl px-4 sm:px-0">
-        <Link href="/about" className="mt-8 inline-block text-sm font-bold text-[var(--color-accent-bright)]">
+        <Link
+          href={{ pathname: "/about", hash: "doctors" }}
+          scroll={false}
+          className="mt-8 inline-block text-sm font-bold text-[var(--color-accent-bright)]"
+        >
           {t("backToList")}
         </Link>
       </div>

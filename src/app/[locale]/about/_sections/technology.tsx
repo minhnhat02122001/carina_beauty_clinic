@@ -7,8 +7,8 @@ import { sectionHeadingClasses } from "./section-heading";
 
 // Placeholders until the client supplies the real composite banner — dropping the
 // final files at these same paths is the whole swap.
-const BANNER_SRC = "/images/about/technology-banner-desktop.jpg";
-const BANNER_MOBILE_SRC = "/images/about/technology-banner-mobile.jpg";
+const BANNER_SRC = "/images/about/technology-banner-desktop.png";
+const BANNER_MOBILE_SRC = "/images/about/technology-banner-mobile.png";
 
 export function Technology({ images }: { images: AboutImage[] }) {
   const t = useTranslations("About");

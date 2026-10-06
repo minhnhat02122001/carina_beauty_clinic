@@ -60,7 +60,6 @@ export function Luxury() {
                 <li key={key}>{t(key)}</li>
               ))}
             </ul>
-            <p>{t("luxuryClosing")}</p>
           </div>
         </div>
       </div>

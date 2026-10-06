@@ -47,10 +47,23 @@ function DoctorBio({ introduction }: { introduction: PortableTextBlock[] }) {
 export function DoctorProfiles({ doctors }: { doctors: DoctorProfile[] }) {
   const t = useTranslations("About");
 
+  // Links here pass scroll={false}, so Next leaves the scroll position alone
+  // and this animates into the section instead of jumping to the anchor. The
+  // reset to the top first is what makes the travel visible: without it an
+  // inbound scroll position near the section turns the animation into a nudge.
+  useEffect(() => {
+    if (window.location.hash !== "#doctors") return;
+    window.scrollTo({ top: 0, behavior: "instant" });
+    document.getElementById("doctors")?.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
   if (doctors.length === 0) return null;
 
   return (
-    <section className="bg-[var(--color-background-alt)] px-4 py-8 sm:px-6 md:px-10 lg:px-28 lg:py-12">
+    <section
+      id="doctors"
+      className="scroll-mt-20 bg-[var(--color-background-alt)] px-4 py-8 sm:px-6 md:px-10 lg:px-28 lg:py-12"
+    >
       <div className="mx-auto flex max-w-[1216px] flex-col items-center gap-8 sm:gap-10 lg:gap-12">
         <h2 className={sectionHeadingClasses}>{t("doctorsHeading")}</h2>
 

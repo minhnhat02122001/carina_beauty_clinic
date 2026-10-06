@@ -8,7 +8,17 @@ import { sectionHeadingClasses } from "./section-heading";
 
 function MarqueeRow({ images, direction }: { images: AboutImage[]; direction: "left" | "right" }) {
   return (
-    <SimpleMarquee className="w-full" direction={direction} baseVelocity={2} slowdownOnHover draggable grabCursor>
+    // dragSensitivity well under the component's 0.2 default: the row drifts at baseVelocity 1,
+    // so a drag at the default rate shoots past the idle speed and the two read as different rows.
+    <SimpleMarquee
+      className="w-full"
+      direction={direction}
+      baseVelocity={1}
+      dragSensitivity={0.05}
+      slowdownOnHover
+      draggable
+      grabCursor
+    >
       {images.map((image) => (
         <div
           key={image.key}
