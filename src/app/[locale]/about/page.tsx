@@ -58,6 +58,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         imageAlt={t("privacyBannerAlt")}
       />
       <BannerBlock
+        heading={t("personalizedHeading")}
         lines={[t("personalizedLine")]}
         imageUrl={DOCTOR_CUSTOMER_BANNER}
         mobileImageUrl={DOCTOR_CUSTOMER_BANNER_MOBILE}
