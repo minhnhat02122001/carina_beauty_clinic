@@ -1,4 +1,9 @@
 import { useTranslations } from "next-intl";
+import type { Locale } from "@/i18n/routing";
+import { headingMetadata } from "@/lib/metadata";
+
+export const generateMetadata = ({ params }: { params: Promise<{ locale: Locale }> }) =>
+  headingMetadata(params, "Booking", "/booking");
 
 export default function BookingPage() {
   const t = useTranslations("Booking");

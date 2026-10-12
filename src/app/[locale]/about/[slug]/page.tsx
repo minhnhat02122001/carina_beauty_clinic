@@ -4,6 +4,24 @@ import type { Locale } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import { getDoctorBySlug } from "@/sanity/lib/doctors";
 import { DoctorDetailView } from "@/components/doctors/doctor-detail";
+import type { Metadata } from "next";
+import { localizedAlternates } from "@/lib/metadata";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale; slug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const doctor = await getDoctorBySlug(slug, locale);
+  if (!doctor) return {};
+
+  return {
+    title: doctor.name,
+    alternates: localizedAlternates(locale, { pathname: "/about/[slug]", params: { slug } }),
+    openGraph: { title: doctor.name, images: doctor.imageUrls.slice(0, 1) },
+  };
+}
 
 export default async function DoctorDetailPage({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug } = await params;

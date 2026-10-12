@@ -1,5 +1,10 @@
 import { useTranslations } from "next-intl";
 import { PolicyBulletList, PolicyContactBlock, PolicyPage, PolicySection, PolicyText } from "@/components/policy-page";
+import type { Locale } from "@/i18n/routing";
+import { headingMetadata } from "@/lib/metadata";
+
+export const generateMetadata = ({ params }: { params: Promise<{ locale: Locale }> }) =>
+  headingMetadata(params, "MediaPolicy", "/media-policy");
 
 export default function MediaPolicyPage() {
   const t = useTranslations("MediaPolicy");
