@@ -45,7 +45,6 @@
   --font-serif: var(--font-merriweather);
   --font-script: var(--font-script);
   --font-cormorant: var(--font-cormorant);
-  --font-mono: var(--font-geist-mono);
   --animate-backdrop-in: backdrop-in 150ms ease-out;
   --animate-backdrop-out: backdrop-out 150ms ease-in forwards;
 }

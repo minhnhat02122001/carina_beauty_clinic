@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat, Merriweather, Geist_Mono, Cormorant_Garamond } from "next/font/google";
+import { Montserrat, Merriweather, Cormorant_Garamond } from "next/font/google";
 import localFont from "next/font/local";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -21,11 +21,6 @@ const merriweather = Merriweather({
   variable: "--font-merriweather",
   subsets: ["latin", "vietnamese"],
   weight: ["400", "700"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
 });
 
 const cormorantGaramond = Cormorant_Garamond({
@@ -91,7 +86,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${montserrat.variable} ${merriweather.variable} ${geistMono.variable} ${fairyland.variable} ${cormorantGaramond.variable} h-full antialiased`}
+      className={`${montserrat.variable} ${merriweather.variable} ${fairyland.variable} ${cormorantGaramond.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider>
