@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { SendIcon } from "@/components/icons/send";
+import { LEAD_FIELD_LIMITS } from "@/lib/lead-limits";
 import { ServiceCombobox } from "./service-combobox";
 import { ScheduleDateField, displayDateToIso, todayIsoDate } from "./schedule-date-field";
 import { SuccessDialog } from "./success-dialog";
@@ -213,6 +214,7 @@ export function RegistrationForm() {
                   type="text"
                   autoComplete="name"
                   required
+                  maxLength={LEAD_FIELD_LIMITS.name}
                   placeholder={t("namePlaceholder")}
                   {...fieldProps("name")}
                 />
@@ -226,6 +228,7 @@ export function RegistrationForm() {
                   type="tel"
                   autoComplete="tel"
                   required
+                  maxLength={LEAD_FIELD_LIMITS.phone}
                   placeholder={t("phoneFieldPlaceholder")}
                   {...fieldProps("phone")}
                 />
@@ -253,6 +256,7 @@ export function RegistrationForm() {
                 <input
                   type="email"
                   autoComplete="email"
+                  maxLength={LEAD_FIELD_LIMITS.email}
                   placeholder={t("emailFieldPlaceholder")}
                   {...fieldProps("email")}
                 />
@@ -276,6 +280,7 @@ export function RegistrationForm() {
               <textarea
                 rows={3}
                 name="note"
+                maxLength={LEAD_FIELD_LIMITS.note}
                 placeholder={t("notePlaceholder")}
                 className={`${inputClasses} resize-none`}
               />

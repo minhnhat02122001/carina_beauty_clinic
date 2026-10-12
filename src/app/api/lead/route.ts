@@ -1,4 +1,5 @@
 import { NextResponse, after } from "next/server";
+import { LEAD_FIELD_LIMITS, MAX_SERVICE_LENGTH, MAX_SERVICES } from "@/lib/lead-limits";
 import { sendLeadNotification, type LeadNotification } from "@/lib/lead-notification";
 
 const HUBSPOT_CONTACTS_URL = "https://api.hubapi.com/crm/v3/objects/contacts";
@@ -107,6 +108,19 @@ export async function POST(request: Request) {
   const phone = payload.phone?.trim();
   if (!name || !phone) {
     return NextResponse.json({ error: "missing_required_fields" }, { status: 400 });
+  }
+
+  // Every accepted lead lands in HubSpot and in the clinic's inbox, so cap what a scripted request can push there.
+  const tooLong =
+    name.length > LEAD_FIELD_LIMITS.name ||
+    phone.length > LEAD_FIELD_LIMITS.phone ||
+    (payload.email?.length ?? 0) > LEAD_FIELD_LIMITS.email ||
+    (payload.note?.length ?? 0) > LEAD_FIELD_LIMITS.note ||
+    (Array.isArray(payload.services) &&
+      (payload.services.length > MAX_SERVICES ||
+        payload.services.some((service) => typeof service === "string" && service.length > MAX_SERVICE_LENGTH)));
+  if (tooLong) {
+    return NextResponse.json({ error: "field_too_long" }, { status: 400 });
   }
 
   const properties: Record<string, string> = {
