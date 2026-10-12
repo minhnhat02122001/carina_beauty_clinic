@@ -32,7 +32,7 @@ const cormorantGaramond = Cormorant_Garamond({
 // Figma's "1FTV VIP Fairyland" — a proprietary Vietnamese script font,
 // self-hosted from public/fonts since it isn't on Google Fonts.
 const fairyland = localFont({
-  src: "../../../public/fonts/1FTV-VIP-Fairyland.otf",
+  src: "../../../public/fonts/1FTV-VIP-Fairyland.woff2",
   variable: "--font-script",
   display: "swap",
 });
