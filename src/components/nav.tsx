@@ -3,7 +3,8 @@
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Link } from "@/i18n/navigation";
 import type { NavigationSettings } from "@/sanity/lib/nav";
-import { treatmentHref, type TreatmentCategory, type TreatmentSubgroupGroup } from "@/sanity/lib/service";
+import type { TreatmentCategory, TreatmentSubgroupGroup } from "@/sanity/lib/service";
+import { treatmentHref } from "@/sanity/lib/treatmentCategories";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";

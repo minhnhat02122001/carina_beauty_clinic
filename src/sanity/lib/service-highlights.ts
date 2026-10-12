@@ -1,4 +1,4 @@
-import { treatmentHref } from "./service";
+import { treatmentHref } from "./treatmentCategories";
 import { TREATMENT_CATEGORIES, type NavigationSettingsKey } from "./treatmentCategories";
 import { client } from "./client";
 import { urlFor } from "./image";

@@ -85,40 +85,6 @@ export function toSummary(item: RawTreatmentSummary): TreatmentSummary {
   };
 }
 
-export function treatmentHref(category: TreatmentCategory, slug: string) {
-  switch (category) {
-    case "exclusive":
-      return { pathname: "/services/exclusive/[slug]", params: { slug } } as const;
-    case "lifting-rejuvenation":
-      return { pathname: "/services/lifting-rejuvenation/[slug]", params: { slug } } as const;
-    case "skin-therapy":
-      return { pathname: "/services/skin-therapy/[slug]", params: { slug } } as const;
-    case "rejuvenation-injections":
-      return { pathname: "/services/rejuvenation-injections/[slug]", params: { slug } } as const;
-    case "body-care":
-      return { pathname: "/services/body-care/[slug]", params: { slug } } as const;
-    case "skin-care":
-      return { pathname: "/services/skin-care/[slug]", params: { slug } } as const;
-  }
-}
-
-export function categoryRootHref(category: TreatmentCategory) {
-  switch (category) {
-    case "exclusive":
-      return "/services/exclusive" as const;
-    case "lifting-rejuvenation":
-      return "/services/lifting-rejuvenation" as const;
-    case "skin-therapy":
-      return "/services/skin-therapy" as const;
-    case "rejuvenation-injections":
-      return "/services/rejuvenation-injections" as const;
-    case "body-care":
-      return "/services/body-care" as const;
-    case "skin-care":
-      return "/services/skin-care" as const;
-  }
-}
-
 // Category membership/order/subgrouping now lives entirely on the
 // navigationSettings singleton (src/sanity/lib/nav.ts) — a treatment document
 // no longer knows which categories it belongs to. Field names can't be

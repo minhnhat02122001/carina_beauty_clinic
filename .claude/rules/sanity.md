@@ -42,7 +42,9 @@ Other conventions:
   đ/Đ (NFD normalization alone leaves đ intact).
 - `src/sanity/lib/treatmentCategories.ts` is the single source of truth for the
   6 fixed treatment categories. Adding one also requires new routes and new
-  cases in `treatmentHref`/`categoryRootHref` in `service.ts`.
+  cases in its `treatmentHref`/`categoryRootHref`. It must never import the
+  Sanity `client` — client components import those helpers from it, so anything
+  it pulls in ships to the browser on every page.
 
 ## Caching and images
 

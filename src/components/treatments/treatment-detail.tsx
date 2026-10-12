@@ -2,7 +2,8 @@
 
 import { Carousel } from "@/components/carousel";
 import { Link } from "@/i18n/navigation";
-import { categoryRootHref, treatmentHref, type TreatmentCategory, type TreatmentDetail } from "@/sanity/lib/service";
+import type { TreatmentCategory, TreatmentDetail } from "@/sanity/lib/service";
+import { categoryRootHref, treatmentHref } from "@/sanity/lib/treatmentCategories";
 import Image from "next/image";
 import { RegistrationForm } from "../../app/[locale]/_home-sections/registration-form";
 import { Section } from "./section";
