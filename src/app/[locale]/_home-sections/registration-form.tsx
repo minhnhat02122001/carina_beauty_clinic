@@ -134,6 +134,7 @@ export function RegistrationForm() {
       setServices([]);
       setErrors({});
       setStatus("success");
+      (window as Window & { dataLayer?: unknown[] }).dataLayer?.push({ event: "lead_submit" });
       mountedAtRef.current = Date.now();
     } catch {
       setStatus("error");
