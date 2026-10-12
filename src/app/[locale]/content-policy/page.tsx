@@ -8,6 +8,11 @@ import {
   PolicyText,
 } from "@/components/policy-page";
 import { ProcessSteps } from "./process-steps";
+import type { Locale } from "@/i18n/routing";
+import { headingMetadata } from "@/lib/metadata";
+
+export const generateMetadata = ({ params }: { params: Promise<{ locale: Locale }> }) =>
+  headingMetadata(params, "ContentPolicy", "/content-policy");
 
 export default function ContentPolicyPage() {
   const t = useTranslations("ContentPolicy");

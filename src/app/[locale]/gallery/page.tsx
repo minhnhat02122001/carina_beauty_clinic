@@ -1,4 +1,9 @@
 import { useTranslations } from "next-intl";
+import type { Locale } from "@/i18n/routing";
+import { headingMetadata } from "@/lib/metadata";
+
+export const generateMetadata = ({ params }: { params: Promise<{ locale: Locale }> }) =>
+  headingMetadata(params, "Gallery", "/gallery");
 
 export default function GalleryPage() {
   const t = useTranslations("Gallery");

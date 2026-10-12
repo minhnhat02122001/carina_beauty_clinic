@@ -2,6 +2,10 @@ import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { getTreatmentsByCategory } from "@/sanity/lib/service";
 import { TreatmentList } from "@/components/treatments/treatment-list";
+import { headingMetadata } from "@/lib/metadata";
+
+export const generateMetadata = ({ params }: { params: Promise<{ locale: Locale }> }) =>
+  headingMetadata(params, "ServiceSkinTherapy", "/services/skin-therapy");
 
 export default async function ServiceSkinTherapyPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;

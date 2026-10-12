@@ -15,6 +15,13 @@ import { StrategicPartners } from "./_home-sections/strategic-partners";
 import { FeaturedEvents } from "./_home-sections/featured-events";
 import { BeautyKnowledgeHome } from "./_home-sections/beauty-knowledge";
 import { RegistrationForm } from "./_home-sections/registration-form";
+import { localizedAlternates } from "@/lib/metadata";
+import type { Metadata } from "next";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return { alternates: localizedAlternates(locale, "/") };
+}
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
