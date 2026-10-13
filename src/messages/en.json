@@ -447,5 +447,10 @@
     "socialZalo": "Zalo",
     "disclaimer": "All information, images, and videos on this Website are the property of Carina Beauty Clinic. No party may quote or use them without Carina's permission, in any form!",
     "copyright": "2026 © Carina Beauty Clinic. All Right Reserved."
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "body": "The page you are looking for doesn't exist or has moved.",
+    "home": "Back to home"
   }
 }
