@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat, Merriweather, Cormorant_Garamond } from "next/font/google";
 import localFont from "next/font/local";
+import Script from "next/script";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -36,6 +37,15 @@ const fairyland = localFont({
   variable: "--font-script",
   display: "swap",
 });
+
+// One GTM container stands in for every marketing tag: the Facebook Pixel and
+// anything after it is added from the GTM UI, so a new tag needs no redeploy.
+// Unset (dev, previews) renders nothing rather than loading an empty container.
+const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+
+// Any other first segment (e.g. /robots.txt, /.env — dotted paths skip the proxy) 404s before rendering,
+// instead of rendering the static layout with a bogus locale and failing as a 500.
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -89,6 +99,23 @@ export default async function LocaleLayout({
       className={`${montserrat.variable} ${merriweather.variable} ${fairyland.variable} ${cormorantGaramond.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        {gtmId && (
+          <>
+            <Script
+              id="gtm"
+              strategy="afterInteractive"
+            >{`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmId}');`}</Script>
+            <noscript>
+              <iframe
+                src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+                title="Google Tag Manager"
+                height="0"
+                width="0"
+                style={{ display: "none", visibility: "hidden" }}
+              />
+            </noscript>
+          </>
+        )}
         <NextIntlClientProvider>
           <Nav navigationSettings={navigationSettings} />
           <main className="flex-1">{children}</main>

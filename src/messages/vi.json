@@ -447,5 +447,10 @@
     "socialZalo": "Zalo",
     "disclaimer": "Toàn bộ thông tin, hình ảnh, video trên Website này thuộc quyền sở hữu của Carina Beauty Clinic. Không bên nào có quyền tự ý trích dẫn, sử dụng khi chưa được Carina cho phép dưới mọi hình thức!",
     "copyright": "2026 © Carina Beauty Clinic. All Right Reserved."
+  },
+  "NotFound": {
+    "title": "Không tìm thấy trang",
+    "body": "Trang bạn tìm không tồn tại hoặc đã được chuyển đi.",
+    "home": "Về trang chủ"
   }
 }
