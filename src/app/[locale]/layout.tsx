@@ -43,6 +43,10 @@ const fairyland = localFont({
 // Unset (dev, previews) renders nothing rather than loading an empty container.
 const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
 
+// Any other first segment (e.g. /robots.txt, /.env — dotted paths skip the proxy) 404s before rendering,
+// instead of rendering the static layout with a bogus locale and failing as a 500.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
