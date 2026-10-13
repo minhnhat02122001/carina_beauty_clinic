@@ -22,5 +22,13 @@ in HubSpot is the end of the flow.
   HubSpot UI. If HubSpot rejects them, the route strips them and appends their
   values to the built-in `message` property rather than losing the lead.
 
+## Rate limit lives in Vercel, not in the code
+
+A Vercel Firewall rule named "Rate limit lead form" caps `/api/lead` at 10
+requests per 60 s per IP (the 11th gets `429`). It's set in the Vercel
+dashboard (Firewall), so nothing in this repo shows it — don't add a second
+limiter in the route. It's deliberately looser than 5 per 10 min because
+Vietnamese mobile carriers put many customers behind one shared IP.
+
 Only `name` and `phone` are required. `scheduleDate` must match `YYYY-MM-DD` or
 it is dropped.

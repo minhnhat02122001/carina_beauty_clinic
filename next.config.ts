@@ -2,6 +2,11 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
+  experimental: {
+    // The root layout is the dynamic [locale] segment, so unknown paths need a 404 that renders outside it.
+    globalNotFound: true,
+  },
   images: {
     remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],
     qualities: [75, 90],

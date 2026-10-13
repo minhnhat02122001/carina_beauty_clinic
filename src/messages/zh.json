@@ -437,5 +437,10 @@
     "socialZalo": "Zalo",
     "disclaimer": "本网站所有信息、图片及视频均归Carina Beauty Clinic所有。未经Carina许可,任何一方不得以任何形式引用或使用!",
     "copyright": "2026 © Carina Beauty Clinic. 版权所有。"
+  },
+  "NotFound": {
+    "title": "页面未找到",
+    "body": "您要查找的页面不存在或已被移动。",
+    "home": "返回首页"
   }
 }
