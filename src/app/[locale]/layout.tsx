@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat, Merriweather, Cormorant_Garamond } from "next/font/google";
 import localFont from "next/font/local";
-import Script from "next/script";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -98,23 +97,30 @@ export default async function LocaleLayout({
       lang={locale}
       className={`${montserrat.variable} ${merriweather.variable} ${fairyland.variable} ${cormorantGaramond.variable} h-full antialiased`}
     >
+      <head>
+        {gtmId && (
+          // A plain <script>, not next/script or @next/third-parties (built on it): every next/script strategy
+          // ships the snippet inside Next's own loader payload, so Search Console's GTM verification can't find
+          // it in <head> and fails with "snippet in the wrong location".
+          // eslint-disable-next-line @next/next/next-script-for-ga
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmId}');`,
+            }}
+          />
+        )}
+      </head>
       <body className="flex min-h-full flex-col">
         {gtmId && (
-          <>
-            <Script
-              id="gtm"
-              strategy="afterInteractive"
-            >{`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmId}');`}</Script>
-            <noscript>
-              <iframe
-                src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
-                title="Google Tag Manager"
-                height="0"
-                width="0"
-                style={{ display: "none", visibility: "hidden" }}
-              />
-            </noscript>
-          </>
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+              title="Google Tag Manager"
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+            />
+          </noscript>
         )}
         <NextIntlClientProvider>
           <Nav navigationSettings={navigationSettings} />
