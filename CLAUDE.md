@@ -59,6 +59,14 @@ This Next version diverges from training data: `src/proxy.ts` replaces the
 `node_modules/next/dist/docs/` before relying on remembered APIs (see
 `AGENTS.md`).
 
+## Git
+
+Never create a branch, commit, push, or open/merge a PR on your own initiative —
+only when the user asks for that step in so many words. Finish the change, leave
+it uncommitted in the working tree, and say what's ready. Permission covers only
+the step named: "commit" is not "push", and one approval doesn't carry over to
+the next change.
+
 ## Rules
 
 @.claude/rules/code-style.md
