@@ -5,6 +5,9 @@ import { defineRouting } from "next-intl/routing";
 export const routing = defineRouting({
   locales: ["vi", "en", "zh"],
   defaultLocale: "vi",
+  // The bare domain must always open in Vietnamese. With detection on, an English- or Chinese-language
+  // browser (or a stale NEXT_LOCALE cookie) was redirected from / to /en or /zh instead.
+  localeDetection: false,
   pathnames: {
     "/": "/",
     "/about": { vi: "/ve-chung-toi" },
