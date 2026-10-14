@@ -11,7 +11,10 @@
   darkening, and its `prefers-color-scheme: dark` block re-asserts the same
   light values on purpose — that is not a copy-paste mistake, so don't "fix"
   it into a dark theme.
-- Path alias `@/*` maps to `src/*` (see `tsconfig.json`).
+- Components never run GROQ — they receive view models from the
+  `src/sanity/lib/` query modules as props.
+- Portable Text is styled only in `createPortableTextComponents()`
+  (`src/components/portable-text-components.tsx`), never at a call site.
 - No comments explaining what code does — only for non-obvious _why_
   (a workaround, a hidden constraint).
 

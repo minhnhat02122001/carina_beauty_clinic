@@ -1,16 +1,17 @@
+---
+paths:
+  - "src/sanity/**"
+  - "sanity.config.ts"
+  - "src/app/studio/**"
+  - "src/components/portable-text-components.tsx"
+---
+
 # Sanity Content Layer
 
 All editorial content lives in Sanity, edited through a Studio mounted at
 `/studio` (`sanity.config.ts`, `src/app/studio/`).
 
 ## Schemas
-
-`src/sanity/schemaTypes/`, registered in `index.ts`: `post`, `treatment`,
-`doctor`, `video`, `heroBanner`, `equipmentItem`, plus two singletons —
-`navigationSettings` and `serviceHighlightsSettings`. The singletons have their
-create/delete actions stripped in `sanity.config.ts` and are pinned into a
-"Cài Đặt" group by `src/sanity/structure.ts`; everything else is listed
-alphabetically below it.
 
 Studio labels and descriptions are authored in **Vietnamese** — match that when
 adding fields.
@@ -50,7 +51,6 @@ Other conventions:
 
 `export const revalidate = 60` on `src/app/[locale]/layout.tsx` covers every
 page under it, so published edits appear within a minute without a redeploy.
-`next.config.ts` allowlists `cdn.sanity.io` for `next/image`.
 
 ## Portable Text
 

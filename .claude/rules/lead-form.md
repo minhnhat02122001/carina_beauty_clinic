@@ -1,3 +1,11 @@
+---
+paths:
+  - "src/app/api/lead/**"
+  - "src/app/api/services/**"
+  - "src/app/*/_home-sections/registration-form.tsx"
+  - "src/lib/lead-notification.ts"
+---
+
 # Registration Form / Lead Capture
 
 The registration form (`src/app/[locale]/_home-sections/registration-form.tsx`,
