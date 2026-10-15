@@ -26,7 +26,7 @@ export function PostList({
             {post.imageUrl && (
               <Image
                 src={post.imageUrl}
-                alt=""
+                alt={post.title}
                 fill
                 className="object-cover transition group-hover:scale-105"
                 sizes="(min-width: 1024px) 380px, (min-width: 640px) 45vw, 100vw"
@@ -36,9 +36,7 @@ export function PostList({
           <div className="flex flex-col gap-1">
             <p className="text-xs text-[var(--color-muted)]">{post.date}</p>
             <h2 className="text-base font-bold text-[var(--color-accent)] lg:text-lg">{post.title}</h2>
-            {post.excerpt && (
-              <p className="line-clamp-2 text-sm text-[var(--foreground)] opacity-70">{post.excerpt}</p>
-            )}
+            {post.excerpt && <p className="line-clamp-2 text-sm text-[var(--foreground)] opacity-70">{post.excerpt}</p>}
           </div>
         </Link>
       ))}

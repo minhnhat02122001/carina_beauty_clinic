@@ -4,6 +4,7 @@ import Image, { getImageProps } from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { scrollToRegistrationForm } from "@/lib/scroll-to-registration-form";
+import { CLINIC_NAME } from "@/lib/clinic";
 
 function Stat({ value, label, isMobileLeftColumn }: { value: string; label: string; isMobileLeftColumn: boolean }) {
   return (
@@ -43,6 +44,7 @@ const {
 
 export function Hero() {
   const t = useTranslations("Hero");
+  const tAbout = useTranslations("About");
 
   return (
     <section className="bg-[var(--color-background-alt)]">
@@ -52,7 +54,7 @@ export function Hero() {
             {t("badge")}
           </span>
           <span className="relative h-24 w-24 sm:h-32 sm:w-32 lg:h-[227px] lg:w-[231px]">
-            <Image src="/images/logo/logo-icon.png" alt="" fill className="object-contain" sizes="231px" />
+            <Image src="/images/logo/logo-icon.png" alt={CLINIC_NAME} fill className="object-contain" sizes="231px" />
           </span>
           <p className="font-script text-5xl leading-tight text-[var(--color-gold)] lg:text-[76px]">
             {t("scriptHeading")}
@@ -95,7 +97,7 @@ export function Hero() {
               {...heroMobileImgProps}
               srcSet={heroMobileSrcSet}
               sizes="100vw"
-              alt=""
+              alt={tAbout("facadeAlt")}
               className="absolute inset-0 h-full w-full object-cover"
             />
           </picture>

@@ -43,11 +43,18 @@ export function Technology({ images }: { images: AboutImage[] }) {
             nextLabel={t("scrollNext")}
             itemsPerView={{ base: 2, lg: 4 }}
             lightboxImages={images.map((image) => image.url)}
+            lightboxAlt={t("techImageAlt")}
             lightboxCloseLabel={t("lightboxClose")}
           >
             {images.map((image) => (
               <div key={image.key} className="relative aspect-square w-full overflow-hidden rounded-xl">
-                <Image src={image.url} alt="" fill className="object-cover" sizes="(min-width: 1024px) 280px, 45vw" />
+                <Image
+                  src={image.url}
+                  alt={t("techImageAlt")}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 1024px) 280px, 45vw"
+                />
               </div>
             ))}
           </Carousel>

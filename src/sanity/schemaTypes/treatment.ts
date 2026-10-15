@@ -1,5 +1,6 @@
 import { slugify } from "@/lib/slugify";
 import { defineArrayMember, defineField, defineType } from "sanity";
+import { bodyImage } from "./body-image";
 
 export const treatment = defineType({
   name: "treatment",
@@ -25,7 +26,7 @@ export const treatment = defineType({
       title: "Mô tả",
       type: "array",
       group: "vietnamese",
-      of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+      of: [{ type: "block" }, bodyImage],
     }),
     defineField({ name: "nameEn", title: "Tên (Tiếng Anh)", type: "string", group: "english" }),
     defineField({
@@ -33,7 +34,7 @@ export const treatment = defineType({
       title: "Mô tả (Tiếng Anh)",
       type: "array",
       group: "english",
-      of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+      of: [{ type: "block" }, bodyImage],
     }),
     defineField({ name: "nameZh", title: "Tên (Tiếng Trung)", type: "string", group: "chinese" }),
     defineField({
@@ -41,7 +42,7 @@ export const treatment = defineType({
       title: "Mô tả (Tiếng Trung)",
       type: "array",
       group: "chinese",
-      of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+      of: [{ type: "block" }, bodyImage],
     }),
     defineField({
       name: "images",
@@ -63,7 +64,12 @@ export const treatment = defineType({
           type: "object",
           name: "treatmentCriterion",
           fields: [
-            defineField({ name: "label", title: "Tên tiêu chí", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({
+              name: "label",
+              title: "Tên tiêu chí",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
             defineField({ name: "labelEn", title: "Tên tiêu chí (Tiếng Anh)", type: "string" }),
             defineField({ name: "labelZh", title: "Tên tiêu chí (Tiếng Trung)", type: "string" }),
             defineField({ name: "value", title: "Giá trị", type: "string", validation: (Rule) => Rule.required() }),
@@ -86,26 +92,31 @@ export const treatment = defineType({
           type: "object",
           name: "treatmentSection",
           fields: [
-            defineField({ name: "heading", title: "Tiêu đề mục", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({
+              name: "heading",
+              title: "Tiêu đề mục",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
             defineField({ name: "headingEn", title: "Tiêu đề mục (Tiếng Anh)", type: "string" }),
             defineField({ name: "headingZh", title: "Tiêu đề mục (Tiếng Trung)", type: "string" }),
             defineField({
               name: "body",
               title: "Nội dung",
               type: "array",
-              of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+              of: [{ type: "block" }, bodyImage],
             }),
             defineField({
               name: "bodyEn",
               title: "Nội dung (Tiếng Anh)",
               type: "array",
-              of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+              of: [{ type: "block" }, bodyImage],
             }),
             defineField({
               name: "bodyZh",
               title: "Nội dung (Tiếng Trung)",
               type: "array",
-              of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+              of: [{ type: "block" }, bodyImage],
             }),
           ],
           preview: { select: { title: "heading" } },

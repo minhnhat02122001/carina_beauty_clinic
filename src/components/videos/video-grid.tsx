@@ -34,7 +34,7 @@ export function VideoGrid({
                 {video.thumbnailUrl && (
                   <Image
                     src={video.thumbnailUrl}
-                    alt=""
+                    alt={video.caption}
                     fill
                     className="object-cover transition-transform duration-300 group-hover:scale-110"
                     sizes="(min-width: 1024px) 280px, (min-width: 640px) 33vw, 50vw"
@@ -43,7 +43,13 @@ export function VideoGrid({
                 <span className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20" />
                 <span className="absolute top-1/2 left-1/2 flex size-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[rgba(2,11,39,0.4)] transition-transform duration-300 group-hover:scale-110 lg:size-14">
                   <span className="relative size-5 lg:size-[30px]">
-                    <Image src="/images/featured-events/icon-play.svg" alt="" fill className="object-contain" sizes="30px" />
+                    <Image
+                      src="/images/featured-events/icon-play.svg"
+                      alt=""
+                      fill
+                      className="object-contain"
+                      sizes="30px"
+                    />
                   </span>
                 </span>
               </button>
@@ -52,7 +58,7 @@ export function VideoGrid({
                 {video.thumbnailUrl && (
                   <Image
                     src={video.thumbnailUrl}
-                    alt=""
+                    alt={video.caption}
                     fill
                     className="object-cover"
                     sizes="(min-width: 1024px) 280px, (min-width: 640px) 33vw, 50vw"
@@ -60,7 +66,13 @@ export function VideoGrid({
                 )}
                 <span className="absolute top-1/2 left-1/2 flex size-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[rgba(2,11,39,0.4)] lg:size-14">
                   <span className="relative size-5 lg:size-[30px]">
-                    <Image src="/images/featured-events/icon-play.svg" alt="" fill className="object-contain" sizes="30px" />
+                    <Image
+                      src="/images/featured-events/icon-play.svg"
+                      alt=""
+                      fill
+                      className="object-contain"
+                      sizes="30px"
+                    />
                   </span>
                 </span>
               </div>

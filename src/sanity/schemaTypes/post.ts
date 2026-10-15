@@ -1,5 +1,6 @@
 import { defineField, defineType } from "sanity";
 import { slugify } from "@/lib/slugify";
+import { bodyImage } from "./body-image";
 
 export const post = defineType({
   name: "post",
@@ -35,7 +36,7 @@ export const post = defineType({
       title: "Nội dung",
       type: "array",
       group: "vietnamese",
-      of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+      of: [{ type: "block" }, bodyImage],
     }),
 
     // English
@@ -53,7 +54,7 @@ export const post = defineType({
       title: "Nội dung (Tiếng Anh)",
       type: "array",
       group: "english",
-      of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+      of: [{ type: "block" }, bodyImage],
     }),
 
     // Chinese
@@ -71,7 +72,7 @@ export const post = defineType({
       title: "Nội dung (Tiếng Trung)",
       type: "array",
       group: "chinese",
-      of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+      of: [{ type: "block" }, bodyImage],
     }),
 
     // Media

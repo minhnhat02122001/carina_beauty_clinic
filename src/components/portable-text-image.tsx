@@ -12,7 +12,7 @@ function getAspectRatio(value: { asset?: { _ref?: string } }): number | null {
   return Number(match[1]) / Number(match[2]);
 }
 
-export function PortableTextImage({ value }: { value: { asset?: { _ref?: string } } }) {
+export function PortableTextImage({ value }: { value: { asset?: { _ref?: string }; alt?: string } }) {
   if (!value?.asset) return null;
   const aspectRatio = getAspectRatio(value) ?? 16 / 9;
 
@@ -20,7 +20,7 @@ export function PortableTextImage({ value }: { value: { asset?: { _ref?: string 
     <span className="relative my-2 block w-full overflow-hidden rounded-2xl" style={{ aspectRatio }}>
       <Image
         src={urlFor(value).width(1200).url()}
-        alt=""
+        alt={value.alt ?? ""}
         fill
         className="object-contain"
         sizes="(min-width: 1024px) 768px, 100vw"

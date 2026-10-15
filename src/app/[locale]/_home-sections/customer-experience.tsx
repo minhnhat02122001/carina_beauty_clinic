@@ -50,9 +50,7 @@ export function CustomerExperience({
   const t = useTranslations("CustomerExperience");
   const tNav = useTranslations("Nav");
   const visibleCategories = TREATMENT_CATEGORIES.filter((category) => navigationSettings[category.settingsKey].show);
-  const [activeFilter, setActiveFilter] = useState(
-    () => (visibleCategories[0] ?? TREATMENT_CATEGORIES[0]).settingsKey,
-  );
+  const [activeFilter, setActiveFilter] = useState(() => (visibleCategories[0] ?? TREATMENT_CATEGORIES[0]).settingsKey);
 
   const visibleCards = highlightsByCategory[activeFilter] ?? [];
 
@@ -97,7 +95,7 @@ export function CustomerExperience({
                 <div className="relative aspect-square w-full overflow-hidden rounded-2xl">
                   <Image
                     src={card.imageUrl}
-                    alt=""
+                    alt={card.name}
                     fill
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                     sizes="(min-width: 1024px) 384px, calc(100vw - 64px)"
@@ -117,7 +115,7 @@ export function CustomerExperience({
                   <div className="relative aspect-square w-full overflow-hidden rounded-2xl">
                     <Image
                       src={card.imageUrl}
-                      alt=""
+                      alt={card.name}
                       fill
                       className="object-cover"
                       sizes="(min-width: 1024px) 384px, calc(100vw - 64px)"

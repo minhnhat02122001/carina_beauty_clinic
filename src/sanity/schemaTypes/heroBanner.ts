@@ -35,6 +35,15 @@ export const heroBanner = defineType({
       type: "url",
       validation: (Rule) => Rule.uri({ allowRelative: true, scheme: ["http", "https"] }),
     }),
+    defineField({
+      name: "alt",
+      title: "Mô tả ảnh (alt)",
+      description:
+        "Mô tả ngắn nội dung banner cho Google và người khiếm thị, VD: Ưu đãi nâng cơ trẻ hóa tháng 10. Để trống sẽ dùng tên phòng khám.",
+      type: "string",
+    }),
+    defineField({ name: "altEn", title: "Mô tả ảnh (Tiếng Anh)", type: "string" }),
+    defineField({ name: "altZh", title: "Mô tả ảnh (Tiếng Trung)", type: "string" }),
   ],
   preview: {
     select: { media: "imageDesktop", order: "order" },

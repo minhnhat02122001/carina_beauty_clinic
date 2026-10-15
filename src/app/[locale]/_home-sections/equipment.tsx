@@ -29,14 +29,14 @@ export function Equipment({ items }: { items: EquipmentListItem[] }) {
               <div className="relative aspect-[272/363] w-full">
                 <Image
                   src={item.machineImageUrl}
-                  alt=""
+                  alt={item.name}
                   fill
                   className="object-contain"
                   sizes="(min-width: 1024px) 272px, 167px"
                 />
               </div>
               <div className="relative h-12 w-full lg:h-16">
-                <Image src={item.logoImageUrl} alt="" fill className="object-contain" sizes="272px" />
+                <Image src={item.logoImageUrl} alt={item.name} fill className="object-contain" sizes="272px" />
               </div>
             </div>
           ))}

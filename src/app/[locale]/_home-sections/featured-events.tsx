@@ -62,7 +62,7 @@ export function FeaturedEvents({ news, videos }: { news: FeaturedNewsItem[]; vid
                       {video.thumbnailUrl && (
                         <Image
                           src={video.thumbnailUrl}
-                          alt=""
+                          alt={video.caption}
                           fill
                           className="object-cover transition-transform duration-300 group-hover:scale-110"
                           sizes="(min-width: 1024px) 220px, 200px"
@@ -86,7 +86,7 @@ export function FeaturedEvents({ news, videos }: { news: FeaturedNewsItem[]; vid
                       {video.thumbnailUrl && (
                         <Image
                           src={video.thumbnailUrl}
-                          alt=""
+                          alt={video.caption}
                           fill
                           className="object-cover"
                           sizes="(min-width: 1024px) 220px, 200px"
@@ -147,7 +147,7 @@ export function FeaturedEvents({ news, videos }: { news: FeaturedNewsItem[]; vid
                     {item.imageUrl && (
                       <Image
                         src={item.imageUrl}
-                        alt=""
+                        alt={item.title}
                         fill
                         className="object-cover transition group-hover:scale-105"
                         sizes="(min-width: 1024px) 380px, 260px"

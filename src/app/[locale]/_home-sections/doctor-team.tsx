@@ -27,7 +27,7 @@ export function DoctorTeam({ doctors }: { doctors: DoctorItem[] }) {
               <div className="relative aspect-[295/369] w-full overflow-hidden">
                 <Image
                   src={doctor.imageUrl}
-                  alt=""
+                  alt={doctor.name}
                   fill
                   className="object-cover object-top transition-transform duration-300 group-hover:scale-110"
                   sizes="(min-width: 1024px) 295px, 220px"

@@ -28,7 +28,7 @@ export function Press({ mentions }: { mentions: AboutPressMention[] }) {
               <div className="relative aspect-video w-full overflow-hidden">
                 <Image
                   src={mention.screenshotUrl}
-                  alt=""
+                  alt={mention.title}
                   fill
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                   sizes="(min-width: 1024px) 384px, 100vw"

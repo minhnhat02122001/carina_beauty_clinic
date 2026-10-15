@@ -34,7 +34,7 @@ export function TreatmentList({
                     {item.imageUrl && (
                       <Image
                         src={item.imageUrl}
-                        alt=""
+                        alt={item.name}
                         fill
                         className="object-cover transition group-hover:scale-105"
                         sizes="(min-width: 1024px) 220px, 45vw"

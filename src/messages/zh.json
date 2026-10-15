@@ -85,7 +85,8 @@
     "languagesLabel": "语言"
   },
   "StrategicPartners": {
-    "heading": "国际合作伙伴"
+    "heading": "国际合作伙伴",
+    "imageAlt": "Carina Beauty Clinic 的国际合作伙伴标志"
   },
   "WhyChooseUs": {
     "eyebrow": "为什么选择CARINA BEAUTY CLINIC",
@@ -252,7 +253,10 @@
     "closingTagline": "Expertise behind every beauty",
     "scrollPrev": "上一页",
     "scrollNext": "下一页",
-    "lightboxClose": "关闭图片"
+    "lightboxClose": "关闭图片",
+    "techImageAlt": "Carina Beauty Clinic 的高科技设备",
+    "testimonialImageAlt": "顾客对 Carina Beauty Clinic 的评价",
+    "closingImageAlt": "Carina Beauty Clinic 的精彩瞬间"
   },
   "Booking": {
     "heading": "预约",

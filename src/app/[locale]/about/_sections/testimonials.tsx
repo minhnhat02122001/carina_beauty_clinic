@@ -19,6 +19,7 @@ export function Testimonials({ images }: { images: AboutImage[] }) {
           nextLabel={t("scrollNext")}
           itemsPerView={{ base: 1, lg: 3 }}
           lightboxImages={images.map((image) => image.url)}
+          lightboxAlt={t("testimonialImageAlt")}
           lightboxCloseLabel={t("lightboxClose")}
         >
           {images.map((image) => (
@@ -26,7 +27,13 @@ export function Testimonials({ images }: { images: AboutImage[] }) {
               {/* The artwork is composed square, so contain and cover would look alike.
                   contain is the safe one: an off-spec portrait upload is letterboxed
                   rather than cropped through the words that make it worth showing. */}
-              <Image src={image.url} alt="" fill className="object-contain" sizes="(min-width: 1024px) 384px, 100vw" />
+              <Image
+                src={image.url}
+                alt={t("testimonialImageAlt")}
+                fill
+                className="object-contain"
+                sizes="(min-width: 1024px) 384px, 100vw"
+              />
             </div>
           ))}
         </Carousel>

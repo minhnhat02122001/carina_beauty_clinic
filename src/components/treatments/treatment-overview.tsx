@@ -10,7 +10,7 @@ import { portableTextContainerClasses, treatmentPortableTextComponents } from "@
 function ReviewerRow({ doctor }: { doctor: TreatmentDetail["reviewedByDoctors"][number] }) {
   const avatar = doctor.imageUrl && (
     <span className="relative aspect-square size-12 shrink-0 overflow-hidden rounded-full">
-      <Image src={doctor.imageUrl} alt="" fill className="object-cover object-top" sizes="48px" />
+      <Image src={doctor.imageUrl} alt={doctor.name} fill className="object-cover object-top" sizes="48px" />
     </span>
   );
   const name = <p className="text-sm font-semibold whitespace-nowrap text-[var(--color-accent)]">{doctor.name}</p>;
@@ -101,6 +101,7 @@ export function TreatmentOverview({
               prevLabel={scrollPrevLabel}
               nextLabel={scrollNextLabel}
               lightboxImages={treatment.imageUrls}
+              lightboxAlt={treatment.name}
               lightboxCloseLabel={closeImageLabel}
             >
               {treatment.imageUrls.map((imageUrl, index) => (
@@ -113,7 +114,7 @@ export function TreatmentOverview({
                 >
                   <Image
                     src={imageUrl}
-                    alt=""
+                    alt={treatment.name}
                     fill
                     className="object-contain"
                     sizes="(min-width: 1024px) 50vw, 100vw"

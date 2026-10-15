@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { sectionHeadingClasses } from "./section-heading";
 
-function MarqueeRow({ images, direction }: { images: AboutImage[]; direction: "left" | "right" }) {
+function MarqueeRow({ images, direction, alt }: { images: AboutImage[]; direction: "left" | "right"; alt: string }) {
   return (
     // dragSensitivity well under the component's 0.2 default: the row drifts at baseVelocity 1,
     // so a drag at the default rate shoots past the idle speed and the two read as different rows.
@@ -26,7 +26,7 @@ function MarqueeRow({ images, direction }: { images: AboutImage[]; direction: "l
         >
           <Image
             src={image.url}
-            alt=""
+            alt={alt}
             fill
             className="object-cover"
             sizes="(min-width: 1024px) 336px, (min-width: 768px) 288px, (min-width: 640px) 240px, 192px"
@@ -60,8 +60,8 @@ export function Closing({ images }: { images: AboutImage[] }) {
         </div>
 
         <div className="flex w-full flex-col gap-3 overflow-hidden sm:gap-4 lg:gap-6">
-          <MarqueeRow images={topRow} direction="left" />
-          {bottomRow.length > 0 && <MarqueeRow images={bottomRow} direction="right" />}
+          <MarqueeRow images={topRow} direction="left" alt={t("closingImageAlt")} />
+          {bottomRow.length > 0 && <MarqueeRow images={bottomRow} direction="right" alt={t("closingImageAlt")} />}
         </div>
       </div>
     </section>

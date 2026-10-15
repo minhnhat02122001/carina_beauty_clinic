@@ -61,6 +61,7 @@ export function DoctorDetailView({
                 prevLabel={scrollPrevLabel}
                 nextLabel={scrollNextLabel}
                 lightboxImages={doctor.imageUrls}
+                lightboxAlt={doctor.name}
                 lightboxCloseLabel={closeImageLabel}
                 autoScrollIntervalMs={2000}
               >
@@ -68,7 +69,7 @@ export function DoctorDetailView({
                   <div key={imageUrl} className="relative aspect-[295/369] w-full overflow-hidden rounded-2xl">
                     <Image
                       src={imageUrl}
-                      alt=""
+                      alt={doctor.name}
                       fill
                       className="object-cover object-top"
                       sizes="(min-width: 1024px) 40vw, 100vw"
@@ -133,13 +134,14 @@ export function DoctorDetailView({
                   nextLabel={scrollNextLabel}
                   itemsPerView={{ base: 1, lg: 2 }}
                   lightboxImages={doctor.realCustomerImageUrls}
+                  lightboxAlt={`${realCustomerImagesLabel} – ${doctor.name}`}
                   lightboxCloseLabel={closeImageLabel}
                 >
                   {doctor.realCustomerImageUrls.map((imageUrl) => (
                     <div key={imageUrl} className="relative aspect-[4/3] w-full overflow-hidden rounded-xl">
                       <Image
                         src={imageUrl}
-                        alt=""
+                        alt={`${realCustomerImagesLabel} – ${doctor.name}`}
                         fill
                         className="object-cover"
                         sizes="(min-width: 1024px) 50vw, 100vw"
@@ -158,13 +160,14 @@ export function DoctorDetailView({
                   nextLabel={scrollNextLabel}
                   itemsPerView={{ base: 1, lg: 2 }}
                   lightboxImages={doctor.medicalActivityImageUrls}
+                  lightboxAlt={`${medicalActivitiesLabel} – ${doctor.name}`}
                   lightboxCloseLabel={closeImageLabel}
                 >
                   {doctor.medicalActivityImageUrls.map((imageUrl) => (
                     <div key={imageUrl} className="relative aspect-[4/3] w-full overflow-hidden rounded-xl">
                       <Image
                         src={imageUrl}
-                        alt=""
+                        alt={`${medicalActivitiesLabel} – ${doctor.name}`}
                         fill
                         className="object-cover"
                         sizes="(min-width: 1024px) 50vw, 100vw"

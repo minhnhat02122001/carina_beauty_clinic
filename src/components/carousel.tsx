@@ -13,6 +13,7 @@ const GAP_PX = 16;
 
 function ImageLightbox({
   images,
+  alt,
   index,
   closeLabel,
   prevLabel,
@@ -21,6 +22,7 @@ function ImageLightbox({
   onIndexChange,
 }: {
   images: string[];
+  alt: string;
   index: number;
   closeLabel: string;
   prevLabel: string;
@@ -52,7 +54,7 @@ function ImageLightbox({
       </button>
 
       <div className="relative h-full max-h-[85vh] w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
-        <Image src={images[index]} alt="" fill className="object-contain" sizes="90vw" />
+        <Image src={images[index]} alt={alt} fill className="object-contain" sizes="90vw" />
       </div>
 
       {images.length > 1 && (
@@ -134,6 +136,7 @@ export function Carousel({
   controlIconColorClassName = "text-[var(--color-accent)]",
   lightboxImages,
   lightboxCloseLabel,
+  lightboxAlt = "",
   autoScrollIntervalMs = AUTO_SCROLL_INTERVAL_MS,
   hoverShadow = false,
 }: {
@@ -159,6 +162,8 @@ export function Carousel({
   lightboxImages?: string[];
   /** Required together with `lightboxImages` — aria-label for the lightbox's close button. */
   lightboxCloseLabel?: string;
+  /** Alt text for the enlarged image — the same description its thumbnail carries. */
+  lightboxAlt?: string;
   /** Milliseconds between auto-scroll advances. Defaults to 3000. */
   autoScrollIntervalMs?: number;
   /** Pads the scroll track vertically so an item's hover shadow isn't clipped away.
@@ -291,6 +296,7 @@ export function Carousel({
       {lightboxImages && openIndex !== null && lightboxCloseLabel && (
         <ImageLightbox
           images={lightboxImages}
+          alt={lightboxAlt}
           index={openIndex}
           closeLabel={lightboxCloseLabel}
           prevLabel={prevLabel}

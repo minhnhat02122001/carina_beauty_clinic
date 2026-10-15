@@ -18,7 +18,7 @@ export function BannerHero({ banners }: { banners: BannerItem[] }) {
           // One <picture> instead of two <Image>s: the browser fetches only the source matching the viewport,
           // whereas two preloaded images made phones download the desktop banner too.
           const common = {
-            alt: "",
+            alt: banner.alt,
             fill: true,
             sizes: "100vw",
             loading: i === 0 ? ("eager" as const) : ("lazy" as const),
@@ -33,7 +33,7 @@ export function BannerHero({ banners }: { banners: BannerItem[] }) {
           const images = (
             <picture>
               <source media="(min-width: 64rem)" srcSet={desktopSrcSet} sizes="100vw" />
-              <img {...imgProps} alt="" srcSet={mobileSrcSet} className="object-cover lg:object-contain" />
+              <img {...imgProps} alt={banner.alt} srcSet={mobileSrcSet} className="object-cover lg:object-contain" />
             </picture>
           );
           const boxClassName = "relative block aspect-[750/958] w-full lg:aspect-[2400/960]";

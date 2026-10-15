@@ -40,7 +40,7 @@ export function PostDetailView({
             <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
               <Image
                 src={post.imageUrl}
-                alt=""
+                alt={post.title}
                 fill
                 className="object-cover"
                 sizes="(min-width: 1024px) 768px, 100vw"
@@ -97,7 +97,7 @@ export function PostDetailView({
                       {item.imageUrl && (
                         <Image
                           src={item.imageUrl}
-                          alt=""
+                          alt={item.title}
                           fill
                           className="object-cover transition group-hover:scale-105"
                           sizes="(min-width: 640px) 112px, 96px"
@@ -130,7 +130,7 @@ export function PostDetailView({
                   {item.imageUrl && (
                     <Image
                       src={item.imageUrl}
-                      alt=""
+                      alt={item.title}
                       fill
                       className="object-cover transition group-hover:scale-105"
                       sizes="(min-width: 1024px) 380px, 100vw"

@@ -85,7 +85,8 @@
     "languagesLabel": "Ngôn ngữ"
   },
   "StrategicPartners": {
-    "heading": "Đối Tác Quốc Tế"
+    "heading": "Đối Tác Quốc Tế",
+    "imageAlt": "Logo các đối tác quốc tế của Carina Beauty Clinic"
   },
   "WhyChooseUs": {
     "eyebrow": "TẠI SAO CHỌN CARINA BEAUTY CLINIC",
@@ -252,7 +253,10 @@
     "closingTagline": "Expertise behind every beauty",
     "scrollPrev": "Trước",
     "scrollNext": "Tiếp theo",
-    "lightboxClose": "Đóng ảnh"
+    "lightboxClose": "Đóng ảnh",
+    "techImageAlt": "Thiết bị công nghệ cao tại Carina Beauty Clinic",
+    "testimonialImageAlt": "Cảm nhận của khách hàng về Carina Beauty Clinic",
+    "closingImageAlt": "Hình ảnh hoạt động tại Carina Beauty Clinic"
   },
   "Booking": {
     "heading": "Đặt Lịch Hẹn",

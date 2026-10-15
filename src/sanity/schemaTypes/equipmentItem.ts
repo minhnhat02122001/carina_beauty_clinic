@@ -8,7 +8,8 @@ export const equipmentItem = defineType({
     defineField({
       name: "name",
       title: "Tên",
-      description: "Không hiển thị trên website — chỉ giúp bạn phân biệt các mục trong Studio.",
+      description:
+        "Ghi đúng tên thiết bị (VD: Thermage FLX). Không hiện thành chữ trên trang, nhưng được dùng làm mô tả ảnh (alt) cho Google và người khiếm thị.",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),

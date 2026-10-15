@@ -1,5 +1,6 @@
 import { slugify } from "@/lib/slugify";
 import { defineArrayMember, defineField, defineType } from "sanity";
+import { bodyImage } from "./body-image";
 
 export const doctor = defineType({
   name: "doctor",
@@ -54,21 +55,21 @@ export const doctor = defineType({
       title: "Giới thiệu",
       type: "array",
       group: "vietnamese",
-      of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+      of: [{ type: "block" }, bodyImage],
     }),
     defineField({
       name: "introductionEn",
       title: "Giới thiệu (Tiếng Anh)",
       type: "array",
       group: "english",
-      of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+      of: [{ type: "block" }, bodyImage],
     }),
     defineField({
       name: "introductionZh",
       title: "Giới thiệu (Tiếng Trung)",
       type: "array",
       group: "chinese",
-      of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+      of: [{ type: "block" }, bodyImage],
     }),
     defineField({
       name: "sections",
@@ -83,26 +84,31 @@ export const doctor = defineType({
           type: "object",
           name: "profileSection",
           fields: [
-            defineField({ name: "heading", title: "Tiêu đề mục", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({
+              name: "heading",
+              title: "Tiêu đề mục",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
             defineField({ name: "headingEn", title: "Tiêu đề mục (Tiếng Anh)", type: "string" }),
             defineField({ name: "headingZh", title: "Tiêu đề mục (Tiếng Trung)", type: "string" }),
             defineField({
               name: "body",
               title: "Nội dung",
               type: "array",
-              of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+              of: [{ type: "block" }, bodyImage],
             }),
             defineField({
               name: "bodyEn",
               title: "Nội dung (Tiếng Anh)",
               type: "array",
-              of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+              of: [{ type: "block" }, bodyImage],
             }),
             defineField({
               name: "bodyZh",
               title: "Nội dung (Tiếng Trung)",
               type: "array",
-              of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+              of: [{ type: "block" }, bodyImage],
             }),
           ],
           preview: { select: { title: "heading" } },

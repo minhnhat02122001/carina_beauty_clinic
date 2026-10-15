@@ -74,7 +74,7 @@ export function DoctorProfiles({ doctors }: { doctors: DoctorProfile[] }) {
                 <div className="relative aspect-[3/2] w-full shrink-0 sm:aspect-[2/1] lg:aspect-auto lg:w-2/5">
                   <Image
                     src={doctor.imageUrl}
-                    alt=""
+                    alt={doctor.name}
                     fill
                     className="object-cover object-top"
                     sizes="(min-width: 1024px) 480px, 100vw"

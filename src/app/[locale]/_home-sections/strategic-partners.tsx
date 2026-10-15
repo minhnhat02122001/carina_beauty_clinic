@@ -18,7 +18,7 @@ export function StrategicPartners() {
         <div className="relative aspect-square w-full overflow-hidden rounded-2xl lg:hidden">
           <Image
             src="/images/partners/DoiTacHang-02.jpg"
-            alt=""
+            alt={t("imageAlt")}
             fill
             className="object-contain"
             sizes="100vw"
@@ -27,7 +27,7 @@ export function StrategicPartners() {
         <div className="relative hidden aspect-[5000/2617] w-full overflow-hidden rounded-2xl lg:block">
           <Image
             src="/images/partners/DoiTacHang-01.jpg"
-            alt=""
+            alt={t("imageAlt")}
             fill
             className="object-contain"
             sizes="1216px"

@@ -76,7 +76,7 @@ export function TreatmentDetailView({
                   {item.imageUrl && (
                     <Image
                       src={item.imageUrl}
-                      alt=""
+                      alt={item.name}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(min-width: 1024px) 33vw, 50vw"

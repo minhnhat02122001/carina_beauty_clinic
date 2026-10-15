@@ -32,7 +32,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
     await Promise.all([
       getFeaturedNews(locale),
       getFeaturedVideos(locale),
-      getHeroBanners(),
+      getHeroBanners(locale),
       getEquipmentItems(),
       getServiceHighlightsSettings(locale),
       getDoctors(locale),

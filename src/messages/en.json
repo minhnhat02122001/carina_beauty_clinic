@@ -85,7 +85,8 @@
     "languagesLabel": "Languages"
   },
   "StrategicPartners": {
-    "heading": "International Partners"
+    "heading": "International Partners",
+    "imageAlt": "Logos of Carina Beauty Clinic's international partners"
   },
   "WhyChooseUs": {
     "eyebrow": "WHY CHOOSE CARINA BEAUTY CLINIC",
@@ -252,7 +253,10 @@
     "closingTagline": "Expertise behind every beauty",
     "scrollPrev": "Previous",
     "scrollNext": "Next",
-    "lightboxClose": "Close image"
+    "lightboxClose": "Close image",
+    "techImageAlt": "High-tech equipment at Carina Beauty Clinic",
+    "testimonialImageAlt": "A client review of Carina Beauty Clinic",
+    "closingImageAlt": "Moments at Carina Beauty Clinic"
   },
   "Booking": {
     "heading": "Book an Appointment",

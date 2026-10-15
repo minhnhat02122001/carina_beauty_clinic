@@ -43,7 +43,7 @@ export function BeautyKnowledgeHome({ hero, thumbnails }: BeautyKnowledgeHome) {
               {hero.imageUrl && (
                 <Image
                   src={hero.imageUrl}
-                  alt=""
+                  alt={hero.title}
                   fill
                   className="object-cover transition group-hover:scale-105"
                   sizes="(min-width: 1024px) 700px, 100vw"
@@ -66,7 +66,7 @@ export function BeautyKnowledgeHome({ hero, thumbnails }: BeautyKnowledgeHome) {
                   {item.imageUrl && (
                     <Image
                       src={item.imageUrl}
-                      alt=""
+                      alt={item.title}
                       fill
                       className="object-cover transition group-hover:scale-105"
                       sizes="200px"
