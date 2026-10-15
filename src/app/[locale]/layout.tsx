@@ -26,8 +26,9 @@ const merriweather = Merriweather({
 
 const cormorantGaramond = Cormorant_Garamond({
   variable: "--font-cormorant",
-  subsets: ["latin", "vietnamese"],
-  weight: ["400", "500", "600", "700"],
+  // Only the stat numbers ("10+", "10.000+") use it, all font-semibold — no Vietnamese glyphs, one weight.
+  subsets: ["latin"],
+  weight: ["600"],
 });
 
 // Figma's "1FTV VIP Fairyland" — a proprietary Vietnamese script font,
