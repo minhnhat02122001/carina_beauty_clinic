@@ -54,12 +54,13 @@ export function Hero() {
           <span className="relative h-24 w-24 sm:h-32 sm:w-32 lg:h-[227px] lg:w-[231px]">
             <Image src="/images/logo/logo-icon.png" alt="" fill className="object-contain" sizes="231px" />
           </span>
-          <h1 className="font-script text-5xl leading-tight text-[var(--color-gold)] lg:text-[76px]">
+          <p className="font-script text-5xl leading-tight text-[var(--color-gold)] lg:text-[76px]">
             {t("scriptHeading")}
-          </h1>
-          <p className="font-[family-name:var(--font-serif)] text-base font-bold text-[rgba(80,38,14,0.7)] lg:text-xl">
-            {t("tagline")}
           </p>
+          {/* The tagline, not the script slogan, is the h1: it is the line that says what the clinic is. */}
+          <h1 className="font-[family-name:var(--font-serif)] text-base font-bold text-[rgba(80,38,14,0.7)] lg:text-xl">
+            {t("tagline")}
+          </h1>
           <p className="max-w-xl text-xs text-[rgba(80,38,14,0.7)] lg:text-base">{t("description1")}</p>
           <p className="max-w-xl text-xs text-[rgba(80,38,14,0.7)] lg:text-base">{t("description2")}</p>
           <div className="grid grid-cols-2 gap-3 pt-2 lg:flex lg:gap-4">
