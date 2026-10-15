@@ -8,10 +8,10 @@ import { PhoneCallIcon } from "@/components/icons/phone-call";
 import { useEffect, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { scrollToRegistrationForm } from "@/lib/scroll-to-registration-form";
+import { PHONE, ZALO_URL } from "@/lib/clinic";
 
-const ZALO_URL = "https://zalo.me/141525660384752857";
 const MESSENGER_URL = "https://m.me/carinatherealluxury";
-const PHONE_TEL = "tel:+84773993968";
+const PHONE_TEL = `tel:${PHONE}`;
 const SCROLL_TOP_THRESHOLD_PX = 400;
 
 const iconOnlyClasses =
@@ -23,8 +23,7 @@ const glowButtonClasses =
 const glowLayerClasses =
   "pointer-events-none absolute inset-[-40%] animate-spin bg-[conic-gradient(from_0deg,var(--color-gold),var(--color-accent-foreground),var(--color-accent),var(--color-accent-foreground),var(--color-gold))] [animation-duration:4s] motion-reduce:animate-none";
 
-const glowInnerClasses =
-  "absolute inset-[3px] flex items-center justify-center rounded-[9px] bg-white";
+const glowInnerClasses = "absolute inset-[3px] flex items-center justify-center rounded-[9px] bg-white";
 
 function WigglingLogo({ src, delay }: { src: string; delay: number }) {
   return (
@@ -99,12 +98,7 @@ export function FloatingContact() {
         <WigglingLogo src="/images/floating-contact/icon-messenger.svg" delay={0.6} />
       </a>
       {showScrollTop && (
-        <button
-          type="button"
-          onClick={scrollToTop}
-          aria-label={t("scrollToTopLabel")}
-          className={glowButtonClasses}
-        >
+        <button type="button" onClick={scrollToTop} aria-label={t("scrollToTopLabel")} className={glowButtonClasses}>
           <span aria-hidden className={glowLayerClasses} />
           <span className={glowInnerClasses}>
             <ScrollTopIcon />

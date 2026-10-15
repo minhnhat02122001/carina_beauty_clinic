@@ -5,7 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { getDoctorBySlug } from "@/sanity/lib/doctors";
 import { DoctorDetailView } from "@/components/doctors/doctor-detail";
 import type { Metadata } from "next";
-import { localizedAlternates } from "@/lib/metadata";
+import { baseOpenGraph, localizedAlternates } from "@/lib/metadata";
 
 export async function generateMetadata({
   params,
@@ -19,7 +19,11 @@ export async function generateMetadata({
   return {
     title: doctor.name,
     alternates: localizedAlternates(locale, { pathname: "/about/[slug]", params: { slug } }),
-    openGraph: { title: doctor.name, images: doctor.imageUrls.slice(0, 1) },
+    openGraph: {
+      ...baseOpenGraph(locale),
+      title: doctor.name,
+      ...(doctor.imageUrls.length > 0 && { images: doctor.imageUrls.slice(0, 1) }),
+    },
   };
 }
 

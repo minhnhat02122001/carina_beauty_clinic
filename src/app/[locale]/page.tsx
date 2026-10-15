@@ -16,6 +16,9 @@ import { FeaturedEvents } from "./_home-sections/featured-events";
 import { BeautyKnowledgeHome } from "./_home-sections/beauty-knowledge";
 import { RegistrationForm } from "./_home-sections/registration-form";
 import { localizedAlternates } from "@/lib/metadata";
+import { getTranslations } from "next-intl/server";
+import { JsonLd } from "@/components/json-ld";
+import { clinicJsonLd } from "@/lib/structured-data";
 import type { Metadata } from "next";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
@@ -25,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
-  const [news, videos, banners, equipment, serviceHighlights, doctors, beautyKnowledge, navigationSettings] =
+  const [news, videos, banners, equipment, serviceHighlights, doctors, beautyKnowledge, navigationSettings, tMeta] =
     await Promise.all([
       getFeaturedNews(locale),
       getFeaturedVideos(locale),
@@ -35,10 +38,12 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       getDoctors(locale),
       getBeautyKnowledgeHome(locale),
       getNavigationSettings(locale),
+      getTranslations({ locale, namespace: "Metadata" }),
     ]);
 
   return (
     <div className="flex flex-1 flex-col">
+      <JsonLd data={clinicJsonLd(locale, tMeta("description"))} />
       <BannerHero banners={banners} />
       <Hero />
       <CustomerExperience highlightsByCategory={serviceHighlights} navigationSettings={navigationSettings} />

@@ -5,7 +5,9 @@ import type { Locale } from "@/i18n/routing";
 import { getPathname, Link } from "@/i18n/navigation";
 import { getPostBySlug, getRecentPosts, getRelatedPosts } from "@/sanity/lib/posts";
 import { PostDetailView } from "@/components/blog/post-detail";
-import { localizedAlternates } from "@/lib/metadata";
+import { baseOpenGraph, localizedAlternates } from "@/lib/metadata";
+import { JsonLd } from "@/components/json-ld";
+import { articleJsonLd } from "@/lib/structured-data";
 import { RegistrationForm } from "../../_home-sections/registration-form";
 
 export async function generateMetadata({
@@ -25,12 +27,13 @@ export async function generateMetadata({
     description: post.excerpt || undefined,
     alternates: localizedAlternates(locale, href),
     openGraph: {
+      ...baseOpenGraph(locale),
       title: post.title,
       description: post.excerpt || undefined,
       url: getPathname({ locale, href }),
       type: "article",
       publishedTime: post.publishedAtISO,
-      images: post.imageUrl ? [{ url: post.imageUrl }] : undefined,
+      ...(post.imageUrl && { images: [{ url: post.imageUrl }] }),
     },
     twitter: {
       card: "summary_large_image",
@@ -55,6 +58,13 @@ export default async function NewsEventsDetailPage({ params }: { params: Promise
 
   return (
     <div>
+      <JsonLd
+        data={articleJsonLd(
+          post,
+          getPathname({ locale, href: { pathname: "/news-events/[slug]", params: { slug } } }),
+          locale,
+        )}
+      />
       <div className="mx-auto max-w-6xl px-4 sm:px-0">
         <Link href="/news-events" className="mt-8 inline-block text-sm font-bold text-[var(--color-accent-bright)]">
           {t("backToList")}

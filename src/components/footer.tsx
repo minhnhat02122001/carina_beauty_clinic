@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { SocialIcon } from "@/components/social-icon";
+import { SOCIAL_LINKS } from "@/lib/clinic";
 
 const FEATURED_LINKS = [
   { href: "/about", key: "featuredAbout" },
@@ -15,14 +16,6 @@ const SUPPORT_LINKS = [
   { href: "/privacy-policy", key: "supportPrivacy" },
   { href: "/media-policy", key: "supportMedia" },
   { href: "/contact", key: "supportContact" },
-] as const;
-
-const SOCIAL_LINKS = [
-  { platform: "facebook", labelKey: "socialFacebook", href: "https://www.facebook.com/carinatherealluxury/" },
-  { platform: "instagram", labelKey: "socialInstagram", href: "https://www.instagram.com/carina_therealluxury/" },
-  { platform: "tiktok", labelKey: "socialTiktok", href: "https://www.tiktok.com/@phongkhamdalieucarina" },
-  { platform: "youtube", labelKey: "socialYoutube", href: "https://www.youtube.com/@CarinaBeautyClinic" },
-  { platform: "zalo", labelKey: "socialZalo", href: "https://zalo.me/141525660384752857" },
 ] as const;
 
 function ColumnHeading({ children }: { children: React.ReactNode }) {

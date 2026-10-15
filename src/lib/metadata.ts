@@ -4,8 +4,24 @@ import { getPathname } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import { getTreatmentBySlug } from "@/sanity/lib/service";
 import { treatmentHref, type TreatmentCategory } from "@/sanity/lib/treatmentCategories";
+import { CLINIC_NAME } from "@/lib/clinic";
 
 type LocalizedHref = Parameters<typeof getPathname>[0]["href"];
+
+const OG_LOCALES: Record<Locale, string> = { vi: "vi_VN", en: "en_US", zh: "zh_CN" };
+
+// Next fills og:title/og:description from the page's own title/description only while the page leaves
+// `openGraph` unset. A page that sets it replaces the whole object, so spread this in to keep the
+// fallback image, url and locale.
+export function baseOpenGraph(locale: Locale): NonNullable<Metadata["openGraph"]> {
+  return {
+    type: "website",
+    siteName: CLINIC_NAME,
+    locale: OG_LOCALES[locale],
+    url: "./",
+    images: [{ url: "/images/og/og-default.jpg", width: 1200, height: 630, alt: CLINIC_NAME }],
+  };
+}
 
 // Builds canonical + hreflang alternates for a route that exists across all
 // locales — every locale maps to the same underlying content (with Vietnamese
@@ -40,6 +56,10 @@ export async function treatmentMetadata(
   return {
     title: treatment.name,
     alternates: localizedAlternates(locale, treatmentHref(category, slug)),
-    openGraph: { title: treatment.name, images: treatment.imageUrls.slice(0, 1) },
+    openGraph: {
+      ...baseOpenGraph(locale),
+      title: treatment.name,
+      ...(treatment.imageUrls.length > 0 && { images: treatment.imageUrls.slice(0, 1) }),
+    },
   };
 }

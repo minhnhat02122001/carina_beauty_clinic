@@ -4,7 +4,8 @@ import localFont from "next/font/local";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { routing } from "@/i18n/routing";
+import { routing, type Locale } from "@/i18n/routing";
+import { baseOpenGraph } from "@/lib/metadata";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { FloatingContact } from "@/components/floating-contact";
@@ -72,6 +73,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
     title: t("title"),
     description: t("description"),
+    openGraph: baseOpenGraph(locale as Locale),
+    twitter: { card: "summary_large_image" },
   };
 }
 
