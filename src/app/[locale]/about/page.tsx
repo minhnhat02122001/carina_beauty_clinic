@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
   const t = await getTranslations({ locale, namespace: "About" });
 
   return {
-    title: t("heading"),
+    title: t("metaTitle"),
     description: t("metaDescription"),
     alternates: localizedAlternates(locale, "/about"),
   };
