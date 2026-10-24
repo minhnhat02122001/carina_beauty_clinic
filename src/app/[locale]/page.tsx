@@ -6,6 +6,8 @@ import { getEquipmentItems } from "@/sanity/lib/equipment";
 import { getNavigationSettings } from "@/sanity/lib/nav";
 import { getServiceHighlightsSettings } from "@/sanity/lib/service-highlights";
 import { getDoctors } from "@/sanity/lib/doctors";
+import { getClosingImages } from "@/sanity/lib/about";
+import { Closing } from "@/components/closing";
 import { BannerHero } from "./_home-sections/banner-hero";
 import { Hero } from "./_home-sections/hero";
 import { CustomerExperience } from "./_home-sections/customer-experience";
@@ -14,7 +16,7 @@ import { DoctorTeam } from "./_home-sections/doctor-team";
 import { StrategicPartners } from "./_home-sections/strategic-partners";
 import { FeaturedEvents } from "./_home-sections/featured-events";
 import { BeautyKnowledgeHome } from "./_home-sections/beauty-knowledge";
-import { RegistrationForm } from "./_home-sections/registration-form";
+import { RegistrationForm } from "@/components/registration-form/registration-form";
 import { localizedAlternates } from "@/lib/metadata";
 import { getTranslations } from "next-intl/server";
 import { JsonLd } from "@/components/json-ld";
@@ -28,18 +30,29 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
-  const [news, videos, banners, equipment, serviceHighlights, doctors, beautyKnowledge, navigationSettings, tMeta] =
-    await Promise.all([
-      getFeaturedNews(locale),
-      getFeaturedVideos(locale),
-      getHeroBanners(locale),
-      getEquipmentItems(),
-      getServiceHighlightsSettings(locale),
-      getDoctors(locale),
-      getBeautyKnowledgeHome(locale),
-      getNavigationSettings(locale),
-      getTranslations({ locale, namespace: "Metadata" }),
-    ]);
+  const [
+    news,
+    videos,
+    banners,
+    equipment,
+    serviceHighlights,
+    doctors,
+    beautyKnowledge,
+    navigationSettings,
+    tMeta,
+    closingImages,
+  ] = await Promise.all([
+    getFeaturedNews(locale),
+    getFeaturedVideos(locale),
+    getHeroBanners(locale),
+    getEquipmentItems(),
+    getServiceHighlightsSettings(locale),
+    getDoctors(locale),
+    getBeautyKnowledgeHome(locale),
+    getNavigationSettings(locale),
+    getTranslations({ locale, namespace: "Metadata" }),
+    getClosingImages(),
+  ]);
 
   return (
     <div className="flex flex-1 flex-col">
@@ -52,6 +65,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       <StrategicPartners />
       <FeaturedEvents news={news} videos={videos} />
       <BeautyKnowledgeHome hero={beautyKnowledge.hero} thumbnails={beautyKnowledge.thumbnails} />
+      <Closing images={closingImages} />
       <RegistrationForm />
     </div>
   );

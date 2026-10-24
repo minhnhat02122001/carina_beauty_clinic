@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
 import type { ReactNode } from "react";
-import { RegistrationForm } from "../../app/[locale]/_home-sections/registration-form";
+import { RegistrationForm } from "@/components/registration-form/registration-form";
 import { Carousel } from "@/components/carousel";
 import { doctorPortableTextComponents, portableTextContainerClasses } from "@/components/portable-text-components";
 import { scrollToRegistrationForm } from "@/lib/scroll-to-registration-form";

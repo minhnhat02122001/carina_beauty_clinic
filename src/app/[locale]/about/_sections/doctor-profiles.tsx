@@ -9,7 +9,7 @@ import { PortableText } from "@portabletext/react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { sectionHeadingClasses } from "./section-heading";
+import { sectionHeadingClasses } from "@/components/section-heading";
 
 // A card must fit the viewport for the stacking to work, so a long bio gets
 // bounded. The fade only appears when text is actually cut off — drawn
@@ -31,7 +31,7 @@ function DoctorBio({ introduction }: { introduction: PortableTextBlock[] }) {
 
   return (
     <div ref={boxRef} className="relative min-h-0 w-full flex-initial overflow-hidden">
-      <div className={`${portableTextContainerClasses} text-xs text-[rgba(99,43,14,0.7)] sm:text-sm lg:text-base`}>
+      <div className={`${portableTextContainerClasses} text-accent/70 text-xs sm:text-sm lg:text-base`}>
         <PortableText value={introduction} components={doctorPortableTextComponents} />
       </div>
       {isClipped && (

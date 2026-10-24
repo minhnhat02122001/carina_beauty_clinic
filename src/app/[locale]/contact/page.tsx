@@ -1,4 +1,4 @@
-import { RegistrationForm } from "../_home-sections/registration-form";
+import { RegistrationForm } from "@/components/registration-form/registration-form";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";

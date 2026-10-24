@@ -4,7 +4,7 @@ import SimpleMarquee from "@/components/fancy/blocks/simple-marquee";
 import type { AboutImage } from "@/sanity/lib/about";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { sectionHeadingClasses } from "./section-heading";
+import { sectionHeadingClasses } from "@/components/section-heading";
 
 function MarqueeRow({ images, direction, alt }: { images: AboutImage[]; direction: "left" | "right"; alt: string }) {
   return (
@@ -48,13 +48,13 @@ export function Closing({ images }: { images: AboutImage[] }) {
   const bottomRow = images.filter((_, index) => index % 2 === 1);
 
   return (
-    <section className="bg-white py-8 lg:py-12">
+    <section className="bg-background py-8 lg:py-12">
       <div className="flex flex-col items-center gap-5 sm:gap-6 lg:gap-8">
         {/* The rows are wider than the screen by design, so they are clipped here
             rather than letting them push the page into horizontal scroll. */}
         <div className="flex flex-col items-center gap-1 px-4 sm:gap-2 sm:px-6">
           <h2 className={sectionHeadingClasses}>{t("closingWordmark")}</h2>
-          <p className="text-center font-serif text-xs text-[rgba(99,43,14,0.7)] italic sm:text-sm lg:text-lg">
+          <p className="text-accent/70 text-center font-serif text-xs italic sm:text-sm lg:text-lg">
             {t("closingTagline")}
           </p>
         </div>

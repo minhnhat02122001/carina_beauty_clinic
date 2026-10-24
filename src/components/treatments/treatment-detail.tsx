@@ -5,7 +5,7 @@ import { Link } from "@/i18n/navigation";
 import type { TreatmentCategory, TreatmentDetail } from "@/sanity/lib/service";
 import { categoryRootHref, treatmentHref } from "@/sanity/lib/treatmentCategories";
 import Image from "next/image";
-import { RegistrationForm } from "../../app/[locale]/_home-sections/registration-form";
+import { RegistrationForm } from "@/components/registration-form/registration-form";
 import { Section } from "./section";
 import { TreatmentContent } from "./treatment-content";
 import { TreatmentOverview } from "./treatment-overview";
@@ -83,7 +83,7 @@ export function TreatmentDetailView({
                     />
                   )}
                   {/* Tall, near-solid fade because many CMS photos have headline text baked into their bottom third. */}
-                  <div className="absolute inset-x-0 bottom-0 flex h-[45%] items-end bg-gradient-to-t from-[rgba(99,43,14,0.97)] from-40% via-[rgba(99,43,14,0.75)] via-50% to-transparent px-3 pb-3 sm:px-4 sm:pb-4">
+                  <div className="from-accent/97 via-accent/75 absolute inset-x-0 bottom-0 flex h-[45%] items-end bg-gradient-to-t from-40% via-50% to-transparent px-3 pb-3 sm:px-4 sm:pb-4">
                     <p className="text-sm font-semibold text-[var(--color-accent-foreground)] sm:text-base lg:text-lg">
                       {item.name}
                     </p>

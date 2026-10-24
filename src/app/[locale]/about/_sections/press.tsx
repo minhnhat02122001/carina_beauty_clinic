@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Carousel } from "@/components/carousel";
 import type { AboutPressMention } from "@/sanity/lib/about";
-import { sectionHeadingClasses } from "./section-heading";
+import { sectionHeadingClasses } from "@/components/section-heading";
 
 export function Press({ mentions }: { mentions: AboutPressMention[] }) {
   const t = useTranslations("About");

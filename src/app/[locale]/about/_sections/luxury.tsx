@@ -1,7 +1,7 @@
 import { getImageProps } from "next/image";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
-import { sectionHeadingClasses } from "./section-heading";
+import { sectionHeadingClasses } from "@/components/section-heading";
 
 const POINT_KEYS = ["luxuryPoint1", "luxuryPoint2", "luxuryPoint3", "luxuryPoint4"] as const;
 
@@ -53,7 +53,7 @@ export function Luxury() {
           {/* w-full and text-justify override the centring this column applies to the
               heading: justified copy needs the full measure, and a bulleted list reads
               wrong centred. */}
-          <div className="flex w-full flex-col gap-2 text-justify text-xs leading-relaxed text-[rgba(99,43,14,0.7)] sm:gap-3 sm:text-sm lg:text-base">
+          <div className="text-accent/70 flex w-full flex-col gap-2 text-justify text-xs leading-relaxed sm:gap-3 sm:text-sm lg:text-base">
             <p>{t("luxuryLead")}</p>
             <ul className="flex list-disc flex-col gap-1 pl-5 marker:text-[var(--color-accent)]">
               {POINT_KEYS.map((key) => (

@@ -147,7 +147,7 @@ export function RegistrationForm() {
       <div className="mx-auto flex max-w-[1216px] flex-col items-center gap-4 pb-6 text-center lg:gap-2 lg:pb-8">
         <p className="font-serif text-xs tracking-[2.4px] text-[var(--color-accent)] uppercase">{t("eyebrow")}</p>
         <h2 className="text-2xl font-medium text-[var(--color-accent)] lg:text-5xl">{t("heading")}</h2>
-        <p className="text-sm text-[rgba(99,43,14,0.7)] lg:text-base">{t("description")}</p>
+        <p className="text-accent/70 text-sm lg:text-base">{t("description")}</p>
       </div>
 
       {/* No items-start from lg: the columns stretch to a shared height so the map
@@ -166,7 +166,7 @@ export function RegistrationForm() {
                 </span>
                 <div className="flex min-w-0 flex-col gap-1">
                   <p className="text-sm font-semibold text-[var(--color-accent)] lg:text-base">{t(item.labelKey)}</p>
-                  <p className="text-sm break-words text-[rgba(99,43,14,0.7)]">{t(item.valueKey)}</p>
+                  <p className="text-accent/70 text-sm break-words">{t(item.valueKey)}</p>
                 </div>
               </div>
             ))}
@@ -300,7 +300,7 @@ export function RegistrationForm() {
               <p className="text-center text-sm font-semibold text-[var(--color-error)]">{t("errorMessage")}</p>
             )}
 
-            <p className="pt-2 text-center text-[11px] text-[rgba(99,43,14,0.6)]">{t("disclaimer")}</p>
+            <p className="text-accent/60 pt-2 text-center text-[11px]">{t("disclaimer")}</p>
           </form>
           <SuccessDialog
             open={status === "success"}
