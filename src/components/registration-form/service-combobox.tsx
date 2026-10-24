@@ -165,7 +165,7 @@ export function ServiceCombobox({
 
         {isOpen && (
           <div
-            className={`absolute inset-x-0 top-full z-30 mt-2 flex flex-col overflow-hidden rounded-2xl border bg-white shadow-[0px_12px_32px_0px_rgba(99,43,14,0.14)] ${tintedBorder}`}
+            className={`absolute inset-x-0 top-full z-30 mt-2 flex flex-col overflow-hidden rounded-2xl border bg-white shadow-[0px_12px_32px_0px] shadow-accent/14 ${tintedBorder}`}
           >
             <div className="p-2">
               <div className="relative">

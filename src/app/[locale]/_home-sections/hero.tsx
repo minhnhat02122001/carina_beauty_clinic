@@ -9,7 +9,7 @@ import { CLINIC_NAME } from "@/lib/clinic";
 function Stat({ value, label, isMobileLeftColumn }: { value: string; label: string; isMobileLeftColumn: boolean }) {
   return (
     <div
-      className={`flex flex-col items-start gap-1 border-[rgba(99,43,14,0.2)] lg:flex-1 lg:border-r-0 lg:pr-0 ${isMobileLeftColumn ? "border-r pr-3" : ""}`}
+      className={`border-accent/20 flex flex-col items-start gap-1 lg:flex-1 lg:border-r-0 lg:pr-0 ${isMobileLeftColumn ? "border-r pr-3" : ""}`}
     >
       <p className="font-cormorant text-2xl font-semibold text-[var(--foreground)] lg:text-[38px]">{value}</p>
       <p className="text-sm text-[rgba(80,38,14,0.6)]">{label}</p>
@@ -18,7 +18,7 @@ function Stat({ value, label, isMobileLeftColumn }: { value: string; label: stri
 }
 
 function StatDivider() {
-  return <div className="hidden bg-[rgba(99,43,14,0.2)] lg:block lg:w-px" />;
+  return <div className="bg-accent/20 hidden lg:block lg:w-px" />;
 }
 
 const {

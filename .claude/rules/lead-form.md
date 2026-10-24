@@ -2,15 +2,16 @@
 paths:
   - "src/app/api/lead/**"
   - "src/app/api/services/**"
-  - "src/app/*/_home-sections/registration-form.tsx"
+  - "src/components/registration-form/**"
   - "src/lib/lead-notification.ts"
 ---
 
 # Registration Form / Lead Capture
 
-The registration form (`src/app/[locale]/_home-sections/registration-form.tsx`,
-reused on several pages) POSTs to `src/app/api/lead/route.ts`, which creates or
-updates a HubSpot contact. There is no database and no booking system — a lead
+The registration form (`src/components/registration-form/registration-form.tsx`,
+with its service picker, date field and success dialog beside it; reused on
+several pages) POSTs to `src/app/api/lead/route.ts`, which creates or updates a
+HubSpot contact. There is no database and no booking system — a lead
 in HubSpot is the end of the flow.
 
 `src/app/api/services/route.ts` feeds the form's service picker from Sanity

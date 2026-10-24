@@ -41,7 +41,7 @@ export function WhyChooseUs() {
               <p className="text-center text-base font-semibold text-[var(--color-accent)] lg:pb-1 lg:text-lg">
                 {t(item.titleKey)}
               </p>
-              <p className="text-center text-xs text-[rgba(99,43,14,0.7)] lg:pt-3 lg:text-sm">{t(item.descKey)}</p>
+              <p className="text-accent/70 text-center text-xs lg:pt-3 lg:text-sm">{t(item.descKey)}</p>
             </div>
           ))}
         </div>

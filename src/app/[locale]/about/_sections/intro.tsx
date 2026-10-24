@@ -15,12 +15,8 @@ export function Intro({ videoId, thumbnailUrl }: { videoId: string; thumbnailUrl
           <h1 className="text-xl leading-normal text-[var(--color-accent)] sm:text-2xl md:text-3xl lg:text-5xl">
             {t("introHeading")}
           </h1>
-          <p className="text-xs leading-relaxed text-[rgba(99,43,14,0.7)] sm:text-sm lg:text-base">
-            {t("introParagraph1")}
-          </p>
-          <p className="text-xs leading-relaxed text-[rgba(99,43,14,0.7)] sm:text-sm lg:text-base">
-            {t("introParagraph2")}
-          </p>
+          <p className="text-accent/70 text-xs leading-relaxed sm:text-sm lg:text-base">{t("introParagraph1")}</p>
+          <p className="text-accent/70 text-xs leading-relaxed sm:text-sm lg:text-base">{t("introParagraph2")}</p>
         </div>
 
         {hasClip && (

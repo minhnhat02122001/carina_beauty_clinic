@@ -94,3 +94,10 @@ export async function getAboutSettings(locale: Locale): Promise<AboutSettings> {
     closingImages: toImages(settings.closingImages, 1200),
   };
 }
+
+// The homepage shows only the closing marquee, so it skips the rest of the About settings.
+const CLOSING_IMAGES_QUERY = `*[_type == "aboutSettings"][0].closingImages[defined(asset)]`;
+
+export async function getClosingImages(): Promise<AboutImage[]> {
+  return toImages(await client.fetch<RawImage[] | null>(CLOSING_IMAGES_QUERY), 1200);
+}

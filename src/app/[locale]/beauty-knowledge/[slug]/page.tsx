@@ -8,7 +8,7 @@ import { PostDetailView } from "@/components/blog/post-detail";
 import { baseOpenGraph, localizedAlternates } from "@/lib/metadata";
 import { JsonLd } from "@/components/json-ld";
 import { articleJsonLd } from "@/lib/structured-data";
-import { RegistrationForm } from "../../_home-sections/registration-form";
+import { RegistrationForm } from "@/components/registration-form/registration-form";
 
 export async function generateMetadata({
   params,

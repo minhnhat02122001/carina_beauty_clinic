@@ -3,7 +3,7 @@ import type { AboutImage } from "@/sanity/lib/about";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { BannerImage } from "./banner-image";
-import { sectionHeadingClasses } from "./section-heading";
+import { sectionHeadingClasses } from "@/components/section-heading";
 
 // Placeholders until the client supplies the real composite banner — dropping the
 // final files at these same paths is the whole swap.
@@ -22,10 +22,10 @@ export function Technology({ images }: { images: AboutImage[] }) {
           <h2 className={sectionHeadingClasses}>{t("techHeading")}</h2>
 
           <div className="flex flex-col items-center gap-1">
-            <p className="text-center font-serif text-xs text-[rgba(99,43,14,0.7)] italic sm:text-sm lg:text-lg">
+            <p className="text-accent/70 text-center font-serif text-xs italic sm:text-sm lg:text-lg">
               {t("techQuoteLine1")}
             </p>
-            <p className="text-center font-serif text-xs text-[rgba(99,43,14,0.7)] italic sm:text-sm lg:text-lg">
+            <p className="text-accent/70 text-center font-serif text-xs italic sm:text-sm lg:text-lg">
               {t("techQuoteLine2")}
             </p>
           </div>
@@ -33,9 +33,7 @@ export function Technology({ images }: { images: AboutImage[] }) {
 
         <BannerImage desktopSrc={BANNER_SRC} mobileSrc={BANNER_MOBILE_SRC} alt={t("techBannerAlt")} />
 
-        <p className="text-center font-serif text-xs text-[rgba(99,43,14,0.7)] italic sm:text-sm lg:text-lg">
-          {t("techClosing")}
-        </p>
+        <p className="text-accent/70 text-center font-serif text-xs italic sm:text-sm lg:text-lg">{t("techClosing")}</p>
 
         {images.length > 0 && (
           <Carousel

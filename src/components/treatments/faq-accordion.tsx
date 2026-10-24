@@ -28,7 +28,7 @@ export function FaqAccordion({ faqs }: { faqs: TreatmentFaq[] }) {
           <div
             key={faq.question}
             className={`rounded-2xl bg-white transition-shadow duration-300 ${
-              isOpen ? "shadow-[0px_6px_18px_0px_rgba(99,43,14,0.08)]" : ""
+              isOpen ? "shadow-[0px_6px_18px_0px] shadow-accent/8" : ""
             }`}
           >
             <button

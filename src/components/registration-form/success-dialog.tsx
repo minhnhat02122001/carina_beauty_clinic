@@ -97,7 +97,7 @@ export function SuccessDialog({
           variants={CARD_VARIANTS}
           initial={reduceMotion ? "visible" : "hidden"}
           animate={isLeaving ? "leaving" : "visible"}
-          className="relative flex flex-col items-center gap-3 rounded-3xl bg-white px-6 pt-8 pb-6 text-center shadow-[0px_20px_48px_0px_rgba(99,43,14,0.22)] sm:gap-4 sm:px-8 sm:pt-10 sm:pb-8"
+          className="shadow-accent/22 relative flex flex-col items-center gap-3 rounded-3xl bg-white px-6 pt-8 pb-6 text-center shadow-[0px_20px_48px_0px] sm:gap-4 sm:px-8 sm:pt-10 sm:pb-8"
         >
           <button
             type="button"
@@ -149,7 +149,7 @@ export function SuccessDialog({
           <motion.p
             variants={ITEM_VARIANTS}
             id={messageId}
-            className="text-sm leading-relaxed text-[rgba(99,43,14,0.75)] sm:text-base"
+            className="text-accent/75 text-sm leading-relaxed sm:text-base"
           >
             {message}
           </motion.p>

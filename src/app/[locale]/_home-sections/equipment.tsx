@@ -13,7 +13,7 @@ export function Equipment({ items }: { items: EquipmentListItem[] }) {
       <div className="mx-auto flex max-w-[1216px] flex-col items-center gap-8">
         <div className="flex flex-col items-center gap-2 text-center">
           <h2 className="text-xl font-medium text-[var(--color-accent)] lg:text-5xl">{t("heading")}</h2>
-          <p className="text-xs text-[rgba(99,43,14,0.7)] lg:text-xl">{t("subheading")}</p>
+          <p className="text-accent/70 text-xs lg:text-xl">{t("subheading")}</p>
         </div>
 
         <Carousel

@@ -1,5 +1,5 @@
 import { BannerImage } from "./banner-image";
-import { sectionHeadingClasses } from "./section-heading";
+import { sectionHeadingClasses } from "@/components/section-heading";
 
 // Sections 7a, 7b and 10 of the wireframe are the same block — optional heading,
 // a couple of italic lines, one wide photo — so they share this component.
@@ -22,7 +22,7 @@ export function BannerBlock({
     <div className="flex flex-col items-center gap-1 sm:gap-2">
       {heading && <h2 className={sectionHeadingClasses}>{heading}</h2>}
       {lines.map((line) => (
-        <p key={line} className="text-center font-serif text-xs text-[rgba(99,43,14,0.7)] italic sm:text-sm lg:text-lg">
+        <p key={line} className="text-accent/70 text-center font-serif text-xs italic sm:text-sm lg:text-lg">
           {line}
         </p>
       ))}
