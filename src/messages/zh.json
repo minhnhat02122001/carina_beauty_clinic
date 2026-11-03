@@ -9,7 +9,6 @@
   },
   "Nav": {
     "home": "首页",
-    "services": "服务项目",
     "gallery": "图库",
     "about": "关于我们",
     "exclusive": "尊享项目",
@@ -169,10 +168,6 @@
     "successClose": "关闭",
     "successMessage": "感谢您的预约申请!我们的团队将尽快与您联系。",
     "errorMessage": "提交失败,请重试或直接致电我们。"
-  },
-  "Services": {
-    "heading": "我们的服务",
-    "placeholder": "服务项目与价格将在此显示。"
   },
   "ServiceExclusive": {
     "heading": "尊享项目",

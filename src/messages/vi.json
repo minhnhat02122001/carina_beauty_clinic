@@ -9,7 +9,6 @@
   },
   "Nav": {
     "home": "Trang chủ",
-    "services": "Dịch vụ",
     "gallery": "Thư viện ảnh",
     "about": "Về chúng tôi",
     "exclusive": "Độc quyền",
@@ -169,10 +168,6 @@
     "successClose": "Đóng",
     "successMessage": "Cảm ơn bạn đã đăng ký! Đội ngũ Carina sẽ liên hệ lại trong thời gian sớm nhất.",
     "errorMessage": "Rất tiếc, đã có lỗi xảy ra. Vui lòng thử lại hoặc gọi trực tiếp cho chúng tôi."
-  },
-  "Services": {
-    "heading": "Dịch Vụ Của Chúng Tôi",
-    "placeholder": "Danh sách dịch vụ và bảng giá sẽ hiển thị tại đây."
   },
   "ServiceExclusive": {
     "heading": "Độc Quyền",

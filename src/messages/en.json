@@ -9,7 +9,6 @@
   },
   "Nav": {
     "home": "Home",
-    "services": "Services",
     "gallery": "Gallery",
     "about": "About Us",
     "exclusive": "Exclusive",
@@ -169,10 +168,6 @@
     "successClose": "Close",
     "successMessage": "Thank you for registering! Our team will contact you shortly.",
     "errorMessage": "Something went wrong. Please try again or call us directly."
-  },
-  "Services": {
-    "heading": "Our Services",
-    "placeholder": "Service listings and pricing will appear here."
   },
   "ServiceExclusive": {
     "heading": "Exclusive",
