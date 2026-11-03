@@ -25,7 +25,6 @@ export const routing = defineRouting({
     "/content-policy": { vi: "/chinh-sach-noi-dung" },
     "/privacy-policy": { vi: "/chinh-sach-bao-mat" },
     "/media-policy": { vi: "/chinh-sach-hinh-anh-video" },
-    "/services": { vi: "/dich-vu" },
     "/services/exclusive": { vi: "/doc-quyen" },
     "/services/exclusive/[slug]": { vi: "/doc-quyen/[slug]" },
     "/services/lifting-rejuvenation": { vi: "/nang-co-xoa-nhan" },
