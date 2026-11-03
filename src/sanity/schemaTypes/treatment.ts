@@ -1,6 +1,7 @@
 import { slugify } from "@/lib/slugify";
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { bodyImage } from "./body-image";
+import { seoFields, seoGroup } from "./seo-fields";
 
 export const treatment = defineType({
   name: "treatment",
@@ -12,6 +13,7 @@ export const treatment = defineType({
     { name: "chinese", title: "Tiếng Trung" },
     { name: "media", title: "Hình ảnh" },
     { name: "metadata", title: "Thông tin khác" },
+    seoGroup,
   ],
   fields: [
     defineField({
@@ -173,6 +175,7 @@ export const treatment = defineType({
       options: { source: "name", maxLength: 96, slugify },
       validation: (Rule) => Rule.required(),
     }),
+    ...seoFields,
   ],
   preview: {
     select: { title: "name", media: "images.0" },

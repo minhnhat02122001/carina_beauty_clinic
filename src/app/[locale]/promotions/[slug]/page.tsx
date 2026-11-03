@@ -5,7 +5,7 @@ import type { Locale } from "@/i18n/routing";
 import { getPathname, Link } from "@/i18n/navigation";
 import { getPostBySlug, getRecentPosts, getRelatedPosts } from "@/sanity/lib/posts";
 import { PostDetailView } from "@/components/blog/post-detail";
-import { baseOpenGraph, localizedAlternates } from "@/lib/metadata";
+import { seoMetadata } from "@/lib/metadata";
 import { JsonLd } from "@/components/json-ld";
 import { articleJsonLd } from "@/lib/structured-data";
 import { RegistrationForm } from "@/components/registration-form/registration-form";
@@ -20,28 +20,17 @@ export async function generateMetadata({
 
   if (!post) return {};
 
-  const href = { pathname: "/promotions/[slug]", params: { slug } } as const;
-
-  return {
-    title: post.title,
-    description: post.excerpt || undefined,
-    alternates: localizedAlternates(locale, href),
-    openGraph: {
-      ...baseOpenGraph(locale),
+  return seoMetadata(
+    post.seo,
+    {
       title: post.title,
       description: post.excerpt || undefined,
-      url: getPathname({ locale, href }),
-      type: "article",
+      imageUrl: post.imageUrl,
       publishedTime: post.publishedAtISO,
-      ...(post.imageUrl && { images: [{ url: post.imageUrl }] }),
     },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description: post.excerpt || undefined,
-      images: post.imageUrl ? [post.imageUrl] : undefined,
-    },
-  };
+    locale,
+    { pathname: "/promotions/[slug]", params: { slug } },
+  );
 }
 
 export default async function PromotionsDetailPage({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {

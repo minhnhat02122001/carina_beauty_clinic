@@ -3,6 +3,7 @@ import type { Locale } from "@/i18n/routing";
 import { categoryToSettingsKey, type TreatmentCategory } from "./treatmentCategories";
 import { client } from "./client";
 import { urlFor } from "./image";
+import { SEO_PROJECTION, toSeo, type RawSeo, type Seo } from "./seo";
 
 export type { TreatmentCategory } from "./treatmentCategories";
 
@@ -49,6 +50,7 @@ export type TreatmentDetail = {
   faqs: TreatmentFaq[];
   reviewedByDoctors: TreatmentReviewer[];
   relatedTreatments: TreatmentSummary[];
+  seo: Seo;
 };
 
 const LOCALIZED_NAME = `select($locale == "vi" => name, $locale == "zh" => coalesce(nameZh, name), coalesce(nameEn, name))`;
@@ -104,7 +106,10 @@ function categorySubgroupsQuery(settingsKey: string) {
 
 type RawSubgroupGroup = { subgroup: string | null; items: RawTreatmentSummary[] };
 
-export async function getTreatmentsByCategory(category: TreatmentCategory, locale: Locale): Promise<TreatmentSubgroupGroup[]> {
+export async function getTreatmentsByCategory(
+  category: TreatmentCategory,
+  locale: Locale,
+): Promise<TreatmentSubgroupGroup[]> {
   const groups = await client.fetch<RawSubgroupGroup[]>(categorySubgroupsQuery(categoryToSettingsKey(category)), {
     locale,
   });
@@ -128,7 +133,7 @@ export async function getServiceOptions(locale: Locale): Promise<ServiceOption[]
   return [...unique.values()].sort((a, b) => a.label.localeCompare(b.label, locale));
 }
 
-const TREATMENT_BY_SLUG_QUERY =`*[_type == "treatment" && slug.current == $slug][0]{
+const TREATMENT_BY_SLUG_QUERY = `*[_type == "treatment" && slug.current == $slug][0]{
   _id,
   "name": ${LOCALIZED_NAME},
   "body": ${LOCALIZED_BODY},
@@ -136,6 +141,7 @@ const TREATMENT_BY_SLUG_QUERY =`*[_type == "treatment" && slug.current == $slug]
   "keyInfo": ${LOCALIZED_KEY_INFO},
   "sections": ${LOCALIZED_TREATMENT_SECTIONS},
   "faqs": ${LOCALIZED_FAQS},
+  ${SEO_PROJECTION},
   "reviewedByDoctors": reviewedByDoctors[]->{
     name,
     "title": ${LOCALIZED_DOCTOR_TITLE},
@@ -158,12 +164,15 @@ export async function getTreatmentBySlug(
       keyInfo: { label: string | null; value: string | null }[] | null;
       sections: { heading: string | null; body: PortableTextBlock[] | null }[] | null;
       faqs: { question: string | null; answer: string | null }[] | null;
-      reviewedByDoctors: {
-        name: string;
-        title: string;
-        slug: string | null;
-        images: Parameters<typeof urlFor>[0][] | null;
-      }[] | null;
+      seo: RawSeo;
+      reviewedByDoctors:
+        | {
+            name: string;
+            title: string;
+            slug: string | null;
+            images: Parameters<typeof urlFor>[0][] | null;
+          }[]
+        | null;
     } | null>(TREATMENT_BY_SLUG_QUERY, { slug, locale }),
     client.fetch<RawSubgroupGroup[]>(categorySubgroupsQuery(categoryToSettingsKey(category)), { locale }),
   ]);
@@ -179,6 +188,7 @@ export async function getTreatmentBySlug(
 
   return {
     name: item.name,
+    seo: toSeo(item.seo),
     body: item.body ?? [],
     imageUrls: (item.images ?? []).map((image) => urlFor(image).width(1200).url()),
     keyInfo: (item.keyInfo ?? [])
@@ -197,9 +207,7 @@ export async function getTreatmentBySlug(
         title: doctor.title,
         slug: doctor.slug,
         imageUrl:
-          reviewerImage && (reviewerImage as { asset?: unknown }).asset
-            ? urlFor(reviewerImage).width(160).url()
-            : null,
+          reviewerImage && (reviewerImage as { asset?: unknown }).asset ? urlFor(reviewerImage).width(160).url() : null,
       };
     }),
     relatedTreatments: categoryItems
@@ -208,4 +216,3 @@ export async function getTreatmentBySlug(
       .map(toSummary),
   };
 }
-
