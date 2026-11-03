@@ -2,6 +2,7 @@ import type { PortableTextBlock } from "@portabletext/react";
 import type { Locale } from "@/i18n/routing";
 import { client } from "./client";
 import { urlFor } from "./image";
+import { SEO_PROJECTION, toSeo, type RawSeo, type Seo } from "./seo";
 
 type SanityImageRef = Parameters<typeof urlFor>[0];
 
@@ -33,6 +34,7 @@ export type PostDetail = {
   publishedAtISO: string;
   imageUrl: string | null;
   tags: string[];
+  seo: Seo;
 };
 
 const DATE_LOCALES: Record<Locale, string> = {
@@ -139,7 +141,8 @@ const POST_BY_SLUG_QUERY = `*[_type == "post" && category == $category && slug.c
   "body": ${LOCALIZED_BODY},
   coverImage,
   publishedAt,
-  tags
+  tags,
+  ${SEO_PROJECTION}
 }`;
 
 export async function getPostBySlug(category: PostCategory, slug: string, locale: Locale): Promise<PostDetail | null> {
@@ -150,6 +153,7 @@ export async function getPostBySlug(category: PostCategory, slug: string, locale
     coverImage: SanityImageRef | null;
     publishedAt: string;
     tags: string[] | null;
+    seo: RawSeo;
   } | null>(POST_BY_SLUG_QUERY, { category, slug, locale });
 
   if (!post) return null;
@@ -162,6 +166,7 @@ export async function getPostBySlug(category: PostCategory, slug: string, locale
     publishedAtISO: post.publishedAt,
     imageUrl: post.coverImage ? urlFor(post.coverImage).width(1200).height(675).fit("crop").url() : null,
     tags: post.tags ?? [],
+    seo: toSeo(post.seo),
   };
 }
 

@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { getTreatmentBySlug } from "@/sanity/lib/service";
 import { treatmentHref, type TreatmentCategory } from "@/sanity/lib/treatmentCategories";
 import { CLINIC_NAME } from "@/lib/clinic";
+import type { Seo } from "@/sanity/lib/seo";
 
 type LocalizedHref = Parameters<typeof getPathname>[0]["href"];
 
@@ -35,6 +36,35 @@ export function localizedAlternates(locale: Locale, href: LocalizedHref): Metada
   };
 }
 
+// Editor-entered SEO fields win over each page's own title/description/image.
+export function seoMetadata(
+  seo: Seo,
+  page: { title: string; description?: string; imageUrl?: string | null; publishedTime?: string },
+  locale: Locale,
+  href: LocalizedHref,
+): Metadata {
+  const title = seo.title || page.title;
+  const description = seo.description || page.description;
+  const imageUrl = seo.imageUrl || page.imageUrl;
+
+  return {
+    title,
+    // Each only when present: Next turns an undefined key into null, which wipes the value inherited from the layout.
+    ...(description && { description }),
+    ...(seo.keywords && { keywords: seo.keywords }),
+    ...(seo.robots && { robots: seo.robots }),
+    alternates: { ...localizedAlternates(locale, href), ...(seo.canonical && { canonical: seo.canonical }) },
+    openGraph: {
+      ...baseOpenGraph(locale),
+      title,
+      ...(description && { description }),
+      ...(seo.canonical && { url: seo.canonical }),
+      ...(imageUrl && { images: [imageUrl] }),
+      ...(page.publishedTime && { type: "article" as const, publishedTime: page.publishedTime }),
+    },
+  };
+}
+
 export async function headingMetadata(
   params: Promise<{ locale: Locale }>,
   namespace: string,
@@ -53,13 +83,10 @@ export async function treatmentMetadata(
   const treatment = await getTreatmentBySlug(category, slug, locale);
   if (!treatment) return {};
 
-  return {
-    title: treatment.name,
-    alternates: localizedAlternates(locale, treatmentHref(category, slug)),
-    openGraph: {
-      ...baseOpenGraph(locale),
-      title: treatment.name,
-      ...(treatment.imageUrls.length > 0 && { images: treatment.imageUrls.slice(0, 1) }),
-    },
-  };
+  return seoMetadata(
+    treatment.seo,
+    { title: treatment.name, imageUrl: treatment.imageUrls[0] },
+    locale,
+    treatmentHref(category, slug),
+  );
 }

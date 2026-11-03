@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { slugify } from "@/lib/slugify";
 import { bodyImage } from "./body-image";
+import { seoFields, seoGroup } from "./seo-fields";
 
 export const post = defineType({
   name: "post",
@@ -12,6 +13,7 @@ export const post = defineType({
     { name: "chinese", title: "Tiếng Trung" },
     { name: "media", title: "Hình ảnh" },
     { name: "metadata", title: "Thông tin khác" },
+    seoGroup,
   ],
   fields: [
     // Vietnamese (source of truth) — every post is authored here first.
@@ -25,7 +27,7 @@ export const post = defineType({
     defineField({
       name: "excerpt",
       title: "Tóm tắt",
-      description: "Cũng dùng làm mô tả SEO — nên giữ dưới 160 ký tự.",
+      description: "Cũng dùng làm mô tả SEO khi ô Mô tả SEO để trống — nên giữ dưới 160 ký tự.",
       type: "text",
       rows: 3,
       group: "vietnamese",
@@ -133,6 +135,7 @@ export const post = defineType({
       group: "metadata",
       initialValue: false,
     }),
+    ...seoFields,
   ],
   preview: {
     select: { title: "title", subtitle: "category", media: "coverImage" },
