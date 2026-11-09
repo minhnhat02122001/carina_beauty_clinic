@@ -5,6 +5,8 @@ import { getTreatmentBySlug } from "@/sanity/lib/service";
 import { TreatmentDetailView } from "@/components/treatments/treatment-detail";
 import { treatmentMetadata } from "@/lib/metadata";
 
+export const generateStaticParams = () => [];
+
 export const generateMetadata = ({ params }: { params: Promise<{ locale: Locale; slug: string }> }) =>
   treatmentMetadata(params, "exclusive");
 

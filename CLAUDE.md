@@ -24,7 +24,8 @@ mobile viewport included.
 
 `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`,
 `NEXT_PUBLIC_SANITY_API_VERSION`, `NEXT_PUBLIC_SITE_URL`,
-`HUBSPOT_ACCESS_TOKEN`, `SANITY_API_READ_TOKEN` / `SANITY_API_WRITE_TOKEN`.
+`HUBSPOT_ACCESS_TOKEN`, `SANITY_API_READ_TOKEN` / `SANITY_API_WRITE_TOKEN`,
+`SANITY_REVALIDATE_SECRET` (signs the Sanity publish webhook).
 
 `src/sanity/env.ts` throws on a missing project id or dataset — that's the
 usual cause of a hard boot failure.

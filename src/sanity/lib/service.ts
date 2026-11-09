@@ -128,7 +128,8 @@ const SERVICE_OPTIONS_QUERY = `*[_type == "treatment" && defined(name)]{
 }`;
 
 export async function getServiceOptions(locale: Locale): Promise<ServiceOption[]> {
-  const options = await client.fetch<ServiceOption[]>(SERVICE_OPTIONS_QUERY, { locale });
+  // Runs per request behind /api/services' own 5-minute cache, so it doesn't need the live API's freshness or quota.
+  const options = await client.fetch<ServiceOption[]>(SERVICE_OPTIONS_QUERY, { locale }, { useCdn: true });
   const unique = new Map(options.map((option) => [option.value, option]));
   return [...unique.values()].sort((a, b) => a.label.localeCompare(b.label, locale));
 }
