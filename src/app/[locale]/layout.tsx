@@ -55,7 +55,7 @@ export function generateStaticParams() {
 // Sanity-backed pages are statically generated at build time; without this,
 // production only picks up new/edited content on the next deploy. Applies to
 // every page under this layout unless a route overrides it.
-export const revalidate = 60;
+export const revalidate = 3600;
 
 // With no theme-color, a mobile browser derives its own tint for the chrome
 // around the page. One value, not a light/dark pair: the site is light-only on

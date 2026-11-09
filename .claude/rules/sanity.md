@@ -49,8 +49,8 @@ Other conventions:
 
 ## Caching and images
 
-`export const revalidate = 60` on `src/app/[locale]/layout.tsx` covers every
-page under it, so published edits appear within a minute without a redeploy.
+`export const revalidate = 3600` on `src/app/[locale]/layout.tsx` covers every
+page under it, so published edits appear within an hour without a redeploy.
 
 ## Portable Text
 
