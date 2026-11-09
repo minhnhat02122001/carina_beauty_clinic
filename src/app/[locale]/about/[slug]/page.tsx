@@ -7,6 +7,8 @@ import { DoctorDetailView } from "@/components/doctors/doctor-detail";
 import type { Metadata } from "next";
 import { baseOpenGraph, localizedAlternates } from "@/lib/metadata";
 
+export const generateStaticParams = () => [];
+
 export async function generateMetadata({
   params,
 }: {

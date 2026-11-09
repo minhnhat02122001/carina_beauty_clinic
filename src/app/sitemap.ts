@@ -5,7 +5,7 @@ import { CATEGORY_ROUTES } from "@/components/blog/category-routes";
 import { getSitemapContent } from "@/sanity/lib/sitemap";
 import { treatmentHref } from "@/sanity/lib/treatmentCategories";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 type Href = Parameters<typeof getPathname>[0]["href"];
 

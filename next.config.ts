@@ -10,6 +10,15 @@ const nextConfig: NextConfig = {
   images: {
     qualities: [75, 90],
   },
+  async rewrites() {
+    return {
+      beforeFiles: [],
+      // The proxy skips these paths, so they would otherwise reach [locale] with a bogus locale and fail as a 500.
+      // The destination is deeper than any route on the site, which lands it on global-not-found.
+      afterFiles: [{ source: "/:first([^/]*\\.[^/]*|api|trpc)/:rest*", destination: "/not/a/route/on/this-site" }],
+      fallback: [],
+    };
+  },
   // ponytail: no Content-Security-Policy — GTM injects marketing tags added later from its own UI, which a
   // strict CSP would silently break. Add one if a real XSS vector ever appears.
   async headers() {

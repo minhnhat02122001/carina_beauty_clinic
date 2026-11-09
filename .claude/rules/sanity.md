@@ -52,8 +52,16 @@ Other conventions:
 
 ## Caching and images
 
-`export const revalidate = 3600` on `src/app/[locale]/layout.tsx` covers every
-page under it, so published edits appear within an hour without a redeploy.
+A Sanity webhook POSTs to `src/app/api/revalidate/route.ts` on every publish,
+which marks the whole site stale; each page re-renders on its next visit.
+`export const revalidate = 86400` on `src/app/[locale]/layout.tsx` is only the
+fallback for a missed webhook.
+
+`client` reads the live API (`useCdn: false`) so a webhook-triggered render can't
+cache pre-publish data. That spends the Free plan's 250k API requests, which is
+safe only because pages are cached: every `[slug]` page exports an empty
+`generateStaticParams` for this. A new route rendered on every visit needs the
+same, or its queries should pass `{ useCdn: true }`.
 
 ## Portable Text
 

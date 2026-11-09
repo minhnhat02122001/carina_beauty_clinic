@@ -44,18 +44,14 @@ const fairyland = localFont({
 // Unset (dev, previews) renders nothing rather than loading an empty container.
 const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
 
-// Any other first segment (e.g. /robots.txt, /.env — dotted paths skip the proxy) 404s before rendering,
-// instead of rendering the static layout with a bogus locale and failing as a 500.
-export const dynamicParams = false;
-
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-// Sanity-backed pages are statically generated at build time; without this,
-// production only picks up new/edited content on the next deploy. Applies to
-// every page under this layout unless a route overrides it.
-export const revalidate = 3600;
+// Publishing in Sanity refreshes pages through the /api/revalidate webhook; this
+// is only the fallback for a missed webhook. Applies to every page under this
+// layout unless a route overrides it.
+export const revalidate = 86400;
 
 // With no theme-color, a mobile browser derives its own tint for the chrome
 // around the page. One value, not a light/dark pair: the site is light-only on

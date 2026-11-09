@@ -10,6 +10,8 @@ import { JsonLd } from "@/components/json-ld";
 import { articleJsonLd } from "@/lib/structured-data";
 import { RegistrationForm } from "@/components/registration-form/registration-form";
 
+export const generateStaticParams = () => [];
+
 export async function generateMetadata({
   params,
 }: {

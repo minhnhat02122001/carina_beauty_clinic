@@ -6,5 +6,6 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: true, // Set to false if statically generating pages, using ISR or tag-based revalidation
+  // A webhook-triggered render must not cache the API CDN's pre-publish response until the next publish.
+  useCdn: false,
 });
