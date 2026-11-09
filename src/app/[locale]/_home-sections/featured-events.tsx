@@ -3,6 +3,7 @@
 import { ChevronRight } from "lucide-react";
 import { useState } from "react";
 import Image from "next/image";
+import { SanityImage } from "@/components/sanity-image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Carousel } from "@/components/carousel";
@@ -60,7 +61,7 @@ export function FeaturedEvents({ news, videos }: { news: FeaturedNewsItem[]; vid
                       className="group relative block aspect-[289/511] w-full overflow-hidden rounded-xl bg-[var(--color-background-alt)]"
                     >
                       {video.thumbnailUrl && (
-                        <Image
+                        <SanityImage
                           src={video.thumbnailUrl}
                           alt={video.caption}
                           fill
@@ -84,7 +85,7 @@ export function FeaturedEvents({ news, videos }: { news: FeaturedNewsItem[]; vid
                   ) : (
                     <div className="relative aspect-[289/511] w-full overflow-hidden rounded-xl bg-[var(--color-background-alt)]">
                       {video.thumbnailUrl && (
-                        <Image
+                        <SanityImage
                           src={video.thumbnailUrl}
                           alt={video.caption}
                           fill
@@ -145,7 +146,7 @@ export function FeaturedEvents({ news, videos }: { news: FeaturedNewsItem[]; vid
                 >
                   <div className="relative aspect-[280/160] w-full overflow-hidden rounded-xl bg-[var(--color-background-alt)]">
                     {item.imageUrl && (
-                      <Image
+                      <SanityImage
                         src={item.imageUrl}
                         alt={item.title}
                         fill

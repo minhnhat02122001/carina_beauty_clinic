@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { SanityImage } from "@/components/sanity-image";
 import { PortableText } from "@portabletext/react";
 import type { ReactNode } from "react";
 import { RegistrationForm } from "@/components/registration-form/registration-form";
@@ -67,7 +67,7 @@ export function DoctorDetailView({
               >
                 {doctor.imageUrls.map((imageUrl, index) => (
                   <div key={imageUrl} className="relative aspect-[295/369] w-full overflow-hidden rounded-2xl">
-                    <Image
+                    <SanityImage
                       src={imageUrl}
                       alt={doctor.name}
                       fill
@@ -139,7 +139,7 @@ export function DoctorDetailView({
                 >
                   {doctor.realCustomerImageUrls.map((imageUrl) => (
                     <div key={imageUrl} className="relative aspect-[4/3] w-full overflow-hidden rounded-xl">
-                      <Image
+                      <SanityImage
                         src={imageUrl}
                         alt={`${realCustomerImagesLabel} – ${doctor.name}`}
                         fill
@@ -165,7 +165,7 @@ export function DoctorDetailView({
                 >
                   {doctor.medicalActivityImageUrls.map((imageUrl) => (
                     <div key={imageUrl} className="relative aspect-[4/3] w-full overflow-hidden rounded-xl">
-                      <Image
+                      <SanityImage
                         src={imageUrl}
                         alt={`${medicalActivitiesLabel} – ${doctor.name}`}
                         fill

@@ -4,6 +4,7 @@ import { Carousel } from "@/components/carousel";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { SanityImage } from "@/components/sanity-image";
 import { useState } from "react";
 import { scrollToRegistrationForm } from "@/lib/scroll-to-registration-form";
 import type { NavigationSettings } from "@/sanity/lib/nav";
@@ -93,7 +94,7 @@ export function CustomerExperience({
             {visibleCards.map((card) => {
               const image = (
                 <div className="relative aspect-square w-full overflow-hidden rounded-2xl">
-                  <Image
+                  <SanityImage
                     src={card.imageUrl}
                     alt={card.name}
                     fill
@@ -113,7 +114,7 @@ export function CustomerExperience({
               ) : (
                 <div key={card.id} className="flex flex-col items-center gap-2">
                   <div className="relative aspect-square w-full overflow-hidden rounded-2xl">
-                    <Image
+                    <SanityImage
                       src={card.imageUrl}
                       alt={card.name}
                       fill

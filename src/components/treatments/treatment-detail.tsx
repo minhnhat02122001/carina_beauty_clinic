@@ -4,7 +4,7 @@ import { Carousel } from "@/components/carousel";
 import { Link } from "@/i18n/navigation";
 import type { TreatmentCategory, TreatmentDetail } from "@/sanity/lib/service";
 import { categoryRootHref, treatmentHref } from "@/sanity/lib/treatmentCategories";
-import Image from "next/image";
+import { SanityImage } from "@/components/sanity-image";
 import { RegistrationForm } from "@/components/registration-form/registration-form";
 import { Section } from "./section";
 import { TreatmentContent } from "./treatment-content";
@@ -74,7 +74,7 @@ export function TreatmentDetailView({
                   className="group relative block aspect-square w-full [transform:translateZ(0)] overflow-hidden rounded-xl bg-[var(--color-background-alt)] sm:rounded-2xl"
                 >
                   {item.imageUrl && (
-                    <Image
+                    <SanityImage
                       src={item.imageUrl}
                       alt={item.name}
                       fill

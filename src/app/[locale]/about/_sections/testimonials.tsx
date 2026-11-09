@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SanityImage } from "@/components/sanity-image";
 import { useTranslations } from "next-intl";
 import { Carousel } from "@/components/carousel";
 import type { AboutImage } from "@/sanity/lib/about";
@@ -27,7 +27,7 @@ export function Testimonials({ images }: { images: AboutImage[] }) {
               {/* The artwork is composed square, so contain and cover would look alike.
                   contain is the safe one: an off-spec portrait upload is letterboxed
                   rather than cropped through the words that make it worth showing. */}
-              <Image
+              <SanityImage
                 src={image.url}
                 alt={t("testimonialImageAlt")}
                 fill

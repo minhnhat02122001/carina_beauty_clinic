@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SanityImage } from "@/components/sanity-image";
 import { PortableText } from "@portabletext/react";
 import { Carousel } from "@/components/carousel";
 import { portableTextContainerClasses, postPortableTextComponents } from "@/components/portable-text-components";
@@ -38,7 +38,7 @@ export function PostDetailView({
         <article className="flex flex-col gap-6 lg:col-span-2">
           {post.imageUrl && (
             <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
-              <Image
+              <SanityImage
                 src={post.imageUrl}
                 alt={post.title}
                 fill
@@ -95,7 +95,7 @@ export function PostDetailView({
                   >
                     <div className="relative aspect-video w-24 shrink-0 overflow-hidden rounded-xl bg-[var(--color-background-alt)] sm:w-28">
                       {item.imageUrl && (
-                        <Image
+                        <SanityImage
                           src={item.imageUrl}
                           alt={item.title}
                           fill
@@ -128,7 +128,7 @@ export function PostDetailView({
               >
                 <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-[var(--color-background-alt)]">
                   {item.imageUrl && (
-                    <Image
+                    <SanityImage
                       src={item.imageUrl}
                       alt={item.title}
                       fill

@@ -3,7 +3,7 @@
 import SimpleMarquee from "@/components/fancy/blocks/simple-marquee";
 import type { AboutImage } from "@/sanity/lib/about";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
+import { SanityImage } from "@/components/sanity-image";
 import { sectionHeadingClasses } from "@/components/section-heading";
 
 function MarqueeRow({ images, direction, alt }: { images: AboutImage[]; direction: "left" | "right"; alt: string }) {
@@ -24,7 +24,7 @@ function MarqueeRow({ images, direction, alt }: { images: AboutImage[]; directio
           key={image.key}
           className="relative mr-3 aspect-square w-48 shrink-0 overflow-hidden rounded-xl shadow-md sm:mr-4 sm:w-60 md:w-72 lg:mr-6 lg:w-84"
         >
-          <Image
+          <SanityImage
             src={image.url}
             alt={alt}
             fill

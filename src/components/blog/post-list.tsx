@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SanityImage } from "@/components/sanity-image";
 import type { ComponentProps } from "react";
 import { Link } from "@/i18n/navigation";
 import type { PostSummary } from "@/sanity/lib/posts";
@@ -24,7 +24,7 @@ export function PostList({
         <Link key={post.id} href={getHref(post.slug)} className="group flex flex-col gap-3">
           <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-[var(--color-background-alt)]">
             {post.imageUrl && (
-              <Image
+              <SanityImage
                 src={post.imageUrl}
                 alt={post.title}
                 fill

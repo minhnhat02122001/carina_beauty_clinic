@@ -46,6 +46,9 @@ Other conventions:
   cases in its `treatmentHref`/`categoryRootHref`. It must never import the
   Sanity `client` — client components import those helpers from it, so anything
   it pulls in ships to the browser on every page.
+- Render Sanity URLs with `SanityImage` (`src/components/sanity-image.tsx`), or
+  pass `sanityImageLoader` to `getImageProps`, never plain `next/image`. Sanity's
+  CDN does the resizing, which keeps them off the Vercel transformation quota.
 
 ## Caching and images
 
