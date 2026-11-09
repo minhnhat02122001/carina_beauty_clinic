@@ -55,7 +55,8 @@ Other conventions:
 A Sanity webhook POSTs to `src/app/api/revalidate/route.ts` on every publish,
 which marks the whole site stale; each page re-renders on its next visit.
 `export const revalidate = 86400` on `src/app/[locale]/layout.tsx` is only the
-fallback for a missed webhook.
+fallback for a missed webhook. `sitemap.xml` is the exception: the webhook
+doesn't refresh it on Vercel, so `src/app/sitemap.ts` keeps `revalidate = 3600`.
 
 `client` reads the live API (`useCdn: false`) so a webhook-triggered render can't
 cache pre-publish data. That spends the Free plan's 250k API requests, which is

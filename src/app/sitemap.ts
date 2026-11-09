@@ -5,7 +5,8 @@ import { CATEGORY_ROUTES } from "@/components/blog/category-routes";
 import { getSitemapContent } from "@/sanity/lib/sitemap";
 import { treatmentHref } from "@/sanity/lib/treatmentCategories";
 
-export const revalidate = 86400;
+// The publish webhook doesn't refresh this route on Vercel, so it keeps a shorter schedule of its own.
+export const revalidate = 3600;
 
 type Href = Parameters<typeof getPathname>[0]["href"];
 
