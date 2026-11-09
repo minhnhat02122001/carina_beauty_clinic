@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SanityImage } from "@/components/sanity-image";
 import { useTranslations } from "next-intl";
 import { Carousel } from "@/components/carousel";
 import type { EquipmentListItem } from "@/sanity/lib/equipment";
@@ -27,7 +27,7 @@ export function Equipment({ items }: { items: EquipmentListItem[] }) {
           {items.map((item) => (
             <div key={item.id} className="flex flex-col items-center gap-4">
               <div className="relative aspect-[272/363] w-full">
-                <Image
+                <SanityImage
                   src={item.machineImageUrl}
                   alt={item.name}
                   fill
@@ -36,7 +36,7 @@ export function Equipment({ items }: { items: EquipmentListItem[] }) {
                 />
               </div>
               <div className="relative h-12 w-full lg:h-16">
-                <Image src={item.logoImageUrl} alt={item.name} fill className="object-contain" sizes="272px" />
+                <SanityImage src={item.logoImageUrl} alt={item.name} fill className="object-contain" sizes="272px" />
               </div>
             </div>
           ))}

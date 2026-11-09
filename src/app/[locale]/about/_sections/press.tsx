@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SanityImage } from "@/components/sanity-image";
 import { useTranslations } from "next-intl";
 import { Carousel } from "@/components/carousel";
 import type { AboutPressMention } from "@/sanity/lib/about";
@@ -26,7 +26,7 @@ export function Press({ mentions }: { mentions: AboutPressMention[] }) {
               className="group flex h-full flex-col gap-3 overflow-hidden rounded-xl bg-[var(--background)] pb-4 transition-shadow hover:shadow-lg"
             >
               <div className="relative aspect-video w-full overflow-hidden">
-                <Image
+                <SanityImage
                   src={mention.screenshotUrl}
                   alt={mention.title}
                   fill

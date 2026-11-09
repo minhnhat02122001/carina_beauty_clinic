@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SanityImage } from "@/components/sanity-image";
 import { urlFor } from "@/sanity/lib/image";
 
 // Portable-text image queries here don't dereference asset->metadata, so the
@@ -18,7 +18,7 @@ export function PortableTextImage({ value }: { value: { asset?: { _ref?: string 
 
   return (
     <span className="relative my-2 block w-full overflow-hidden rounded-2xl" style={{ aspectRatio }}>
-      <Image
+      <SanityImage
         src={urlFor(value).width(1200).url()}
         alt={value.alt ?? ""}
         fill

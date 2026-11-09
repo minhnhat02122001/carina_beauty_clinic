@@ -2,6 +2,7 @@ import { getImageProps } from "next/image";
 import { useTranslations } from "next-intl";
 import { Carousel } from "@/components/carousel";
 import type { BannerItem } from "@/sanity/lib/banners";
+import { sanityImageLoader } from "@/sanity/lib/image-loader";
 
 export function BannerHero({ banners }: { banners: BannerItem[] }) {
   const t = useTranslations("BannerHero");
@@ -21,6 +22,7 @@ export function BannerHero({ banners }: { banners: BannerItem[] }) {
             alt: banner.alt,
             fill: true,
             sizes: "100vw",
+            loader: sanityImageLoader,
             loading: i === 0 ? ("eager" as const) : ("lazy" as const),
             fetchPriority: i === 0 ? ("high" as const) : undefined,
           };

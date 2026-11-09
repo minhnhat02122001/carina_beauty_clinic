@@ -8,7 +8,6 @@ const nextConfig: NextConfig = {
     globalNotFound: true,
   },
   images: {
-    remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],
     qualities: [75, 90],
   },
   // ponytail: no Content-Security-Policy — GTM injects marketing tags added later from its own UI, which a

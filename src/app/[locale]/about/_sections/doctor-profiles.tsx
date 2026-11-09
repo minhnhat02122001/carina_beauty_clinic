@@ -7,7 +7,7 @@ import type { DoctorProfile } from "@/sanity/lib/doctors";
 import type { PortableTextBlock } from "@portabletext/react";
 import { PortableText } from "@portabletext/react";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
+import { SanityImage } from "@/components/sanity-image";
 import { useEffect, useRef, useState } from "react";
 import { sectionHeadingClasses } from "@/components/section-heading";
 
@@ -72,7 +72,7 @@ export function DoctorProfiles({ doctors }: { doctors: DoctorProfile[] }) {
             const card = (
               <div className="pointer-events-auto flex h-[80vh] flex-col overflow-hidden rounded-3xl bg-white shadow-xl sm:h-[80vh] lg:h-[76vh] lg:flex-row-reverse">
                 <div className="relative aspect-[3/2] w-full shrink-0 sm:aspect-[2/1] lg:aspect-auto lg:w-2/5">
-                  <Image
+                  <SanityImage
                     src={doctor.imageUrl}
                     alt={doctor.name}
                     fill

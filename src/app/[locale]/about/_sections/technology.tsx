@@ -1,7 +1,7 @@
 import { Carousel } from "@/components/carousel";
 import type { AboutImage } from "@/sanity/lib/about";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
+import { SanityImage } from "@/components/sanity-image";
 import { BannerImage } from "./banner-image";
 import { sectionHeadingClasses } from "@/components/section-heading";
 
@@ -46,7 +46,7 @@ export function Technology({ images }: { images: AboutImage[] }) {
           >
             {images.map((image) => (
               <div key={image.key} className="relative aspect-square w-full overflow-hidden rounded-xl">
-                <Image
+                <SanityImage
                   src={image.url}
                   alt={t("techImageAlt")}
                   fill

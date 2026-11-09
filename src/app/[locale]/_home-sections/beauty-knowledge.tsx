@@ -1,5 +1,6 @@
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
+import { SanityImage } from "@/components/sanity-image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { BeautyKnowledgeHome } from "@/sanity/lib/posts";
@@ -41,7 +42,7 @@ export function BeautyKnowledgeHome({ hero, thumbnails }: BeautyKnowledgeHome) {
           >
             <div className="relative aspect-[343/193] w-full overflow-hidden rounded-2xl shadow-xl lg:aspect-[700/344]">
               {hero.imageUrl && (
-                <Image
+                <SanityImage
                   src={hero.imageUrl}
                   alt={hero.title}
                   fill
@@ -64,7 +65,7 @@ export function BeautyKnowledgeHome({ hero, thumbnails }: BeautyKnowledgeHome) {
               >
                 <div className="relative aspect-[132/74] w-[132px] shrink-0 overflow-hidden rounded-xl lg:w-[200px]">
                   {item.imageUrl && (
-                    <Image
+                    <SanityImage
                       src={item.imageUrl}
                       alt={item.title}
                       fill

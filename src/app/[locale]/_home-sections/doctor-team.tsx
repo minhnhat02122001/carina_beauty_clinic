@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { SanityImage } from "@/components/sanity-image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Carousel } from "@/components/carousel";
@@ -25,7 +25,7 @@ export function DoctorTeam({ doctors }: { doctors: DoctorItem[] }) {
               className="group flex h-full flex-col items-center gap-2 overflow-hidden rounded-lg border-2 border-[var(--color-accent)] shadow-sm transition-shadow hover:border-[var(--color-gold)] hover:shadow-lg"
             >
               <div className="relative aspect-[295/369] w-full overflow-hidden">
-                <Image
+                <SanityImage
                   src={doctor.imageUrl}
                   alt={doctor.name}
                   fill

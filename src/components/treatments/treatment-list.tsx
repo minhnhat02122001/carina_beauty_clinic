@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SanityImage } from "@/components/sanity-image";
 import type { ComponentProps } from "react";
 import { Link } from "@/i18n/navigation";
 import type { TreatmentSubgroupGroup } from "@/sanity/lib/service";
@@ -32,7 +32,7 @@ export function TreatmentList({
                 <Link key={item.id} href={getHref(item.slug)} className="group flex flex-col gap-2">
                   <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-[var(--color-background-alt)]">
                     {item.imageUrl && (
-                      <Image
+                      <SanityImage
                         src={item.imageUrl}
                         alt={item.name}
                         fill

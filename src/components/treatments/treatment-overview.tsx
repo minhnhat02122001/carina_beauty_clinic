@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SanityImage } from "@/components/sanity-image";
 import { SparklesIcon } from "@/components/icons/sparkles";
 import { PortableText } from "@portabletext/react";
 import { Carousel } from "@/components/carousel";
@@ -10,7 +10,7 @@ import { portableTextContainerClasses, treatmentPortableTextComponents } from "@
 function ReviewerRow({ doctor }: { doctor: TreatmentDetail["reviewedByDoctors"][number] }) {
   const avatar = doctor.imageUrl && (
     <span className="relative aspect-square size-12 shrink-0 overflow-hidden rounded-full">
-      <Image src={doctor.imageUrl} alt={doctor.name} fill className="object-cover object-top" sizes="48px" />
+      <SanityImage src={doctor.imageUrl} alt={doctor.name} fill className="object-cover object-top" sizes="48px" />
     </span>
   );
   const name = <p className="text-sm font-semibold whitespace-nowrap text-[var(--color-accent)]">{doctor.name}</p>;
@@ -112,7 +112,7 @@ export function TreatmentOverview({
                   key={imageUrl}
                   className="relative aspect-square w-full [transform:translateZ(0)] overflow-hidden rounded-2xl bg-[var(--color-background-alt)]"
                 >
-                  <Image
+                  <SanityImage
                     src={imageUrl}
                     alt={treatment.name}
                     fill

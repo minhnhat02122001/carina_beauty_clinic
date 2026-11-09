@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 import { ChevronLeftIcon } from "@/components/icons/chevron-left";
 import { ChevronRightIcon } from "@/components/icons/chevron-right";
 import { useScrollLock } from "@/lib/use-scroll-lock";
-import Image from "next/image";
+import { SanityImage } from "@/components/sanity-image";
 import { Children, useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
 const EDGE_TOLERANCE_PX = 2;
@@ -54,7 +54,7 @@ function ImageLightbox({
       </button>
 
       <div className="relative h-full max-h-[85vh] w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
-        <Image src={images[index]} alt={alt} fill className="object-contain" sizes="90vw" />
+        <SanityImage src={images[index]} alt={alt} fill className="object-contain" sizes="90vw" />
       </div>
 
       {images.length > 1 && (

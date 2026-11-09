@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { SanityImage } from "@/components/sanity-image";
 import { useEffect, useRef, useState } from "react";
 
 export function IntroClip({
@@ -120,7 +121,7 @@ export function IntroClip({
       {!hasStarted && (
         <span aria-hidden="true" className="pointer-events-none absolute inset-0 block">
           {thumbnailUrl && (
-            <Image
+            <SanityImage
               src={thumbnailUrl}
               alt=""
               fill
