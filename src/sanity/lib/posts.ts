@@ -178,9 +178,13 @@ export type BeautyKnowledgeHome = {
 const BEAUTY_KNOWLEDGE_HOME_QUERY = `*[_type == "post" && category == "beautyKnowledge"] | order(publishedAt desc)[0...5]${POST_SUMMARY_PROJECTION}`;
 
 export async function getBeautyKnowledgeHome(locale: Locale): Promise<BeautyKnowledgeHome> {
-  const posts = await client.fetch<RawPostSummary[]>(BEAUTY_KNOWLEDGE_HOME_QUERY, { locale });
-  const items = posts.map((post) => toSummary(post, locale));
+  const [rawHero, ...rawThumbnails] = await client.fetch<RawPostSummary[]>(BEAUTY_KNOWLEDGE_HOME_QUERY, { locale });
 
-  const [hero, ...thumbnails] = items;
-  return { hero: hero ?? null, thumbnails };
+  // The hero box is 700px wide and 16:9 like the detail page: crop once, here, at that ratio and at 2× width,
+  // so the box's object-cover has nothing left to cut and retina screens aren't served an upscaled 760px image.
+  const hero = rawHero && {
+    ...toSummary(rawHero, locale),
+    imageUrl: rawHero.coverImage ? urlFor(rawHero.coverImage).width(1400).height(788).fit("crop").url() : null,
+  };
+  return { hero: hero ?? null, thumbnails: rawThumbnails.map((post) => toSummary(post, locale)) };
 }

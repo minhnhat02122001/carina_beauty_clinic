@@ -40,7 +40,7 @@ export function BeautyKnowledgeHome({ hero, thumbnails }: BeautyKnowledgeHome) {
             href={{ pathname: "/beauty-knowledge/[slug]", params: { slug: hero.slug } }}
             className="group flex flex-col gap-4 lg:w-[700px] lg:shrink-0"
           >
-            <div className="relative aspect-[343/193] w-full overflow-hidden rounded-2xl shadow-xl lg:aspect-[700/344]">
+            <div className="relative aspect-video w-full overflow-hidden rounded-2xl shadow-xl">
               {hero.imageUrl && (
                 <SanityImage
                   src={hero.imageUrl}
